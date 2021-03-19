@@ -1,0 +1,63 @@
+{% extends "base_site.html" %}
+
+{% block title %} Definições {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <div class="">
+
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+              <div class="x_title">
+                  <div class="row">
+                    <div align="left">
+                      <h2>Tem a certeza que quer remover o fólio {{folio._id}} ?</h2>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+            <div class="x_content">
+              
+                <div class="row">
+
+                <div class="col-md-12">
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="pricing">
+                      <div class="x_content">
+                        <div class="pricing_footer">
+                          <a href="/folios/apagar/{{folio._id}}?nome={{nome}}" class="btn btn-success btn-block" role="button">Remover</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="pricing">
+                      <div class="x_content">
+                        <div class="pricing_footer">
+                          <a href="/folios/folios?nome={{nome}}" class="btn btn-success btn-block" role="button">Cancelar</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+{% endblock javascripts %}

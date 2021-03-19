@@ -1,0 +1,92 @@
+{% extends "base_site.html" %}
+
+{% block title %} Integração de Folios {% endblock title %}
+
+{% block stylesheets %}
+{{ super() }}
+<link href="{{ url_for('static', filename='vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+    rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Integração de Folios - Resumo</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- start form for validation -->
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="text-align:center">ID</th>
+                                <th style="text-align:center">Descrição</th>
+                                <th style="text-align:center">Tipo</th>
+                                <th style="text-align:center">Número de folios</th>
+                                <th style="text-align:center">Número de linhas</th>
+                                <th style="text-align:center">Número de tags</th>
+                                <th style="text-align:center">Número de indices</th>
+                            </tr>
+                            <tr>
+                                <td align="center">{{info.idFolio}}</td>
+                                <td align="center">{{info.descricao}}</td>
+                                <td align="center">{{info.tipo}}</td>
+                                <td align="center">{{info.n_folios}}</td>
+                                <td align="center">{{info.n_linhas}}</td>
+                                <td align="center">{{info.n_tags}}</td>
+                                <td align="center">{{info.n_indices}}</td>
+                            </tr>
+                        </table>
+                        <form id="form-import3" action="/import/passo6/?nome={{nome}}" method="POST" enctype="multipart/form-data" data-parsley-validate>
+                            <a class="btn btn-danger" href="/import/cancela?nome={{nome}}" role="button">Cancelar</a>
+                            <a class="btn btn-warning" href="/import/passo5/?nome={{nome}}" role="button">Anterior</a>
+                            <button type="submit" class="btn btn-success">Avançar</button>
+                        </form>
+                        <!-- end form for validations -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+{{ super() }}
+<!-- Datatables -->
+<script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}

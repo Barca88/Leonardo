@@ -1,0 +1,18 @@
+API de Dados
+
+Users:
+
+GET / - lista de utilizadores
+GET /:id - consultar user com email id
+GET /friends/:id - lista de utilizadores que são amigos do user com email id
+POST / - post do utilizador
+DELETE /:id - eliminar utilizador com email id
+
+Pubs:
+GET / - lista de posts
+GET /:id - consultar post com id id
+GET /classifiers - lista de classificadores
+GET /classifiers/:clas - lista de posts com classificador classifier
+POST / - post de post (ba dum tss)
+POST /:id - post de um comentário no post com id id
+DELETE /:id - eliminar post com id id 

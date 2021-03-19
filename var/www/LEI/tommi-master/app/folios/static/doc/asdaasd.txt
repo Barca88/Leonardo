@@ -1,0 +1,4 @@
+pa, isto é um folio de teste de <tag>tags</tag>
+ou talvez isto seja a casa da <gaja>joaquina</gaja>
+
+imagina morar em <terra>São Vítor</terra>

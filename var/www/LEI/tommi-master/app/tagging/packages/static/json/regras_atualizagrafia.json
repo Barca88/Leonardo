@@ -1,0 +1,13 @@
+
+{"old": "y","new": "i"}
+    {"old": "ll","new": "l"}
+    {"old": "uu","new": "uv"}
+    {"old": "th","new": "t"}
+    {"old": "j[bcdfghijklmnpqrstvxz]","new": "i"}
+    {"old": "[aeiou]u[aeiou]","new": "v"}
+    {"old": "d'","new": "de "}
+    {"old": "co'","new": "com "}
+    {"old": "q'","new": "que "}
+    {"old": "hu'","new": "um"}
+    {"old": "nn","new": "n"}
+    {"old": "ee","new": "e"}

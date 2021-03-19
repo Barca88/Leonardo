@@ -1,0 +1,77 @@
+What is this:
+pragma omp parallel for collapse
+
+
+for i
+	for j
+		for k
+			Rij += Aik * Bkj
+
+
+Em matrizes normais, as melhores paralelizações são as com j no fim
+I J K não paraleliza muito bem
+I K J paraleliza fixe
+Temos de procurar o grão certo para paralelizar, e ver se é melhor i, j ou k
+
+no search usar máquinas 652, têm frequência fixa
+
+module load gcc/5.3.0
+
+No trabalho, indicar ganho/numero de cores em graficozinho (1, 2, 4, 6 cores)
+
+
+
+->>>>
+p1.
+Ver vetorização na parte sequencial, se possível
+
+p2.
+Na paralela, ver porque é que não escala muito, tentar escalar mais
+(testar a correção dos resultados, maybs)
+
+p3.
+Variar tamanho do input, experimentar várias máquinas, etc
+QUe crl é "numa"?
+
+p4.
+Tentar medir os bottlenecks quando possível (parte sequencial, etc)
+memory bound é difícil de medir, mas medir bandwidth vs dados consumidos, por cada instrução, quantos acessos à memória? No nosso caso, bués, actually
+
+p5.
+6 Páginas.
+Cuidado com:	-Código no relatório, evitar isso
+				-Forma como se explica
+				-Gráficos, escalas, pôr tabelas, testes e assim em anexo
+
+
+Entregar até terça às 23:59
+
+Dúvidas::
+	Frequência da máquina:
+		Intel(R) Xeon(R) CPU E5-2670 v2 @ 2.50GHz
+	Versão do Gcc:
+
+
+
+Teste: 
+	30%
+	1 p de openmp -> passar sequencial para openmp
+	1 p de mpi -> passar sequencial para openmpi
+	70%
+	Proença
+
+
+	jls@di.uminho.pt
+
+
+Conclusões: -O0, -O1: vale a pena fazer pragma omp for
+			-O3: destrói completamente a nossa implementação paralela, inclui várias coisas como vetorização automática e assim
+
+Amanhã: fazer a estrutura mais data heavy
+
+
+tentar "deitar os vetores que compõem a matriz coo"
+
+
+
+1,2,9,10,11

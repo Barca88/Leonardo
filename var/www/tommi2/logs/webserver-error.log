@@ -1,0 +1,618 @@
+[Tue Feb 18 14:27:45.491605 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468] ERROR:flask.app:Exception on /folios/index/ver/619 [GET]
+[Tue Feb 18 14:27:45.491656 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468] Traceback (most recent call last):
+[Tue Feb 18 14:27:45.491663 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 14:27:45.491669 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     response = self.full_dispatch_request()
+[Tue Feb 18 14:27:45.491675 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 14:27:45.491681 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     rv = self.handle_user_exception(e)
+[Tue Feb 18 14:27:45.491686 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 14:27:45.491692 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:27:45.491698 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 14:27:45.491703 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     rv = self.dispatch_request()
+[Tue Feb 18 14:27:45.491709 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 14:27:45.491715 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 14:27:45.491720 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 14:27:45.491726 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     return func(*args, **kwargs)
+[Tue Feb 18 14:27:45.491732 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Tue Feb 18 14:27:45.491737 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Tue Feb 18 14:27:45.491743 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Tue Feb 18 14:27:45.491749 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     context, ctx.app)
+[Tue Feb 18 14:27:45.491754 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Tue Feb 18 14:27:45.491760 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     rv = template.render(context)
+[Tue Feb 18 14:27:45.491766 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Tue Feb 18 14:27:45.491771 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     return self.environment.handle_exception(exc_info, True)
+[Tue Feb 18 14:27:45.491777 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Tue Feb 18 14:27:45.491783 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:27:45.491793 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Tue Feb 18 14:27:45.491799 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     {% extends "base_site.html" %}
+[Tue Feb 18 14:27:45.491805 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Tue Feb 18 14:27:45.491810 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     {% block body %}
+[Tue Feb 18 14:27:45.491816 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Tue Feb 18 14:27:45.491821 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     {% block content %}
+[Tue Feb 18 14:27:45.491827 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Tue Feb 18 14:27:45.491833 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468]     {%  for key,value in folio.items() %}
+[Tue Feb 18 14:27:45.491838 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:41468] UndefinedError: 'unicode object' has no attribute 'items'
+[Tue Feb 18 14:27:52.194622 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506] ERROR:flask.app:Exception on /folios/index/ver/anno [GET]
+[Tue Feb 18 14:27:52.194656 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506] Traceback (most recent call last):
+[Tue Feb 18 14:27:52.194664 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 14:27:52.194671 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     response = self.full_dispatch_request()
+[Tue Feb 18 14:27:52.194677 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 14:27:52.194683 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     rv = self.handle_user_exception(e)
+[Tue Feb 18 14:27:52.194689 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 14:27:52.194696 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:27:52.194702 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 14:27:52.194708 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     rv = self.dispatch_request()
+[Tue Feb 18 14:27:52.194714 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 14:27:52.194720 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 14:27:52.194727 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 14:27:52.194733 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     return func(*args, **kwargs)
+[Tue Feb 18 14:27:52.194739 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Tue Feb 18 14:27:52.194755 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Tue Feb 18 14:27:52.194761 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Tue Feb 18 14:27:52.194767 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     context, ctx.app)
+[Tue Feb 18 14:27:52.194772 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Tue Feb 18 14:27:52.194778 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     rv = template.render(context)
+[Tue Feb 18 14:27:52.194784 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Tue Feb 18 14:27:52.194789 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     return self.environment.handle_exception(exc_info, True)
+[Tue Feb 18 14:27:52.194795 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Tue Feb 18 14:27:52.194801 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:27:52.194806 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Tue Feb 18 14:27:52.194812 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     {% extends "base_site.html" %}
+[Tue Feb 18 14:27:52.194818 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Tue Feb 18 14:27:52.194823 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     {% block body %}
+[Tue Feb 18 14:27:52.194829 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Tue Feb 18 14:27:52.194835 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     {% block content %}
+[Tue Feb 18 14:27:52.194840 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Tue Feb 18 14:27:52.194846 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506]     {%  for key,value in folio.items() %}
+[Tue Feb 18 14:27:52.194852 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41506] UndefinedError: 'unicode object' has no attribute 'items'
+[Tue Feb 18 14:28:48.158967 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606] ERROR:flask.app:Exception on /folios/tags/ver/<artigo> [GET]
+[Tue Feb 18 14:28:48.158991 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606] Traceback (most recent call last):
+[Tue Feb 18 14:28:48.158998 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 14:28:48.159005 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     response = self.full_dispatch_request()
+[Tue Feb 18 14:28:48.159011 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 14:28:48.159025 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     rv = self.handle_user_exception(e)
+[Tue Feb 18 14:28:48.159031 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 14:28:48.159037 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:28:48.159042 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 14:28:48.159048 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     rv = self.dispatch_request()
+[Tue Feb 18 14:28:48.159053 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 14:28:48.159059 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 14:28:48.159065 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 14:28:48.159070 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     return func(*args, **kwargs)
+[Tue Feb 18 14:28:48.159076 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/var/www/tommi/app/folios/routes.py", line 163, in route_template_tag_ver
+[Tue Feb 18 14:28:48.159082 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     return render_template('viewTag.html', tag=existe,nome=nome)
+[Tue Feb 18 14:28:48.159087 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Tue Feb 18 14:28:48.159093 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     context, ctx.app)
+[Tue Feb 18 14:28:48.159098 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Tue Feb 18 14:28:48.159104 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     rv = template.render(context)
+[Tue Feb 18 14:28:48.159109 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Tue Feb 18 14:28:48.159115 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     return self.environment.handle_exception(exc_info, True)
+[Tue Feb 18 14:28:48.159121 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Tue Feb 18 14:28:48.159126 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:28:48.159132 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/var/www/tommi/app/folios/templates/viewTag.html", line 1, in top-level template code
+[Tue Feb 18 14:28:48.159138 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     {% extends "base_site.html" %}
+[Tue Feb 18 14:28:48.159143 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Tue Feb 18 14:28:48.159149 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     {% block body %}
+[Tue Feb 18 14:28:48.159154 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Tue Feb 18 14:28:48.159163 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     {% block content %}
+[Tue Feb 18 14:28:48.159169 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]   File "/var/www/tommi/app/folios/templates/viewTag.html", line 43, in block "content"
+[Tue Feb 18 14:28:48.159175 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606]     {% for key,values in lista.items()%}
+[Tue Feb 18 14:28:48.159180 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41606] UndefinedError: 'unicode object' has no attribute 'items'
+[Tue Feb 18 14:31:05.556309 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994] ERROR:flask.app:Exception on /folios/apagar/akfbajhfasbf [GET]
+[Tue Feb 18 14:31:05.556345 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994] Traceback (most recent call last):
+[Tue Feb 18 14:31:05.556353 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 14:31:05.556359 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     response = self.full_dispatch_request()
+[Tue Feb 18 14:31:05.556366 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 14:31:05.556372 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     rv = self.handle_user_exception(e)
+[Tue Feb 18 14:31:05.556378 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 14:31:05.556384 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:31:05.556390 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 14:31:05.556397 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     rv = self.dispatch_request()
+[Tue Feb 18 14:31:05.556403 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 14:31:05.556409 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 14:31:05.556415 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 14:31:05.556421 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     return func(*args, **kwargs)
+[Tue Feb 18 14:31:05.556427 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]   File "/var/www/tommi/app/folios/routes.py", line 83, in route_template_apagar
+[Tue Feb 18 14:31:05.556433 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994]     lista = ocorrencias.pop(index_remove)
+[Tue Feb 18 14:31:05.556439 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:41994] AttributeError: 'unicode' object has no attribute 'pop'
+[Tue Feb 18 14:32:41.214390 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232] ERROR:flask.app:Exception on /folios/apagar/sdgadg [GET]
+[Tue Feb 18 14:32:41.214439 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232] Traceback (most recent call last):
+[Tue Feb 18 14:32:41.214454 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 14:32:41.214485 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     response = self.full_dispatch_request()
+[Tue Feb 18 14:32:41.214497 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 14:32:41.214510 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     rv = self.handle_user_exception(e)
+[Tue Feb 18 14:32:41.214521 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 14:32:41.214533 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 14:32:41.214545 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 14:32:41.214557 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     rv = self.dispatch_request()
+[Tue Feb 18 14:32:41.214568 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 14:32:41.214580 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 14:32:41.214592 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 14:32:41.214604 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     return func(*args, **kwargs)
+[Tue Feb 18 14:32:41.214615 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]   File "/var/www/tommi/app/folios/routes.py", line 83, in route_template_apagar
+[Tue Feb 18 14:32:41.214627 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232]     lista = ocorrencias.pop(index_remove)
+[Tue Feb 18 14:32:41.214638 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:42232] AttributeError: 'unicode' object has no attribute 'pop'
+[Tue Feb 18 16:06:26.180883 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Tue Feb 18 16:06:26.180934 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664] Traceback (most recent call last):
+[Tue Feb 18 16:06:26.180949 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 16:06:26.180963 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     response = self.full_dispatch_request()
+[Tue Feb 18 16:06:26.180976 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 16:06:26.180989 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     rv = self.handle_user_exception(e)
+[Tue Feb 18 16:06:26.181002 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 16:06:26.181015 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 16:06:26.181027 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 16:06:26.181052 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     rv = self.dispatch_request()
+[Tue Feb 18 16:06:26.181064 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 16:06:26.181076 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 16:06:26.181087 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 16:06:26.181099 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     return func(*args, **kwargs)
+[Tue Feb 18 16:06:26.181111 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Tue Feb 18 16:06:26.181123 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Tue Feb 18 16:06:26.181134 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Tue Feb 18 16:06:26.181146 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     texto = file_open.read()
+[Tue Feb 18 16:06:26.181157 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Tue Feb 18 16:06:26.181169 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Tue Feb 18 16:06:26.181181 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52664] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 118: invalid continuation byte
+[Tue Feb 18 16:06:56.440584 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Tue Feb 18 16:06:56.440619 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694] Traceback (most recent call last):
+[Tue Feb 18 16:06:56.440632 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 16:06:56.440645 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     response = self.full_dispatch_request()
+[Tue Feb 18 16:06:56.440657 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 16:06:56.440669 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     rv = self.handle_user_exception(e)
+[Tue Feb 18 16:06:56.440680 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 16:06:56.440692 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 16:06:56.440704 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 16:06:56.440715 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     rv = self.dispatch_request()
+[Tue Feb 18 16:06:56.440727 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 16:06:56.440750 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 16:06:56.440762 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 16:06:56.440774 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     return func(*args, **kwargs)
+[Tue Feb 18 16:06:56.440785 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Tue Feb 18 16:06:56.440797 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Tue Feb 18 16:06:56.440808 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Tue Feb 18 16:06:56.440820 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     texto = file_open.read()
+[Tue Feb 18 16:06:56.440831 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Tue Feb 18 16:06:56.440843 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Tue Feb 18 16:06:56.440855 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:52694] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 118: invalid continuation byte
+[Tue Feb 18 16:07:45.722279 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Tue Feb 18 16:07:45.722318 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740] Traceback (most recent call last):
+[Tue Feb 18 16:07:45.722333 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 16:07:45.722346 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     response = self.full_dispatch_request()
+[Tue Feb 18 16:07:45.722359 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 16:07:45.722372 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     rv = self.handle_user_exception(e)
+[Tue Feb 18 16:07:45.722385 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 16:07:45.722398 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 16:07:45.722411 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 16:07:45.722424 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     rv = self.dispatch_request()
+[Tue Feb 18 16:07:45.722436 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 16:07:45.722449 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 16:07:45.722462 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 16:07:45.722475 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     return func(*args, **kwargs)
+[Tue Feb 18 16:07:45.722500 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Tue Feb 18 16:07:45.722512 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Tue Feb 18 16:07:45.722524 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Tue Feb 18 16:07:45.722535 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     texto = file_open.read()
+[Tue Feb 18 16:07:45.722547 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Tue Feb 18 16:07:45.722559 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Tue Feb 18 16:07:45.722570 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52740] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 118: invalid continuation byte
+[Tue Feb 18 16:08:17.249681 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Tue Feb 18 16:08:17.249696 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788] Traceback (most recent call last):
+[Tue Feb 18 16:08:17.249701 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 16:08:17.249704 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     response = self.full_dispatch_request()
+[Tue Feb 18 16:08:17.249708 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 16:08:17.249712 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     rv = self.handle_user_exception(e)
+[Tue Feb 18 16:08:17.249715 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 16:08:17.249719 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 16:08:17.249722 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 16:08:17.249726 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     rv = self.dispatch_request()
+[Tue Feb 18 16:08:17.249729 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 16:08:17.249733 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 16:08:17.249736 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 16:08:17.249740 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     return func(*args, **kwargs)
+[Tue Feb 18 16:08:17.249743 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Tue Feb 18 16:08:17.249747 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Tue Feb 18 16:08:17.249755 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Tue Feb 18 16:08:17.249758 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     texto = file_open.read()
+[Tue Feb 18 16:08:17.249762 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Tue Feb 18 16:08:17.249765 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Tue Feb 18 16:08:17.249769 2020] [wsgi:error] [pid 18056:tid 140140076766976] [remote 193.136.19.202:52788] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 118: invalid continuation byte
+[Tue Feb 18 16:11:29.689997 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Tue Feb 18 16:11:29.690013 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332] Traceback (most recent call last):
+[Tue Feb 18 16:11:29.690018 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Tue Feb 18 16:11:29.690022 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     response = self.full_dispatch_request()
+[Tue Feb 18 16:11:29.690026 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Tue Feb 18 16:11:29.690030 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     rv = self.handle_user_exception(e)
+[Tue Feb 18 16:11:29.690033 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Tue Feb 18 16:11:29.690037 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     reraise(exc_type, exc_value, tb)
+[Tue Feb 18 16:11:29.690041 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Tue Feb 18 16:11:29.690045 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     rv = self.dispatch_request()
+[Tue Feb 18 16:11:29.690049 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Tue Feb 18 16:11:29.690053 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     return self.view_functions[rule.endpoint](**req.view_args)
+[Tue Feb 18 16:11:29.690057 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Tue Feb 18 16:11:29.690060 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     return func(*args, **kwargs)
+[Tue Feb 18 16:11:29.690064 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Tue Feb 18 16:11:29.690068 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Tue Feb 18 16:11:29.690072 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Tue Feb 18 16:11:29.690076 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     texto = file_open.read()
+[Tue Feb 18 16:11:29.690080 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Tue Feb 18 16:11:29.690088 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Tue Feb 18 16:11:29.690092 2020] [wsgi:error] [pid 18056:tid 140140051588864] [remote 193.136.19.202:53332] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 118: invalid continuation byte
+[Wed Feb 19 09:07:11.976825 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Wed Feb 19 09:07:11.976855 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040] Traceback (most recent call last):
+[Wed Feb 19 09:07:11.976860 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 09:07:11.976865 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     response = self.full_dispatch_request()
+[Wed Feb 19 09:07:11.976869 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 09:07:11.976873 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     rv = self.handle_user_exception(e)
+[Wed Feb 19 09:07:11.976877 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 09:07:11.976882 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 09:07:11.976886 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 09:07:11.976890 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     rv = self.dispatch_request()
+[Wed Feb 19 09:07:11.976894 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 09:07:11.976899 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 09:07:11.976903 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 09:07:11.976907 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     return func(*args, **kwargs)
+[Wed Feb 19 09:07:11.976911 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Wed Feb 19 09:07:11.976915 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Wed Feb 19 09:07:11.976920 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Wed Feb 19 09:07:11.976924 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     texto = file_open.read()
+[Wed Feb 19 09:07:11.976928 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Wed Feb 19 09:07:11.976932 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Wed Feb 19 09:07:11.976937 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:44040] UnicodeDecodeError: 'utf8' codec can't decode byte 0xe7 in position 93: invalid continuation byte
+[Wed Feb 19 09:07:57.479289 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064] ERROR:flask.app:Exception on /import/passo1/ [POST]
+[Wed Feb 19 09:07:57.479314 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064] Traceback (most recent call last):
+[Wed Feb 19 09:07:57.479321 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 09:07:57.479328 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     response = self.full_dispatch_request()
+[Wed Feb 19 09:07:57.479334 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 09:07:57.479341 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     rv = self.handle_user_exception(e)
+[Wed Feb 19 09:07:57.479347 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 09:07:57.479353 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 09:07:57.479359 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 09:07:57.479365 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     rv = self.dispatch_request()
+[Wed Feb 19 09:07:57.479372 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 09:07:57.479378 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 09:07:57.479384 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 09:07:57.479390 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     return func(*args, **kwargs)
+[Wed Feb 19 09:07:57.479396 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/var/www/tommi/app/importacao/routes.py", line 66, in route_template_passo1
+[Wed Feb 19 09:07:57.479403 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     dadosFolio["textoTags"] = extract.extraiTexto(path_ficheiro)
+[Wed Feb 19 09:07:57.479409 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/var/www/tommi/app/indexador/extractor.py", line 58, in extraiTexto
+[Wed Feb 19 09:07:57.479415 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     texto = file_open.read()
+[Wed Feb 19 09:07:57.479421 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Wed Feb 19 09:07:57.479427 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Wed Feb 19 09:07:57.479434 2020] [wsgi:error] [pid 27635:tid 140140043196160] [remote 193.136.19.202:44064] UnicodeDecodeError: 'utf8' codec can't decode byte 0x92 in position 53: invalid start byte
+[Wed Feb 19 14:27:37.608979 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796] ERROR:flask.app:Exception on /import/passo4/ [GET]
+[Wed Feb 19 14:27:37.609042 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796] Traceback (most recent call last):
+[Wed Feb 19 14:27:37.609057 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:27:37.609093 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     response = self.full_dispatch_request()
+[Wed Feb 19 14:27:37.609105 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:27:37.609118 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:27:37.609130 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:27:37.609142 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:27:37.609153 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:27:37.609165 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     rv = self.dispatch_request()
+[Wed Feb 19 14:27:37.609177 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:27:37.609189 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:27:37.609201 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:27:37.609213 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     return func(*args, **kwargs)
+[Wed Feb 19 14:27:37.609225 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/var/www/tommi/app/importacao/routes.py", line 104, in route_template_passo4
+[Wed Feb 19 14:27:37.609237 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     tags = extract.extraiTags(path_ficheiro)
+[Wed Feb 19 14:27:37.609248 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/var/www/tommi/app/indexador/extractor.py", line 101, in extraiTags
+[Wed Feb 19 14:27:37.609260 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     texto = file_open.read()
+[Wed Feb 19 14:27:37.609272 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]   File "/usr/lib/python2.7/codecs.py", line 314, in decode
+[Wed Feb 19 14:27:37.609284 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796]     (result, consumed) = self._buffer_decode(data, self.errors, final)
+[Wed Feb 19 14:27:37.609296 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40796] UnicodeDecodeError: 'utf8' codec can't decode byte 0x92 in position 53: invalid start byte
+[Wed Feb 19 14:28:54.995929 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928] ERROR:flask.app:Exception on /import/passo2/ [GET]
+[Wed Feb 19 14:28:54.995958 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928] Traceback (most recent call last):
+[Wed Feb 19 14:28:54.995965 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:28:54.995972 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     response = self.full_dispatch_request()
+[Wed Feb 19 14:28:54.995978 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:28:54.995997 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:28:54.996002 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:28:54.996008 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:28:54.996014 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:28:54.996020 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     rv = self.dispatch_request()
+[Wed Feb 19 14:28:54.996025 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:28:54.996031 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:28:54.996037 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:28:54.996042 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     return func(*args, **kwargs)
+[Wed Feb 19 14:28:54.996048 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]   File "/var/www/tommi/app/importacao/routes.py", line 82, in route_template_passo2
+[Wed Feb 19 14:28:54.996054 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928]     textoTags = dadosFolio["textoTags"].split("\\n")
+[Wed Feb 19 14:28:54.996059 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:40928] KeyError: 'textoTags'
+[Wed Feb 19 14:29:33.656320 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008] ERROR:flask.app:Exception on /folios/apagar/akfbajhfasbf [GET]
+[Wed Feb 19 14:29:33.656344 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008] Traceback (most recent call last):
+[Wed Feb 19 14:29:33.656351 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:29:33.656358 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     response = self.full_dispatch_request()
+[Wed Feb 19 14:29:33.656364 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:29:33.656370 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:29:33.656377 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:29:33.656383 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:29:33.656410 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:29:33.656416 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     rv = self.dispatch_request()
+[Wed Feb 19 14:29:33.656422 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:29:33.656429 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:29:33.656446 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:29:33.656453 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     return func(*args, **kwargs)
+[Wed Feb 19 14:29:33.656458 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]   File "/var/www/tommi/app/folios/routes.py", line 83, in route_template_apagar
+[Wed Feb 19 14:29:33.656464 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008]     lista = ocorrencias.pop(index_remove)
+[Wed Feb 19 14:29:33.656469 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41008] UnboundLocalError: local variable 'index_remove' referenced before assignment
+[Wed Feb 19 14:32:51.893877 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294] ERROR:flask.app:Exception on /folios/apagar/akfbajhfasbf [GET]
+[Wed Feb 19 14:32:51.893911 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294] Traceback (most recent call last):
+[Wed Feb 19 14:32:51.893918 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:32:51.893925 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     response = self.full_dispatch_request()
+[Wed Feb 19 14:32:51.893931 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:32:51.893938 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:32:51.893944 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:32:51.893951 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:32:51.893957 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:32:51.893963 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     rv = self.dispatch_request()
+[Wed Feb 19 14:32:51.893970 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:32:51.893976 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:32:51.893982 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:32:51.893989 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     return func(*args, **kwargs)
+[Wed Feb 19 14:32:51.893995 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]   File "/var/www/tommi/app/folios/routes.py", line 83, in route_template_apagar
+[Wed Feb 19 14:32:51.894002 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294]     lista = ocorrencias.pop(index_remove)
+[Wed Feb 19 14:32:51.894008 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41294] AttributeError: 'unicode' object has no attribute 'pop'
+[Wed Feb 19 14:35:42.677676 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558] ERROR:flask.app:Exception on /folios/index/ver/619 [GET]
+[Wed Feb 19 14:35:42.677708 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558] Traceback (most recent call last):
+[Wed Feb 19 14:35:42.677715 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:35:42.677721 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     response = self.full_dispatch_request()
+[Wed Feb 19 14:35:42.677727 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:35:42.677732 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:35:42.677738 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:35:42.677744 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:42.677749 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:35:42.677755 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     rv = self.dispatch_request()
+[Wed Feb 19 14:35:42.677761 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:35:42.677767 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:35:42.677772 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:35:42.677778 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     return func(*args, **kwargs)
+[Wed Feb 19 14:35:42.677784 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Wed Feb 19 14:35:42.677790 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Wed Feb 19 14:35:42.677795 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Wed Feb 19 14:35:42.677801 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     context, ctx.app)
+[Wed Feb 19 14:35:42.677807 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Wed Feb 19 14:35:42.677812 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     rv = template.render(context)
+[Wed Feb 19 14:35:42.677818 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Wed Feb 19 14:35:42.677824 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     return self.environment.handle_exception(exc_info, True)
+[Wed Feb 19 14:35:42.677829 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Wed Feb 19 14:35:42.677835 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:42.677844 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Wed Feb 19 14:35:42.677850 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     {% extends "base_site.html" %}
+[Wed Feb 19 14:35:42.677856 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Wed Feb 19 14:35:42.677862 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     {% block body %}
+[Wed Feb 19 14:35:42.677867 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Wed Feb 19 14:35:42.677873 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     {% block content %}
+[Wed Feb 19 14:35:42.677878 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Wed Feb 19 14:35:42.677884 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558]     {%  for key,value in folio.items() %}
+[Wed Feb 19 14:35:42.677890 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41558] UndefinedError: 'unicode object' has no attribute 'items'
+[Wed Feb 19 14:35:47.037577 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572] ERROR:flask.app:Exception on /folios/index/ver/619v [GET]
+[Wed Feb 19 14:35:47.037606 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572] Traceback (most recent call last):
+[Wed Feb 19 14:35:47.037613 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:35:47.037619 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     response = self.full_dispatch_request()
+[Wed Feb 19 14:35:47.037625 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:35:47.037631 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:35:47.037636 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:35:47.037642 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:47.037648 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:35:47.037653 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     rv = self.dispatch_request()
+[Wed Feb 19 14:35:47.037659 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:35:47.037665 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:35:47.037670 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:35:47.037676 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     return func(*args, **kwargs)
+[Wed Feb 19 14:35:47.037682 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Wed Feb 19 14:35:47.037703 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Wed Feb 19 14:35:47.037709 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Wed Feb 19 14:35:47.037715 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     context, ctx.app)
+[Wed Feb 19 14:35:47.037720 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Wed Feb 19 14:35:47.037726 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     rv = template.render(context)
+[Wed Feb 19 14:35:47.037732 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Wed Feb 19 14:35:47.037738 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     return self.environment.handle_exception(exc_info, True)
+[Wed Feb 19 14:35:47.037743 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Wed Feb 19 14:35:47.037749 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:47.037755 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Wed Feb 19 14:35:47.037760 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     {% extends "base_site.html" %}
+[Wed Feb 19 14:35:47.037766 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Wed Feb 19 14:35:47.037772 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     {% block body %}
+[Wed Feb 19 14:35:47.037777 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Wed Feb 19 14:35:47.037783 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     {% block content %}
+[Wed Feb 19 14:35:47.037789 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Wed Feb 19 14:35:47.037794 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572]     {%  for key,value in folio.items() %}
+[Wed Feb 19 14:35:47.037800 2020] [wsgi:error] [pid 27635:tid 140140051588864] [remote 193.136.19.202:41572] UndefinedError: 'unicode object' has no attribute 'items'
+[Wed Feb 19 14:35:49.392860 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588] ERROR:flask.app:Exception on /folios/index/ver/a [GET]
+[Wed Feb 19 14:35:49.392902 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588] Traceback (most recent call last):
+[Wed Feb 19 14:35:49.392916 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:35:49.392928 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     response = self.full_dispatch_request()
+[Wed Feb 19 14:35:49.392940 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:35:49.392953 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:35:49.392985 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:35:49.392998 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:49.393009 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:35:49.393021 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     rv = self.dispatch_request()
+[Wed Feb 19 14:35:49.393033 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:35:49.393045 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:35:49.393057 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:35:49.393069 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     return func(*args, **kwargs)
+[Wed Feb 19 14:35:49.393081 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Wed Feb 19 14:35:49.393093 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Wed Feb 19 14:35:49.393105 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Wed Feb 19 14:35:49.393117 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     context, ctx.app)
+[Wed Feb 19 14:35:49.393129 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Wed Feb 19 14:35:49.393141 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     rv = template.render(context)
+[Wed Feb 19 14:35:49.393152 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Wed Feb 19 14:35:49.393164 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     return self.environment.handle_exception(exc_info, True)
+[Wed Feb 19 14:35:49.393176 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Wed Feb 19 14:35:49.393188 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:49.393200 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Wed Feb 19 14:35:49.393211 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     {% extends "base_site.html" %}
+[Wed Feb 19 14:35:49.393223 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Wed Feb 19 14:35:49.393239 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     {% block body %}
+[Wed Feb 19 14:35:49.393255 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Wed Feb 19 14:35:49.393306 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     {% block content %}
+[Wed Feb 19 14:35:49.393324 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Wed Feb 19 14:35:49.393340 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588]     {%  for key,value in folio.items() %}
+[Wed Feb 19 14:35:49.393373 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41588] UndefinedError: 'unicode object' has no attribute 'items'
+[Wed Feb 19 14:35:57.752782 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610] ERROR:flask.app:Exception on /folios/tags/ver/<artigo> [GET]
+[Wed Feb 19 14:35:57.752807 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610] Traceback (most recent call last):
+[Wed Feb 19 14:35:57.752814 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:35:57.752820 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     response = self.full_dispatch_request()
+[Wed Feb 19 14:35:57.752826 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:35:57.752832 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:35:57.752837 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:35:57.752843 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:57.752849 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:35:57.752854 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     rv = self.dispatch_request()
+[Wed Feb 19 14:35:57.752860 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:35:57.752866 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:35:57.752872 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:35:57.752877 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     return func(*args, **kwargs)
+[Wed Feb 19 14:35:57.752883 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/var/www/tommi/app/folios/routes.py", line 163, in route_template_tag_ver
+[Wed Feb 19 14:35:57.752889 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     return render_template('viewTag.html', tag=existe,nome=nome)
+[Wed Feb 19 14:35:57.752894 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Wed Feb 19 14:35:57.752900 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     context, ctx.app)
+[Wed Feb 19 14:35:57.752906 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Wed Feb 19 14:35:57.752912 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     rv = template.render(context)
+[Wed Feb 19 14:35:57.752926 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Wed Feb 19 14:35:57.752932 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     return self.environment.handle_exception(exc_info, True)
+[Wed Feb 19 14:35:57.752938 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Wed Feb 19 14:35:57.752943 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:35:57.752949 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/var/www/tommi/app/folios/templates/viewTag.html", line 1, in top-level template code
+[Wed Feb 19 14:35:57.752955 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     {% extends "base_site.html" %}
+[Wed Feb 19 14:35:57.752960 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Wed Feb 19 14:35:57.752966 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     {% block body %}
+[Wed Feb 19 14:35:57.752971 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Wed Feb 19 14:35:57.752977 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     {% block content %}
+[Wed Feb 19 14:35:57.752983 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]   File "/var/www/tommi/app/folios/templates/viewTag.html", line 43, in block "content"
+[Wed Feb 19 14:35:57.752988 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610]     {% for key,values in lista.items()%}
+[Wed Feb 19 14:35:57.752994 2020] [wsgi:error] [pid 27635:tid 140140068374272] [remote 193.136.19.202:41610] UndefinedError: 'unicode object' has no attribute 'items'
+[Wed Feb 19 14:48:12.641632 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058] ERROR:flask.app:Exception on /import/passo6/ [GET]
+[Wed Feb 19 14:48:12.642166 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058] Traceback (most recent call last):
+[Wed Feb 19 14:48:12.642185 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:48:12.642200 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     response = self.full_dispatch_request()
+[Wed Feb 19 14:48:12.642213 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:48:12.642226 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:48:12.642239 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:48:12.642252 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:48:12.642265 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:48:12.642325 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     rv = self.dispatch_request()
+[Wed Feb 19 14:48:12.642339 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:48:12.642374 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:48:12.642387 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:48:12.642400 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     return func(*args, **kwargs)
+[Wed Feb 19 14:48:12.642411 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]   File "/var/www/tommi/app/importacao/routes.py", line 132, in route_template_passo6
+[Wed Feb 19 14:48:12.642423 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058]     path_ficheiro = join(dirname(realpath(__file__)), '..', 'folios/static/doc', dadosFolio["ficheiro"])
+[Wed Feb 19 14:48:12.642436 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43058] KeyError: 'ficheiro'
+[Wed Feb 19 14:49:40.342056 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258] ERROR:flask.app:Exception on /folios/index/ver/619 [GET]
+[Wed Feb 19 14:49:40.342084 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258] Traceback (most recent call last):
+[Wed Feb 19 14:49:40.342092 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 2292, in wsgi_app
+[Wed Feb 19 14:49:40.342098 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     response = self.full_dispatch_request()
+[Wed Feb 19 14:49:40.342105 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+[Wed Feb 19 14:49:40.342111 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     rv = self.handle_user_exception(e)
+[Wed Feb 19 14:49:40.342117 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1718, in handle_user_exception
+[Wed Feb 19 14:49:40.342124 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:49:40.342130 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+[Wed Feb 19 14:49:40.342136 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     rv = self.dispatch_request()
+[Wed Feb 19 14:49:40.342142 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/app.py", line 1799, in dispatch_request
+[Wed Feb 19 14:49:40.342148 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     return self.view_functions[rule.endpoint](**req.view_args)
+[Wed Feb 19 14:49:40.342154 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask_login/utils.py", line 261, in decorated_view
+[Wed Feb 19 14:49:40.342161 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     return func(*args, **kwargs)
+[Wed Feb 19 14:49:40.342167 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/var/www/tommi/app/folios/routes.py", line 146, in route_template_index_ver
+[Wed Feb 19 14:49:40.342173 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     return render_template('viewIndex.html', index=existe,nome=nome)
+[Wed Feb 19 14:49:40.342179 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 135, in render_template
+[Wed Feb 19 14:49:40.342197 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     context, ctx.app)
+[Wed Feb 19 14:49:40.342203 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/flask/templating.py", line 117, in _render
+[Wed Feb 19 14:49:40.342209 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     rv = template.render(context)
+[Wed Feb 19 14:49:40.342215 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 1008, in render
+[Wed Feb 19 14:49:40.342221 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     return self.environment.handle_exception(exc_info, True)
+[Wed Feb 19 14:49:40.342226 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/usr/local/lib/python2.7/dist-packages/jinja2/environment.py", line 780, in handle_exception
+[Wed Feb 19 14:49:40.342232 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     reraise(exc_type, exc_value, tb)
+[Wed Feb 19 14:49:40.342237 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 1, in top-level template code
+[Wed Feb 19 14:49:40.342243 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     {% extends "base_site.html" %}
+[Wed Feb 19 14:49:40.342249 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/var/www/tommi/app/base/templates/base_site.html", line 38, in top-level template code
+[Wed Feb 19 14:49:40.342254 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     {% block body %}
+[Wed Feb 19 14:49:40.342260 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/var/www/tommi/app/base/templates/base_site.html", line 54, in block "body"
+[Wed Feb 19 14:49:40.342266 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     {% block content %}
+[Wed Feb 19 14:49:40.342271 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]   File "/var/www/tommi/app/folios/templates/viewIndex.html", line 43, in block "content"
+[Wed Feb 19 14:49:40.342277 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258]     {%  for key,value in folio.items() %}
+[Wed Feb 19 14:49:40.342283 2020] [wsgi:error] [pid 1252:tid 140126451721984] [remote 193.136.19.202:43258] UndefinedError: 'unicode object' has no attribute 'items'
+[Fri May 01 20:55:01.843014 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106] mod_wsgi (pid=10688): Target WSGI script '/var/www/tommi2/deploy/tommi.wsgi' cannot be loaded as Python module.
+[Fri May 01 20:55:01.843093 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106] mod_wsgi (pid=10688): Exception occurred processing WSGI script '/var/www/tommi2/deploy/tommi.wsgi'.
+[Fri May 01 20:55:01.843134 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106] Traceback (most recent call last):
+[Fri May 01 20:55:01.843175 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106]   File "/var/www/tommi2/deploy/tommi.wsgi", line 7, in <module>
+[Fri May 01 20:55:01.843297 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106]     from tommi import app as application
+[Fri May 01 20:55:01.843344 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51106] ImportError: No module named tommi
+[Fri May 01 20:55:01.919174 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108] mod_wsgi (pid=10688): Target WSGI script '/var/www/tommi2/deploy/tommi.wsgi' cannot be loaded as Python module.
+[Fri May 01 20:55:01.919222 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108] mod_wsgi (pid=10688): Exception occurred processing WSGI script '/var/www/tommi2/deploy/tommi.wsgi'.
+[Fri May 01 20:55:01.919281 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108] Traceback (most recent call last):
+[Fri May 01 20:55:01.919325 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108]   File "/var/www/tommi2/deploy/tommi.wsgi", line 7, in <module>
+[Fri May 01 20:55:01.919379 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108]     from tommi import app as application
+[Fri May 01 20:55:01.919416 2020] [wsgi:error] [pid 10688:tid 140322709788416] [remote 172.20.67.162:51108] ImportError: No module named tommi
+[Fri May 01 20:55:10.210419 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122] mod_wsgi (pid=10688): Target WSGI script '/var/www/tommi2/deploy/tommi.wsgi' cannot be loaded as Python module.
+[Fri May 01 20:55:10.210468 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122] mod_wsgi (pid=10688): Exception occurred processing WSGI script '/var/www/tommi2/deploy/tommi.wsgi'.
+[Fri May 01 20:55:10.210508 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122] Traceback (most recent call last):
+[Fri May 01 20:55:10.210548 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122]   File "/var/www/tommi2/deploy/tommi.wsgi", line 7, in <module>
+[Fri May 01 20:55:10.210604 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122]     from tommi import app as application
+[Fri May 01 20:55:10.210643 2020] [wsgi:error] [pid 10688:tid 140322676217600] [remote 172.20.67.162:51122] ImportError: No module named tommi
+[Fri May 15 01:47:34.688144 2020] [proxy:warn] [pid 22044:tid 140305122694912] [client 192.168.85.244:49774] AH01144: No protocol handler was valid for the URL /api/ (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:48:02.462775 2020] [proxy:warn] [pid 22044:tid 140305114302208] [client 192.168.85.244:49776] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:48:48.137428 2020] [proxy:warn] [pid 22045:tid 140305114302208] [client 193.136.19.202:37182] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:49:20.090620 2020] [proxy:warn] [pid 22045:tid 140305097516800] [client 193.136.19.202:37222] AH01144: No protocol handler was valid for the URL /api/settings/ver (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:49:27.445660 2020] [proxy:warn] [pid 22044:tid 140305147873024] [client 193.136.19.202:37230] AH01144: No protocol handler was valid for the URL /api/settings/ver (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:51:57.952258 2020] [proxy:warn] [pid 22044:tid 140305156265728] [client 192.168.85.244:49784] AH01144: No protocol handler was valid for the URL /api/settings/ver (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:53:15.077581 2020] [proxy:warn] [pid 22044:tid 140305164658432] [client 192.168.85.244:49786] AH01144: No protocol handler was valid for the URL /api/settings/ver (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:54:26.120326 2020] [proxy:warn] [pid 22044:tid 140305259923200] [client 193.136.19.202:37558] AH01144: No protocol handler was valid for the URL /api/ (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:54:32.231126 2020] [proxy:warn] [pid 22044:tid 140305080731392] [client 193.136.19.202:37560] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:54:53.156985 2020] [proxy:warn] [pid 22045:tid 140305089124096] [client 193.136.19.202:37586] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:55:06.870328 2020] [proxy:warn] [pid 22045:tid 140305259923200] [client 193.136.19.202:37614] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:57:09.757752 2020] [proxy:warn] [pid 22448:tid 139738086332160] [client 193.136.19.202:37748] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:57:14.896421 2020] [proxy:warn] [pid 22448:tid 139738077939456] [client 193.136.19.202:37758] AH01144: No protocol handler was valid for the URL /api/ (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 01:57:23.308217 2020] [proxy:warn] [pid 22448:tid 139738052761344] [client 193.136.19.202:37762] AH01144: No protocol handler was valid for the URL /api/login (scheme 'http'). If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+[Fri May 15 02:17:53.602568 2020] [proxy:error] [pid 23187:tid 139908467377920] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 02:17:53.602763 2020] [proxy_http:error] [pid 23187:tid 139908467377920] [client 193.136.19.202:39582] AH01114: HTTP: failed to make connection to backend: localhost
+[Fri May 15 02:18:33.378640 2020] [proxy:error] [pid 23188:tid 139908366665472] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 02:18:33.378693 2020] [proxy_http:error] [pid 23188:tid 139908366665472] [client 193.136.19.202:39632] AH01114: HTTP: failed to make connection to backend: localhost
+[Fri May 15 03:09:01.830396 2020] [proxy:error] [pid 23188:tid 139908484163328] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:09:01.830450 2020] [proxy_http:error] [pid 23188:tid 139908484163328] [client 193.136.19.202:43402] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:09:01.831959 2020] [proxy:error] [pid 23188:tid 139908492556032] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:09:01.831989 2020] [proxy_http:error] [pid 23188:tid 139908492556032] [client 193.136.19.202:43404] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:43.829541 2020] [proxy:error] [pid 23188:tid 139908400236288] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:43.829638 2020] [proxy_http:error] [pid 23188:tid 139908400236288] [client 193.136.19.202:43528] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:43.830877 2020] [proxy:error] [pid 23187:tid 139908375058176] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:43.830910 2020] [proxy_http:error] [pid 23187:tid 139908375058176] [client 193.136.19.202:43530] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:45.276085 2020] [proxy:error] [pid 23187:tid 139908366665472] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:45.276206 2020] [proxy_http:error] [pid 23187:tid 139908366665472] [client 193.136.19.202:43536] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:45.276592 2020] [proxy:error] [pid 23188:tid 139908433807104] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:45.276644 2020] [proxy_http:error] [pid 23188:tid 139908433807104] [client 193.136.19.202:43538] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:46.542575 2020] [proxy:error] [pid 23187:tid 139908358272768] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:46.542610 2020] [proxy_http:error] [pid 23187:tid 139908358272768] [client 193.136.19.202:43542] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:46.543421 2020] [proxy:error] [pid 23187:tid 139908349880064] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:46.543444 2020] [proxy_http:error] [pid 23187:tid 139908349880064] [client 193.136.19.202:43544] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:47.539101 2020] [proxy:error] [pid 23187:tid 139908324701952] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:47.539149 2020] [proxy_http:error] [pid 23187:tid 139908324701952] [client 193.136.19.202:43548] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/tags
+[Fri May 15 03:10:47.539557 2020] [proxy:error] [pid 23187:tid 139908316309248] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:47.539624 2020] [proxy_http:error] [pid 23187:tid 139908316309248] [client 193.136.19.202:43550] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/tags
+[Fri May 15 03:10:48.966497 2020] [proxy:error] [pid 23188:tid 139908425414400] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:48.966583 2020] [proxy_http:error] [pid 23188:tid 139908425414400] [client 193.136.19.202:43554] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:48.967733 2020] [proxy:error] [pid 23187:tid 139908307916544] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:48.967770 2020] [proxy_http:error] [pid 23187:tid 139908307916544] [client 193.136.19.202:43556] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:49.813394 2020] [proxy:error] [pid 23187:tid 139908475770624] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:49.813454 2020] [proxy_http:error] [pid 23187:tid 139908475770624] [client 193.136.19.202:43558] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:49.813720 2020] [proxy:error] [pid 23188:tid 139908442199808] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:49.813933 2020] [proxy_http:error] [pid 23188:tid 139908442199808] [client 193.136.19.202:43560] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:50.813792 2020] [proxy:error] [pid 23187:tid 139908484163328] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:50.813830 2020] [proxy_http:error] [pid 23187:tid 139908484163328] [client 193.136.19.202:43564] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:50.814669 2020] [proxy:error] [pid 23187:tid 139908492556032] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:50.814691 2020] [proxy_http:error] [pid 23187:tid 139908492556032] [client 193.136.19.202:43566] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:10:52.549188 2020] [proxy:error] [pid 23188:tid 139908408628992] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:52.549744 2020] [proxy:error] [pid 23187:tid 139908433807104] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:52.550512 2020] [proxy_http:error] [pid 23188:tid 139908408628992] [client 193.136.19.202:43570] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/users
+[Fri May 15 03:10:52.550553 2020] [proxy_http:error] [pid 23187:tid 139908433807104] [client 193.136.19.202:43572] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/users
+[Fri May 15 03:10:56.385263 2020] [proxy:error] [pid 23188:tid 139908417021696] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:56.385336 2020] [proxy_http:error] [pid 23188:tid 139908417021696] [client 193.136.19.202:43580] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:10:56.385905 2020] [proxy:error] [pid 23188:tid 139908316309248] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:10:56.385951 2020] [proxy_http:error] [pid 23188:tid 139908316309248] [client 193.136.19.202:43582] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios
+[Fri May 15 03:11:04.721065 2020] [proxy:error] [pid 23188:tid 139908576626432] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:11:04.721115 2020] [proxy_http:error] [pid 23188:tid 139908576626432] [client 193.136.19.202:43598] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Fri May 15 03:11:04.729142 2020] [proxy:error] [pid 23188:tid 139908467377920] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Fri May 15 03:11:04.729162 2020] [proxy_http:error] [pid 23188:tid 139908467377920] [client 193.136.19.202:43600] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Sat May 16 15:02:50.065342 2020] [proxy:error] [pid 9078:tid 139908417021696] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Sat May 16 15:02:50.065497 2020] [proxy_http:error] [pid 9078:tid 139908417021696] [client 193.136.19.202:59142] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios/indices
+[Sat May 16 15:02:51.644590 2020] [proxy:error] [pid 9078:tid 139908408628992] (111)Connection refused: AH00957: HTTP: attempt to connect to 127.0.0.1:5000 (localhost) failed
+[Sat May 16 15:02:51.644719 2020] [proxy_http:error] [pid 9078:tid 139908408628992] [client 193.136.19.202:59152] AH01114: HTTP: failed to make connection to backend: localhost, referer: https://tommi2.di.uminho.pt/pt/folios

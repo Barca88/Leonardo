@@ -1,0 +1,273 @@
+{   
+    "tagging": {
+        "lista": "Tags list",
+        "nome": "Name",
+        "atividade": "State",
+        "cor": "Color"
+    },
+    "message": "Welcome to Tommi  - The Book of Properties of Tombo da Mitra.",
+    "navd": {
+        "home": "Begin",
+        "import": "Import",
+        "documents": "Documents",
+        "folios": "Folios",
+        "indexes": "Indexes",
+        "tags": "Tags",
+        "analysis": "Analysis",
+        "users": "Users",
+        "pedidos": "Acess requests",
+        "definitions": "Settings",
+        "georef": "Georeferentiation",
+        "annotations": "Annotation",
+        "help": "Help",
+        "about": "About",
+        "credits": "Credits",
+        "ib": "Database Indexing",
+        "cf": "Composing Folios",
+        "etags": "Tag Editor",
+        "eListaTags": "Tag List",
+        "ebase": "Database Tagging",
+        "estatisticas": "Statistics",
+        "guser": "User Management",
+        "uativo": "Active Users",
+        "puser": "Access Requirements",
+        "hacesso": "Access History",
+        "mans": "System Manual",
+        "pubs": "Publications",
+        "diss": "Dissertations",
+        "reltec": "Technical Report",
+        "siweb": "Websites",
+        "importAjuda": "How to import a document",
+        "textoImportAjuda": "Help Text"
+    },
+    "nav": {
+        "instrucoesPesquisa": "Search instructions",
+        "textoInstrucoes": "The parameterization of the research process is shown in the help option",
+        "continuarPesquisa": "Continue",
+        "barraPesquisa": "Search",
+        "buttonPesquisa": "Search",
+        "pesquisaNaoVazia": "This field cannot be empty",
+        "folios": "Folio(s)",
+        "tipoDeTexto": "Type",
+        "primeiroTipoTexto": "Text",
+        "segundoTipoTexto": "Context",
+        "versaoTexto": "Version",
+        "primeiraVersaoTexto": "All",
+        "segundaVersaoTexto": "Interpretative",
+        "terceiraVersaoTexto": "Semi-Diplomatic",
+        "tipoObrigatorio": "You need to select a search item",
+        "escolheLinguagem": "Language",
+        "tipoResultado": "Result",
+        "primeiroResultado": "Period",
+        "segundoResultado": "Line",
+        "terceiroResultado": "Nº of Words",
+        "palavras": "words",
+        "obrigacaoNumero": "The number of words must be greater than zero",
+        "resultadoPara": "Result for",
+        "resultadoLinha": "Line",
+        "resultadoPeriodo": "Period",
+        "creditos": "Credits",
+        "sabermais": "About",
+        "termos": "Terms of Using",
+        "privacidade": "Restrictions",
+        "com": "with",
+        "occur1": "occurrence",
+        "fechar": "Exit",
+        "occur2": "Occurrences",
+        "textoCreditos": "Credits text",
+        "textoSaberMais": "Know more text",
+        "textoTermos": "Terms text",
+        "textoPriv": "Privacy text",
+        "buttonAjuda": "Help",
+        "folioAnaliseHeadline": "The Book of Properties of Tombo de Mitra - Document Searching",
+        "tituloProjeto": "The Book of Properties of Tombo de Mitra - Document Searching",
+        "imprimir": "Print",
+        "primeiroPagina": "First",
+        "ultimaPagina": "Last",
+        "proximaPagina": "Next",
+        "previousPagina": "Previous"
+    },
+    "head": {
+        "help": "Help",
+        "language": "uk",
+        "exit": "Exit"
+    },
+    "ab": {
+        "question": "What is Tommi?"
+    },
+    "def": {
+        "title": "Settings",
+        "elem": "Element",
+        "desc": "Description",
+        "wac": "WAC",
+        "tagHTML": "TagHTML",
+        "ex": "Examples",
+        "opt": "Options"
+    },
+    "fol": {
+        "title": "Folios",
+        "id": "Id",
+        "desc": "Description",
+        "versao": "Version",
+        "sum": "Summary",
+        "tipo": "Type",
+        "opt": "Options",
+        "insert": "Insert document",
+        "print": "Print or export document records"
+    },
+    "imp": {
+        "passo": "Step"
+    },
+    "ind": {
+        "title": "Index Dictionary",
+        "pal": "Word",
+        "oco": "Occurrences",
+        "fol": "Folios",
+        "opt": "Options"
+    },
+    "login": {
+        "quest": "Don't you have access credentials?",
+        "reg": "Request access credentials",
+        "rec": "Recover password",
+        "adminSystem": "Administration System"
+    },
+    "pedac": {
+        "title": "Request access credentials",
+        "id": "Username",
+        "nome": "Name",
+        "email": "Email",
+        "tipo": "Type",
+        "opt": "Options"
+    },
+    "perfil": {
+        "foto": "Photo",
+        "nome": "Name",
+        "email": "Email",
+        "tipo": "Type",
+        "uni": "Institution",
+        "dep": "Department",
+        "data": "Creation Date",
+        "obs": "Notes",
+        "vercur": "Consult CV",
+        "atuacur": "Update CV"
+    },
+    "reg": {
+        "pag": "Registration page",
+        "quest": "Do you already have credentials for accessing the system?",
+        "log": "Authenticate user",
+        "foto": "Add photo",
+        "unome": "Username",
+        "pw": "Password",
+        "nome": "Name",
+        "email": "Email",
+        "tipo": "Type",
+        "admin": "Administrator",
+        "user": "User",
+        "uni": "Institution",
+        "dep": "Department",
+        "data": "Creation Date",
+        "obs": "Notes",
+        "cur": "CV"
+    },
+    "tags": {
+        "title": "Tag dictionary",
+        "tag": "Tag",
+        "oco": "Occurrences",
+        "fol": "Folios",
+        "opt": "Options"
+    },
+    "users": {
+        "title": "Users",
+        "id": "Username",
+        "nome": "Name",
+        "email": "Email",
+        "tipo": "Type",
+        "opt": "Options"
+    },
+    "defForm": {
+        "addDef": "Add settings",
+        "visDef": "View settings",
+        "edDef": "Edit settings",
+        "elem": "Element",
+        "desc": "Description",
+        "wac": "WAC",
+        "tag": "TagHTML",
+        "ex": "Example",
+        "pro": "Search",
+        "sim": "Yes",
+        "nao": "No"
+    },
+    "folForm": {
+        "visFol": "View Folios",
+        "id": "Identifier",
+        "ver": "Version",
+        "tComTags": "Text with tags",
+        "tSemTags": "Text without tags",
+        "tipo": "Type",
+        "desc": "Description",
+        "sum": "Summary"
+    },
+    "header": {
+        "mudLing": "Change system language",
+        "opPerfil": "Profile options",
+        "vPerfil": "Consult usage profile"
+    },
+    "indForm": {
+        "visInd": "View indexes",
+        "id": "Identifier",
+        "oco": "Occurrences",
+        "files": "Files in which it occurs",
+        "noco": "Number of occurrences",
+        "close": "Close"
+    },
+    "p1": {
+        "ins": "Insert folio",
+        "id": "Identifier",
+        "ver": "Version",
+        "int": "Interpretative",
+        "sd": "Semi-diplomatic",
+        "tipo": "Type",
+        "fre": "Front",
+        "v": "Verse",
+        "desc": "Description",
+        "sum": "Summary",
+        "trans": "Transcription",
+        "rev": "Revision",
+        "obs": "Notes",
+        "foto": "Add photo",
+        "f": "Photo",
+        "file": "File",
+        "tfile": "Text file",
+        "reset": "Reset",
+        "sub": "Submit",
+        "skip": "Skip",
+        "ajuda": "Help text",
+        "leave": "Exit insertion"
+    },
+    "p2": {
+        "tComTags": "Text with tags",
+        "tSemTags": "Text without tags",
+        "reset": "Reset"
+    },
+    "p3": {
+        "av": "Avatar",
+        "reset": "Reset"
+    },
+    "p4": {
+        "reset": "Reset"
+    },
+    "p6": {
+        "nfolios": "Number of folios",
+        "nlinhas": "Number of lines",
+        "ntags": "Number of tags",
+        "nindices": "Number of indexes"
+    },
+    "pForm": {
+        "aU": "Add users",
+        "vU": "View users",
+        "eU": "Edit users"
+    },
+    "tForm": {
+        "vT": "View tags"
+    }
+}

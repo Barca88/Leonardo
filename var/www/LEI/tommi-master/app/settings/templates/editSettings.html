@@ -1,0 +1,100 @@
+{% extends "base_site.html" %}
+
+{% block title %} Definições {% endblock title %}
+
+{% block stylesheets %}
+{{ super() }}
+<link href="{{ url_for('static', filename='vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+    rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Editar Definição</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- start form for validation -->
+                        <form id="form-utilizador" action="/settings/editar/guardar?nome={{nome}}" method="POST" enctype="multipart/form-data" data-parsley-validate>
+                            <label for="name">Elemento:</label>
+                            <input type="text" value="{{setting._id}}" id="elemento" class="form-control" name="elemento" readonly="readonly"/>
+                            
+                            <label for="name">Descrição:</label>
+                            <input type="text" value="{{setting.desc}}" id="desc" class="form-control" name="desc" required />
+
+                            <label for="name">WAC:</label>
+                            <input type="text" value="{{setting.wac}}" id="wac" class="form-control" name="wac" required />
+                            
+                            <label for="name">Tag Html:</label>
+                            <input type="text" value="{{setting.tag}}" id="tag" class="form-control" name="tag" required />
+                            
+                            <label for="name">Exemplo:</label>
+                            <input type="text" value="{{setting.exemplo}}" id="exemplo" class="form-control" name="exemplo" required />
+
+                            <label>Procurar:</label>
+                            <p>
+                                {% if setting.procura == True %}
+                                    Sim:
+                                    <input type="radio" class="flat" name="procurar" id="sim" value="sim" checked required /> 
+                                    Não:
+                                    <input type="radio" class="flat" name="procurar" id="nao" value="nao" />
+                                {% else %}
+                                    Sim:
+                                    <input type="radio" class="flat" name="procurar" id="sim" value="sim"  required /> 
+                                    Não:
+                                    <input type="radio" class="flat" name="procurar" id="nao" value="nao" checked /> 
+                                {% endif %}
+                            </p>
+                            <p></p>
+                            <button type="submit" class="btn btn-success">Gravar</button>
+                        </form>
+                        <!-- end form for validations -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+{{ super() }}
+<!-- Datatables -->
+<script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}
