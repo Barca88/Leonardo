@@ -12,7 +12,7 @@
                 </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title><h2>{{$t('navd.tituloProjeto')}}</h2></v-list-item-title>
-                <v-list-item-subtitle>{{$t('login.adminSystem')}}</v-list-item-subtitle>
+                <!--v-list-item-subtitle>{{$t('login.adminSystem')}}</v-list-item-subtitle-->
               </v-list-item-content>
             </v-list-item>
             <v-dialog @keydown.esc="about = false" v-model="about" scrollable width="500">
