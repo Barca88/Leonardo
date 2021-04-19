@@ -1,4 +1,41 @@
-{
+{   
+    "adminNav": {
+        "tableBase": "Tabelas Base",
+        "domains":"Domínios",
+        "subDomains": "Subdomínios",
+        "subSubDomanins": "Subsubdomínios",
+
+        "prod":"Produção",
+        "preQuestions": "Preparação de questões",
+        "valQuestions": "Validação de questões",
+        "preModels": "Preparação de modelos",
+
+        "av":"Avaliação",
+        "test": "Testes",
+        "quizz": "Quizz",
+
+
+        "students": "Estudantes",
+
+        "game" : "Gamificação",
+        "usr" : "Utilizadores",
+        "domain": "Domínios",
+        "import": "Importar",
+
+        "dataAnal": "Análise de Dados",
+        "indivAnal": "Análie Individual",
+        "acessAnal": "Análise De Acessos",
+
+        "opi": "Opiniões",
+        "inqAnal": "Análise de Inqueritos",
+        "propAnal": "Análise de Propriedades",
+        
+        "events": "Eventos",
+        "sett": "Defenições",
+        "about": "Acerca de",
+        "use": "Termos de Utilização",
+        "privacy": "Privacidade"
+    },
     "tagging": {
         "lista": "Lista de Etiquetas",
         "nome": "Nome",
