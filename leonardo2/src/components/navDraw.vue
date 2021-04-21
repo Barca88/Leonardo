@@ -92,7 +92,7 @@
 
         <v-list-item link to="/admin/documentacao">
           <v-list-item-icon>
-            <v-icon>mdi-text-box-multiple</v-icon>
+            <v-icon>mdi-card-account-details</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t("adminNav.students") }}</v-list-item-title>
         </v-list-item>
@@ -127,7 +127,7 @@
 
          <v-list-group
           class="white--text"
-          prepend-icon="mdi-school"
+          prepend-icon="mdi-chart-bar"
           :value="false"
           no-action
         >
@@ -150,7 +150,7 @@
 
         <v-list-group
           class="white--text"
-          prepend-icon="mdi-school"
+          prepend-icon="mdi-chart-bar"
           :value="false"
           no-action
         >
@@ -171,53 +171,54 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
-          class="white--text"
-          prepend-icon="mdi-school"
-          :value="false"
-          no-action
-        >
-          <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
-              $t("adminNav.events")
-            }}</v-list-item-title>
-          </template>
-          <v-list-item link to="/admin/folios">
-            <v-list-item-title class="white--text">{{
-              $t("adminNav.sett")
-            }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item link to="/admin/folios">
-            <v-list-item-title class="white--text">{{
-              $t("adminNav.about")
-            }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item link to="/admin/folios">
-            <v-list-item-title class="white--text">{{
-              $t("adminNav.use")
-            }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item link to="/admin/folios">
-            <v-list-item-title class="white--text">{{
-              $t("adminNav.privacy")
-            }}</v-list-item-title>
-          </v-list-item>
-        </v-list-group>
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-account-multiple</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.usr") }}</v-list-item-title>
+        </v-list-item>
+        
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-format-list-numbered</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.events") }}</v-list-item-title>
+        </v-list-item>
 
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-cog</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.sett") }}</v-list-item-title>
+        </v-list-item>
 
         <v-list-item link to="/admin/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>{{ $t("navd.docum") }}</v-list-item-title>
+          <v-list-item-title>{{ $t("adminNav.doc") }}</v-list-item-title>
         </v-list-item>
-        <v-list-item link @click="about = true">
+
+        <v-list-item link to="/admin/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-information-outline</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>{{ $t("navd.about") }}</v-list-item-title>
+          <v-list-item-title>{{ $t("adminNav.about") }}</v-list-item-title>
         </v-list-item>
 
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-clipboard-account-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.use") }}</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-lock</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.privacy") }}</v-list-item-title>
+        </v-list-item>
       
       </v-list>
       <!-- <template v-slot:append v-if="hover == true"> -->
