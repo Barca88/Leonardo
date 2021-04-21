@@ -1,4 +1,42 @@
-{
+{   
+    "adminNav": {
+        "tableBase": "Tabelas Base",
+        "domains":"Domínios",
+        "subDomains": "Subdomínios",
+        "subSubDomanins": "Subsubdomínios",
+
+        "prod":"Produção",
+        "preQuestions": "Preparação de questões",
+        "valQuestions": "Validação de questões",
+        "preModels": "Preparação de modelos",
+
+        "av":"Avaliação",
+        "test": "Testes",
+        "quizz": "Quizz",
+
+
+        "students": "Estudantes",
+
+        "game" : "Gamificação",
+        "usr" : "Utilizadores",
+        "domain": "Domínios",
+        "import": "Importar",
+
+        "dataAnal": "Análise de Dados",
+        "indivAnal": "Análie Individual",
+        "acessAnal": "Análise De Acessos",
+
+        "opi": "Opiniões",
+        "inqAnal": "Análise de Inqueritos",
+        "propAnal": "Análise de Propriedades",
+        
+        "events": "Eventos",
+        "sett": "Definições",
+        "doc": "Documentação",
+        "about": "Acerca de",
+        "use": "Termos de Utilização",
+        "privacy": "Privacidade"
+    },
     "tagging": {
         "lista": "Lista de Etiquetas",
         "nome": "Nome",
@@ -63,7 +101,7 @@
         "fixMenu":"Fixar o menu de navegação lateral",
         "exit":"Sair da aplicação",
         "se":"Procura",
-        "tituloProjeto" : "Sistema de Análise do Livro das Propriedades ou Tombo da Mitra Arquiepiscopal de Braga"
+        "tituloProjeto" : "Leonardo"
     },
     "nav": { 
         "instrucoesPesquisa" : "Instruções de pesquisa", 
