@@ -138,6 +138,11 @@
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
+              $t("adminNav.responseAnal")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
               $t("adminNav.indivAnal")
             }}</v-list-item-title>
           </v-list-item>
