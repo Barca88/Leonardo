@@ -1,0 +1,102 @@
+{% extends "base_site.html" %}
+
+{% block title %} Utilizadores {% endblock title %}
+
+{% block stylesheets %}
+{{ super() }}
+<link href="{{ url_for('static', filename='vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}"
+    rel="stylesheet">
+<link href="{{ url_for('static', filename='vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}"
+    rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="right_col" role="main">
+    <div class="">
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Utilizador: {{user._id}}</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <img class="img-responsive avatar-view" src="../static/pics/{{foto}}" alt="Avatar"
+                                        title="Utilizador" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <ul>
+                                <li>
+                                    <b>Username:</b> {{user._id}}
+                                </li>
+                                <li>
+                                    <b>Nome:</b> {{user.nome}}
+                                </li>
+                                <li>
+                                    <b>E-Mail:</b> {{user.email}}
+                                </li>
+                                <li>
+                                    <b>Tipo:</b> {{user.tipo}}
+                                </li>
+                                <li>
+                                    <b>Pai:</b> {{user.pai}}
+                                </li>
+                                <li>
+                                    <b>Mãe:</b> {{user.mae}}
+                                </li>
+                                <li>
+                                    <b>Data da Criação:</b> {{user.data}}
+                                </li> 
+                                <li>
+                                    <b>Observações:</b> {{user.obs}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+{{ super() }}
+<!-- Datatables -->
+<script src="{{ url_for('static', filename='vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/jszip/dist/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+{% endblock javascripts %}
