@@ -157,7 +157,7 @@ export default {
             formData.append('curriculo',this.pedido.curriculo)
             formData.append('obs',this.pedido.observacoes)
 
-        axios.post('https://leonardo2.di.uminho.pt/api/users/pedidos/registar',formData,{
+        axios.post('http://localhost:5000/users/pedidos/registar',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'    
           }

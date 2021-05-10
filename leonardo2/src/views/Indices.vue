@@ -129,7 +129,7 @@ export default {
       }
     },
     created() {
-        axios.get(`https://leonardo2.di.uminho.pt/api/folios/index?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`http://localhost:5000/folios/index?nome=${this.$store.state.user._id}`,{headers:{
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})

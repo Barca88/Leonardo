@@ -376,7 +376,7 @@ export default {
       let formData = new FormData()
         formData.append('id',this.id)
         formData.append('password',this.password)
-      axios.post('https://leonardo2.di.uminho.pt/api/login',formData,{
+      axios.post('http://localhost:5000/login',formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`     
@@ -408,7 +408,7 @@ export default {
             formData.append('curriculo',this.pedido.curriculo)
             formData.append('obs',this.pedido.observacoes)
 
-        axios.post('https://leonardo2.di.uminho.pt/api/users/pedidos/registar',formData,{
+        axios.post('http://localhost:5000/users/registar',formData,{
           headers: {
             'Content-Type': 'multipart/form-data'    
           }

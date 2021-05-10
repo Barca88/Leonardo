@@ -1,5 +1,5 @@
 bcrypt
-flask
+flask~=1.1.2
 flask_login
 flask_migrate
 flask_wtf
@@ -7,3 +7,6 @@ flask_sqlalchemy
 gunicorn
 psycopg2
 nltk
+Werkzeug~=1.0.1
+pymongo~=3.11.3
+jwt~=1.2.0

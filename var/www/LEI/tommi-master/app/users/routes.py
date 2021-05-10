@@ -220,7 +220,7 @@ def route_template_apagar(user):
     return json_util.dumps({'users': users, 'nome': nome})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
-@admin_required
+#@admin_required
 #@login_required
 def route_template_editar_guardar():
     username = request.form.get('username')
@@ -266,6 +266,7 @@ def route_pedidos():
 #@admin_required
 #@login_required
 def route_template_registar_pedido():
+    print('teste??? ')
     username = request.form.get('username')
     existeU = mongo.db.users.find_one({"_id":username})
     existeP = mongo.db.pedidos.find_one({"_id":username})

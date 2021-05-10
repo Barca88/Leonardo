@@ -26,10 +26,6 @@ const routes = [
     redirect : `/home`
   },
   {
-    path: '/login',
-    redirect : `/admin/login`
-  },
-  {
     path: '/admin',
     redirect : `/admin/login`
   },
@@ -44,7 +40,7 @@ const routes = [
     component: () => import('../views/Resultados.vue')
   },
   {
-    path: 'login',
+    path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
   },
@@ -80,18 +76,6 @@ const routes = [
         next()
       }
     }*/
-  },
-  {
-    path: 'folios',
-    name: 'Folios',
-    component: () => import('../views/Folios.vue'),
-    beforeEnter (to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`)
-      } else {
-        next()
-      }
-    }
   },
   {
     path: 'folios/indices',
@@ -321,18 +305,6 @@ const routes = [
         next()
       }
     }*/
-  },
-  {
-    path: 'compFolios',
-    name: 'CompFolios',
-    component: () => import('../views/CompFolios.vue'),
-    beforeEnter (to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`)
-      } else {
-        next()
-      }
-    }
   },
   {
     path: 'documentacao',

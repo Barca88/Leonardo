@@ -377,7 +377,7 @@ export default {
         formData.append('obs',this.user.observacoes)
 
       if(this.value == 'editar'){
-        axios.post(`https://leonardo2.di.uminho.pt/api/users/editar/guardar?nome=` + this.user.username,formData,{
+        axios.post(`http://localhost:5000/users/editar/guardar?nome=` + this.user.username,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       
@@ -394,7 +394,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('https://leonardo2.di.uminho.pt/api/users/registar',formData,{
+        axios.post('http://localhost:5000/users/registar',formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       

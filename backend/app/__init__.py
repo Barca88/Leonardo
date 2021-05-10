@@ -27,7 +27,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     # Aqui podemos adiconar difrentes modulos
-    for module_name in ['users']:
+    for module_name in ['users', 'home']:
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
 
@@ -49,6 +49,7 @@ def apply_themes(app):
 
 
 def create_app(config, selenium=False) -> object:
+    print('creating app')
     app = Flask(__name__, static_folder='base/static')
     app.config["MONGO_URI"] = "mongodb://localhost:27017/leonardo"
     app.config['SECRET_KEY'] = 'leonardo'
@@ -80,26 +81,28 @@ def token_required(f):
 
         try:
             token = auth_headers[1]
-            #data = jwt.decode(token, current_app.config['SECRET_KEY'])
-            data = jwt.decode(token,'\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
-            user = mongo.db.users.find_one({"_id":data['sub']})
+            # data = jwt.decode(token, current_app.config['SECRET_KEY'])
+            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+            user = mongo.db.users.find_one({"_id": data['sub']})
             now = datetime.datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S.%f")
             did = ObjectId()
-            reqstring= request.method + ":" + request.url
+            reqstring = request.method + ":" + request.url
             if not user:
                 raise RuntimeError('User not found')
-            mongo.db.activeUsers.find_one_and_update({"_id":data['sub']},{"$set":{"_id":data['sub'],"stamp":date}},upsert=True)
-            mongo.db.history.insert_one({"_id":did, "user":data['sub'], "stamp":date, "request":reqstring})
+            mongo.db.activeUsers.find_one_and_update({"_id": data['sub']},
+               {"$set": {"_id": data['sub'], "stamp": date}}, upsert=True)
+            mongo.db.history.insert_one({"_id": did, "user": data['sub'], "stamp": date, "request": reqstring})
             return f(*args, **kwargs)
         except jwt.ExpiredSignatureError:
-            return jsonify(expired_msg), 401 # 401 is Unauthorized HTTP status code
+            return jsonify(expired_msg), 401  # 401 is Unauthorized HTTP status code
         except (jwt.InvalidTokenError, Exception) as e:
             print(e)
             print("wrong token")
             return jsonify(invalid_msg), 401
 
     return _verify
+
 
 def admin_required(f):
     @wraps(f)
@@ -119,33 +122,35 @@ def admin_required(f):
 
         try:
             token = auth_headers[1]
-            #data = jwt.decode(token, current_app.config['SECRET_KEY'])
-            data = jwt.decode(token,'\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
-            user = mongo.db.users.find_one({"_id":data['sub'], "tipo":"Admin"})
+            # data = jwt.decode(token, current_app.config['SECRET_KEY'])
+            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+            user = mongo.db.users.find_one({"_id": data['sub'], "tipo": "Admin"})
             now = datetime.datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S.%f")
             did = ObjectId()
-            reqstring= request.method + ":" + request.url
+            reqstring = request.method + ":" + request.url
             if not user:
                 raise RuntimeError('User or Administrator not found')
-            mongo.db.activeUsers.find_one_and_update({"_id":data['sub']},{"$set":{"_id":data['sub'],"stamp":date}},upsert=True)
-            mongo.db.history.insert_one({"_id":did, "user":data['sub'], "stamp":date, "request":reqstring})
+            mongo.db.activeUsers.find_one_and_update({"_id": data['sub']},
+                                                     {"$set": {"_id": data['sub'], "stamp": date}}, upsert=True)
+            mongo.db.history.insert_one({"_id": did, "user": data['sub'], "stamp": date, "request": reqstring})
             return f(*args, **kwargs)
         except jwt.ExpiredSignatureError:
-            return jsonify(expired_msg), 401 # 401 is Unauthorized HTTP status code
+            return jsonify(expired_msg), 401  # 401 is Unauthorized HTTP status code
         except (jwt.InvalidTokenError, Exception) as e:
             print(e)
             return jsonify(invalid_msg), 401
 
     return _verify
 
+
 def photo_auth(request, picName):
     auth_headers = request.headers.get('Authorization', '').split()
 
     token = auth_headers[1]
-    #data = jwt.decode(token, current_app.config['SECRET_KEY'])
-    data = jwt.decode(token,'\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
-    user = mongo.db.users.find_one({"_id":data['sub']})
+    # data = jwt.decode(token, current_app.config['SECRET_KEY'])
+    data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+    user = mongo.db.users.find_one({"_id": data['sub']})
     if user:
         if user['tipo'] == 'Admin':
             return True
