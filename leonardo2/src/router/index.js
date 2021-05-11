@@ -32,7 +32,14 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('../views/HomeAdmin.vue')
+    component: () => import('../views/HomeAdmin.vue'),
+    beforeEnter (to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`)
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/resultados',
@@ -68,14 +75,14 @@ const routes = [
   {
     path: 'users/ver',
     name: 'Perfil',
-    component: () => import('../views/Perfil.vue')/*,
+    component: () => import('../views/Perfil.vue'),
     beforeEnter (to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`)
       } else {
         next()
       }
-    }*/
+    }
   },
   {
     path: 'folios/indices',
@@ -296,7 +303,7 @@ const routes = [
   {
     path: 'homeAdmin',
     name: 'HomeAdmin',
-    component: () => import('../views/HomeAdmin.vue')/*,
+    component: () => import('../views/HomeAdmin.vue'),
     beforeEnter (to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`)
@@ -304,7 +311,7 @@ const routes = [
       else {
         next()
       }
-    }*/
+    }
   },
   {
     path: 'documentacao',
