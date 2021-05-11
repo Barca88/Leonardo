@@ -73,7 +73,7 @@ const routes = [
     }
   },
   {
-    path: 'users/ver',
+    path: '/users/ver',
     name: 'Perfil',
     component: () => import('../views/Perfil.vue'),
     beforeEnter (to, from, next) {
@@ -359,7 +359,7 @@ const routes = [
     }
   },
   {
-    path: 'uAtivos',
+    path: '/uAtivos',
     name: 'UtilizadoresAtivos',
     component: () => import('../views/UtilizadoresAtivos.vue'),
     beforeEnter (to, from, next) {

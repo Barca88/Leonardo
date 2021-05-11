@@ -282,7 +282,7 @@ export default {
     methods: {
       atualizarInfo: function(){
         this.dialog=false
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`https://leonardo2.di.uminho.pt/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
             // JSON responses are automatically parsed.
             var todos = response.data.users
@@ -311,7 +311,7 @@ export default {
         const index = this.users.indexOf(item)
         //console.log(this.users[index])        
         if (value == 'curriculo'){
-          axios.get(`https://leonardo2.di.uminho.pt/api/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
+          axios.get(`https://leonardo2.di.uminho.pt/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -328,7 +328,7 @@ export default {
           })
         }
         else if(value == 'foto'){
-            axios.get(`https://leonardo2.di.uminho.pt/api/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
+            axios.get(`https://leonardo2.di.uminho.pt/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -352,7 +352,7 @@ export default {
       },
       edit(){
         this.update = true
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`https://leonardo2.di.uminho.pt/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
               // JSON responses are automatically parsed.
               //console.log(response.data)
@@ -367,7 +367,7 @@ export default {
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`https://leonardo2.di.uminho.pt/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
@@ -390,7 +390,7 @@ export default {
     },
     created() {
         //console.log('store->' + this.$store.state.jwt)
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`https://leonardo2.di.uminho.pt/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
