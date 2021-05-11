@@ -100,7 +100,6 @@ def token_required(f):
             print(e)
             print("wrong token")
             return jsonify(invalid_msg), 401
-
     return _verify
 
 
