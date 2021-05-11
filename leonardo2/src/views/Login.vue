@@ -389,7 +389,7 @@ export default {
           else if(data.data.users && (data.data.token!=undefined)){
             this.$store.commit("guardaTokenUtilizador", data.data.token)
             this.$store.commit("guardaNomeUtilizador", data.data.user)
-            this.$router.push( {path:`/admin/homeAdmin`})
+            this.$router.push( {path:`/`})
           }
       }).catch(e => {
           this.errors.push(e)
@@ -419,7 +419,7 @@ export default {
           else{
             this.dialogPedido = false
             this.$refs.form.reset()
-            this.$router.push( {path:`/admin/login`})
+            this.$router.push( {path:`/login`})
           }
         }).catch(e => {
             this.errors.push(e)
