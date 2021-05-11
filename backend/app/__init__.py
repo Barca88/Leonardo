@@ -49,7 +49,6 @@ def apply_themes(app):
 
 
 def create_app(config, selenium=False) -> object:
-    print('creating app')
     app = Flask(__name__, static_folder='base/static')
     app.config["MONGO_URI"] = "mongodb://localhost:27017/leonardo"
     app.config['SECRET_KEY'] = 'leonardo'
