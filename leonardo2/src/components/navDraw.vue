@@ -240,7 +240,7 @@
               $t("adminNav.usr")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/uAtivos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ges")
             }}</v-list-item-title>
@@ -409,7 +409,7 @@ export default {
   created() {
     axios
       .get(
-        `https://leonardo2.di.uminho.pt/api/users/foto/${this.$store.state.user._id}`,
+        `https://leonardo2.di.uminho.pt/users/foto/${this.$store.state.user._id}`,
         {
           responseType: "arraybuffer",
           headers: {
@@ -431,7 +431,7 @@ export default {
   methods: {
     reindFunc: function () {
       axios
-        .get(`https://leonardo2.di.uminho.pt/api/import/reindex/`, {
+        .get(`https://leonardo2.di.uminho.pt/import/reindex/`, {
           headers: {
             Authorization: `Bearer: ${this.$store.state.jwt}`,
           },
@@ -442,7 +442,7 @@ export default {
           if (response.data.message === "ok") {
             axios
               .get(
-                `https://leonardo2.di.uminho.pt/api/folios/folios?nome=${this.$store.state.user._id}`,
+                `https://leonardo2.di.uminho.pt/folios/folios?nome=${this.$store.state.user._id}`,
                 {
                   headers: {
                     Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -457,7 +457,7 @@ export default {
               });
             axios
               .get(
-                `https://leonardo2.di.uminho.pt/api/folios/index?nome=${this.$store.state.user._id}`,
+                `https://leonardo2.di.uminho.pt/folios/index?nome=${this.$store.state.user._id}`,
                 {
                   headers: {
                     "Content-Type": "multipart/form-data",
@@ -486,7 +486,7 @@ export default {
       //console.log("destroy token here")
       this.$store.commit("guardaTokenUtilizador", "");
       this.$store.commit("guardaNomeUtilizador", "");
-      this.$router.push({ path: `/admin/login` });
+      this.$router.push({ path: `/login` });
     },
     fixNav: function () {
       this.expandOnHover = !this.expandOnHover;

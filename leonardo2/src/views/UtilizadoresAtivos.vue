@@ -72,7 +72,7 @@ export default {
     },
     //Active
     created:function(){
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`https://leonardo2.di.uminho.pt/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.active = response.data.users
 
