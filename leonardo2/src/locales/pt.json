@@ -1,40 +1,54 @@
-{   
+{
     "adminNav": {
-        "tableBase": "Tabelas Base",
-        "domains":"Domínios",
-        "subDomains": "Subdomínios",
-        "subSubDomanins": "Subsubdomínios",
+        "home": "Início",
+
+        "infoBase": "Informação Base",
+        "resp": "Responsáveis",
+        "prof": "Professores",
+        "student": "Alunos",
+        "domain":"Domínios",
+        "questions": "Questões",
+        "tests": "Testes",
 
         "prod":"Produção",
-        "preQuestions": "Preparação de questões",
-        "valQuestions": "Validação de questões",
-        "preModels": "Preparação de modelos",
+
+        "ver":"Verificação",
+        "imp":"Importação de Questões",
+        "verquest":"Verificação de Questões",
+        "valida":"Validação de Testes",
+        "conf":"Configuração",
 
         "av":"Avaliação",
-        "test": "Testes",
-        "quizz": "Quizz",
-
-
-        "students": "Estudantes",
-
-        "game" : "Gamificação",
-        "usr" : "Utilizadores",
-        "domain": "Domínios",
-        "import": "Importar",
-
-        "dataAnal": "Análise de Dados",
-        "responseAnal": "Análise de Respostas",
-        "indivAnal": "Análise Individual",
-        "acessAnal": "Análise De Acessos",
+        "test": "Realização de Testes",
+        "quizz": "Sessões de Quizz",
 
         "opi": "Opiniões",
-        "inqAnal": "Análise de Inqueritos",
-        "propAnal": "Análise de Propriedades",
-        
+        "inqsis": "Inquérito de Sistema",
+        "inqAnal": "Análise de Inquéritos",
+        "estPro": "Estudo de Propriedades",
+        "sentEx": "Sentimentos Expressos",
+
+        "game" : "Gamificação",
+
+        "dash": "Dashboards",
+        "ans": "Respostas",
+        "acess": "Acessos",
+
+        "usr": "Utilizadores",
+        "ges": "Gestão",
+        "import": "Importação",
+        "ati": "Atividade Corrente",
+        "hist": "Historial de Acesso",
+
         "events": "Eventos",
+        "agend": "Agenda",
+
         "sett": "Definições",
+        "confger": "Configuração Geral",
+
         "doc": "Documentação",
         "about": "Acerca de",
+        "copy": "Créditos",
         "use": "Termos de Utilização",
         "privacy": "Privacidade"
     },

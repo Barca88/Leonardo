@@ -11,6 +11,13 @@
       class="navBar"
     >
       <v-list nav dense dark>
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.home") }}</v-list-item-title>
+        </v-list-item>
+
         <v-list-group
           class="white--text"
           prepend-icon="mdi-database"
@@ -19,26 +26,41 @@
         >
           <template v-slot:activator>
             <v-list-item-title class="white--text">{{
-              $t("adminNav.tableBase")
+              $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.domains")
+              $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.subDomains")
+              $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/compFolios">
+          <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.subSubDomanins")
+              $t("adminNav.students")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.domain")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.questions")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.tests")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
-        
+
         <v-list-group
           class="white--text"
           prepend-icon="mdi-wrench"
@@ -52,17 +74,50 @@
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.preQuestions")
+              $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.valQuestions")
+              $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/compFolios">
+          <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.preModels")
+              $t("adminNav.tests")
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
+
+        <v-list-group
+          class="white--text"
+          prepend-icon="mdi-check-bold"
+          :value="false"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.ver")
+            }}</v-list-item-title>
+          </template>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.imp")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.verquest")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.valida")
+            }}</v-list-item-title>
+          </v-list-item>
+           <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.conf")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
@@ -90,16 +145,42 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-card-account-details</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.students") }}</v-list-item-title>
-        </v-list-item>
+        <v-list-group
+          class="white--text"
+          prepend-icon="mdi-wechat"
+          :value="false"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.opi")
+            }}</v-list-item-title>
+          </template>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.inqsis")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.inqAnal")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.estPro")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.sentEx")
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
 
         <v-list-group
           class="white--text"
-          prepend-icon="mdi-gamepad-variant"
+          prepend-icon="mdi-trophy-variant"
           :value="false"
           no-action
         >
@@ -110,17 +191,12 @@
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.usr")
-            }}</v-list-item-title>
-          </v-list-item>
-          <v-list-item link to="/admin/folios">
-            <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/compFolios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.import")
+              $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
@@ -133,69 +209,99 @@
         >
           <template v-slot:activator>
             <v-list-item-title class="white--text">{{
-              $t("adminNav.dataAnal")
+              $t("adminNav.dash")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.responseAnal")
+              $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.indivAnal")
+              $t("adminNav.ans")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.acessAnal")
+              $t("adminNav.acess")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group
           class="white--text"
-          prepend-icon="mdi-chart-bar"
+          prepend-icon="mdi-account-multiple"
           :value="false"
           no-action
         >
           <template v-slot:activator>
             <v-list-item-title class="white--text">{{
-              $t("adminNav.opi")
+              $t("adminNav.usr")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.inqAnal")
+              $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.propAnal")
+              $t("adminNav.import")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.ati")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.hist")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-account-multiple</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.usr") }}</v-list-item-title>
-        </v-list-item>
-        
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-format-list-numbered</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.events") }}</v-list-item-title>
-        </v-list-item>
+        <v-list-group
+          class="white--text"
+          prepend-icon="mdi-clock"
+          :value="false"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.events")
+            }}</v-list-item-title>
+          </template>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.ges")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.agend")
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-cog</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.sett") }}</v-list-item-title>
-        </v-list-item>
+        <v-list-group
+          class="white--text"
+          prepend-icon="mdi-cog"
+          :value="false"
+          no-action
+        >
+          <template v-slot:activator>
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.sett")
+            }}</v-list-item-title>
+          </template>
+          <v-list-item link to="/admin/folios">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.confger")
+            }}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
 
         <v-list-item link to="/admin/documentacao">
           <v-list-item-icon>
@@ -213,7 +319,14 @@
 
         <v-list-item link to="/admin/documentacao">
           <v-list-item-icon>
-            <v-icon>mdi-clipboard-account-outline</v-icon>
+            <v-icon>mdi-account-group</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("adminNav.copy") }}</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link to="/admin/documentacao">
+          <v-list-item-icon>
+            <v-icon>mdi-clipboard-file</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t("adminNav.use") }}</v-list-item-title>
         </v-list-item>
@@ -283,6 +396,13 @@ export default {
       nDocs: 0,
       nInds: 0,
       runningDialog: false,
+      // links: [
+      //   {
+      //     icon: "casa",
+      //     text: "Início",
+      //     link: "/admin/folios"
+      //   }
+      // ]
       // hover:false
     };
   },
