@@ -39,10 +39,9 @@ def route_template_adicionar():
     return render_template('registar.html',nome=nome)
 
 @blueprint.route('/registar', methods=['POST'])
-#@admin_required
+@admin_required
 #@login_required
 def route_template_registar():
-    print("/registar")
     username = request.form.get('username')
     existe = mongo.db.users.find_one({"_id":username})
     nome = request.args.get('nome')
