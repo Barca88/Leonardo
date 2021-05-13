@@ -142,7 +142,7 @@ export default {
     },
     created(){
         this.userPic=''
-        axios.get(`https://tommi2.di.uminho.pt/api/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
+        axios.get(`http://localhost:5000/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`

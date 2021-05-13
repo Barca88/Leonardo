@@ -130,7 +130,7 @@ export default {
             this.labels.push(label)
         }
         //Users
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`http://localhost:5000/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.nUsers = response.data.users.length
         }).catch(e => {
@@ -139,7 +139,7 @@ export default {
 
 
         //Fólios
-        await axios.get(`https://leonardo2.di.uminho.pt/api/folios/folios?nome=${this.$store.state.user._id}`,{headers:{
+        await axios.get(`http://localhost:5000/folios/folios?nome=${this.$store.state.user._id}`,{headers:{
             Authorization:`Bearer: ${this.$store.state.jwt}`
             }})
             .then(response => {
@@ -157,7 +157,7 @@ export default {
         })
         await this.contains()
         //Tags
-        axios.get(`https://leonardo2.di.uminho.pt/api/folios/tags?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`http://localhost:5000/folios/tags?nome=${this.$store.state.user._id}`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {
@@ -166,7 +166,7 @@ export default {
             this.errors.push(e)
         })
         //Índices
-        axios.get(`https://leonardo2.di.uminho.pt/api/folios/index?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`http://localhost:5000/folios/index?nome=${this.$store.state.user._id}`,{headers:{
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})

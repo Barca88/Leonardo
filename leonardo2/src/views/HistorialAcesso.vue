@@ -134,7 +134,7 @@ export default {
     },
     created: async function() {
         //Active
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/history?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`http://localhost:5000/users/history?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.active = response.data.reqs
 
@@ -144,7 +144,7 @@ export default {
     },
     methods:{
         eliminarHistorico:function(){
-            axios.get(`https://leonardo2.di.uminho.pt/api/users/historyCleanse?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`http://localhost:5000/users/historyCleanse?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 this.active=response.data.history
 

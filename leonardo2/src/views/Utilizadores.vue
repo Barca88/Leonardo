@@ -328,7 +328,7 @@ export default {
           })
         }
         else if(value == 'foto'){
-            axios.get(`https://localhost:5000/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
+            axios.get(`http://localhost:5000/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`

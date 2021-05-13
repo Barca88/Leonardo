@@ -414,7 +414,7 @@ export default {
   created() {
     axios
       .get(
-        `https://leonardo2.di.uminho.pt/users/foto/${this.$store.state.user._id}`,
+        `http://localhost:5000/users/foto/${this.$store.state.user._id}`,
         {
           responseType: "arraybuffer",
           headers: {

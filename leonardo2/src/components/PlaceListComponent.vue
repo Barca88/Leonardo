@@ -67,7 +67,7 @@
 </template>
 <script>
 import axios from 'axios'
-const lhost = 'https://leonardo2.di.uminho.pt/api/'
+const lhost = 'http://localhost:5000/'
 export default {
   data () {
     return {

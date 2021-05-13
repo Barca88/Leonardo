@@ -230,7 +230,7 @@ export default {
     this.pesquisa = this.pesquisa.trim();
     var res = []; 
     axios
-      .get("https://leonardo2.di.uminho.pt/api/analise/pesquisa", { params: this.$route.params })
+      .get("http://localhost:5000/analise/pesquisa", { params: this.$route.params })
       .then(dados => {
 
         var tempo_fin = performance.now()
@@ -356,7 +356,7 @@ export default {
       var result = []; 
       var tam = 0;
       axios
-        .get("https://leonardo2.di.uminho.pt/api/analise/folio/" + idfolio)
+        .get("http://localhost:5000/analise/folio/" + idfolio)
         .then(dados => {
           // se a pesquisa não começa por aspas não a vai partir para substituir a frase toda no folio
           

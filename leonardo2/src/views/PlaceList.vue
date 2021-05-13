@@ -26,7 +26,7 @@ export default {
         'placeListComponent': placeListComponent
     },
     created() {
-        axios.get(`https://leonardo2.di.uminho.pt/api/folios/folios?nome=admin`,{headers:{
+        axios.get(`http://localhost:5000/folios/folios?nome=admin`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {

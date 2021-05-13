@@ -240,8 +240,8 @@
                 formData.append('foto',this.info.foto)
                 formData.append('ficheiro',this.info.ficheiro)
             
-                // axios.post(`https://leonardo2.di.uminho.pt/api/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
-                axios.post(`https://leonardo2.di.uminho.pt/api/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
+                // axios.post(`http://localhost:5000/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
+                axios.post(`http://localhost:5000/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`       
@@ -287,7 +287,7 @@
                 formData.append('textoTags',this.info.textoTags)
                 formData.append('textoSTags',this.info.textoSTags)
                 //console.log(this.info.list)
-                axios.post(`https://leonardo2.di.uminho.pt/api/import/passo6/?nome=${this.$store.state.user._id}`,formData,{headers:{
+                axios.post(`http://localhost:5000/import/passo6/?nome=${this.$store.state.user._id}`,formData,{headers:{
                     'Content-Type': 'multipart/form-data',
                     Authorization:`Bearer: ${this.$store.state.jwt}`
                 }})

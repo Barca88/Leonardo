@@ -298,7 +298,7 @@ export default {
 
   mounted: function() {
     axios
-      .get("https://leonardo2.di.uminho.pt/api/analise/foliosnames")
+      .get("http://localhost:5000/analise/foliosnames")
       .then(dados => {
         var objects = dados.data;
         objects.map(f => this.foliosNames.push(f._id));

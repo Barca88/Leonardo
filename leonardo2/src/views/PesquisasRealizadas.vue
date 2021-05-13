@@ -116,7 +116,7 @@ export default {
     //     }
     // },
     created() {
-        axios.get(`https://leonardo2.di.uminho.pt/api/folios/pesquisas?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`http://localhost:5000/folios/pesquisas?nome=${this.$store.state.user._id}`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {

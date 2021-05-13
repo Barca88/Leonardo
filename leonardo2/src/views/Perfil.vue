@@ -206,7 +206,7 @@ export default {
             
             let formData = new FormData()
             formData.append('curriculo',this.selectedFile)
-            axios.post(`https://leonardo2.di.uminho.pt/api/users/curriculo/atualizar/${this.username}`,formData,{
+            axios.post(`http://localhost:5000/users/curriculo/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -223,7 +223,7 @@ export default {
             this.selectedFile = e.target.files[0]
             let formData = new FormData()
             formData.append('foto',this.selectedFile)
-            axios.post(`https://leonardo2.di.uminho.pt/api/users/foto/atualizar/${this.username}`,formData,{
+            axios.post(`http://localhost:5000/users/foto/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -238,7 +238,7 @@ export default {
                 })
         },
         onUpdate(){
-            axios.get(`https://leonardo2.di.uminho.pt/api/users/curriculo/${this.username}?seed=${Date.now()}`, {
+            axios.get(`http://localhost:5000/users/curriculo/${this.username}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -262,7 +262,7 @@ export default {
     },
     created() {
         this.userPic=''
-        axios.get(`https://leonardo2.di.uminho.pt/api/users/foto/${this.username}?seed=${Date.now()}`, {
+        axios.get(`http://localhost:5000/users/foto/${this.username}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
