@@ -268,7 +268,7 @@
           <v-spacer></v-spacer>
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
-              <v-btn @click="dialog = false" to="/admin/login" v-on="{ ...tooltip}">
+              <v-btn @click="dialog = false" to="/login" v-on="{ ...tooltip}">
                 <v-icon>mdi-exit-to-app</v-icon>
               </v-btn>
             </template>
