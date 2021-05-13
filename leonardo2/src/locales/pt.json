@@ -1,7 +1,6 @@
 {
     "adminNav": {
         "home": "Início",
-
         "infoBase": "Informação Base",
         "resp": "Responsáveis",
         "prof": "Professores",
@@ -9,43 +8,33 @@
         "domain":"Domínios",
         "questions": "Questões",
         "tests": "Testes",
-
         "prod":"Produção",
-
         "ver":"Verificação",
         "imp":"Importação de Questões",
         "verquest":"Verificação de Questões",
         "valida":"Validação de Testes",
         "conf":"Configuração",
-
         "av":"Avaliação",
         "test": "Realização de Testes",
         "quizz": "Sessões de Quizz",
-
         "opi": "Opiniões",
         "inqsis": "Inquérito de Sistema",
         "inqAnal": "Análise de Inquéritos",
         "estPro": "Estudo de Propriedades",
         "sentEx": "Sentimentos Expressos",
-
         "game" : "Gamificação",
-
         "dash": "Dashboards",
         "ans": "Respostas",
         "acess": "Acessos",
-
         "usr": "Utilizadores",
         "ges": "Gestão",
         "import": "Importação",
         "ati": "Atividade Corrente",
         "hist": "Historial de Acesso",
-
         "events": "Eventos",
         "agend": "Agenda",
-
         "sett": "Definições",
         "confger": "Configuração Geral",
-
         "doc": "Documentação",
         "about": "Acerca de",
         "copy": "Créditos",

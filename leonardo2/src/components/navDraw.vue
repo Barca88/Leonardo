@@ -11,7 +11,7 @@
       class="navBar"
     >
       <v-list nav dense dark>
-        <v-list-item link to="/admin/documentacao">
+        <v-list-item link to="/home">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
@@ -41,7 +41,7 @@
           </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.students")
+              $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/admin/folios">

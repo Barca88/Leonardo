@@ -123,7 +123,7 @@ export default {
             //console.log("destroy token here")
             this.$store.commit("guardaTokenUtilizador", "")
             this.$store.commit("guardaNomeUtilizador", "")
-            this.$router.push( {path:`/admin/login`})
+            this.$router.push( {path:`/login`})
         },
         getUrl: function(){
             var components = this.$route.path.split('/')
