@@ -65,7 +65,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -237,7 +237,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -253,7 +253,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -269,7 +269,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -335,7 +335,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -351,7 +351,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -367,7 +367,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
@@ -396,7 +396,7 @@ const routes = [
         next(`/login`)
       }
       else if (!store.getters.isAdmin) {
-        next(`/homeAdmin`)
+        next(`/`)
       }
       else {
         next()
