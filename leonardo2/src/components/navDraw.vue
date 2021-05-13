@@ -245,6 +245,11 @@
               $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
+          <v-list-item link to="/pedidos">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.ped")
+            }}</v-list-item-title>
+          </v-list-item>
           <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
               $t("adminNav.import")

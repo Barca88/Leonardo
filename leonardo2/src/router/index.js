@@ -261,7 +261,7 @@ const routes = [
     }
   },
   {
-    path: 'pedidos',
+    path: '/pedidos',
     name: 'Pedidos',
     component: () => import('../views/PedidosAcesso.vue'),
     beforeEnter (to, from, next) {
