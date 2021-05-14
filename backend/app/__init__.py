@@ -75,13 +75,13 @@ def token_required(f):
         }
 
         if len(auth_headers) != 2:
-            print("wrong len")
+            print("wrong len Authorization")
             return jsonify(invalid_msg), 401
 
         try:
             token = auth_headers[1]
             # data = jwt.decode(token, current_app.config['SECRET_KEY'])
-            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithms="HS256")
             user = mongo.db.users.find_one({"_id": data['sub']})
             now = datetime.datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S.%f")
@@ -121,7 +121,7 @@ def admin_required(f):
         try:
             token = auth_headers[1]
             # data = jwt.decode(token, current_app.config['SECRET_KEY'])
-            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+            data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithms="HS256")
             user = mongo.db.users.find_one({"_id": data['sub'], "tipo": "Admin"})
             now = datetime.datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S.%f")
@@ -147,7 +147,7 @@ def photo_auth(request, picName):
 
     token = auth_headers[1]
     # data = jwt.decode(token, current_app.config['SECRET_KEY'])
-    data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i')
+    data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithms="HS256")
     user = mongo.db.users.find_one({"_id": data['sub']})
     if user:
         if user['tipo'] == 'Admin':
