@@ -2,7 +2,7 @@ node_modules/
 .DS_Store
 node_modules
 /dist
-
+backend/app/users/static/*
 # local env files
 .env.local
 .env.*.local
