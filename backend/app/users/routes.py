@@ -255,11 +255,10 @@ def route_template_editar_guardar():
 ###### PEDIDOS ######
 
 @blueprint.route('/pedidos', methods=['GET'])
-#@admin_required
+@admin_required
 #@token_required
-#@login_required4
+#@login_required
 def route_pedidos():
-    print("get pedidos successes")
     pedidos= [doc for doc in mongo.db.pedidos.find()]
     nome = request.args.get('nome')
     return json_util.dumps({'pedidos': pedidos, 'nome': nome})

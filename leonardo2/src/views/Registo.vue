@@ -164,7 +164,7 @@ export default {
         }).then(() => {
             //console.log(data)
             this.$refs.form.reset()
-            this.$router.push( {path:`/admin/login`})
+            this.$router.push( {path:`/login`})
         }).catch(e => {
             this.errors.push(e)
         })

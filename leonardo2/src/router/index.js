@@ -49,7 +49,15 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: () => import('../views/Login.vue'),
+    beforeEnter (to, from, next) {
+      if (store.getters.isAuthenticated) {
+        next(`/`)
+      }
+      else {
+        next()
+      }
+    }
   },
   {
     path: 'registo',

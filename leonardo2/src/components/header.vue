@@ -84,7 +84,7 @@
                 </v-tooltip>
             </template>
             <v-list>
-                <v-list-item link :to="`/admin/users/ver`">
+                <v-list-item link :to="`/users/ver`">
                     <v-list-item-title>{{$t('header.vPerfil')}}</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="logout();" text>

@@ -394,7 +394,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('http://localhost:5000/users/registar',formData,{
+        axios.post('http://localhost:5000/users/pedidos/registar',formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       
