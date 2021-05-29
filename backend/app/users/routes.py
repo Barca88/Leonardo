@@ -256,7 +256,7 @@ def route_template_editar_guardar():
 
 @blueprint.route('/pedidos', methods=['GET'])
 @admin_required
-#@token_required
+@token_required
 #@login_required
 def route_pedidos():
     pedidos= [doc for doc in mongo.db.pedidos.find()]

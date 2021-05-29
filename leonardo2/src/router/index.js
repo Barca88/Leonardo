@@ -93,6 +93,22 @@ const routes = [
     }
   },
   {
+    path: '/historico',
+    name: 'HistorialAcesso',
+    component: () => import('../views/HistorialAcesso.vue'),
+    beforeEnter (to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`)
+      }
+      else if (!store.getters.isAdmin) {
+        next(`/`)
+      }
+      else {
+        next()
+      }
+    }
+  },
+  {
     path: 'folios/indices',
     name: 'Indices',
     component: () => import('../views/Indices.vue'),
@@ -328,22 +344,6 @@ const routes = [
     beforeEnter (to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`)
-      }
-      else {
-        next()
-      }
-    }
-  },
-  {
-    path: 'histAcesso',
-    name: 'HistorialAcesso',
-    component: () => import('../views/HistorialAcesso.vue'),
-    beforeEnter (to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`)
-      }
-      else if (!store.getters.isAdmin) {
-        next(`/`)
       }
       else {
         next()

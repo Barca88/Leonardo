@@ -260,7 +260,7 @@
               $t("adminNav.ati")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/historico">
             <v-list-item-title class="white--text">{{
               $t("adminNav.hist")
             }}</v-list-item-title>
