@@ -224,7 +224,7 @@ def login():
 
         token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=720)),
                            # jwt app.config['SECRET_KEY']
-                           '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256').decode('utf-8')
+                           '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
         return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
     else:
         return json_util.dumps({'error': 'O utilizador não existe!'})
