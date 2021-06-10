@@ -1,7 +1,7 @@
 <template>
   <div>
-    <AppHeader />
-    <SideNav />
+    <NavBar />
+    <NavDraw />
     <v-main>
       <router-view />
     </v-main>
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import AppHeader from "@/tests_modulo/components/Layout/AppHeader.vue";
-import SideNav from "@/tests_modulo/components/Layout/SideNav.vue";
-import Footer from "@/tests_modulo/components/Layout/Footer.vue";
+import NavBar from "@/components/header.vue";
+import NavDraw from "@/components/navDraw.vue";
+import Footer from "@/components/footer2.vue";
 
 export default {
   name: "App",
-  components: { AppHeader, SideNav, Footer },
+  components: { Footer, NavBar, NavDraw },
 };
 </script>

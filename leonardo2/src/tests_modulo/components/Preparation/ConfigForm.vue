@@ -189,13 +189,13 @@
 </template>
 
 <script>
-import * as configApi from '@/tests_modulo/utils/api/config'
+import * as configApi from "@/tests_modulo/utils/api/config";
 
 export default {
-  name: 'ConfigForm',
+  name: "ConfigForm",
   model: {
-    prop: 'testConfigs',
-    event: 'change'
+    prop: "testConfigs",
+    event: "change",
   },
   props: { testConfigs: Object },
 
@@ -205,90 +205,91 @@ export default {
     domainValues: [],
 
     configrules: {
-      domain: [(v) => !!v || 'Dominio e obrigatorio'],
+      domain: [(v) => !!v || "Dominio e obrigatorio"],
       subdomains: [
         (v) =>
-          v?.length >= 1 || 'Pelo menos um subdominio tem de ser selecionado'
+          v?.length >= 1 || "Pelo menos um subdominio tem de ser selecionado",
       ],
       id: [
-        (v) => !!v || 'Identificador e obrigatorio',
+        (v) => !!v || "Identificador e obrigatorio",
         (v) =>
-          v?.length <= 20 || 'Identificador nao pode ter mais de 20 caracteres '
+          v?.length <= 20 ||
+          "Identificador nao pode ter mais de 20 caracteres ",
       ],
       description: [
-        (v) => !!v || 'Descricao e obrigatoria',
+        (v) => !!v || "Descricao e obrigatoria",
         (v) =>
-          v?.length <= 20 || 'Descricao nao pode ter mais de 100 caracteres '
+          v?.length <= 100 || "Descricao nao pode ter mais de 100 caracteres ",
       ],
       date: {
-        start: [(v) => !!v || 'Data de inicio e obrigatoria'],
-        finish: [(v) => !!v || 'Data de fim e obrigatoria']
+        start: [(v) => !!v || "Data de inicio e obrigatoria"],
+        finish: [(v) => !!v || "Data de fim e obrigatoria"],
       },
       number_questions: [
-        (v) => !!v || 'Nr de questoes e obrigatorio',
-        (v) => Math.round(v) == v || 'Nr de questoes tem de ser inteiro'
+        (v) => !!v || "Nr de questoes e obrigatorio",
+        (v) => Math.round(v) == v || "Nr de questoes tem de ser inteiro",
       ],
-      total_time: [(v) => !!v || 'Tempo de realizacao e obrigatorio'],
-      test_type: [(v) => !!v || 'Modo de Visualizacao e obrigatorio'],
-      visibility: [(v) => !!v || 'Visibilidade e obrigatoria']
-    }
+      total_time: [(v) => !!v || "Tempo de realizacao e obrigatorio"],
+      test_type: [(v) => !!v || "Modo de Visualizacao e obrigatorio"],
+      visibility: [(v) => !!v || "Visibilidade e obrigatoria"],
+    },
   }),
   methods: {
     fetchDomains() {
-      this.loading = true
+      this.loading = true;
       configApi
         .getAvailableDomains()
         .then((data) => {
-          this.domainValues = data
-          this.loading = false
+          this.domainValues = data;
+          this.loading = false;
         })
         .catch((err) => {
-          this.$emit('fetchFail')
-          console.log('Error fetching tests', err)
-        })
+          this.$emit("fetchFail");
+          console.log("Error fetching tests", err);
+        });
     },
     domainChanged(evt) {
-      this.$emit('change', {
+      this.$emit("change", {
         ...this.testConfigs,
         subdomains: [],
-        domain: this.domainValues.find((d) => d._id == evt)?.domain || null
-      })
-      this.$refs.configForm.resetValidation()
+        domain: this.domainValues.find((d) => d._id == evt)?.domain || null,
+      });
+      this.$refs.configForm.resetValidation();
     },
 
     async validate() {
-      return this.$refs.configForm.validate()
+      return this.$refs.configForm.validate();
     },
-    // Notify parent that a change hapenned (It's not noticed due to v-modle use on props :^/)
+    // Notify parent that a change hapenned (It's not noticed due to v-model use on props :^/)
     emitChange(key, value) {
-      this.$emit('change', { ...this.testConfigs, [key]: value })
-    }
+      this.$emit("change", { ...this.testConfigs, [key]: value });
+    },
   },
   computed: {
     /** @returns {any}*/
     domainsSelectionValid() {
       return (
         this?.testConfigs?.subdomains?.length > 0 && this?.testConfigs?.domain
-      )
+      );
     },
     /** @returns {any}*/
     subdomainValues() {
       return (
         this.domainValues?.find((d) => d._id == this.selectedDomain)
           ?.subdomains || []
-      )
+      );
     },
     /** @returns {any}*/
     domainIds() {
-      return this.domainValues.map((d) => d._id) || []
-    }
+      return this.domainValues.map((d) => d._id) || [];
+    },
   },
   async created() {
-    this.fetchDomains()
-    const configDomain = this.testConfigs.domain
+    this.fetchDomains();
+    const configDomain = this.testConfigs.domain;
     //TODO Domains need Human Readable Ids
     if (configDomain)
-      this.selectedDomain = `${configDomain.study_cycle}-${configDomain.scholarity}-${configDomain.description}`
-  }
-}
+      this.selectedDomain = `${configDomain.study_cycle}-${configDomain.scholarity}-${configDomain.description}`;
+  },
+};
 </script>

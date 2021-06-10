@@ -251,7 +251,7 @@
           color="error"
           style="max-width: 300px"
           link
-          to="/evaluation"
+          to="/tests/evaluation"
         >
           Sair
         </v-btn>
@@ -310,7 +310,7 @@
                 color="error"
                 style="max-width: 300px"
                 link
-                to="/evaluation"
+                to="/tests/evaluation"
               >
                 Sair
               </v-btn>

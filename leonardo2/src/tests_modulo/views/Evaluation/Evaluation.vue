@@ -47,7 +47,13 @@
 
         <template v-slot:[`item.options`]="{ item }">
           <div class="d-flex">
-            <v-btn small text link :to="`/evaluation/${item.id}`" class="mx-1">
+            <v-btn
+              small
+              text
+              link
+              :to="`/tests/evaluation/${item.id}`"
+              class="mx-1"
+            >
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn text small class="warning--text change-font" v-on="on">
@@ -72,76 +78,76 @@
 </template>
 
 <script>
-import DomainForm from '@/tests_modulo/components/Evaluation/DomainForm'
-import TextSnackBar from '@/tests_modulo/components/UI/TextSnackBar'
+import DomainForm from "@/tests_modulo/components/Evaluation/DomainForm";
+import TextSnackBar from "@/tests_modulo/components/UI/TextSnackBar";
 
-import * as testsApi from '@/tests_modulo/utils/api/tests'
+import * as testsApi from "@/tests_modulo/utils/api/tests";
 
 export default {
-  name: 'Evaluation',
+  name: "Evaluation",
   components: {
     TextSnackBar,
-    DomainForm
+    DomainForm,
   },
   data() {
     return {
       domain: null,
       loading: true,
-      search: '',
+      search: "",
       tests: [],
       headers: [
         {
-          text: 'Identificador',
-          value: 'id'
+          text: "Identificador",
+          value: "id",
         },
         {
-          text: 'Descrição',
-          value: 'description'
+          text: "Descrição",
+          value: "description",
         },
         {
-          text: 'Dominio',
-          value: 'domain'
+          text: "Dominio",
+          value: "domain",
         },
         {
-          text: 'SubDominios',
-          value: 'subdomains'
+          text: "SubDominios",
+          value: "subdomains",
         },
         {
-          text: 'Autor',
-          value: 'inserted_by'
+          text: "Autor",
+          value: "inserted_by",
         },
         {
-          text: 'Ultima Atualizacao',
-          value: 'last_updated'
+          text: "Ultima Atualizacao",
+          value: "last_updated",
         },
         {
-          text: 'Opções',
-          value: 'options',
-          sortable: false
-        }
+          text: "Opções",
+          value: "options",
+          sortable: false,
+        },
       ],
       snackbar: {
         show: false,
-        text: '',
-        color: ''
-      }
-    }
+        text: "",
+        color: "",
+      },
+    };
   },
   methods: {
     snackbarFetchFailed() {
       this.snackbar = {
         show: true,
-        color: 'error',
-        text: `O servidor não conseguiu obter a informação sobre os dominios !! ☹ \n`
-      }
-    }
+        color: "error",
+        text: `O servidor não conseguiu obter a informação sobre os dominios !! ☹ \n`,
+      };
+    },
   },
 
   computed: {
     /** @return {any} */
     tableTests() {
       if (this.domain) {
-        const [study_cycle, scholarity, description] = this.domain.split('-')
+        const [study_cycle, scholarity, description] = this.domain.split("-");
         return this.tests
           .filter(
             (t) =>
@@ -151,32 +157,32 @@ export default {
           )
           .map((t) => ({
             ...t.config,
-            subdomains: t.config.subdomains.join(', '),
+            subdomains: t.config.subdomains.join(", "),
             domain: t.config.domain.description,
-            id: t.id
-          }))
-      } else return []
-    }
+            id: t.id,
+          }));
+      } else return [];
+    },
   },
 
   created() {
-    this.loading = true
+    this.loading = true;
 
     testsApi
       .getAll()
       .then((data) => {
-        this.tests = data
-        this.loading = false
+        this.tests = data;
+        this.loading = false;
       })
       .catch(() => {
         this.snackbar = {
           show: true,
-          color: 'error',
-          text: `Não foi possivel obter a lista de testes ou dominios !! 😫 \n`
-        }
-      })
-  }
-}
+          color: "error",
+          text: `Não foi possivel obter a lista de testes ou dominios !! 😫 \n`,
+        };
+      });
+  },
+};
 </script>
 
 <style scoped>

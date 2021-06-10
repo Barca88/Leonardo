@@ -42,7 +42,7 @@
                 v-bind="attrs"
                 class="blue-grey darken-4 white--text mx-2"
                 link
-                to="/preparation"
+                to="/tests/preparation"
               >
                 <v-icon small v-text="'mdi-file-plus-outline'" />
               </v-btn>
@@ -75,8 +75,8 @@
             icon
             class="info--text mx-1"
             @click="
-              selectedTest = tests.find((x) => x.id === item.id)
-              showTestDisplayDialog = true
+              selectedTest = tests.find((x) => x.id === item.id);
+              showTestDisplayDialog = true;
             "
           >
             <v-icon small v-text="'mdi-eye'" />
@@ -89,7 +89,7 @@
             icon
             class="warning--text mx-1"
             link
-            :to="`/preparation?editing=${item.id}`"
+            :to="`/tests/preparation?editing=${item.id}`"
           >
             <v-icon small v-text="'mdi-lead-pencil'" />
           </v-btn>
@@ -100,8 +100,8 @@
             icon
             class="error--text mx-1"
             @click="
-              selectedTest = tests.find((x) => x.id === item.id)
-              showTestDeleteDialog = true
+              selectedTest = tests.find((x) => x.id === item.id);
+              showTestDeleteDialog = true;
             "
           >
             <v-icon small v-text="'mdi-delete'" />
@@ -133,48 +133,48 @@
 </template>
 
 <script>
-import * as testsApi from '@/tests_modulo/utils/api/tests'
-import TestDisplayDialog from '@/tests_modulo/components/UI/TestDisplayDialog.vue'
-import DeleteTestDialog from '@/tests_modulo/components/Management/DeleteTestDialog.vue'
-import TextSnackBar from '@/tests_modulo/components/UI/TextSnackBar'
+import * as testsApi from "@/tests_modulo/utils/api/tests";
+import TestDisplayDialog from "@/tests_modulo/components/UI/TestDisplayDialog.vue";
+import DeleteTestDialog from "@/tests_modulo/components/Management/DeleteTestDialog.vue";
+import TextSnackBar from "@/tests_modulo/components/UI/TextSnackBar";
 
 export default {
-  name: 'Management',
+  name: "Management",
   components: { TestDisplayDialog, DeleteTestDialog, TextSnackBar },
   data() {
     return {
       headers: [
         {
-          text: 'Identificador',
-          value: 'id'
+          text: "Identificador",
+          value: "id",
         },
         {
-          text: 'Descrição',
-          value: 'description'
+          text: "Descrição",
+          value: "description",
         },
         {
-          text: 'Dominio',
-          value: 'domain'
+          text: "Dominio",
+          value: "domain",
         },
         {
-          text: 'SubDominios',
-          value: 'subdomains'
+          text: "SubDominios",
+          value: "subdomains",
         },
         {
-          text: 'Autor',
-          value: 'inserted_by'
+          text: "Autor",
+          value: "inserted_by",
         },
         {
-          text: 'Ultima Atualizacao',
-          value: 'last_updated'
+          text: "Ultima Atualizacao",
+          value: "last_updated",
         },
         {
-          text: 'Opções',
-          value: 'options',
-          sortable: false
-        }
+          text: "Opções",
+          value: "options",
+          sortable: false,
+        },
       ],
-      search: '',
+      search: "",
       loading: true,
       tests: [],
       showTestDisplayDialog: false,
@@ -183,72 +183,72 @@ export default {
       printableItems: [],
       snackbar: {
         show: false,
-        text: '',
-        color: ''
-      }
-    }
+        text: "",
+        color: "",
+      },
+    };
   },
   computed: {
     /** @returns {any} */
     tableTests() {
       return this.tests.map((t) => ({
         ...t.config,
-        subdomains: t.config.subdomains.join(', '),
+        subdomains: t.config.subdomains.join(", "),
         domain: t.config.domain.description,
-        id: t.id
-      }))
-    }
+        id: t.id,
+      }));
+    },
   },
   methods: {
     fetchTests() {
-      this.loading = true
+      this.loading = true;
 
       testsApi
         .getAll()
         .then((data) => {
-          this.tests = data
-          this.loading = false
+          this.tests = data;
+          this.loading = false;
         })
         .catch(() => {
           this.snackbar = {
             show: true,
-            color: 'error',
-            text: `Não foi possivel obter a lista de testes !! 😫 \n`
-          }
-        })
+            color: "error",
+            text: `Não foi possivel obter a lista de testes !! 😫 \n`,
+          };
+        });
     },
 
     deleteTest(id) {
-      this.loading = true
+      this.loading = true;
 
-      const test = this.tests.find((t) => t.id == id)
+      const test = this.tests.find((t) => t.id == id);
 
       testsApi
         .deleteOne(id)
         .then(() => {
-          this.tests = this.tests.filter((t) => t.id != id)
+          this.tests = this.tests.filter((t) => t.id != id);
           this.snackbar = {
             show: true,
-            color: 'warning',
-            text: `O teste ${test.id} - ${test.description} foi removido com sucesso !! 😉 \n`
-          }
-          this.loading = false
-          this.showTestDeleteDialog = false
+            color: "warning",
+            text: `O teste ${test.id} - ${test.description} foi removido com sucesso !! 😉 \n`,
+          };
+          this.loading = false;
+          this.showTestDeleteDialog = false;
         })
         .catch(() => {
           this.snackbar = {
             show: true,
-            color: 'error',
-            text: `Ocorreu um erro ao remover o teste ${test.id} - ${test.description} !! 😫 \n`
-          }
-        })
+            color: "error",
+            text: `Ocorreu um erro ao remover o teste ${test.id} - ${test.description} !! 😫 \n`,
+          };
+        });
     },
 
     remove(itemId) {
-      alert(`💀 removed ${itemId}`)
+      alert(`💀 removed ${itemId}`);
     },
     confirmQuestions() {
-      alert(`✔ Checking questions...`)
+      alert(`✔ Checking questions...`);
     },
     print() {
       alert(
@@ -257,16 +257,16 @@ export default {
           null,
           2
         )}`
-      )
+      );
     },
     setItems(visibleItems) {
-      this.printableItems = visibleItems
-    }
+      this.printableItems = visibleItems;
+    },
   },
   created() {
-    this.fetchTests()
-  }
-}
+    this.fetchTests();
+  },
+};
 </script>
 
 <style scoped>
