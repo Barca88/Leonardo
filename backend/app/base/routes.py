@@ -17,8 +17,8 @@ from app import mongo
 #from app.base.models import User
 import re
 
-###### este é meu
-import json 
+# este é meu
+import json
 from bson import json_util
 from flask_cors import CORS, cross_origin
 from datetime import datetime, timedelta
@@ -26,16 +26,19 @@ import jwt
 CORS(blueprint)
 #######
 
+
 @blueprint.route('/')
 def route_default():
     return redirect(url_for('base_blueprint.pesquisa'))
 
+
 @blueprint.route('/home')
 def pesquisa():
     folios = mongo.db.folios.find()
-    return render_template('pesquisa/pesquisa.html',folios=folios)
+    return render_template('pesquisa/pesquisa.html', folios=folios)
 
-def procuraTextoTodos(palavra, versao, resultado,npalavras):
+
+def procuraTextoTodos(palavra, versao, resultado, npalavras):
     resultados = []
     folios = mongo.db.folios.find()
     if(resultado == 'periodo'):
@@ -59,28 +62,29 @@ def procuraTextoTodos(palavra, versao, resultado,npalavras):
                             }
                             resultados.append(novo)
     elif(resultado == 'linha'):
-            for folio in folios:
-                if(folio['versao'] == versao or versao == 'todas'):
-                    nlinhas = 0
-                    linhas = folio['textoSTags'].split("\n")
-                    for linha in linhas:
-                        nlinhas += 1
-                        valor = re.search(palavra, linha)
-                        if(valor):
-                            novo = {
-                                'idfolio': str(folio['_id']),
-                                'linha': nlinhas,
-                                'valor': linha
-                                }
-                            resultados.append(novo)
+        for folio in folios:
+            if(folio['versao'] == versao or versao == 'todas'):
+                nlinhas = 0
+                linhas = folio['textoSTags'].split("\n")
+                for linha in linhas:
+                    nlinhas += 1
+                    valor = re.search(palavra, linha)
+                    if(valor):
+                        novo = {
+                            'idfolio': str(folio['_id']),
+                            'linha': nlinhas,
+                            'valor': linha
+                        }
+                        resultados.append(novo)
     else:
         for folio in folios:
             nlinhas = 0
             linhas = folio['textoSTags'].split("\n")
             for linha in linhas:
-                nlinhas += 1 
-                exp = '((\w+  ?){0,'+npalavras+'})(' + palavra + ')((  ?\w+){0,'+npalavras+'})'
-                valor = re.findall(exp,linha)
+                nlinhas += 1
+                exp = '((\w+  ?){0,'+npalavras+'})(' + \
+                    palavra + ')((  ?\w+){0,'+npalavras+'})'
+                valor = re.findall(exp, linha)
                 if(valor):
                     tuplo = valor[0]
                     tamanho = len(tuplo)
@@ -89,12 +93,12 @@ def procuraTextoTodos(palavra, versao, resultado,npalavras):
                         'idfolio': str(folio['_id']),
                         'linha': nlinhas,
                         'valor': novo_resultado
-                        }
+                    }
                     resultados.append(novo)
     return resultados
-   
 
-def procuraTextoFolio(palavra,versao,folio,resultado,npalavras):
+
+def procuraTextoFolio(palavra, versao, folio, resultado, npalavras):
     resultados = []
     if(folio['versao'] == versao or versao == 'todas'):
         if(resultado == 'periodo'):
@@ -132,9 +136,10 @@ def procuraTextoFolio(palavra,versao,folio,resultado,npalavras):
             nlinhas = 0
             linhas = folio['textoSTags'].split("\n")
             for linha in linhas:
-                nlinhas += 1 
-                exp = '((\w+  ?){0,'+npalavras+'})(' + palavra + ')((  ?\w+){0,'+npalavras+'})'
-                valor = re.findall(exp,linha)
+                nlinhas += 1
+                exp = '((\w+  ?){0,'+npalavras+'})(' + \
+                    palavra + ')((  ?\w+){0,'+npalavras+'})'
+                valor = re.findall(exp, linha)
                 if(valor):
                     novo = {
                         'idfolio': str(folio['_id']),
@@ -144,18 +149,16 @@ def procuraTextoFolio(palavra,versao,folio,resultado,npalavras):
                     resultados.append(valor)
     return resultados
 
-        
 
-
-def procuraTexto(palavra, versao, idfolio, resultado,npalavras):
+def procuraTexto(palavra, versao, idfolio, resultado, npalavras):
     resultados = []
     if(idfolio == 'Todos'):
-        resultados = procuraTextoTodos(palavra,versao,resultado,npalavras)
+        resultados = procuraTextoTodos(palavra, versao, resultado, npalavras)
     else:
-        folio = mongo.db.folios.find_one({"_id":idfolio})
-        resultados = procuraTextoFolio(palavra,versao,folio,resultado,npalavras)
+        folio = mongo.db.folios.find_one({"_id": idfolio})
+        resultados = procuraTextoFolio(
+            palavra, versao, folio, resultado, npalavras)
     return(resultados)
-
 
 
 def procuraTagTodos(palavra):
@@ -163,7 +166,7 @@ def procuraTagTodos(palavra):
     tags = mongo.db.tags.find()
     for tag in tags:
         conteudo = tag['conteudoTag']
-        for key,valores in conteudo.items():
+        for key, valores in conteudo.items():
             for valor in valores:
                 if valor == palavra:
                     idtag = str(tag['_id'])
@@ -174,12 +177,12 @@ def procuraTagTodos(palavra):
                     resultados.append(novo)
     return resultados
 
-        
 
-def procuraTag(palavra,idFolio):
+def procuraTag(palavra, idFolio):
     resultados = []
     resultados = procuraTagTodos(palavra)
     return resultados
+
 
 @blueprint.route('/pesquisar', methods=['POST'])
 def route_template_pesquisar():
@@ -192,16 +195,17 @@ def route_template_pesquisar():
     resultados = {}
 
     if(tipo == 'texto'):
-        resultados = procuraTexto(palavra,versao,folio,resultado,npalavras)
+        resultados = procuraTexto(palavra, versao, folio, resultado, npalavras)
         return render_template('pesquisa/res_texto.html', resultados=resultados, palavra=palavra)
     else:
-        resultados = procuraTag(palavra,folio)
+        resultados = procuraTag(palavra, folio)
         return render_template('pesquisa/res_tag.html', resultados=resultados, palavra=palavra)
 
 
 @blueprint.route('/admin')
 def route_default_login():
     return redirect(url_for('base_blueprint.login'))
+
 
 @blueprint.route('/page_<error>')
 def route_errors(error):
@@ -213,28 +217,26 @@ def route_errors(error):
 def login():
     _id = request.form.get('id')
     password = request.form.get('password')
-    user = mongo.db.users.find_one({"_id":_id})
+    user = mongo.db.users.find_one({"_id": _id})
     if user and check_password_hash(user["password"], password):
-        users= [doc for doc in mongo.db.users.find()]
+        users = [doc for doc in mongo.db.users.find()]
         nome = request.args.get('nome')
 
         token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=720)),
-            '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i'  #jwt app.config['SECRET_KEY']
-                           )
-        return json_util.dumps({'token': token, 'user':user, 'users': users, 'nome': nome})
+                           # jwt app.config['SECRET_KEY']
+                           '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
+        return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
     else:
         return json_util.dumps({'error': 'O utilizador não existe!'})
 
 
-
 @blueprint.route('/logout')
 @token_required
-#@login_required
+# @login_required
 def logout():
-    #logout_user()
+    # logout_user()
     print("logging out")
     return json_util.dumps({'message': 'Logged out!'})
-
 
 
 @login_manager.unauthorized_handler
