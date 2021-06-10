@@ -9,8 +9,9 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
+    "esm": "^3.2.25",
     "jw-vue-pagination": "^1.0.3",
     "vee-validate": "^3.2.5",
     "vue": "^2.6.12",
@@ -24,6 +25,8 @@
     "vuex-persistedstate": "^2.7.1"
   },
   "devDependencies": {
+    "@babel/helper-define-map": "^7.13.12",
+    "@babel/helper-regex": "^7.10.5",
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
