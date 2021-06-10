@@ -33,7 +33,7 @@
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
-                  Subdominios : {{ test.config.subdomains.join(', ') }}
+                  Subdominios : {{ test.config.subdomains.join(", ") }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -55,8 +55,8 @@
                 <v-list-item class="d-flex align-center">
                   Numero de Questoes :
                   {{
-                    test.config.number_questions +
-                    test.compromises.number_questions
+                    parseInt(test.config.number_questions) +
+                      parseInt(test.compromises.number_questions)
                   }}
                 </v-list-item>
 
@@ -89,7 +89,7 @@
 
                 <v-list-item class="d-flex align-center">
                   Tempo de realizacao :
-                  {{ parseInt(test.config.total_time) + ' min' }}
+                  {{ parseInt(test.config.total_time) + " min" }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -113,7 +113,7 @@
 <script>
 export default {
   props: {
-    test: Object
-  }
-}
+    test: Object,
+  },
+};
 </script>

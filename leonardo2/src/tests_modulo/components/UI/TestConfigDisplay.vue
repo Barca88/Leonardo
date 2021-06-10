@@ -31,7 +31,7 @@
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
-                  Subdominios : {{ test.config.subdomains.join(', ') }}
+                  Subdominios : {{ test.config.subdomains.join(", ") }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -108,15 +108,15 @@
             <v-list-item class="d-flex align-center">
               Dificuldade :
               {{
-                `${test.compromises.avg_difficulty >= 0 ? '+ ' : ' '}
+                `${test.compromises.avg_difficulty >= 0 ? "+ " : " "}
             ${test.compromises.avg_difficulty}`
               }}
             </v-list-item>
             <v-list-item class="d-flex align-center">
               Numero de questoes :
               {{
-                `${test.compromises.number_questions >= 0 ? '+ ' : '- '}
-            ${test.compromises.number_questions}`
+                `${test.compromises.number_questions >= 0 ? "+ " : "- "}
+            ${Math.abs(test.compromises.number_questions)}`
               }}
             </v-list-item>
           </v-list>
@@ -129,7 +129,7 @@
 <script>
 export default {
   props: {
-    test: Object
-  }
-}
+    test: Object,
+  },
+};
 </script>
