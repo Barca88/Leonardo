@@ -82,7 +82,7 @@
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/tests/management">
             <v-list-item-title class="white--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
@@ -115,7 +115,7 @@
               $t("adminNav.valida")
             }}</v-list-item-title>
           </v-list-item>
-           <v-list-item link to="/admin/folios">
+          <v-list-item link to="/admin/folios">
             <v-list-item-title class="white--text">{{
               $t("adminNav.conf")
             }}</v-list-item-title>
@@ -133,7 +133,7 @@
               $t("adminNav.av")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/tests/evaluation">
             <v-list-item-title class="white--text">{{
               $t("adminNav.test")
             }}</v-list-item-title>
@@ -201,7 +201,7 @@
           </v-list-item>
         </v-list-group>
 
-         <v-list-group
+        <v-list-group
           class="white--text"
           prepend-icon="mdi-chart-bar"
           :value="false"
@@ -217,7 +217,7 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/tests/results">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ans")
             }}</v-list-item-title>
@@ -342,7 +342,6 @@
           </v-list-item-icon>
           <v-list-item-title>{{ $t("adminNav.privacy") }}</v-list-item-title>
         </v-list-item>
-      
       </v-list>
       <!-- <template v-slot:append v-if="hover == true"> -->
       <template v-slot:append>
@@ -413,15 +412,12 @@ export default {
   },
   created() {
     axios
-      .get(
-        `http://localhost:5000/users/foto/${this.$store.state.user._id}`,
-        {
-          responseType: "arraybuffer",
-          headers: {
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-          },
-        }
-      )
+      .get(`http://localhost:5000/users/foto/${this.$store.state.user._id}`, {
+        responseType: "arraybuffer",
+        headers: {
+          Authorization: `Bearer: ${this.$store.state.jwt}`,
+        },
+      })
       .then((response) => {
         var image = new Buffer(response.data, "binary").toString("base64");
         this.userPic = `data:${response.headers[
@@ -434,7 +430,7 @@ export default {
       });
   },
   methods: {
-    reindFunc: function () {
+    reindFunc: function() {
       axios
         .get(`https://leonardo2.di.uminho.pt/import/reindex/`, {
           headers: {
@@ -487,13 +483,13 @@ export default {
           this.errors.push(e);
         });
     },
-    logout: function () {
+    logout: function() {
       //console.log("destroy token here")
       this.$store.commit("guardaTokenUtilizador", "");
       this.$store.commit("guardaNomeUtilizador", "");
       this.$router.push({ path: `/login` });
     },
-    fixNav: function () {
+    fixNav: function() {
       this.expandOnHover = !this.expandOnHover;
       this.miniVariant = !this.miniVariant;
       this.drawerOn = false;
