@@ -392,8 +392,8 @@ export default {
             this.$router.push( {path:`/`})
           }
       }).catch(e => {
-          this.errors.push(e)
-      })
+          console.log(e);
+})
     },
     post: function() {
         let formData = new FormData()

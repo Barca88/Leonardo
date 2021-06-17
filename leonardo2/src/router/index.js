@@ -3,6 +3,11 @@ import VueRouter from "vue-router";
 import store from "../store";
 import * as VueGoogleMaps from "vue2-google-maps";
 
+import Table from "@/views/Importação/Table.vue"
+import ErrorTable from "@/views/Importação/ErrorTable.vue"
+import ImportMenu from '@/views/Importação/ImportMenu.vue'
+import ImportDashboard from '@/views/Importação/ImportDashboard.vue'
+
 import TestsLayout from "@/tests_modulo/TestsLayout.vue";
 import Preparation from "@/tests_modulo/views/Preparation.vue";
 import Evaluation from "@/tests_modulo/views/Evaluation/Evaluation.vue";
@@ -447,6 +452,13 @@ const routes = [
         name: "results",
         component: ResultsDashboard,
       },
+
+      /* Rotas de Importação de Questões */
+      { path: '/importacao/import', component: ImportMenu },
+      { path: '/importacao/table', component: Table },
+      { path: '/importacao/errors', component: ErrorTable },
+      { path: '/importacao/dashboard', component: ImportDashboard }
+
     ],
   },
 ];

@@ -29,17 +29,17 @@
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/admin/folio/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/admin/folios/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/admin/folios/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
@@ -100,22 +100,29 @@
               $t("adminNav.ver")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <!-- ROTA DA IMPORTAÇÃO  -->
+          <v-list-item link to="/importacao/import">
             <v-list-item-title class="white--text">{{
               $t("adminNav.imp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/importacao/table">
             <v-list-item-title class="white--text">{{
               $t("adminNav.verquest")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/importacao/errors">
             <v-list-item-title class="white--text">{{
               $t("adminNav.valida")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+
+          <v-list-item link to="/importacao/dashboard">
+            <v-list-item-title class="white--text">{{
+              $t("adminNav.impdashboard")
+            }}</v-list-item-title>
+          </v-list-item>
+          <v-list-item link to="/importacao/config">
             <v-list-item-title class="white--text">{{
               $t("adminNav.conf")
             }}</v-list-item-title>
@@ -308,7 +315,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-item link to="/admin/documentacao">
+        <v-list-item link to="/admin/documentacao/">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>
