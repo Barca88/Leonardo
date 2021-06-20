@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import axios from "axios";
 import alerts from "../../../public/scripts/alerts.js"
 import helpers from "../../../public/scripts/helpers.js"

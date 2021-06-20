@@ -45,7 +45,7 @@
                             </div>
                             <div class="nQ_box">
                                 <div class="nQ_text"> Validadas </div>
-                                <div class="nQ_number"> {{ this.stats.validated }} </div
+                                <div class="nQ_number"> {{ this.stats.validated }} </div>
                             </div>
                         </div>
                         <div id="doughnut" style="width: 300px; height: 300px"></div>
