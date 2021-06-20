@@ -3,10 +3,10 @@ import VueRouter from "vue-router";
 import store from "../store";
 import * as VueGoogleMaps from "vue2-google-maps";
 
-import Table from "@/views/Importação/Table.vue"
-import ErrorTable from "@/views/Importação/ErrorTable.vue"
-import ImportMenu from '@/views/Importação/ImportMenu.vue'
-import ImportDashboard from '@/views/Importação/ImportDashboard.vue'
+import Table from "@/views/Importacao/Table.vue"
+import ErrorTable from "@/views/Importacao/ErrorTable.vue"
+import ImportMenu from '@/views/Importacao/ImportMenu.vue'
+import ImportDashboard from '@/views/Importacao/ImportDashboard.vue'
 
 import TestsLayout from "@/tests_modulo/TestsLayout.vue";
 import Preparation from "@/tests_modulo/views/Preparation.vue";
