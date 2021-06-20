@@ -377,7 +377,7 @@ export default {
         formData.append('obs',this.user.observacoes)
 
       if(this.value == 'editar'){
-        axios.post(`http://localhost:5000/users/editar/guardar?nome=` + this.user.username,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=` + this.user.username,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       
@@ -394,7 +394,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('http://localhost:5000/users/pedidos/registar',formData,{
+        axios.post('${process.env.VUE_APP_BACKEND}/users/pedidos/registar',formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       

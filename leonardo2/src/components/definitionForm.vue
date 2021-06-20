@@ -269,7 +269,7 @@ export default {
         formData.append('procurarr',this.definition.procurar)
       
       if(this.value == 'editar'){
-        axios.post(`http://localhost:5000/settings/editar/guardar?desc=` + this.definition.elemento,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/settings/editar/guardar?desc=` + this.definition.elemento,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       
@@ -287,7 +287,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('http://localhost:5000/settings/registar',formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/settings/registar`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       

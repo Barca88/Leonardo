@@ -412,7 +412,7 @@ export default {
   },
   created() {
     axios
-      .get(`http://localhost:5000/users/foto/${this.$store.state.user._id}`, {
+      .get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}`, {
         responseType: "arraybuffer",
         headers: {
           Authorization: `Bearer: ${this.$store.state.jwt}`,

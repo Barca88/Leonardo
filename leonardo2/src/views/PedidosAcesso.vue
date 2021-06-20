@@ -302,7 +302,7 @@ export default {
     methods: {
         atualizarInfo: function(){
             this.dialog=false
-            axios.get(`http://localhost:5000/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
                 //console.log(response.data)
@@ -329,7 +329,7 @@ export default {
             const index = this.pedidos.indexOf(item)
             //console.log(this.pedidos[index])        
             if (value == 'curriculo'){
-            axios.get(`http://localhost:5000/users/pedidos/curriculo/${this.pedidos[index]._id}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/curriculo/${this.pedidos[index]._id}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -346,7 +346,7 @@ export default {
             })
             }
             else if(value == 'foto'){
-                axios.get(`http://localhost:5000/users/pedidos/foto/${this.pedidos[index]._id}`, {
+                axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/foto/${this.pedidos[index]._id}`, {
                     responseType:'arraybuffer',
                     headers: {
                         'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -370,7 +370,7 @@ export default {
         },
         edit(){
             this.update = true
-            axios.get(`http://localhost:5000/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
                 //console.log(response.data)
@@ -385,7 +385,7 @@ export default {
         deleteItem (item) {
             let index = this.pedidos.indexOf(item)
             //console.log('Index: ' + index + ' Username: ' + this.pedidos[index]._id)
-            axios.get(`http://localhost:5000/users/pedidos/apagar/` + this.pedidos[index]._id + `?nome=` + this.pedidos[index]._id,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/apagar/` + this.pedidos[index]._id + `?nome=` + this.pedidos[index]._id,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
                 //console.log(response.data)
@@ -405,7 +405,7 @@ export default {
     },
     created() {
       //console.log('store->' + this.$store.state.jwt)
-      axios.get(`http://localhost:5000/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+      axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
       .then(response => {
           // JSON responses are automatically parsed.
           //console.log(response.data)

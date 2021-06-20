@@ -163,7 +163,7 @@ export default {
         formData.append('sumario',this.folio.sumario)
       
       if(this.value == 'editar'){
-        axios.post(`http://localhost:5000/folios/editar/guardar?nome=` + this.folio.idFolio,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/folios/editar/guardar?nome=` + this.folio.idFolio,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       
@@ -180,7 +180,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('http://localhost:5000/folios/registar',formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/folios/registar`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`       

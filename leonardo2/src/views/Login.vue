@@ -376,7 +376,7 @@ export default {
       let formData = new FormData()
         formData.append('id',this.id)
         formData.append('password',this.password)
-      axios.post('http://localhost:5000/login',formData,{
+      axios.post(`${process.env.VUE_APP_BACKEND}/login`,formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`     
@@ -408,7 +408,7 @@ export default {
             formData.append('curriculo',this.pedido.curriculo)
             formData.append('obs',this.pedido.observacoes)
 
-        axios.post('http://localhost:5000/users/pedidos/registar',formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data'    
           }
