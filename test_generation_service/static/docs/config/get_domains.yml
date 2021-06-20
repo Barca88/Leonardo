@@ -1,0 +1,7 @@
+This endpoint to get all the available domains and subdomains according to the questions that are in the database.
+---
+tags:
+  - config
+responses:
+  200:
+    description: The available domains and subdomains.

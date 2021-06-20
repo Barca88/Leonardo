@@ -1,0 +1,19 @@
+---
+type: object
+properties:
+  id:
+    type: string
+  questions:
+    type: array
+    items:
+      $ref: "question.yml"
+  config:
+    type: object
+    $ref: "test_configuration.yml"
+  compromises:
+    type: object
+    properties:
+      number_questions:
+        type: integer
+      avg_difficulty:
+        type: number

@@ -1,0 +1,25 @@
+This endpoint is used to edit a test.
+---
+tags:
+  - generator
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: test_edit_info
+    description: The object that contains the information to edit the test.
+    schema:
+      type: object
+      properties:
+        replace:
+          type: array
+          items:
+            type: integer
+        test:
+          type: object
+          $ref: "docs/components/test.yml"
+responses:
+  200:
+    description: "The test was successfully edited"
+  400:
+    description: "The edit information that was provided is not consistent with the expected one"
