@@ -453,7 +453,7 @@ const routes = [
         component: ResultsDashboard,
       },
 
-      /* Rotas de Importação de Questões */
+      /* Rotas de Importacao de Questões */
       { path: '/importacao/import', component: ImportMenu },
       { path: '/importacao/table', component: Table },
       { path: '/importacao/errors', component: ErrorTable },

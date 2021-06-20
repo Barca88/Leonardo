@@ -5,7 +5,7 @@
             <div class="fileSelection">
                 Ficheiro: <span class="selected">{{ selectedFile }}</span>
                 <label for="file-upload">
-                    <i class="fa fa-paperclip"></i>
+                    <v-icon>mdi-paperclip</v-icon>
                 </label>
                 <input id="file-upload" v-on:change="handleChanged" accept=".leo,.json" type="file"/>
             </div>
