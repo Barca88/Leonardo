@@ -14,7 +14,7 @@ class Domain(MongoModel):
     study_cycle = fields.CharField(required=True)
 
     class Meta:
-        connection_alias = 'tests_results'
-        collection_name = 'tests_results'
+        connection_alias = 'domains'
+        collection_name = 'domains'
         final = True
 
