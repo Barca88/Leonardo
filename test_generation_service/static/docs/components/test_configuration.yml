@@ -1,0 +1,51 @@
+---
+type: object
+properties:
+  description:
+    type: string
+  test_type:
+    type: string
+  number_questions:
+    type: integer
+  maximum_displayed_answers:
+    type: integer
+  avg_difficulty:
+    type: integer
+  total_time:
+    type: integer
+  question_types:
+    type: array
+    items:
+      type: string
+  language:
+    type: string
+  domain:
+    type: object
+    properties:
+      study_cycle:
+        type: string
+      scholarity:
+        type: string
+      description:
+        type: string
+  subdomains:
+    type: array
+    items:
+      type: string
+  subsubdomains:
+    type: array
+    items:
+      type: string
+  inserted_by:
+    type: string
+  date:
+    type: object
+    properties:
+      start:
+        type: string
+      finish:
+        type: string
+  obs:
+    type: string
+  visibility:
+    type: string

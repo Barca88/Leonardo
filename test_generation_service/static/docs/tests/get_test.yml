@@ -1,0 +1,17 @@
+This endpoint is used to retrieve a test from the database.
+---
+tags:
+  - tests
+parameters:
+  - name: test_id
+    in: path
+    type: string
+    required: true
+    default: null
+responses:
+  200:
+    description: The intended test
+    schema:
+      $ref: "docs/components/test.yml"
+  400:
+    description: The provided identifier does not match any test.

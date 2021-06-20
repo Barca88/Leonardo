@@ -1,0 +1,7 @@
+Endpoint that basically serves test purposes in order to realize if the API is up.
+---
+tags:
+  - index
+responses:
+  200:
+    description: "Hello World!"

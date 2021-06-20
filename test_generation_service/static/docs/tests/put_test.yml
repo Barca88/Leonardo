@@ -1,0 +1,19 @@
+This endpoint is used to update the information that a test contains.
+---
+tags:
+  - tests
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: test_update_object
+    description: The test object that contains the fields that should be updated.
+    schema:
+      $ref: "docs/components/test.yml"
+responses:
+  200:
+    description: "The test was updated successfuly"
+  404:
+    description: "The test you tried to update is not registered in the database"
+  400:
+    description: "The data that was received is not consistent with the layout of a test update object"

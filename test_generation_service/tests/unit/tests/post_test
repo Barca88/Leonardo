@@ -1,0 +1,109 @@
+#!/bin/bash
+
+curl -sS -H "Content-Type: application/json" \
+    -X POST "localhost:5000/tests" -d "{
+        \"id\": \"TESTE1\",
+        \"questions\": [
+            {
+                \"id\": \"UKEINSBD0150\",
+                \"language\": \"uk\",
+                \"domain\": {
+                    \"study_cycle\": \"University Course\",
+                    \"scholarity\": \"Informatics Engineering\",
+                    \"description\": \"Database Systems\"
+                },
+                \"subdomain\": \"SQL\",
+                \"subsubdomain\": \"\",
+                \"difficulty_level\": \"1\",
+                \"display_mode\": \"G\",
+                \"answering_time\": \"60\",
+                \"type\": \"\",
+                \"precedence\": [],
+                \"repetitions\": \"0\",
+                \"header\": \"SQL is a language used for programming and designed specifically for data description, manipulation, and control in a relational database system. This statement is:\",
+                \"body\": [
+                    {
+                        \"answer\": \"True.\",
+                        \"correction\": 1,
+                        \"mandatory\": true
+                    },
+                    {
+                        \"answer\": \"False.\",
+                        \"correction\": 0,
+                        \"mandatory\": true
+                    }
+                ],
+                \"solution\": \"\",
+                \"images\": \"\",
+                \"videos\": \"\",
+                \"source\": \"Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019\",
+                \"notes\": \"Para utilização exclusiva da plataforma educacional Leonardo\",
+                \"status\": \"E\",
+                \"inserted_by\": \"Belo, O\",
+                \"inserted_at\": \"2019-09-12\",
+                \"validated_by\": \"\",
+                \"validated_at\": \"\"
+            },
+            {
+                \"id\": \"UKEINSBD0151\",
+                \"language\": \"uk\",
+                \"domain\": {
+                    \"study_cycle\": \"University Course\",
+                    \"scholarity\": \"Informatics Engineering\",
+                    \"description\": \"Database Systems\"
+                },
+                \"subdomain\": \"SQL\",
+                \"subsubdomain\": \"\",
+                \"difficulty_level\": \"1\",
+                \"display_mode\": \"G\",
+                \"answering_time\": \"60\",
+                \"type\": \"\",
+                \"precedence\": [],
+                \"repetitions\": \"0\",
+                \"header\": \"SQL is a language used for programming and designed specifically for data description, manipulation, and control in a relational database system. This statement is:\",
+                \"body\": [
+                    {
+                        \"answer\": \"True.\",
+                        \"correction\": 1,
+                        \"mandatory\": true
+                    },
+                    {
+                        \"answer\": \"False.\",
+                        \"correction\": 0,
+                        \"mandatory\": true
+                    }
+                ],
+                \"solution\": \"\",
+                \"images\": \"\",
+                \"videos\": \"\",
+                \"source\": \"Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019\",
+                \"notes\": \"Para utilização exclusiva da plataforma educacional Leonardo\",
+                \"status\": \"E\",
+                \"inserted_by\": \"Belo, O\",
+                \"inserted_at\": \"2019-09-12\",
+                \"validated_by\": \"\",
+                \"validated_at\": \"\" 
+            }
+        ],
+        \"config\": {
+            \"description\": \"Este teste foi gerado de forma automatica\",
+            \"test_type\": \"Avaliacao\",
+            \"number_questions\": 2,
+            \"maximum_displayed_answers\": 2,
+            \"avg_difficulty\": 2,
+            \"total_time\": 100,
+            \"question_types\": [\"tipo\", \"\"],
+            \"language\": \"uk\",
+            \"domain\": {
+                \"study_cycle\": \"University Course\",
+                \"scholarity\": \"Informatics Engineering\",
+                \"description\": \"Database Systems\"
+            },
+            \"subdomains\": [\"\"],
+            \"subsubdomains\": [\"\"],
+            \"inserted_by\": \"Belo, O\",
+            \"date\": [\"2021-04-10\", \"2021-04-12\"],
+            \"obs\": \"Post Test test\",
+            \"visibility\": \"author\"
+        }
+    }"

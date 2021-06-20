@@ -1,0 +1,17 @@
+This endpoint is used to delete a test from the database.
+---
+tags:
+  - tests
+parameters:
+  - name: test_id 
+    in: path
+    type: string
+    required: true
+    default: null
+responses:
+  200:
+    description: The test was successfully deleted.
+  404:
+    description: The test you tried to delete does not exist.
+
+
