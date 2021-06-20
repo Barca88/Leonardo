@@ -27,7 +27,7 @@
 
 <script>
 import axios from 'axios'
-import GenericAlert from '../../components/Importação/GenericAlert.vue'
+import GenericAlert from '../../components/Importacao/GenericAlert.vue'
 import alerts from "../../../public/scripts/alerts.js"
 
 export default {
@@ -59,7 +59,7 @@ export default {
                 json[i].uid = json[i].identifier
                 json[i].flag = 'pending'
                 // post it into the question database
-                await axios.post('http://localhost:1337/importacao', json[i])
+                await axios.post('http://localhost:1337/imported_questions', json[i])
                 .catch(function (error) {
                     if (error.response) {
                       count += 1;
@@ -72,7 +72,7 @@ export default {
             }
             // post it into the imported files database
             console.log(fileInfo)
-            await axios.post('http://localhost:1337/imported-data', fileInfo)
+            await axios.post('http://localhost:1337/imported_info', fileInfo)
             .catch(function (error) {
                 if (error.response) {
                   // Request made and server responded
@@ -87,7 +87,7 @@ export default {
             var count = 0, json = text, rest
             // Parse JSON if that hasn't been done yet
             if(isLeo) {
-                json = JSON.parse(text)
+               json = JSON.parse(text)
                 fileInfo['type'] = "json"
             } else fileInfo['type'] = "leo"
 

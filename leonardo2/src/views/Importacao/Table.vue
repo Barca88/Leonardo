@@ -66,7 +66,7 @@
           <p-check
             class="p-default p-round p-thick"
             color="primary-o"
-            v-model="selected"
+            v-mode="selected"
             :value="item"
           ></p-check>
         </template>
@@ -84,8 +84,8 @@
 <script>
 import axios from "axios";
 import helpers from "../../../public/scripts/helpers.js"
-import Carousel from "../../components/Importação/Carousel.vue"
-import GenericAlert from '../../components/Importação/GenericAlert.vue'
+import Carousel from "../../components/Importacao/Carousel.vue"
+import GenericAlert from '../../components/Importacao/GenericAlert.vue'
 
 export default {
     metaInfo:{
@@ -134,7 +134,7 @@ export default {
         },
         {
           text: "Data Criação",
-          value: "createdAt",
+          value: "inserted_at",
           align: "align-content-start",
           class: "white--text",
         },
@@ -160,7 +160,7 @@ export default {
     },
 
     loadQuestions: function () {
-      axios.get("http://localhost:1337/importacao", {}).then((resp) => {
+      axios.get("http://localhost:1337/imported_questions", {}).then((resp) => {
         this.questions = resp.data;
       });
     },
@@ -175,7 +175,7 @@ export default {
     editQuestion: helpers.editQuestion,
 
     getColor: function (flag) {
-      if (flag === "aproved") return "#00E676";
+      if (flag === "aprovd") return "#00E676";
       else if (flag === "rejected") return "#F44336";
       else return "#2196F3";
     },
@@ -190,7 +190,7 @@ export default {
         } else {
           question.flag = "aproved";
           axios.put(
-            "http://localhost:1337/importacao/" + question.id,
+            "http://localhost:1337/imported_questions/" + question.identifier,
             question
           );
         }

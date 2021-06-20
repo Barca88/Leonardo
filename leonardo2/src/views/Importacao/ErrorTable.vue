@@ -50,8 +50,7 @@
 import axios from "axios";
 import alerts from "../../../public/scripts/alerts.js"
 import helpers from "../../../public/scripts/helpers.js"
-import GenericAlert from '../../components/Importação/GenericAlert.vue'
-
+import GenericAlert from '../../components/Importacao/GenericAlert.vue'
 export default {
     metaInfo:{
       title:'Leonardo-Verificação de Erros'
@@ -66,7 +65,7 @@ export default {
       headers: [
         {
           text: "Identificador",
-          value: "id",
+          value: "_id",
           align: "align-content-start",
           sortable: true,
           class: "white--text",
@@ -111,10 +110,15 @@ export default {
     async confirmDialog (item) {
         helpers.confirmDialog(item, this.$refs.popup)
     },
+    formatDate: function (d) {
+        return moment(d).format("YYYY-MM-DD hh:mm");
+    },
     loadErrors: function () {
-      axios.get("http://localhost:1337/errors", {}).then((resp) => {
+      axios.get("http://localhost:1337/imported_errors", {}).then((resp) => {
         this.errors = resp.data;
         this.errors.reverse();
+        // Fix the date to a better format right here
+        this.errors.forEach(obj => obj.createdAt = this.formatDate(obj.createdAt));
       });
     },
   }
@@ -125,7 +129,7 @@ export default {
 .v-data-table /deep/ th {
   background-color: #4b779e;
   color: white !important;
-  font-size: 16px !important;
+ font-size: 16px !important;
   font-weight: bolder !important;
 }
 

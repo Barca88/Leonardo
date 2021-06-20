@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
     logPopup (popup){
         // Log it on the db
-        axios.post('http://localhost:1337/errors', popup)
+        axios.post('http://localhost:1337/imported_errors', popup)
         .catch(function (error) {
             if (error.response) {
               // Request made and server responded
@@ -21,7 +21,8 @@ export default {
             message: "Ficheiro importado.</br>" + correct + " novas questões inseridas no sistema.</br>" + failed + " questões recusadas.",
             confirmB: false,
             type: "info",
-            dialog: true
+            dialog: true,
+            createdAt: new Date()
         }
         this.logPopup(popup)
         return popup
@@ -33,7 +34,8 @@ export default {
             message: text,
             confirmB: false,
             type: "info",
-            dialog: true
+            dialog: true,
+            createdAt: new Date()
         }
         this.logPopup(popup)
         return popup
@@ -45,7 +47,8 @@ export default {
             message: text,
             confirmB: false,
             type: "del",
-            dialog: true
+            dialog: true,
+            createdAt: new Date()
         }
         this.logPopup(popup)
         return popup
@@ -57,7 +60,8 @@ export default {
             message: text,
             confirmB: false,
             type: "warn",
-            dialog: true
+            dialog: true,
+            createdAt: new Date()
         }
         this.logPopup(popup)
         return popup
@@ -69,7 +73,8 @@ export default {
             message: text,
             confirmB: true,
             type: "confirm",
-            dialog: true
+            dialog: true,
+            createdAt: new Date()
         }
         this.logPopup(popup)
         return popup

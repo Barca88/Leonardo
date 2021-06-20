@@ -40,14 +40,16 @@
                             <v-text-field
                               class="label-style"
                               label="Flag"
+                              value=""
                               readonly
+                              required
                               >
                               <template slot="append">
-                                <v-icon medium :color="getColor(question.flag)"> mdi-flag </v-icon>
+                                <v-icon small :color="getColor(question.flag)"> mdi-flag </v-icon>
                               </template>
                               </v-text-field>
                           </v-col>
-                          <v-col cols="12" sm="6" md="4">
+                          <v-col cols="12" sm="" md="4">
                             <v-text-field
                               label="Identificador"
                               class="label-style"
@@ -78,7 +80,7 @@
                               class="label-style"
                               label="Data de criação"
                               readonly
-                              v-model="question.createdAt"
+                              v-model="question.inserted_at"
                               required
                             ></v-text-field>
                           </v-col>
@@ -139,7 +141,6 @@ import helpers from "../../../public/scripts/helpers.js";
 import alerts from "../../../public/scripts/alerts.js"
 import GenericAlert from './GenericAlert.vue'
 
-
 export default {
   name: "Table",
   props: ["questions", "index"],
@@ -159,9 +160,9 @@ export default {
 
   methods: {
    shuffleArray: function(index) {
-    var copiedQuestions = this.$props.questions.map((x)=>x);
-    var half =  copiedQuestions.splice(index);
-    this.questionsShuffled= half.concat(copiedQuestions);
+       var copiedQuestions = this.$props.questions.map((x)=>x);
+       var half =  copiedQuestions.splice(index);
+       this.questionsShuffled= half.concat(copiedQuestions);
   },
 
 
@@ -240,7 +241,7 @@ font-size: 20px !important;
 
 /* Cor associada a linha sobre o texto depois de selecionada. */
 .v-text-field .v-input__control {
-  color:black !important;
+  color:black !impotant;
 }
 
 div.v-input__slot::before{
