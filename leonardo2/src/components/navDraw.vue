@@ -122,11 +122,13 @@
               $t("adminNav.impdashboard")
             }}</v-list-item-title>
           </v-list-item>
+          <!-- 
           <v-list-item link to="/importacao/config">
             <v-list-item-title class="white--text">{{
               $t("adminNav.conf")
             }}</v-list-item-title>
           </v-list-item>
+          -->
         </v-list-group>
 
         <v-list-group

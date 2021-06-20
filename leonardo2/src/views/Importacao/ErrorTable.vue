@@ -52,7 +52,6 @@ import axios from "axios";
 import alerts from "../../../public/scripts/alerts.js"
 import helpers from "../../../public/scripts/helpers.js"
 import GenericAlert from '../../components/Importacao/GenericAlert.vue'
-import moment from "moment"
 
 export default {
     metaInfo:{
