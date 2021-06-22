@@ -50,7 +50,7 @@ export default {
         getUserDomains: async  function(){
             var username=this.$store.state['user']._id;
             var domains =[]
-            await axios.get('http://localhost:1337/domains')
+            await axios.get('http://localhost:1318/domains')
                 .then(res =>{
 
                     res.data.forEach(e => {
@@ -122,7 +122,7 @@ export default {
         },
         loadLEO: function(text, fileInfo){
             // Transform .leo into JSON text
-            axios.post('http://localhost:8081/text', text)
+            axios.post('http://localhost:1338/text', text)
             .then(response => {
                 console.log(response.data);
                 this.loadJSON(response.data, false, fileInfo);

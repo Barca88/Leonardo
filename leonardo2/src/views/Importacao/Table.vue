@@ -165,7 +165,7 @@ export default {
     },
 
     loadQuestions: function () {
-      axios.get("http://localhost:1337/imported_questions", {}).then((resp) => {
+      axios.get("http://localhost:1318/imported_questions", {}).then((resp) => {
         this.questions = resp.data;
       });
     },

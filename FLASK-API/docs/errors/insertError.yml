@@ -1,7 +1,0 @@
-Inserts an error into the collection.
-    ---
-    responses:
-      200:
-        description: Inserted the error in the collection successfully.
-        schema:
-          $ref: 'components/errors.yml'

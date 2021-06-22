@@ -67,7 +67,7 @@ export default {
       headers: [
         {
           text: "Identificador",
-          value: "_id",
+          value: "id",
           align: "align-content-start",
           sortable: true,
           class: "white--text",
@@ -116,7 +116,7 @@ export default {
         return moment(d).format("YYYY-MM-DD hh:mm");
     },
     loadErrors: function () {
-      axios.get("http://localhost:1337/imported_errors", {}).then((resp) => {
+      axios.get("http://localhost:1318/imported_errors", {}).then((resp) => {
         this.errors = resp.data;
         this.errors.reverse();
         // Fix the date to a better format right here

@@ -1,7 +1,0 @@
-Endpoint returning the collection of errors.
-    ---
-    responses:
-      200:
-        description: A json containing all errors.
-        schema:
-          $ref: 'components/question.yml'

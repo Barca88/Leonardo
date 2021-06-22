@@ -24,7 +24,9 @@ export default {
             "http://localhost:1318/imported_questions/" + question.id,
             question
           );
-      }
+          /*  CORRIGIR A ROTA PARA INSERIR A QUESTION NA COLEÇÃO questions */
+          //  axios.post("http://localhost:1318/questions/",question);      
+        }
     },
     rejectQuestion: function (question) {
         (question.flag = "rejected") &&

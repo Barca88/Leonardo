@@ -174,7 +174,7 @@ export default {
         },
         loadQuestions: function () {
             // Get the questions and obtain a list of domains and editors of those questions
-          axios.get("http://localhost:1337/imported_questions", {}).then((resp) => {
+          axios.get("http://localhost:1318/imported_questions", {}).then((resp) => {
             this.items = resp.data;
             this.domains = Array.from(this.items.map(obj => obj['domain']));
             this.editors = Array.from(this.items.map(obj => obj['author']));
@@ -184,11 +184,11 @@ export default {
             this.statsPromise(this.stats)
           });
           // Get the imported data for the imported scrollable section
-          axios.get("http://localhost:1337/imported_info", {}).then((resp) => {
+          axios.get("http://localhost:1318/imported_info", {}).then((resp) => {
             this.importedData = resp.data;
           });
           // Load errors for the error scrollable section
-          axios.get("http://localhost:1337/imported_errors", {}).then((resp) => {
+          axios.get("http://localhost:1318/imported_errors", {}).then((resp) => {
             this.errors = resp.data;
           });
         },
@@ -208,10 +208,10 @@ export default {
             await this.createCharts();
         },
         async selectBy () {
-            var query = "http://localhost:1337/importacao/stats"
+            var query = "http://localhost:1318/imported_questions/stats"
 
             // Check if domain or author are unfulfilled and build the query
-            if(this.author == undefined) query = query + "byDomain/" + this.domain;
+            if(this.author == undefined) query = query + "ByDomain/" + this.domain;
             else if(this.domain == undefined) query = query + "ByAuthor/" + this.author;
             else query = query + "ByBoth/" + this.author + "/" + this.domain;
 

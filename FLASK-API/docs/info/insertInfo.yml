@@ -1,7 +1,0 @@
-Inserts information about a loaded file into the collection.
-    ---
-    responses:
-      200:
-        description: Inserted the info in the collection successfully.
-        schema:
-          $ref: 'components/info.yml'
