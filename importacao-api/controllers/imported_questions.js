@@ -38,6 +38,6 @@ module.exports.insert = question  =>{
 
 // Permite editar a flag de uma question
 module.exports.edit = (id,question) => {
-    return Question.findOneAndUpdate({identifier:id},{flag:question.flag});
+    return Question.findOneAndUpdate({id:id},{flag:question.flag});
 }
 

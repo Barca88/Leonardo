@@ -106,6 +106,7 @@ export default {
             number:[],
             percent:0,
             condition:false,
+
         }
     },
     components:{
@@ -113,6 +114,7 @@ export default {
             'navDraw':NavDraw
     },
     created: async function() {
+
         //Data atual
         var today = new Date()
         var date = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear()

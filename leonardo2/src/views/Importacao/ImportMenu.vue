@@ -46,29 +46,52 @@ export default {
         GenericAlert
     },
     methods: {
+
+        getUserDomains: async  function(){
+            var username=this.$store.state['user']._id;
+            var domains =[]
+            await axios.get('http://localhost:1337/domains')
+                .then(res =>{
+
+                    res.data.forEach(e => {
+                        if(e.responsible==username)
+                            domains.push(e.id);
+                    });
+                })
+                .catch( e => {
+                    console.log('Erro a obter a lista de domínios :: '+ e );
+                })
+
+                return domains;
+        }
+        ,
         clear: function(){
             this.selectedFile = "<ficheiro .leo>"
             this.anySelected = false
         },
         async performPOST (json, fileInfo){
-            var i, count = 0
+            var i, count = 0,domains= await this.getUserDomains()
             for (i in json) {
-                console.log(json[i])
-                // Fix id into identifier and add initial flag
-                json[i].identifier = json[i].id
-                json[i].uid = json[i].identifier
+                console.log(domains)
                 json[i].flag = 'pending'
                 // post it into the question database
-                await axios.post('http://localhost:1337/imported_questions', json[i])
-                .catch(function (error) {
-                    if (error.response) {
-                      count += 1;
-                      // Request made and server responded
-                      console.log(error.response.data);
-                      console.log(error.response.status);
-                      console.log(error.response.headers);
+                console.log(domains +'   '+ json[i].domain )
+                if(domains.includes(json[i].domain)){
+                    await axios.post('http://localhost:1337/imported_questions', json[i])
+
+                    .catch(function (error) {
+                        if (error.response) {
+                            count += 1;
+                            // Request made and server responded
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
                     }
                 });
+                }
+                else {
+                       count+=1;
+                }
             }
             // post it into the imported files database
             console.log(fileInfo)

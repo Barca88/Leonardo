@@ -54,7 +54,7 @@
                               label="Identificador"
                               class="label-style"
                               readonly
-                              v-model="question.identifier"
+                              v-model="question.id"
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">
@@ -98,9 +98,14 @@
                               <v-icon >mdi-sticker-check-outline</v-icon>
                             </v-btn>
 
-                            <v-btn class="btn-carousel" color="primary" @click="editQuestion(question)">
+                           
+                          <router-link :to="{ name: 'ProdQuestao', params: { question: item } }">
+                            <v-btn class="btn-carousel" color="primary" >
                                 <v-icon  medium > mdi-pencil</v-icon>
                             </v-btn>
+                          </router-link>
+
+
 
                             <v-btn  class="btn-carousel" color="error" @click="confirmDialog(question, 'reject')">
                               <v-icon medium > mdi-trash-can-outline </v-icon>
@@ -190,13 +195,6 @@ export default {
      help: function(){
         this.alertPopup=alerts.infoDialog("Alguma informação relevante para o utilizador.<br> Algum texto nesta linha.")
         }
-  },
-  mounted: function () {
-    this.$nextTick(function () {
-      // Code that will run only after the
-      // entire view has been rendered
-      document.getElementsByClassName("v-carousel__controls__item")[this.index].click();
-    });
   },
   created: function(){
     this.shuffleArray(this.i);

@@ -9,6 +9,7 @@ var cors = require('cors')
 var errorRouter = require('./routes/errors');
 var infoRouter = require('./routes/infos');
 var questionRouter = require('./routes/questions');
+var domainRouter = require('./routes/domains');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1/leonardo', 
@@ -42,6 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/imported_errors',errorRouter);
 app.use('/imported_questions',questionRouter);
 app.use('/imported_info',infoRouter);
+app.use('/domains',domainRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

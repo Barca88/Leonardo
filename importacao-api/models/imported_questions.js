@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var questionSchema = new mongoose.Schema({
-    identifier: { type:String,required:true,unique:true},
-    languague: {type:String,required:false},
+    id: { type:String,required:true,unique:true},
+    language: {type:String,required:false},
     study_cycle:{type: String,required: false},
     scholarity: {type:String,required:false},
     domain:{type: String,required: false},

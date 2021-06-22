@@ -53,20 +53,25 @@
           <v-icon medium class="mr-2">
             mdi-eye
           </v-icon>
-        </v-btn>
+        </v-btn> 
+
         <v-icon medium color="#4CAF50" @click="confirmDialog(item, 'aprove')">
             mdi-checkbox-marked-circle
           </v-icon>
-          <v-icon  medium class="mr-2">
+
+          <router-link :to="{ name: 'ProdQuestao', params: { question: item } }">
+            <v-icon  medium class="mr-2">
             mdi-pencil
-          </v-icon>
+          </v-icon>       
+          </router-link>
+               
           <v-icon medium @click="confirmDialog(item, 'reject')">
             mdi-trash-can-outline
           </v-icon>
           <p-check
             class="p-default p-round p-thick"
             color="primary-o"
-            v-mode="selected"
+            v-model="selected"
             :value="item"
           ></p-check>
         </template>
@@ -108,7 +113,7 @@ export default {
         },
         {
           text: "Identificador",
-          value: "identifier",
+          value: "id",
           align: "align-content-start",
           sortable: true,
           class: "white--text",
@@ -165,6 +170,7 @@ export default {
       });
     },
     async confirmDialog (item, str) {
+
         helpers.confirmDialog(item, str, this.$refs.popup)
     },
 
@@ -175,7 +181,7 @@ export default {
     editQuestion: helpers.editQuestion,
 
     getColor: function (flag) {
-      if (flag === "aprovd") return "#00E676";
+      if (flag === "aproved") return "#00E676";
       else if (flag === "rejected") return "#F44336";
       else return "#2196F3";
     },
@@ -184,13 +190,13 @@ export default {
       let aproved = [], invalid = []
       this.selected.forEach((question) => {
         if (question.flag === "aproved") {
-          aproved.push(question.identifier);
+          aproved.push(question.id);
         } else if (question.flag === "rejected") {
-          invalid.push(question.identifier);
+          invalid.push(question.id);
         } else {
           question.flag = "aproved";
           axios.put(
-            "http://localhost:1337/imported_questions/" + question.identifier,
+            "http://localhost:1337/imported_questions/" + question.id,
             question
           );
         }

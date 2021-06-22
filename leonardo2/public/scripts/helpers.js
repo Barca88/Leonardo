@@ -4,11 +4,11 @@ import alerts from "./alerts.js"
 export default {
     async confirmDialog (question, action, popup){
       if (action === "reject") {
-          var str = "Are you sure you want to reject the question " + question.identifier + "?"
+          var str = "Are you sure you want to reject the question " + question.id + "?"
           const ok = await popup.trigger(alerts.confirmDialog(str))
           if(ok) this.rejectQuestion(question)
       } else if (action === "aprove") {
-          str = "Are you sure you want to aprove the question " + question.identifier + "?"
+          str = "Are you sure you want to aprove the question " + question.id + "?"
           const ok = await popup.trigger(alerts.confirmDialog(str))
           if(ok) this.aproveQuestion(question, popup)
       }
@@ -21,14 +21,14 @@ export default {
       } else {
         (question.flag = "aproved") &&
           axios.put(
-            "http://localhost:1337/imported_questions/" + question.identifier,
+            "http://localhost:1337/imported_questions/" + question.id,
             question
           );
       }
     },
     rejectQuestion: function (question) {
         (question.flag = "rejected") &&
-        axios.put("http://localhost:1337/imported_questions/" + question.identifier, question);
+        axios.put("http://localhost:1337/imported_questions/" + question.id, question);
     },
     editQuestion: function (question) {
       this.editedIndex = this.questions.indexOf(question);

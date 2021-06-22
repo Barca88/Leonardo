@@ -43,7 +43,7 @@ router.put('/:id', function(req, res) {
 router.post('/', function(req, res){
     Question.insert(req.body)
       .then(dados => res.status(201).jsonp({dados: dados}))
-      .catch(e => res.status(500).jsonp({error: e}))
+      .catch(e => res.status(500).jsonp({error: e,message:'Duplicated Keys : '+req.body.id }))
   })
 
 

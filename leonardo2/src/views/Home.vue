@@ -292,7 +292,7 @@ export default {
       npalavras: "",
       resultado: "periodo", 
       pesquisas: [], 
-      show: false
+      show: false,
     };
   }, 
 
