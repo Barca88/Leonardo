@@ -1,0 +1,9 @@
+Endpoint that inserts a question
+    ---
+    responses:
+      200:
+        description: Sends back the new question inserted.
+        schema:
+          $ref: 'components/question.yml'
+      500:
+        description: Duplicated ID error or invalid domain.

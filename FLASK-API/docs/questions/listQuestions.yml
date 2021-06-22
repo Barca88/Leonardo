@@ -1,0 +1,7 @@
+Endpoint that returns all questions.
+    ---
+    responses:
+      200:
+        description: All questions published.
+        schema:
+          $ref: 'components/question.yml'

@@ -1,0 +1,54 @@
+---
+type: object
+properties:
+  id:
+    type: string
+  language:
+    type: string
+  study_cycle:
+    type: string
+  scholarity:
+    type: string
+  domain:
+    type: string
+  subdomain:
+    type: string
+  subsubdomain:
+    type: string
+  difficulty_level:
+    type: string
+  author:
+    type: string
+  display_mode:
+    type: string
+  type:
+    type: string
+  answering_time:
+    type: integer
+  repetitions:
+    type: integer
+  header:
+    type: string
+  body:
+    type: object
+    $ref: "body.yml"
+  explanation:
+    type: string
+  imagens:
+    type: string
+  videos:
+    type: string
+  source:
+    type: string
+  notes:
+    type: string
+  status:
+    type: string
+  inserted_by:
+    type: string
+  inserted_at:
+    type: string
+  validated_by:
+    type: string
+  validated_at:
+    type: string

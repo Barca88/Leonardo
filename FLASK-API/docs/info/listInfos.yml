@@ -1,0 +1,7 @@
+Endpoint returning the collection of information about imported files.
+    ---
+    responses:
+      200:
+        description: A json containing all information.
+        schema:
+          $ref: 'components/info.yml'

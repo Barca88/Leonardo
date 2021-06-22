@@ -176,7 +176,7 @@ imported_questions = {"$jsonSchema":
                  "bsonType": "string",
                  "description": "describes the error"
                  },
-             "nodes": {
+             "notes": {
                  "bsonType": "string",
                  "description": "describes the error"
                  },
