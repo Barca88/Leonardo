@@ -1,0 +1,13 @@
+---
+type: object
+properties:
+    answer:
+        type: string
+    correction:
+        type: integer
+    mandatory:
+        type: integer
+    eliminative:
+        type: integer
+    points:
+        type: integer
