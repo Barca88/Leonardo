@@ -369,6 +369,20 @@ const routes = [
     },
   },
   {
+    path: "/usersImport",
+    name: "UserImportation",
+    component: () => import("../views/UserImportation.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else if (!store.getters.isAdmin) {
+        next(`/`);
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "mapas",
     name: "GoogleMap",
     component: () => import("../views/GoogleMap.vue"),
