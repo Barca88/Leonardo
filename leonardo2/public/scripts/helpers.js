@@ -21,14 +21,14 @@ export default {
       } else {
         (question.flag = "aproved") &&
           axios.put(
-            "http://localhost:1337/imported_questions/" + question.id,
+            "http://localhost:1318/imported_questions/" + question.id,
             question
           );
       }
     },
     rejectQuestion: function (question) {
         (question.flag = "rejected") &&
-        axios.put("http://localhost:1337/imported_questions/" + question.id, question);
+        axios.put("http://localhost:1318/imported_questions/" + question.id, question);
     },
     editQuestion: function (question) {
       this.editedIndex = this.questions.indexOf(question);

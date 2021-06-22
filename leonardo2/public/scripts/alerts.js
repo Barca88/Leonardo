@@ -3,7 +3,7 @@ import axios from 'axios'
 export default {
     logPopup (popup){
         // Log it on the db
-        axios.post('http://localhost:1337/imported_errors', popup)
+        axios.post('http://localhost:1318/imported_errors', popup)
         .catch(function (error) {
             if (error.response) {
               // Request made and server responded

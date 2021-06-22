@@ -196,7 +196,7 @@ export default {
         } else {
           question.flag = "aproved";
           axios.put(
-            "http://localhost:1337/imported_questions/" + question.id,
+            "http://localhost:1318/imported_questions/" + question.id,
             question
           );
         }

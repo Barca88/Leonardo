@@ -7,7 +7,7 @@
                 <label for="file-upload">
                     <v-icon>mdi-paperclip</v-icon>
                 </label>
-                <input id="file-upload" v-on:change="handleChanged" accept=".leo,.json" type="file"/>
+                <input enctype=multipart/form-data name="questions" id="file-upload" v-on:change="handleChanged" accept=".leo,.json" type="file"/>
             </div>
             <div id="btn-group">
                 <v-btn id="im-btn" color="#ebc610" v-on:click="importFile" dark>
@@ -77,8 +77,7 @@ export default {
                 // post it into the question database
                 console.log(domains +'   '+ json[i].domain )
                 if(domains.includes(json[i].domain)){
-                    await axios.post('http://localhost:1337/imported_questions', json[i])
-
+                    await axios.post('http://localhost:1318/imported_questions', json[i])
                     .catch(function (error) {
                         if (error.response) {
                             count += 1;
@@ -94,8 +93,7 @@ export default {
                 }
             }
             // post it into the imported files database
-            console.log(fileInfo)
-            await axios.post('http://localhost:1337/imported_info', fileInfo)
+            await axios.post('http://localhost:1318/imported_info', fileInfo)
             .catch(function (error) {
                 if (error.response) {
                   // Request made and server responded
