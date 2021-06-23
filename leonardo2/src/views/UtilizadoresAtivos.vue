@@ -72,7 +72,7 @@ export default {
     },
     //Active
     created:function(){
-        axios.get(`https://localhost:5000/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.active = response.data.users
 

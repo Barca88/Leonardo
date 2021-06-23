@@ -8,12 +8,22 @@
             </h4>
 
             <v-container>
-                <v-row no-gutters>
+                <v-row no-gutters align="center" justify>
                     <v-col
                         cols="12"
-                        sm="6"
-                        md="8"
+                        sm="2"
+                        md="1"
                     >
+                        <span>
+                            Ficheiro: 
+                        </span>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="5"
+                    >
+                
+                        
                         <v-file-input
                             truncate-length="150"
                             show-size
@@ -27,7 +37,7 @@
                 <v-row no-gutters>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on: tooltip }">
-                        <v-btn  v-on="{ ...tooltip}" class="mr-5" dark color = "amber lighten">
+                        <v-btn  v-on="{ ...tooltip}" @click="onFileChanged()" class="mr-5" dark color = "amber lighten">
                             <v-icon>mdi-checkbox-marked-outline</v-icon>
                         </v-btn>
                         </template>
@@ -61,6 +71,33 @@
                 
                 
         </v-container>
+        <v-snackbar
+            v-model="snackbar"
+            timeout="-1"
+        >
+            Pedidos de Utilizadores adicionados com sucesso
+
+            <template v-slot:action="{ attrs }">
+                
+                <v-btn
+                color="green"
+                text
+                v-bind="attrs"
+                @click="snackbar = false; $router.push('/pedidos')"
+
+                >
+                Continuar
+                </v-btn>
+                <v-btn
+                color="pink"
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+                >
+                Fechar
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 <script>
@@ -81,7 +118,8 @@ export default {
                     value: 'stamp'
                 }
             ],
-            file: ""
+            file: "",
+            snackbar: false
         }
     },
     components:{
@@ -89,41 +127,29 @@ export default {
             'navDraw': NavDraw
     },
     methods: {
-        onButtonClick(up) {
-            this.isSelecting = true
-            window.addEventListener('focus', () => {
-                this.isSelecting = false
-            }, { once: true })
+        onFileChanged() {
+            this.selectedFile = this.file
 
-            if (up==='uploaderpic'){
-                this.$refs.uploaderpic.click()
-            }
-            else if (up==='uploadercv'){
-                this.$refs.uploadercv.click()
-            }
-        },
-        onFileChanged(e) {
-            this.selectedFile = e.target.files[0]
+            // console.log(this.file)
             
             let formData = new FormData()
             formData.append('registos',this.selectedFile)
-            axios.post(`http://localhost:5000/users/importcsv/`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/import_registos`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`
                 }
-                }).then(response => {
-                    var pdf = new Buffer(response.data, 'binary').toString('base64')
-                    this.cv = `data:${response.headers['content-type'].toLowerCase()};base64,${pdf}`
+                }).then(() => {
+                    this.snackbar=true
                 }).catch(e => {
                     this.errors.push(e)
                 })
         },
-    }
+    },
     //Active
     created:function(){
-        axios.get(`https://localhost:5000/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.active = response.data.users
 

@@ -206,7 +206,7 @@ export default {
             
             let formData = new FormData()
             formData.append('curriculo',this.selectedFile)
-            axios.post(`http://localhost:5000/users/curriculo/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
