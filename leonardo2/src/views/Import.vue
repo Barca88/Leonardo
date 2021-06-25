@@ -244,7 +244,8 @@
                 axios.post(`http://localhost:5000/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`       
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
                 }
                 }).then(data => {
                     //console.log(data)
@@ -289,7 +290,8 @@
                 //console.log(this.info.list)
                 axios.post(`http://localhost:5000/import/passo6/?nome=${this.$store.state.user._id}`,formData,{headers:{
                     'Content-Type': 'multipart/form-data',
-                    Authorization:`Bearer: ${this.$store.state.jwt}`
+                    Authorization:`Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"
                 }})
                 .then(() => {
                     // JSON responses are automatically parsed.

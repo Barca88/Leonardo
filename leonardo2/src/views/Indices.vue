@@ -131,7 +131,8 @@ export default {
     created() {
         axios.get(`http://localhost:5000/folios/index?nome=${this.$store.state.user._id}`,{headers:{
           'Content-Type': 'multipart/form-data',
-          Authorization:`Bearer: ${this.$store.state.jwt}`
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+          'Access-Control-Allow-Origin': "*"
         }})
         .then(response => {
             // JSON responses are automatically parsed.

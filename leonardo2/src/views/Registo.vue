@@ -159,7 +159,8 @@ export default {
 
         axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {
-            'Content-Type': 'multipart/form-data'    
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
           }
         }).then(() => {
             //console.log(data)

@@ -210,7 +210,8 @@ export default {
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"
                 }
                 }).then(response => {
                     var pdf = new Buffer(response.data, 'binary').toString('base64')
@@ -227,7 +228,8 @@ export default {
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`       
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
                 }
                 }).then(response => {
                     this.userPic=''

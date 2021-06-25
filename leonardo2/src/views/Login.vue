@@ -379,7 +379,8 @@ export default {
       axios.post(`${process.env.VUE_APP_BACKEND}/login`,formData,{
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization:`Bearer: ${this.$store.state.jwt}`     
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
         }
       }).then(data => {
           if (data.data.error){
@@ -410,7 +411,8 @@ export default {
 
         axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {
-            'Content-Type': 'multipart/form-data'    
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
           }
         }).then(data => {
           if(data.data.message){
