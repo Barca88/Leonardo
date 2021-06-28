@@ -240,8 +240,8 @@
                 formData.append('foto',this.info.foto)
                 formData.append('ficheiro',this.info.ficheiro)
             
-                // axios.post(`http://localhost:5000/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
-                axios.post(`http://localhost:5000/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
+                // axios.post(`${process.env.VUE_APP_BACKEND}/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
+                axios.post(`${process.env.VUE_APP_BACKEND}/import/passo1/?nome=${this.$store.state.user._id}`,formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -288,7 +288,7 @@
                 formData.append('textoTags',this.info.textoTags)
                 formData.append('textoSTags',this.info.textoSTags)
                 //console.log(this.info.list)
-                axios.post(`http://localhost:5000/import/passo6/?nome=${this.$store.state.user._id}`,formData,{headers:{
+                axios.post(`${process.env.VUE_APP_BACKEND}/import/passo6/?nome=${this.$store.state.user._id}`,formData,{headers:{
                     'Content-Type': 'multipart/form-data',
                     Authorization:`Bearer: ${this.$store.state.jwt}`,
                     'Access-Control-Allow-Origin': "*"

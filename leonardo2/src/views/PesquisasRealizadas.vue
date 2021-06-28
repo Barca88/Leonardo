@@ -116,7 +116,7 @@ export default {
     //     }
     // },
     created() {
-        axios.get(`http://localhost:5000/folios/pesquisas?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`${process.env.VUE_APP_BACKEND}/folios/pesquisas?nome=${this.$store.state.user._id}`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {
