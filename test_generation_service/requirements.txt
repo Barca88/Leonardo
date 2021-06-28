@@ -1,0 +1,9 @@
+flask
+pymongo
+pymodm
+marshmallow
+flasgger
+bson
+ortools
+flask_cors
+python-dotenv

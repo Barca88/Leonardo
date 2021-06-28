@@ -1,0 +1,13 @@
+This endpoint is used to retrieve all the tests stored in the database.
+---
+tags:
+  - tests
+responses:
+  404:
+    description: There are no tests stored in the database.
+  200:
+    description: All the teste in the database
+    schema:
+      type: array
+      items:
+        $ref: "docs/components/test.yml"

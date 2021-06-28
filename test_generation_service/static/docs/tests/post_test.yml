@@ -1,0 +1,19 @@
+This endpoint is used to insert tests in the database.
+---
+tags:
+  - tests
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: test
+    description: The test to introduce in the database.
+    schema:
+      $ref: "docs/components/test.yml"
+responses:
+  200:
+    description: "The updates were applied successfully"
+  409:
+    description: "The question could not be stored because it conflicted with an existing one"
+  400:
+    description: "The data that was received is not consistent with the layout of a question"

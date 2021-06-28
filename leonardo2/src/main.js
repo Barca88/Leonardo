@@ -1,11 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
+import vuetify from './plugins/vuetify';
+import 'vuetify/dist/vuetify.min.css'
+import VueMaterial from 'vue-material'
+import PrettyCheckbox from 'pretty-checkbox-vue';
+import Print from "vue-print-nb";
+import VueRouter from 'vue-router'
+import VueMeta from 'vue-meta'
+import VueHtmlToPaper from "vue-html-to-paper";
+
+
+import i18n from './i18n'
 import router from './router'
 import store from './store'
-import vuetify from './plugins/vuetify';
 import axios from 'axios'
-import i18n from './i18n'
-import VueHtmlToPaper from "vue-html-to-paper";
+
+
 
 const options = {
   name: "_blank",
@@ -16,14 +26,20 @@ const options = {
   ]
 };
 
+Vue.config.productionTip = false;
 Vue.use(VueHtmlToPaper, options);
+Vue.use(PrettyCheckbox);
+Vue.use(Print);
+Vue.use(VueMeta);
+Vue.use(vuetify);
+Vue.use(VueMaterial);
+Vue.use(VueRouter);
+
+
 
 // register jw pagination component globally
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
-
-
-
 
 Vue.config.productionTip = false
 
@@ -47,6 +63,7 @@ if (token) {
 }
 
 new Vue({
+
   router,
   store,
   vuetify,

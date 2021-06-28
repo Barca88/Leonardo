@@ -1,0 +1,412 @@
+[
+    {
+        "id": "UKEINSBD0150",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "SQL is a language used for programming and designed specifically for data description, manipulation, and control in a relational database system. This statement is:",
+        "body": [
+            {
+                "answer": "True.",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "False.",
+                "correction": 0,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0151",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "AThe SQL was defined as a standard by the American National Standards Institute (ANSI) in 1976, and the International Organization for Standardization (ISO) in 1987. This statement is:",
+        "body": [
+            {
+                "answer": "True.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "False.",
+                "correction": 1,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0152",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "How can we write SQL statements clearer and more understandable?",
+        "body": [
+            {
+                "answer": "Writing all left-aligned SQL statements separated by row changes.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Introducing row changes to separate each SQL clause, especially when we have filter clauses.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Using a combined approach of identification and lineation.",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "Writing all clauses of an instruction on one line.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Separating the various SQL clauses with tabs and the main statements with row changes.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 0,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0153",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "In SQL, what kinds of operations can we do on a database:",
+        "body": [
+            {
+                "answer": "Description, manipulation and control of data.",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "Description, manipulation and regulation of data.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Categorization, description and data manipulation.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Data management and manipulation.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 0,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0154",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "What is the purpose of the SELECT statement?",
+        "body": [
+            {
+                "answer": "This statement does not exist in SQL language.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Obtaining and presenting data from a table under a given condition.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "Obtaining and presenting data from one or more tables.",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "Filtering data from a table and sort it arbitrarily.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 0,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0155",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "1",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "The statement “SELECT Id, Name FROM Students WHERE Course IN (‘ MEI ’,’ MES ’);” allows us to obtain:",
+        "body": [
+            {
+                "answer": "Nothing, since the instruction is wrong.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "A list of all students’ Ids and names that are contained in the set with values 'MEI' and 'MES'.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "A list of all students’ Ids and names of students, which the value of the “Curso” attribute is 'MEI' and 'MES'.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "A list of all the information contained in the “Students” table for the 'MEI' or 'MES' courses.",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 1,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0156",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "2",
+        "display_mode": "G",
+        "answering_time": "60",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "Consider the logical scheme presented in the figure. Which of the following queries allows you to indicate payments over ‘5’ made by customers ‘1’ and ‘5’?",
+        "body": [
+            {
+                "answer": "SELECT Customer_Id, Amount FROM Payment WHERE Customer_Id = 1 OR Id=5 AND Amount > =5;",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "SELECT Customer_Id, Amount FROM Payment WHERE Customer_Id IN (1,5) AND Amount > 5;",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "SELECT DISTINCT Customer_Id, Amount FROM Payment WHERE Customer_Id IN (1,5) AND Amount > 5;",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "SELECT Customer_Id, Amount FROM Payment WHERE Customer_Id IN (1,5) AND Amount NOT <= 5;",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 0,
+                "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "UKEINSBD0156.jpg",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    },
+    {
+        "id": "UKEINSBD0157",
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomain": "SQL",
+        "subsubdomain": "",
+        "difficulty_level": "4",
+        "display_mode": "G",
+        "answering_time": "90",
+        "type": "",
+        "precedence": [],
+        "repetitions": "0",
+        "header": "Consider the logical scheme presented in the figure. Which of the following queries allows you to indicate the names of the cities appearing in the addresses of customer ‘Josefino Cunha’?",
+        "body": [
+            {
+                "answer": "a) SELECT CL.First_Name, CL.Last_Name, CI.City FROM Customer AS CL INNER JOIN City AS CI ON CL.Customer_Id = CI.Address_Id INNER JOIN Address AS AD ON AD.City_Id = CI.City_Id WHERE CL.First_Name = 'Josefino'  AND  CL.Last_Name = 'Cunha';",
+                "correction": 1,
+                "mandatory": true
+            },
+            {
+                "answer": "b) SELECT CL.First_Name, CL.Last_Name, CI.City FROM Customer AS CL, Address AS AD, City AS CI WHERE CL.First_Name = 'Josefino'  AND CL.Last_Name = 'Cunha';",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "c) SELECT CL.First_Name, CL.Last_Name, CI.City FROM Customer AS CL INNER JOIN Address AS AD  ON CL.Customer_Id = AD.Address_Id  INNER JOIN City AS CI ON AD.City_Id = CI.City_Id WHERE CL.First_Name = 'Josefino'  AND  CL.Last_Name = 'Cunha';",
+                "correction": 0,
+                "mandatory": true
+            },
+            {
+                "answer": "None of the above.",
+                "correction": 0,
+                    "mandatory": true
+            }
+        ],
+        "solution": "",
+        "images": "UKEINSBD0157.jpg",
+        "videos": "",
+        "source": "Belo, O., Cadernos de Problemas - Sistemas de Bases de Dados, Departamento de Informática, Escola de Engenharia, Universidade do Minho, 2019",
+        "notes": "Para utilização exclusiva da plataforma educacional Leonardo",
+        "status": "E",
+        "inserted_by": "Belo, O",
+        "inserted_at": "2019-09-12",
+        "validated_by": "",
+        "validated_at": ""
+    }
+]

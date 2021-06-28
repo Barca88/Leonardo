@@ -25,7 +25,7 @@
               <template v-slot:activator>
                 <v-list-item-title class="white--text">{{$t('navd.documents')}}</v-list-item-title>
               </template>
-                  <v-list-item link to="/admin/folios">
+                  <v-list-item link to="/admin/folios/1">
                     <v-list-item-title class="white--text">{{$t('navd.folios')}}</v-list-item-title>
                   </v-list-item>
                   <v-list-item link to="/admin/compFolios">
@@ -88,7 +88,7 @@
               </v-list-item-icon>
               <v-list-item-title>{{$t('navd.definitions')}}</v-list-item-title>
             </v-list-item>
-            <v-list-item link to="/admin/documentacao">
+            <v-list-item link to="/admin/documentacao/">
               <v-list-item-icon>
                 <v-icon>mdi-text-box-multiple</v-icon>
               </v-list-item-icon>
@@ -213,7 +213,8 @@
             <v-dialog @keydown.esc="priv = false" v-model="priv" scrollable width="500">
               <v-card>
                 <v-toolbar color="#2A3F54" dark>
-                  <h2>{{ $t('nav.privacidade') }}</h2>
+                  <h2>{
+                    { $t('nav.privacidade') }}</h2>
                 </v-toolbar>
                 
                 <v-divider
