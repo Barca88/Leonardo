@@ -29,17 +29,17 @@
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folio/">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/pedidos/">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/pedidos/">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
@@ -324,34 +324,150 @@
           <v-list-item-title>{{ $t("adminNav.doc") }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-information-outline</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.about") }}</v-list-item-title>
+        <v-list-item link @click="about = true">
+              <v-list-item-icon>
+                <v-icon>mdi-information-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('adminNav.about')}}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.copy") }}</v-list-item-title>
-        </v-list-item>
+        <v-dialog @keydown.esc="about = false" v-model="about" scrollable width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.sabermais') }}</h2>
+                </v-toolbar>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-clipboard-file</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.use") }}</v-list-item-title>
-        </v-list-item>
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-lock</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.privacy") }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoSaberMais') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="about=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+        </v-dialog>
+
+        <v-list-item link @click="credits = true">
+              <v-list-item-icon>
+                <v-icon>mdi-account-group</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.credits')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="credits = false"  v-model="credits" scrollable width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.creditos') }}</h2>
+                </v-toolbar>
+                
+                <v-divider
+                class="mx-4"
+                horizontal
+                ></v-divider>
+                
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoCreditos') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="credits=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+        <v-list-item link @click="terms = true">
+              <v-list-item-icon>
+                <v-icon>mdi-book-multiple</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.terms')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="terms = false" v-model="terms" scrollable  width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.termos') }}</h2>
+                </v-toolbar>
+
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
+
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoTermos') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="terms=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+          </v-dialog>
+
+        <v-list-item link @click="priv = true">
+              <v-list-item-icon>
+                <v-icon>mdi-lock</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.priv')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="priv = false" v-model="priv" scrollable width="500"> 
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.privacidade') }}</h2>
+                </v-toolbar>
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
+
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoPriv') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="priv=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-list>
       <!-- <template v-slot:append v-if="hover == true"> -->
       <template v-slot:append>
         <div class="pa-2">
