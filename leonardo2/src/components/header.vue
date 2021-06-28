@@ -142,7 +142,7 @@ export default {
     },
     created(){
         this.userPic=''
-        axios.get(`http://localhost:5000/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`

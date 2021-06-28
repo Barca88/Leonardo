@@ -34,27 +34,27 @@
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios/">
+          <v-list-item link to="/pedidos/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios/">
+          <v-list-item link to="/pedidos/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
@@ -72,12 +72,12 @@
               $t("adminNav.prod")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
@@ -147,7 +147,7 @@
               $t("adminNav.test")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.quizz")
             }}</v-list-item-title>
@@ -165,22 +165,22 @@
               $t("adminNav.opi")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.inqsis")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.inqAnal")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.estPro")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.sentEx")
             }}</v-list-item-title>
@@ -198,7 +198,7 @@
               $t("adminNav.game")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
@@ -221,7 +221,7 @@
               $t("adminNav.dash")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
@@ -231,7 +231,7 @@
               $t("adminNav.ans")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.acess")
             }}</v-list-item-title>
@@ -264,7 +264,7 @@
               $t("adminNav.import")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ati")
             }}</v-list-item-title>
@@ -287,12 +287,12 @@
               $t("adminNav.events")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.agend")
             }}</v-list-item-title>
@@ -310,7 +310,7 @@
               $t("adminNav.sett")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/pedidos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.confger")
             }}</v-list-item-title>
@@ -413,7 +413,7 @@ export default {
       //   {
       //     icon: "casa",
       //     text: "Início",
-      //     link: "/admin/folios"
+      //     link: "/pedidos"
       //   }
       // ]
       // hover:false
