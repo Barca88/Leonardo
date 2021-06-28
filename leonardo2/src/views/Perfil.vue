@@ -224,7 +224,7 @@ export default {
             this.selectedFile = e.target.files[0]
             let formData = new FormData()
             formData.append('foto',this.selectedFile)
-            axios.post(`${process.env.vue_app_backend}/users/foto/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -240,7 +240,7 @@ export default {
                 })
         },
         onUpdate(){
-            axios.get(`${process.env.vue_app_backend}/users/curriculo/${this.username}?seed=${Date.now()}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.username}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -264,7 +264,7 @@ export default {
     },
     created() {
         this.userPic=''
-        axios.get(`${process.env.vue_app_backend}/users/foto/${this.username}?seed=${Date.now()}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
