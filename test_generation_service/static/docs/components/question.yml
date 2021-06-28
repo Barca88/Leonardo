@@ -1,0 +1,66 @@
+---
+type: object
+properties:
+  id:
+    type: string
+  language:
+    type: string
+  domain:
+    type: object
+    properties:
+      study_cycle:
+        type: string
+      scholarity:
+        type: string
+      description:
+        type: string
+  subdomain:
+    type: string
+  subsubdomain:
+    type: string
+  difficulty_level:
+    type: string
+  display_mode:
+    type: string
+  answering_time:
+    type: string
+  type:
+    type: string
+  precedence:
+    type: array
+    items: string
+  repetitions:
+    type: string
+  header:
+    type: string
+  body:
+    type: array
+    items:
+      type: object
+      properties:
+        answer:
+          type: string
+        correction:
+          type: string
+        mandatory:
+          type: boolean
+  solution:
+    type: string
+  images:
+    type: string
+  videos:
+    type: string
+  source:
+    type: string
+  notes:
+    type: string
+  status:
+    type: string
+  inserted_by:
+    type: string
+  inserted_at:
+    type: string
+  validated_by:
+    type: string
+  validated_at:
+    type: string

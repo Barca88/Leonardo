@@ -1,0 +1,9 @@
+Endpoint returning the collection of errors.
+    ---
+    tags:
+      - Errors
+    responses:
+      200:
+        description: A json containing all errors.
+        schema:
+          $ref: 'components/errors.yml'

@@ -1,0 +1,14 @@
+Endpoint that returns the questions from a domain.
+    ---
+    tags:
+      - Questions
+    parameters:
+      - name: domain
+        in: path
+        type: string
+        required: true
+    responses:
+      200:
+        description: The questions published in the domain.
+        schema:
+          $ref: 'components/question.yml'

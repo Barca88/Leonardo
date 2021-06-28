@@ -1,0 +1,23 @@
+This endpoint is used to generate a new test.
+---
+tags:
+  - generator
+consumes:
+  - application/json
+parameters:
+  - in: body
+    name: test_creation_info
+    description: Object that contains the creation configuration for a test.
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+        config:
+          type: object
+          $ref: "docs/components/test_configuration.yml"
+responses:
+  201:
+    description: "The test was successfully created"
+  400:
+    description: "The received object is not consistent with the test creation object"

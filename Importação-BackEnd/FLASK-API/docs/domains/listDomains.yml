@@ -1,0 +1,8 @@
+List the present domains in system.
+    ---
+    tags:
+      - Domains
+    responses:
+      200:
+        description: List the present domains in system.
+        

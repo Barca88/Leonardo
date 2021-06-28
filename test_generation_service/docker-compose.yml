@@ -1,0 +1,9 @@
+version: "3"
+services:
+  db:
+    container_name: leonardo_db
+    image: mongo:4.4.4-bionic
+    volumes:
+      - /data/mongo:/data/db
+    ports:
+      - "27017-27019:27017-27019"
