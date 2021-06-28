@@ -59,7 +59,7 @@ def create_app(config, selenium=False) -> object:
     register_extensions(app)
     register_blueprints(app)
     apply_themes(app)
-    CORS(app)
+    CORS(app, resources={r"*": {"origins": "*"}})
     return app
 
 
