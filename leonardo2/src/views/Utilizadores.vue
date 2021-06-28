@@ -282,7 +282,7 @@ export default {
     methods: {
       atualizarInfo: function(){
         this.dialog=false
-        axios.get(`https://localhost:5000/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.vue_app_backend}/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
             // JSON responses are automatically parsed.
             var todos = response.data.users
@@ -311,7 +311,7 @@ export default {
         const index = this.users.indexOf(item)
         //console.log(this.users[index])        
         if (value == 'curriculo'){
-          axios.get(`https://localhost:5000/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
+          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -352,7 +352,7 @@ export default {
       },
       edit(){
         this.update = true
-        axios.get(`https://localhost:5000/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
               // JSON responses are automatically parsed.
               //console.log(response.data)
@@ -367,7 +367,7 @@ export default {
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
-        axios.get(`https://localhost:5000/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.vue_app_backend}/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
@@ -390,7 +390,7 @@ export default {
     },
     created() {
         //console.log('store->' + this.$store.state.jwt)
-        axios.get(`https://localhost:5000/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.vue_app_backend}/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)

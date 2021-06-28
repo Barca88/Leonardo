@@ -298,7 +298,7 @@ export default {
 
   mounted: function() {
     axios
-      .get("http://localhost:5000/analise/foliosnames")
+      .get(`${process.env.VUE_APP_BACKEND}/analise/foliosnames`)
       .then(dados => {
         var objects = dados.data;
         objects.map(f => this.foliosNames.push(f._id));
