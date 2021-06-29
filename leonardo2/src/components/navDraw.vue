@@ -4,8 +4,6 @@
       app
       clipped
       v-if="drawerOn"
-      :expand-on-hover="expandOnHover"
-      :mini-variant="miniVariant"
       color="#2A3F54"
       class="navBar"
     >
@@ -467,39 +465,6 @@
               </v-card>
             </v-dialog>
           </v-list>
-      <!-- <template v-slot:append v-if="hover == true"> -->
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                dark
-                depressed
-                min-width="60px"
-                @click="fixNav()"
-                v-on="on"
-              >
-                <v-icon>mdi-axis-arrow-lock</v-icon>
-              </v-btn>
-            </template>
-            <span>{{ $t("navd.fixMenu") }}</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                dark
-                depressed
-                min-width="60px"
-                @click="logout()"
-                v-on="on"
-              >
-                <v-icon>mdi-power</v-icon>
-              </v-btn>
-            </template>
-            <span>{{ $t("navd.exit") }}</span>
-          </v-tooltip>
-        </div>
-      </template>
     </v-navigation-drawer>
   </v-card>
 </template>
@@ -524,14 +489,6 @@ export default {
       nDocs: 0,
       nInds: 0,
       runningDialog: false,
-      // links: [
-      //   {
-      //     icon: "casa",
-      //     text: "Início",
-      //     link: "/home"
-      //   }
-      // ]
-      // hover:false
     };
   },
   created() {
@@ -552,73 +509,6 @@ export default {
         //console.log(e)
         this.errors.push(e);
       });
-  },
-  methods: {
-    reindFunc: function() {
-      axios
-        .get(`https://leonardo2.di.uminho.pt/import/reindex/`, {
-          headers: {
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-          },
-        })
-        .then((response) => {
-          // JSON responses are automatically parsed.
-          //console.log(response.data)
-          if (response.data.message === "ok") {
-            axios
-              .get(
-                `https://leonardo2.di.uminho.pt/folios/folios?nome=${this.$store.state.user._id}`,
-                {
-                  headers: {
-                    Authorization: `Bearer: ${this.$store.state.jwt}`,
-                  },
-                }
-              )
-              .then((response) => {
-                this.nDocs = response.data.folios.length;
-              })
-              .catch((e) => {
-                this.errors.push(e);
-              });
-            axios
-              .get(
-                `https://leonardo2.di.uminho.pt/folios/index?nome=${this.$store.state.user._id}`,
-                {
-                  headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer: ${this.$store.state.jwt}`,
-                  },
-                }
-              )
-              .then((response) => {
-                this.nInds = response.data.indexs.length;
-              })
-              .catch((e) => {
-                this.errors.push(e);
-              });
-            this.runningDialog = false;
-            this.successDialog = true;
-          } else {
-            alert("Algo correu mal");
-          }
-        })
-        .catch((e) => {
-          //console.log(e)
-          this.errors.push(e);
-        });
-    },
-    logout: function() {
-      //console.log("destroy token here")
-      this.$store.commit("guardaTokenUtilizador", "");
-      this.$store.commit("guardaNomeUtilizador", "");
-      this.$router.push({ path: `/login` });
-    },
-    fixNav: function() {
-      this.expandOnHover = !this.expandOnHover;
-      this.miniVariant = !this.miniVariant;
-      this.drawerOn = false;
-      this.$nextTick(() => (this.drawerOn = true));
-    },
   },
 };
 </script>
