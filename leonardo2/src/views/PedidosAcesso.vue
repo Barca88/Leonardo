@@ -20,11 +20,17 @@
                     single-line
                     hide-details
                 ></v-text-field>
-                <v-dialog persistent v-model="dialog" max-width="500px">
-                    <!-- <template v-slot:activator="{ on }">
-                        <v-btn color="primary" dark class="mb-2" v-on="on" @click="editItem({}, 'adicionar')">Novo Utilizador</v-btn>
-                    </template> -->
-                    <pedidoForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></pedidoForm>
+                <v-dialog 
+                    persistent 
+                    v-model="dialog" 
+                    max-width="500px"
+                >
+                    <pedidoForm 
+                        :value='value' 
+                        :passedData='editedItem' 
+                        @atualizarInfo=atualizarInfo($event) 
+                        @emiteFecho=emiteFecho($event)
+                    ></pedidoForm>
                 </v-dialog>
             </v-toolbar>
         </template>
@@ -301,7 +307,7 @@ export default {
     },
     methods: {
         atualizarInfo: function(){
-            this.dialog=false
+            this.dialog = false
             axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
@@ -313,7 +319,7 @@ export default {
             })
         },
         emiteFecho(){
-            this.dialog=false
+            this.dialog = false
         },
         editItem (item, value) {
             this.editedIndex = this.pedidos.indexOf(item)

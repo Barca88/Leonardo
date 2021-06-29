@@ -4,7 +4,6 @@
       app
       clipped
       v-if="drawerOn"
-      permanent
       :expand-on-hover="expandOnHover"
       :mini-variant="miniVariant"
       color="#2A3F54"

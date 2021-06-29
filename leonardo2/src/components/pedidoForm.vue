@@ -229,6 +229,7 @@ export default {
                 //console.log(e)
                 this.errors.push(e)
             })
+            this.atualizarInfo()
         },
         emiteFecho(){
           this.$emit('emiteFecho')
