@@ -2,7 +2,7 @@
     <div>
         <appHeader :ajuda='ajuda'></appHeader>
         <navDraw ></navDraw> 
-        <h1 class="pa-md-4 mx-lg-auto"> This is a Blank Page </h1>
+        <h1 class="pa-md-4 mx-lg-auto"> 👷 Serviço em Desenvolvimento  </h1>
     </div>
 </template>
 
