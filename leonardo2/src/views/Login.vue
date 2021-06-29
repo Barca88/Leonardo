@@ -314,6 +314,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-container/>
     <appFooter></appFooter>
   </div>
 </template>
