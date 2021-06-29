@@ -208,7 +208,7 @@ def route_import_registos():
                     else:
                         encryptPass = generate_password_hash("password")
                         print(row)
-                        value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Leitor","universidade":row[5],"departamento":"","data":row[8],"obs":""})
+                        value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Student","universidade":row[5],"departamento":"","data":row[8],"obs":""})
                         line_count += 1
 
     return json_util.dumps({'message':"OK"})
