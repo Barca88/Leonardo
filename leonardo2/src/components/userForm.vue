@@ -145,7 +145,8 @@
                   <v-container fluid>
                   <v-radio-group v-if= "value != 'ver'" v-model="user.tipo" row>
                       <v-radio value="Admin"></v-radio>
-                      <v-radio :label="$t('reg.admin') + ' ' + 'ou' + ' ' + $t('reg.user')" value="Leitor"></v-radio>
+                      <v-radio value="Teacher"></v-radio>
+                      <v-radio :label="$t('reg.admin') + ', ' +  $t('reg.teacher') + ' ' + $t('reg.or') + ' ' + $t('reg.student')" value="Student"></v-radio>
                   </v-radio-group>
                   </v-container>
                   <v-text-field
