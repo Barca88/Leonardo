@@ -317,7 +317,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-item link to="/home">
+        <v-list-item link to="/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>
