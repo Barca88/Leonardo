@@ -1,6 +1,8 @@
 node_modules/
 *.pyc
 __pycache__/
+*.py[cod]
+*.cpython-39.pyc
 .DS_Store
 node_modules
 /dist
