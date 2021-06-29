@@ -200,12 +200,14 @@ def route_import_registos():
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 line_count = 0
                 for row in csv_reader:
+                    print(row)
                     if line_count == 0:
                         line_count += 1
-                        if len(row) > 9:
-                            return json_util.dumps({'message':"Error"})
+                        # if len(row) > 10:
+                        #     return json_util.dumps({'message':"Error"})
                     else:
                         encryptPass = generate_password_hash("password")
+                        print(row)
                         value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Leitor","universidade":row[5],"departamento":"","data":row[8],"obs":""})
                         line_count += 1
 

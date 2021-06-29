@@ -30,6 +30,7 @@
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/home">
+
             <v-list-item-title class="white--text">{{
               $t("adminNav.resp")
             }}</v-list-item-title>
@@ -341,7 +342,6 @@
                 class="mx-4"
                 horizontal
               ></v-divider>
-
                 <v-card-text class="change-font mt-6" style="white-space: pre-line"
                   >{{ $t('nav.textoSaberMais') }}</v-card-text
                 >
@@ -468,7 +468,6 @@
               </v-card>
             </v-dialog>
           </v-list>
-
       <!-- <template v-slot:append v-if="hover == true"> -->
       <template v-slot:append>
         <div class="pa-2">

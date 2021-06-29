@@ -23,3 +23,4 @@ yarn-error.log*
 *.sln
 *.sw?
 workspace.code-workspace
+leonardo2/package-lock.json
