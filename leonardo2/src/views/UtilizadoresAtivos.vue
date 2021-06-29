@@ -5,7 +5,7 @@
         <div>
             <v-row>
                 <v-col>
-                    <v-container style="width:60%">
+                    <v-container>
                             <v-data-table
                                 :headers="headers"
                                 :items="active"
