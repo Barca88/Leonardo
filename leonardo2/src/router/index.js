@@ -39,8 +39,8 @@ const routes = [
   },
   {
     path: "/home",
-    name: "home",
-    component: () => import("../views/HomeAdmin.vue"),
+    name: "Blank",
+    component: () => import("../views/Blank.vue"),
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
@@ -73,7 +73,7 @@ const routes = [
     component: () => import("../views/Registo.vue"),
   },
   {
-    path: "users",
+    path: "/users",
     name: "Utilizadores",
     component: () => import("../views/Utilizadores.vue"),
     beforeEnter(to, from, next) {
