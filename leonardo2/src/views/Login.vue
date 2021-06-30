@@ -1,64 +1,57 @@
 <template>
   <div>
     <loginHeader :ajuda='ajuda'></loginHeader>
-      <v-img class="center" src="@/assets/leonardo_logo.png" max-height="150px" max-width="150px" @click="popup = true"/>
-      <v-dialog @keydown.esc="popup = false" v-model="popup" scrollable width="500">
-        <v-card>
-          <v-toolbar color="#2A3F54" dark>
-            <h2>{{ $t('nav.sabermais') }}</h2>
-          </v-toolbar>
 
-          <v-divider
-          class="mx-4"
-          horizontal
-        ></v-divider>
+    <v-row justify="space-around"> 
+      <v-col cols="12" sm="4">
+        <v-img class="center" src="@/assets/leonardo_logo.png" max-height="500px" max-width="500px" @click="popup = true"/>
+        <div class="text">
+        <v-badge
+          color="green"
+          x-large
+          content="2"
+        >
+          <h1>{{ $t('navd.tituloProjeto') }}</h1>
+        </v-badge>
+          <h5>{{ $t('login.adminSystem') }}</h5>
+        </div>
+      </v-col>
+      <v-col cols="12" sm="4" align-self="end"> 
+        <v-form ref="form" method="login">
+        <v-text-field
+          color="blue"
+          outlined
+          label="User"
+          prepend-inner-icon="mdi-account"
+          v-model="id"
+          @keydown.enter="postLogin"
+          required            
+          ></v-text-field>
+        <v-text-field
+          color="blue"
+          outlined
+          prepend-inner-icon="mdi-lock"
+          label="Password"
+          type='password'
+          v-model="password"
+          @keydown.enter="postLogin"
+          required            
+          ></v-text-field>
+        <v-btn 
+          depressed 
+          block
+          x-large
+          color="#26B99A" 
+          class="white--text" 
+          @keydown.enter="postLogin" 
+          @click="postLogin">{{$t('login.enter')}}</v-btn>
+        </v-form>
+      </v-col>
+    </v-row>
+    <v-divider class="my-5"></v-divider>
 
-          <v-card-text class="change-font" style="white-space: pre-line"
-            >{{ $t('nav.textoSaberMais') }}</v-card-text
-          >
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            
-            <v-tooltip bottom> 
-              <template v-slot:activator="{ on }">
-                  <v-btn depressed color="white" @click="popup=false" v-on="on">
-                    <v-icon large>mdi-exit-to-app</v-icon>
-                  </v-btn>
-                </template>
-                <span>{{ $t('nav.Sair') }}</span>
-              </v-tooltip>
 
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <div class="text">
-        <h2>{{ $t('navd.tituloProjeto') }}</h2>
-        <h5>{{ $t('login.adminSystem') }}</h5>
-      </div>
-    <div id="form">
-      <v-form ref="form" method="login">
-        <v-container style="width:380px">
-          <v-text-field
-            label="User"
-            v-model="id"
-            @keydown.enter="postLogin"
-            required            
-            ></v-text-field>
-          <v-text-field
-            label="Password"
-            type='password'
-            v-model="password"
-            @keydown.enter="postLogin"
-            required            
-            ></v-text-field>
-          <br>
-        </v-container>
-        <v-container>
-          <v-btn depressed width="480px" color="#26B99A" class="white--text" @keydown.enter="postLogin" @click="postLogin">{{$t('login.enter')}}</v-btn>
-        </v-container>
-      </v-form>
-    </div>   
-
+    <!-- Daqui para cima -->
     <div style="text-align:center">
       <v-tooltip bottom>
         <template v-slot:activator="{ on: tooltip }">
