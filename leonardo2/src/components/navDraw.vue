@@ -315,6 +315,13 @@
           </v-list-item>
         </v-list-group>
 
+         <v-list-item link to="/home">
+            <v-list-item-icon>
+            <v-icon>mdi-help</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("navd.help") }}</v-list-item-title>
+        </v-list-item>
+
         <v-list-item link to="/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>

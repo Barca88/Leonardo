@@ -54,6 +54,7 @@
         <template v-slot:item.options="{ item }">
             <v-icon
                 small
+                color="#246a73"
                 class="mr-2"
                 @click="editItem(item, 'ver')"
             >
@@ -61,6 +62,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#368f8b"
                 class="mr-2"
                 @click="editItem(item,'editar')"
             >
@@ -68,6 +70,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#f3dfc1"
                 class="mr-2"
                 @click="verObjectItem(item,'curriculo')"
             >
@@ -75,6 +78,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#55bcc9"
                 class="mr-2"
                 @click="verObjectItem(item,'foto')"
             >
@@ -82,6 +86,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#8e363a"
                 @click="deleteDialog = true;tempValue=item"
             >
                 mdi-trash-can
