@@ -1,5 +1,5 @@
 <template>
-  <v-container fill-height>
+  <v-main fill-height>
     <v-row align="center" justify="center">
       <p>Aguarde o processamento dos Fólios</p>
       <v-col cols="12">
@@ -8,7 +8,7 @@
         </div>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
 </template>
 <script>
 import axios from 'axios'

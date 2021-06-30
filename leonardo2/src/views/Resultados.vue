@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar/>
-  <v-container>
+  <v-main>
     <div id="imprimeMain">
     <v-row>
       <v-col col="12">
@@ -36,7 +36,7 @@
 
         
         
-        <v-container fluid>
+        <v-main fluid>
             <v-row>
                 <v-row
                   align="start"
@@ -120,7 +120,7 @@
 
             </v-row>
           </v-row>
-        </v-container>
+        </v-main>
         
         </div>
         
@@ -185,7 +185,7 @@
       </v-card>
     </v-dialog>
     </div>
-  </v-container> 
+  </v-main> 
   <Footer/>
   </div>
 </template>

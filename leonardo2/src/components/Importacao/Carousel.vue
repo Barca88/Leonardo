@@ -34,7 +34,7 @@
 
                   <v-row class="fill-height" align="center" justify="center">
                     <div class="display-3">
-                      <v-container>
+                      <v-main>
                         <v-row>
                           <v-col cols="12" sm="6" md="4">
                             <v-text-field
@@ -114,7 +114,7 @@
 
 
                         </v-row>
-                      </v-container>
+                      </v-main>
                     </div>
                   </v-row>
                 </v-sheet>

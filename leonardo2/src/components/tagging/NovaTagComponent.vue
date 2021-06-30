@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-tooltip top>
       <template v-slot:activator="{ on }">
         <v-btn
@@ -31,7 +31,7 @@
           <v-toolbar-items> </v-toolbar-items>
         </v-toolbar>
 
-        <v-container>
+        <v-main>
           <v-row>
             <v-col cols="6">
               <v-row>
@@ -90,7 +90,7 @@
             >
           </v-row>
           <br />
-        </v-container>
+        </v-main>
       </v-card>
     </v-dialog>
 
@@ -112,7 +112,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </v-main>
 </template>
 
 

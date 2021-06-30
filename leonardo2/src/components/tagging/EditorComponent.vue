@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col>
         <h4>Sistema de Anotação Automática de Textos</h4>
@@ -10,7 +10,7 @@
     <v-row>
       <!-- Menu Column 1 - Words Agregator  -->
       <v-col cols="6">
-        <v-container>
+        <v-main>
           <v-row>
             <h6>Agregador de Palavras</h6>
           </v-row>
@@ -59,7 +59,7 @@
               </v-card>
             </v-dialog>
           </v-row>
-        </v-container>
+        </v-main>
       </v-col>
 
       <v-col cols="4">
@@ -67,7 +67,7 @@
 
       <!-- Menu Column 2 - Submeter -->
       <v-col cols="2">
-        <v-container>
+        <v-main>
           <!-- Menu Column 1 - Line 1 -->
           <v-row>
             <v-switch color="#003366" dense v-model="mostrar_tags" label="Mostrar Tags"></v-switch>
@@ -77,7 +77,7 @@
           <v-row>
             <v-btn class="ma-2 border-bottom" color="#003366" @click="guardarFolio()" dark>Submeter</v-btn>
           </v-row>
-        </v-container>
+        </v-main>
       </v-col>
     </v-row>
 
@@ -156,7 +156,7 @@
               <template v-if="choosen_word.anotated==true">
                 <v-card-title class="headline grey lighten-2" primary-title>{{choosen_word.s_tag}}</v-card-title>
                 <v-card-text>
-                  <v-container>
+                  <v-main>
                     <v-row>
                       <v-spacer />
                       <v-tooltip top>
@@ -178,10 +178,10 @@
                       </v-tooltip>
                       <v-spacer />
                     </v-row>
-                  </v-container>
+                  </v-main>
 
                   <!-- Word Anotated: Edit Tag-->
-                  <v-container v-if="tag_editor_option == 1">
+                  <v-main v-if="tag_editor_option == 1">
                     <v-row>
                       <v-select
                         dense
@@ -198,10 +198,10 @@
                       <v-btn class="mx-2" @click="validarEditar(choosen_word)">Validar</v-btn>
                       <v-spacer />
                     </v-row>
-                  </v-container>
+                  </v-main>
 
                   <!-- Word Anotated: Remove Tag-->
-                  <v-container v-if="tag_editor_option == 2">
+                  <v-main v-if="tag_editor_option == 2">
                     <hr>
                     <v-row>
                       <v-spacer></v-spacer>
@@ -216,7 +216,7 @@
                       <v-btn dark color="red" class="mx-2" @click="tag_editor_option_apagar = true">Apagar</v-btn>
                       <v-spacer />
                     </v-row>
-                  </v-container>
+                  </v-main>
 
                 </v-card-text>
               </template>
@@ -287,7 +287,7 @@
 
     <br />
     <hr />
-  </v-container>
+  </v-main>
 </template>
 
 <script>

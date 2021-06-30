@@ -1,11 +1,9 @@
 <template>
     <div id="uAtivos">
-        <appHeader></appHeader>
-        <navDraw></navDraw>
         <div>
             <v-row>
                 <v-col>
-                    <v-container style="width:60%">
+                    <v-main style="width:60%">
                             <v-data-table
                                 :headers="headers"
                                 :items="active"
@@ -40,7 +38,7 @@
                                 <label> {{header.text}} </label>
                             </template>
                             </v-data-table>
-                    </v-container>
+                    </v-main>
                 </v-col>
             </v-row>
         </div>
@@ -48,8 +46,6 @@
 </template>
 <script>
 import axios from 'axios'
-import Header from '../components/header.vue'
-import NavDraw from '../components/navDraw.vue'
 export default {
     data(){
         return{
@@ -65,10 +61,6 @@ export default {
                 }
             ]
         }
-    },
-    components:{
-            'appHeader': Header,
-            'navDraw':NavDraw
     },
     //Active
     created:function(){

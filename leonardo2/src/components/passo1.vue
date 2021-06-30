@@ -12,7 +12,7 @@
       >
         <v-col class="text-left">
           <v-form ref="form" method="post" enctype="multipart/form-data" style="width:500px">
-              <v-container >
+              <v-main >
                 <v-text-field
                     :label="$t('p1.id')"
                     v-model="idFolio"
@@ -24,27 +24,27 @@
                     v-model="descricao"
                     required
                 ></v-text-field>
-                <v-container fluid>
+                <v-main fluid>
                   <label>{{$t('p1.tipo')}}</label>
                   <v-radio-group v-model="tipo" row>
                       <v-radio value="rosto"></v-radio>
                       <v-radio :label="$t('p1.fre') + ' ' + $t('imp.or') + ' ' + $t('p1.v')" value="verso"></v-radio>
                   </v-radio-group>
-                </v-container>
-                <v-container fluid>
+                </v-main>
+                <v-main fluid>
                   <label>{{$t('p1.ver')}}</label>
                   <v-radio-group v-model="versao" row>
                       <v-radio value="interpretativa"></v-radio>
                       <v-radio :label="$t('p1.int') + ' ' + $t('imp.or') + ' ' + $t('p1.sd')" value="semidiplomática"></v-radio>
                   </v-radio-group>
-                </v-container>
-                <v-container fluid>
+                </v-main>
+                <v-main fluid>
                   <label>{{$t('p1.sum')}}</label>
                   <v-radio-group v-model="sumario" row>
                       <v-radio value="transcrição"></v-radio>
                       <v-radio :label="$t('p1.trans') + ' ' + $t('imp.or') + ' ' + $t('p1.rev')" value="revisão"></v-radio>
                   </v-radio-group>
-                </v-container>
+                </v-main>
                 <v-row align="center">
                     <label>{{$t('p1.foto')}}:</label>
                     <v-file-input show-size
@@ -61,9 +61,9 @@
                     :label="$t('p1.obs')"
                     v-model="obs"
                 ></v-text-field>
-              </v-container>
+              </v-main>
           
-          <v-container style="width:750px">
+          <v-main style="width:750px">
             <v-toolbar flat color="grey lighten-4">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on: tooltip }">
@@ -135,7 +135,7 @@
                 </span>
               </v-tooltip>
             </v-toolbar>
-          </v-container>
+          </v-main>
           </v-form>
         </v-col>
       </v-row>

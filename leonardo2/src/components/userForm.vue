@@ -7,7 +7,7 @@
         <v-card-title>
           <h3>{{$t('pForm.vU')}}</h3>
         </v-card-title>
-        <v-container>
+        <v-main>
           <v-simple-table class="table mr-10 ml-10">
             <template v-slot:default>
                 <tbody>
@@ -89,7 +89,7 @@
               </span>
             </v-tooltip>
           </v-row>
-        </v-container>
+        </v-main>
       </v-card>
       <v-card v-else height="100%">
         <v-card-title v-if= "value === 'adicionar'">
@@ -100,7 +100,7 @@
         </v-card-title>
         <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container class="ml-5">
+              <v-main class="ml-5">
                  <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field 
@@ -142,12 +142,12 @@
                         v-model="user.pw"
                         :rules="[rules.required]"      
                     ></v-text-field>
-                  <v-container fluid>
+                  <v-main fluid>
                   <v-radio-group v-if= "value != 'ver'" v-model="user.tipo" row>
                       <v-radio value="Admin"></v-radio>
                       <v-radio :label="$t('reg.admin') + ' ' + 'ou' + ' ' + $t('reg.user')" value="Leitor"></v-radio>
                   </v-radio-group>
-                  </v-container>
+                  </v-main>
                   <v-text-field
                       v-if= "value != 'ver'"
                       :label="$t('reg.uni')"
@@ -239,7 +239,7 @@
                       </span>
                     </v-tooltip>
                   </v-row>
-              </v-container>
+              </v-main>
           </v-form>
           </v-card-actions>
       </v-card>

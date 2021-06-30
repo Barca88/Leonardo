@@ -1,13 +1,11 @@
 <template>
     <div id="usersImport">
-        <appHeader></appHeader>
-        <navDraw></navDraw>
-        <v-container class="pa-10">
+        <v-main class="pa-10">
             <h4 class="text-h4 mb-4">
                 Importação de Dados de Utilizador
             </h4>
 
-            <v-container>
+            <v-main>
                 <v-row no-gutters align="center" justify>
                     <v-col
                         cols="12"
@@ -67,10 +65,10 @@
                     </v-tooltip>
                 </v-row>
                 
-            </v-container>
+            </v-main>
                 
                 
-        </v-container>
+        </v-main>
         <v-snackbar
             v-model="snackbar"
             timeout="-1"
@@ -102,8 +100,6 @@
 </template>
 <script>
 import axios from 'axios'
-import Header from '../components/header.vue'
-import NavDraw from '../components/navDraw.vue'
 export default {
     data(){
         return{
@@ -121,10 +117,6 @@ export default {
             file: "",
             snackbar: false
         }
-    },
-    components:{
-            'appHeader': Header,
-            'navDraw': NavDraw
     },
     methods: {
         onFileChanged() {
@@ -176,9 +168,5 @@ export default {
         font-family: Arial, sans-serif;
         font-weight: bold;
         font-size: 15px;
-    }
-    .container {
-        margin: 20px auto 80px auto;
-        max-width: 1100px;
     }
 </style>

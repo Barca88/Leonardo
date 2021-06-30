@@ -392,6 +392,7 @@
 <script>
 import axios from "axios";
 export default {
+  props: ["toggle"],
   data() {
     return {
       title: "Vue",
@@ -399,7 +400,6 @@ export default {
       nome: this.$store.state.user._id,
       miniVariant: true,
       expandOnHover: true,
-      drawerOn: true,
       reindexar: false,
       priv: false,
       terms: false,

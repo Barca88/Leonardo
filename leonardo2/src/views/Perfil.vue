@@ -7,7 +7,7 @@
         <div v-else>
             <navDrawLeitor></navDrawLeitor>
         </div>
-        <v-container fluid style="margin-top:2.5cm">
+        <v-main fluid style="margin-top:2.5cm">
             <v-row justify="space-around">
                 <v-col cols="5">
                     <div class="title mb-1">{{$t('perfil.foto')}}</div>
@@ -149,7 +149,7 @@
                     </span>
                 </v-tooltip>
             </v-dialog>
-        </v-container>
+        </v-main>
     </div>
 </template>
 <script>

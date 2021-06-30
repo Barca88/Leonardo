@@ -90,7 +90,7 @@
         </v-card-title>
         <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container>
+              <v-main>
                   <v-text-field v-if="value != 'ver'"
                       :label="$t('defForm.elem')"
                       v-model="definition.elemento"
@@ -114,15 +114,15 @@
                       :label="$t('defForm.ex')"
                       v-model="definition.exemplo"
                   ></v-text-field>
-                  <v-container fluid v-if="value != 'ver'">
+                  <v-main fluid v-if="value != 'ver'">
                   <label>{{$t('defForm.pro')}}</label>
                   <v-radio-group  v-model="definition.procurar" column>
                       <v-radio :label="$t('defForm.sim')" value="sim"></v-radio>
                       <v-radio :label="$t('defForm.nao')" value="nao"></v-radio>
                   </v-radio-group>
-                  </v-container>
+                  </v-main>
                   <br>
-              </v-container>
+              </v-main>
           </v-form>
           </v-card-actions>
         <v-row>

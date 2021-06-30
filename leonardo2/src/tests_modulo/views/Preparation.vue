@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-10">
+  <v-main class="pa-10">
     <h3 class="text-h3 grey--text text--lighten-1 mb-3">
       Preparacao de Testes
     </h3>
@@ -53,7 +53,7 @@
       :show="snackbar.show"
       @close="snackbar.show = false"
     />
-  </v-container>
+  </v-main>
 </template>
 
 <script>

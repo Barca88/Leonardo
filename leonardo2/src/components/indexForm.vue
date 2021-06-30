@@ -9,7 +9,7 @@
         </v-card-title>
         <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container>
+              <v-main>
                   <v-simple-table class="table">
                     <template v-slot:default>
                         <tbody>
@@ -72,7 +72,7 @@
                         </tbody>
                     </template>
                   </v-simple-table>
-              </v-container>
+              </v-main>
           </v-form>
           </v-card-actions>
           <v-toolbar flat>

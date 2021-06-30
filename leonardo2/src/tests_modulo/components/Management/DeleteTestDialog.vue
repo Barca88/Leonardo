@@ -8,7 +8,7 @@
       <h5 class="pa-10 text-h5 pt-8 pb-4 text-center">
         Tem a certeza que pretende eliminar este teste?
       </h5>
-      <v-container>
+      <v-main>
         <v-row justify="center">
           <v-col cols="6" md="4" lg="3" class="d-flex justify-center">
             <v-btn large @click="$emit('changeVisibility', false)">
@@ -21,7 +21,7 @@
             </v-btn>
           </v-col>
         </v-row>
-      </v-container>
+      </v-main>
     </template>
 
     <template v-slot:actions>

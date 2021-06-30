@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col>
         <h4>Sistema de Anotação Automática de Textos</h4>
@@ -15,11 +15,11 @@
       </v-col>
 
       <v-col cols="2">
-        <v-container>
+        <v-main>
           <v-row>
             <v-btn class="ma-2 border-bottom" color="#003366" @click="guardarFolioModernizado()" dark>Submeter</v-btn>
           </v-row>
-        </v-container>
+        </v-main>
       </v-col>
     </v-row>
 
@@ -36,7 +36,7 @@
 
     <br />
     <hr />
-  </v-container>
+  </v-main>
 </template>
 
 <script>

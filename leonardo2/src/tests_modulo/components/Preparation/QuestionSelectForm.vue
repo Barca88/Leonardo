@@ -2,7 +2,7 @@
   <v-form>
     <TestConfigDisplay :test="test" />
     <h4 class="text-h4 py-4 text-center">Selecao de Questoes</h4>
-    <v-container>
+    <v-main>
       <v-row justify="center">
         <v-col
           cols="12"
@@ -31,7 +31,7 @@
           </QuestionCard>
         </v-col>
       </v-row>
-    </v-container>
+    </v-main>
   </v-form>
 </template>
 

@@ -131,7 +131,7 @@
           >
             <div style="width:500px">
               <v-form ref="form" method="post" enctype="multipart/form-data">
-                  <v-container>
+                  <v-main>
                       <v-row>
                         <v-text-field
                             label= "Username"
@@ -167,7 +167,7 @@
                         ></v-text-field>
                         <h5 style="color:red">*</h5>
                       </v-row>
-                      <v-container fluid>
+                      <v-main fluid>
                         <v-row>
                           <label>{{$t('reg.tipo')}}</label>
                           <h5 style="color:red">*</h5>
@@ -176,7 +176,7 @@
                             <v-radio label="Admin" value="Admin"></v-radio>
                             <v-radio label="Leitor" value="Leitor"></v-radio>
                         </v-radio-group>
-                      </v-container>
+                      </v-main>
                       <v-row>
                         <v-text-field
                             label="Universidade"
@@ -236,7 +236,7 @@
                           {{$t('indForm.close')}}
                         </span>
                       </v-tooltip>
-                  </v-container>
+                  </v-main>
               </v-form>
             </div>
           </v-row>

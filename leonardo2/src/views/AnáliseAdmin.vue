@@ -16,7 +16,7 @@
       </div>
       
       <!-- Só para afastar 2 centrimetro o titulo da pesquisa -->
-       <v-container fluid>
+       <v-main fluid>
             <v-row>
               <v-col cols="12">
                 <v-row
@@ -27,9 +27,9 @@
               </v-row>
             </v-col>
           </v-row>
-       </v-container>
+       </v-main>
 
-        <v-container fluid>
+        <v-main fluid>
             <v-row>
               <v-col cols="12">
                 <v-row
@@ -40,13 +40,13 @@
               </v-row>
             </v-col>
           </v-row>
-       </v-container>
+       </v-main>
         
     
-      <v-container style="padding:0">
+      <v-main style="padding:0">
         <v-form ref="form" lazy-validation>
         
-        <v-container fluid>
+        <v-main fluid>
             <v-row>
               <v-col cols="12">
                 <v-row
@@ -133,7 +133,7 @@
               </v-row>
             </v-col>
           </v-row>
-        </v-container>
+        </v-main>
 
 
           <!--
@@ -152,7 +152,7 @@
           </v-row>
           --> 
 
-          <v-container fluid>
+          <v-main fluid>
             <v-row>
               <v-col cols="12" class="ma-0 pa-0">
                 <v-row
@@ -171,9 +171,9 @@
                 </v-row>
               </v-col>
             </v-row>
-          </v-container>
+          </v-main>
             
-          <v-container fluid>
+          <v-main fluid>
             <v-row>
               <v-col class="ma-0 pa-0" cols="12">
                 <v-row
@@ -193,10 +193,10 @@
                 </v-row>
               </v-col>
             </v-row>
-          </v-container> 
+          </v-main> 
 
           
-          <v-container fluid>
+          <v-main fluid>
             <v-row>
               <v-col class="ma-0 pa-0" cols="12">
                 <v-row
@@ -214,10 +214,10 @@
                 </v-row>
               </v-col>
             </v-row>
-          </v-container>
+          </v-main>
 
 
-          <v-container fluid>
+          <v-main fluid>
             <v-row>
               <v-col class="ma-0 pa-0" cols="12">
                 <v-row
@@ -248,16 +248,16 @@
                 </v-row>
               </v-col>
             </v-row>
-          </v-container>
+          </v-main>
 
 
             <!-- o v-bind:label, tive de fazer assim para conseguir traduzir o interior do campo -->
             <!--  <v-btn @click="reset">clear</v-btn> /-->
         </v-form>
-      </v-container>
+      </v-main>
 
       <!-- Só para afastar 1 centrimetro o titulo da pesquisa -->
-       <v-container fluid>
+       <v-main fluid>
             <v-row>
               <v-col cols="12">
                 <v-row
@@ -268,7 +268,7 @@
               </v-row>
             </v-col>
           </v-row>
-       </v-container>
+       </v-main>
       <Footer/>
     </div>
 </template>

@@ -16,7 +16,7 @@
                 <h3>{{$t('reg.quest')}}</h3>
                 <v-btn depressed link to="/login">Faça o login</v-btn>
                 <v-form ref="form" method="post" enctype="multipart/form-data">
-                    <v-container>
+                    <v-main>
                         <v-text-field
                             label= "Username"
                             v-model="pedido.username"
@@ -39,13 +39,13 @@
                             :rules="[rules.required, rules.email]"
                             required                     
                         ></v-text-field>
-                        <v-container fluid>
+                        <v-main fluid>
                         <label>{{$t('reg.tipo')}}</label>
                         <v-radio-group v-model="pedido.tipo" column >
                             <v-radio label="Admin" value="Admin"></v-radio>
                             <v-radio label="Leitor" value="Leitor"></v-radio>
                         </v-radio-group>
-                        </v-container>
+                        </v-main>
                         <v-text-field
                             label="Universidade"
                             v-model="pedido.universidade"             
@@ -69,7 +69,7 @@
                         <br>
                         <v-btn class="blue white--text" @click.prevent="reset">Reset</v-btn>
                         <v-btn ref="submit" class="green white--text" @click="post()" v-bind:class="{disabled: disableButton}" :disabled="disableButton" >Submeter</v-btn>
-                    </v-container>
+                    </v-main>
                 </v-form>
                 </div>
             </v-row>

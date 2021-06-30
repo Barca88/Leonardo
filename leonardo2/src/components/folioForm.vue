@@ -9,7 +9,7 @@
         </v-card-title>
         <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container>
+              <v-main>
                   <v-simple-table class="table">
                     <template v-slot:default>
                         <tbody>
@@ -103,7 +103,7 @@
                           <v-btn @click="dialog2 = false" color="#c9302c" class="white--text">{{$t('indForm.close')}}</v-btn>
                       </v-card>
                   </v-dialog>
-              </v-container>
+              </v-main>
           </v-form>
           </v-card-actions>
           <v-toolbar flat>

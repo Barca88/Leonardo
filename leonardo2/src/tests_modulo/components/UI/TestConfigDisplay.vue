@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col cols="12" md="8">
         <h4 class="py-6 text-h4 text-center" color="primary ">Configuracao</h4>
@@ -123,7 +123,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
 </template>
 
 <script>

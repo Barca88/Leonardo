@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-10">
+  <v-main class="pa-10">
     <v-row justify="space-around" class="mb-0">
       <v-col cols="12" md="3">
         <h3 class="text-h3 grey--text text--lighten-1">Realizacao de teste:</h3>
@@ -267,7 +267,7 @@
         class="d-flex flex-column"
         style="overflow-y: auto; overflow-x: hidden"
       >
-        <v-container>
+        <v-main>
           <v-row justify="center">
             <v-col cols="12" md="10" lg="6" class="d-flex justify-space-around">
               <v-card class="pa-3" width="fit-content">
@@ -316,7 +316,7 @@
               </v-btn>
             </v-col>
           </v-row>
-        </v-container>
+        </v-main>
       </v-card-text>
     </v-card>
     <TextSnackBar
@@ -325,7 +325,7 @@
       :show="snackbar.show"
       @close="snackbar.show = false"
     />
-  </v-container>
+  </v-main>
 </template>
 
 <script>

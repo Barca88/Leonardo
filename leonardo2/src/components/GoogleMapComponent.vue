@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col cols="6">
         <v-row>
@@ -20,7 +20,7 @@
         <MapComponent :viewType="viewType" :places="places"></MapComponent>
       </v-col>
     </v-row>
-  </v-container>
+  </v-main>
 </template>
 <script>
 import axios from 'axios'

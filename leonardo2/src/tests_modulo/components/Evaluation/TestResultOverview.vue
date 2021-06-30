@@ -10,7 +10,7 @@
         style="overflow-y: auto; overflow-x: hidden"
       >
         <h4 class="text-h4 py-4">Questoes</h4>
-        <v-container>
+        <v-main>
           <v-row justify="center">
             <v-col
               cols="12"
@@ -23,7 +23,7 @@
               <QuestionResultCard :index="i" :question="q" />
             </v-col>
           </v-row>
-        </v-container>
+        </v-main>
       </v-card-text>
     </v-card>
   </section>

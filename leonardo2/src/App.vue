@@ -1,24 +1,27 @@
 <template>
   <v-app>
-    <v-content>      
+    <appHeader v-if="$route.path!='/login'" :ajuda='ajuda' @toggleDrower="toggle=!toggle"></appHeader>
+    <navDraw v-if="$route.path!='/login'" :toggle="toggle"></navDraw> 
+    <v-main>      
       <router-view></router-view>
-      <!--<appFooter></appFooter>-->
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import NavDraw from './components/navDraw.vue'
+import Header from './components/header.vue'
 //import Footer from './components/Footer.vue'
 export default {
   name: 'App',
-
-  /*components: {
-    'appFooter':Footer
-  },*/
-
-  data: () => ({
-    //
-  }),
+  data() { 
+    return {
+      toggle: true
+  }},
+  components:{
+      'appHeader': Header,
+      'navDraw':NavDraw
+  }
 };
 </script>
 

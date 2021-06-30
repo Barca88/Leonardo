@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col>
         <h4>Sistema de Anotação Automática de Textos</h4>
@@ -7,7 +7,7 @@
     </v-row>
     <hr />
 
-    <v-container>
+    <v-main>
       <v-row>
         <v-col cols="10"> </v-col>
         <v-col cols="2">
@@ -19,7 +19,7 @@
           ></v-switch>
         </v-col>
       </v-row>
-    </v-container>
+    </v-main>
 
     <!-- Folio Editor -->
     <v-row>
@@ -97,7 +97,7 @@
 
     <br />
     <hr />
-  </v-container>
+  </v-main>
 </template>
 
 <script>

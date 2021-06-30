@@ -8,7 +8,7 @@
           <h3>{{$t('docs.ins')}}</h3>
         </v-card-title>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container class="ml-5">
+              <v-main class="ml-5">
                 <div style="width:80%">
                     <v-text-field
                           :label="$t('docs.id')"
@@ -31,14 +31,14 @@
                     ></v-text-field>
                     <h5 style="color:red">*</h5>
                   </v-row>
-                  <v-container fluid>
+                  <v-main fluid>
                   <v-radio-group v-model="doc.tipo" column>
                       <v-radio :label="$t('docForm.art')" value="Artigo"></v-radio>
                       <v-radio :label="$t('docForm.man')" value="Manual"></v-radio>
                       <v-radio :label="$t('docForm.rel')" value="Relatório Técnico"></v-radio>
                       <v-radio :label="$t('docForm.diss')" value="Dissertação"></v-radio>
                   </v-radio-group>
-                  </v-container>
+                  </v-main>
                   <v-row>
                     <v-text-field
                         :label="$t('docs.data')"
@@ -53,8 +53,8 @@
                       <h5 style="color:red">*</h5>
                   </v-row>
                 </div>
-              </v-container>
-              <v-container>
+              </v-main>
+              <v-main>
                 <div style="width:90%">
                   <v-row>
                     <v-tooltip bottom>
@@ -122,7 +122,7 @@
                     </v-tooltip>
                   </v-row>
                 </div>
-              </v-container>
+              </v-main>
           </v-form>
       </v-card>
       <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 

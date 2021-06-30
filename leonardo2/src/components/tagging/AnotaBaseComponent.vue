@@ -1,12 +1,12 @@
 <template>
-  <v-container>
+  <v-main>
     <v-row>
       <v-col>
         <h4>Sistema de Anotação Automática de Textos</h4>
       </v-col>
     </v-row>
     <hr />
-    <v-container>
+    <v-main>
       <div v-if="anota == 0" style="text-center">
         <v-row>
           <v-col cols="2"> </v-col>
@@ -79,8 +79,8 @@
           </v-col>
         </v-row>
       </div>
-    </v-container>
-  </v-container>
+    </v-main>
+  </v-main>
 </template>
 
 

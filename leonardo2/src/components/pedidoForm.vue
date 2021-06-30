@@ -15,7 +15,7 @@
         </v-card-title>
         <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
-              <v-container>
+              <v-main>
                   <v-simple-table class="table">
                     <template v-slot:default>
                         <tbody>
@@ -81,7 +81,7 @@
                   <br>
                   <!-- <v-btn ref="submit" color="#26B99A" class="white--text" @click="post();emiteFecho();">{{$t('p1.acept')}}</v-btn>
                   <v-btn color="#c9302c" class="white--text" @click="emiteFecho">{{$t('indForm.close')}}</v-btn> -->
-              </v-container>
+              </v-main>
           </v-form>
         </v-card-actions>
         <v-row>

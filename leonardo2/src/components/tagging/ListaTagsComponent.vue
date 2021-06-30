@@ -91,7 +91,7 @@
           <v-toolbar-title>Editar Tag</v-toolbar-title>
         </v-toolbar>
 
-        <v-container v-if="tag_escolhida_editar != ''">
+        <v-main v-if="tag_escolhida_editar != ''">
           <v-row>
             <v-col cols="6">
               <v-row>
@@ -148,7 +148,7 @@
               >Guardar</v-btn
             >
           </v-row>
-        </v-container>
+        </v-main>
       </v-card>
     </v-dialog>
 

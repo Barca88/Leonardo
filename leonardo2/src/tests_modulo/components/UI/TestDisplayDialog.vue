@@ -12,7 +12,7 @@
       <slot name="body">
         <TestConfigDisplay :test="test" />
         <h4 class="text-h4 py-4">Questoes</h4>
-        <v-container>
+        <v-main>
           <v-row justify="center">
             <v-col
               cols="12"
@@ -25,7 +25,7 @@
               <QuestionCard :index="i" :question="q" :isReplacement="false" />
             </v-col>
           </v-row>
-        </v-container>
+        </v-main>
       </slot>
     </template>
 
