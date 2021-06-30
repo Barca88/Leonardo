@@ -3,7 +3,7 @@
     <v-navigation-drawer
       app
       clipped
-      v-if="drawerOn"
+      v-model="drawerState"
       color="#2A3F54"
       class="navBar"
     >
@@ -510,6 +510,12 @@ export default {
         this.errors.push(e);
       });
   },
+    computed: {
+        drawerState: {
+        get () { return this.$store.getters.drawerState },
+        set (v) { return this.$store.commit('toggleDrawerState', v) }
+        }
+    }
 };
 </script>
 

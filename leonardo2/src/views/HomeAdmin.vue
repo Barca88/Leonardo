@@ -1,7 +1,7 @@
 <template>
     <div id="homeAdmin" style="width:70%">
-        <appHeader></appHeader>
         <navDraw></navDraw>
+        <appHeader></appHeader>
         <div >
             <v-toolbar flat style="margin-top:2.5cm;margin-bottom:2.5cm">
                 <v-row>

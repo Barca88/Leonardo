@@ -1,7 +1,7 @@
 <template>
     <v-app-bar app color="#2A3F54" height="100" clipped-left>
         <v-app-bar-nav-icon 
-            @click.stop="drawer = !drawer"
+            @click="drawerState = !drawerState"
             color="#FFF"
             ></v-app-bar-nav-icon>
         <v-list
@@ -186,6 +186,12 @@ export default {
             this.help = 'Esta é a ajuda dos pedidos de acesso'
         }
         //console.log('HELP: ' + this.help)
+    },
+    computed: {
+        drawerState: {
+        get () { return this.$store.getters.drawerState },
+        set (v) { return this.$store.commit('toggleDrawerState', v) }
+        }
     }
 };
 </script>

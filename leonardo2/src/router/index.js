@@ -293,7 +293,10 @@ const routes = [
             next();
           }
         }, 
-      }
+      },
+      { path: "/*",
+        name: "Pedidos",
+        component: () => import("../views/PageNotFound.vue"), }
     ],
   },
 ];
