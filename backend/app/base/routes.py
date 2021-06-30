@@ -222,7 +222,7 @@ def login():
         users = [doc for doc in mongo.db.users.find()]
         nome = request.args.get('nome')
 
-        token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=720)),
+        token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=15)),
                            # jwt app.config['SECRET_KEY']
                            '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
         return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
