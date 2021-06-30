@@ -15,7 +15,7 @@
     cols="12" 
     > 
       <div class="text-center"> 
-          <small class="grey--text change-font text-none">©Leonardo, 2020</small> 
+          <small class="grey--text change-font text-none">© Leonardo, 2021</small> 
       </div>
     </v-col>
     </v-row>

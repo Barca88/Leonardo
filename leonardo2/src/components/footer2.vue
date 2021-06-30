@@ -15,7 +15,7 @@
     cols="12" 
     > 
       <div class="text-center"> 
-          <small class="grey--text change-font text-none">©Leonardo, 2020</small> 
+          <small class="grey--text change-font text-none">© Leonardo, {{this.year}}</small> 
       </div>
     </v-col>
     </v-row>
@@ -35,8 +35,13 @@ import Popup from './adminPopupHelp'
 export default {
   components: {PopupTermos,PopupCreditos,PopupSaberMais,PopupPrivacidade, Popup},
   data() {
-    return {};
+    return {
+      year: 2021,
+    };
   }, 
+  created() {
+    this.year = Date.getFullYear()
+  }
 }
 </script>
 
