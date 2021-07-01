@@ -149,7 +149,7 @@ const routes = [
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else if (!store.getters.isAdmin) {
+      } else if (store.getters.isStudent) {
         next(`/`);
       } else {
         next();
@@ -231,6 +231,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (store.getters.isStudent) {
+              next(`/`);
           } else {
             next();
           }
@@ -243,6 +245,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (store.getters.isStudent) {
+            next(`/`);
           } else {
             next();
           }
@@ -256,6 +260,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
           } else {
             next();
           }
@@ -267,6 +273,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
           } else {
             next();
           }
@@ -278,6 +286,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
           } else {
             next();
           }
@@ -289,6 +299,8 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
           } else {
             next();
           }

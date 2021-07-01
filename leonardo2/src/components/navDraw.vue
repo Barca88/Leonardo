@@ -47,19 +47,19 @@
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="!$store.getters.isStudent"
           class="white--text"
           prepend-icon="mdi-wrench"
           :value="false"
@@ -87,7 +87,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-check-bold"
           :value="false"
@@ -152,7 +152,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="!$store.getters.isStudent"
           class="white--text"
           prepend-icon="mdi-wechat"
           :value="false"
@@ -224,19 +224,19 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/tests/results">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/tests/results">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ans")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item v-if="$store.getters.isAdmin" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.acess")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-account-multiple"
           :value="false"
@@ -285,7 +285,7 @@
               $t("adminNav.events")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/home">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ges")
             }}</v-list-item-title>
@@ -297,7 +297,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-cog"
           :value="false"
@@ -322,7 +322,7 @@
           <v-list-item-title>{{ $t("navd.help") }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link to="/documentacao">
+        <v-list-item v-if="!$store.getters.isStudent" link to="/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>

@@ -58,6 +58,12 @@ export default new Vuex.Store({
         }
         return true
       },
+      isStudent(state){
+        if(state.user.tipo != 'Student' ){
+          return false
+        }
+        return true
+      },
       currentTextoAnotado: state => {
         return state.textoAnotado;
       },
