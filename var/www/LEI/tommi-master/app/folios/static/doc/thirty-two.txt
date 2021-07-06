@@ -1,7 +1,0 @@
-select distinct ?film ?director ?name ?gender WHERE{
-    ?film dbo:director ?director.
-    ?director rdfs:label ?name.
-    filter(lang(?name) = 'en') 
-    ?director foaf:gender ?gender.
-    filter(lang(?gender) = 'en') 
-}
