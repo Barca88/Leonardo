@@ -206,11 +206,12 @@ export default {
             
             let formData = new FormData()
             formData.append('curriculo',this.selectedFile)
-            axios.post(`http://localhost:5000/users/curriculo/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"
                 }
                 }).then(response => {
                     var pdf = new Buffer(response.data, 'binary').toString('base64')
@@ -223,11 +224,12 @@ export default {
             this.selectedFile = e.target.files[0]
             let formData = new FormData()
             formData.append('foto',this.selectedFile)
-            axios.post(`http://localhost:5000/users/foto/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`       
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
                 }
                 }).then(response => {
                     this.userPic=''
@@ -238,7 +240,7 @@ export default {
                 })
         },
         onUpdate(){
-            axios.get(`http://localhost:5000/users/curriculo/${this.username}?seed=${Date.now()}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.username}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -262,7 +264,7 @@ export default {
     },
     created() {
         this.userPic=''
-        axios.get(`http://localhost:5000/users/foto/${this.username}?seed=${Date.now()}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`

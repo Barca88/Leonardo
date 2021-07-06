@@ -54,6 +54,7 @@
         <template v-slot:item.options="{ item }">
             <v-icon
                 small
+                color="#246a73"
                 class="mr-2"
                 @click="editItem(item, 'ver')"
             >
@@ -61,6 +62,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#368f8b"
                 class="mr-2"
                 @click="editItem(item,'editar')"
             >
@@ -68,6 +70,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#f3dfc1"
                 class="mr-2"
                 @click="verObjectItem(item,'curriculo')"
             >
@@ -75,6 +78,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#55bcc9"
                 class="mr-2"
                 @click="verObjectItem(item,'foto')"
             >
@@ -82,6 +86,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#8e363a"
                 @click="deleteDialog = true;tempValue=item"
             >
                 mdi-trash-can
@@ -282,7 +287,7 @@ export default {
     methods: {
       atualizarInfo: function(){
         this.dialog=false
-        axios.get(`https://localhost:5000/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
             // JSON responses are automatically parsed.
             var todos = response.data.users
@@ -311,7 +316,7 @@ export default {
         const index = this.users.indexOf(item)
         //console.log(this.users[index])        
         if (value == 'curriculo'){
-          axios.get(`https://localhost:5000/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
+          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -328,7 +333,7 @@ export default {
           })
         }
         else if(value == 'foto'){
-            axios.get(`http://localhost:5000/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -352,7 +357,7 @@ export default {
       },
       edit(){
         this.update = true
-        axios.get(`https://localhost:5000/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
               // JSON responses are automatically parsed.
               //console.log(response.data)
@@ -367,7 +372,7 @@ export default {
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
-        axios.get(`https://localhost:5000/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/apagar/` + this.users[index]._id + `?nome=` + this.users[index].username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
@@ -390,7 +395,7 @@ export default {
     },
     created() {
         //console.log('store->' + this.$store.state.jwt)
-        axios.get(`https://localhost:5000/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)

@@ -26,7 +26,7 @@ export default {
         'placeListComponent': placeListComponent
     },
     created() {
-        axios.get(`http://localhost:5000/folios/folios?nome=admin`,{headers:{
+        axios.get(`${process.env.VUE_APP_BACKEND}/folios/folios?nome=admin`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {

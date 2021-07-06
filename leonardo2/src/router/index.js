@@ -34,13 +34,9 @@ const routes = [
     redirect: `/home`,
   },
   {
-    path: "/admin",
-    redirect: `/admin/login`,
-  },
-  {
     path: "/home",
-    name: "home",
-    component: () => import("../views/HomeAdmin.vue"),
+    name: "Blank",
+    component: () => import("../views/Blank.vue"),
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
@@ -49,12 +45,6 @@ const routes = [
       }
     },
   },
-  {
-    path: "/resultados",
-    name: "resultados",
-    component: () => import("../views/Resultados.vue"),
-  },
-
   {
     path: "/login",
     name: "Login",
@@ -73,7 +63,7 @@ const routes = [
     component: () => import("../views/Registo.vue"),
   },
   {
-    path: "users",
+    path: "/users",
     name: "Utilizadores",
     component: () => import("../views/Utilizadores.vue"),
     beforeEnter(to, from, next) {
@@ -113,158 +103,12 @@ const routes = [
     },
   },
   {
-    path: "folios/indices",
-    name: "Indices",
-    component: () => import("../views/Indices.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "folios/tags",
-    name: "Tags",
-    component: () => import("../views/Definitions.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging",
-    name: "ListaFolios",
-    component: () => import("../views/tagging/ListaFolios.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/editor",
-    name: "Editor",
-    component: () => import("../views/tagging/Editor.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/modernizador",
-    name: "Atualiza",
-    component: () => import("../views/tagging/Atualiza.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/folioAnotado/ver/:id",
-    name: "Editor",
-    component: () => import("../views/tagging/VerFolio.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/folioAtualizado/ver/:id",
-    name: "Editor",
-    component: () => import("../views/tagging/VerAtualizado.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/tags/dicionario",
-    name: "Editor",
-    component: () => import("../views/tagging/DicionarioTags.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/anotaBase",
-    name: "AnotaBase",
-    component: () => import("../views/tagging/AnotaBase.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/tags/lista",
-    name: "Editor",
-    component: () => import("../views/tagging/ListaTags.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "tagging/regras/lista",
-    name: "Editor",
-    component: () => import("../views/tagging/ListaRegras.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
     path: "about",
     name: "Acerca",
     component: () => import("../views/About.vue"),
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "import",
-    name: "Import",
-    component: () => import("../views/Import.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else if (!store.getters.isAdmin) {
-        next(`/`);
       } else {
         next();
       }
@@ -299,61 +143,13 @@ const routes = [
     },
   },
   {
-    path: "analise",
-    name: "Analise",
-    component: () => import("../views/AnáliseAdmin.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "resultados",
-    name: "AdminResultados",
-    component: () => import("../views/ResultadoAdmin.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "homeAdmin",
-    name: "HomeAdmin",
-    component: () => import("../views/HomeAdmin.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "documentacao",
+    path: "/documentacao",
     name: "Documentação",
     component: () => import("../views/Documentacao.vue"),
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "pesquisas",
-    name: "PesquisasRealizadas",
-    component: () => import("../views/PesquisasRealizadas.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else if (!store.getters.isAdmin) {
+      } else if (store.getters.isStudent) {
         next(`/`);
       } else {
         next();
@@ -375,50 +171,14 @@ const routes = [
     },
   },
   {
-    path: "mapas",
-    name: "GoogleMap",
-    component: () => import("../views/GoogleMap.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "localidades",
-    name: "Places",
-    component: () => import("../views/PlaceList.vue"),
+    path: "/usersImport",
+    name: "UserImportation",
+    component: () => import("../views/UserImportation.vue"),
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
       } else if (!store.getters.isAdmin) {
         next(`/`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "localidades/:nome",
-    name: "Place",
-    component: () => import("../views/GoogleMapOnePlace.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "processamento",
-    name: "Processamento",
-    component: () => import("../views/ProgressBar.vue"),
-    beforeEnter(to, from, next) {
-      if (!store.getters.isAuthenticated) {
-        next(`/login`);
       } else {
         next();
       }
@@ -432,34 +192,123 @@ const routes = [
         path: "preparation",
         name: "Preparation",
         component: Preparation,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "evaluation",
         name: "Evaluation",
         component: Evaluation,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "evaluation/:testid",
         name: "EvaluationTest",
         component: EvaluationTest,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "management",
         name: "Management",
         component: Management,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+              next(`/`);
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "results",
         name: "results",
         component: ResultsDashboard,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+            next(`/`);
+          } else {
+            next();
+          }
+        },
       },
 
       /* Rotas de Importacao de Questões */
-      { path: '/importacao/import', component: ImportMenu },
-      { path: '/importacao/table', component: Table },
-      { path: '/importacao/errors', component: ErrorTable },
-      { path: '/importacao/dashboard', component: ImportDashboard }
-
+      { 
+        path: '/importacao/import', 
+        component: ImportMenu,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
+          } else {
+            next();
+          }
+        },
+      },
+      { 
+        path: '/importacao/table', 
+        component: Table,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
+          } else {
+            next();
+          }
+        },
+      },
+      { 
+        path: '/importacao/errors', 
+        component: ErrorTable,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
+          } else {
+            next();
+          }
+        },
+      },
+      { 
+        path: '/importacao/dashboard', 
+        component: ImportDashboard,
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (!store.getters.isAdmin) {
+            next(`/`);
+          } else {
+            next();
+          }
+        }, 
+      },
+      { path: "/*",
+        name: "Pedidos",
+        component: () => import("../views/PageNotFound.vue"), }
     ],
   },
 ];

@@ -3,6 +3,7 @@
 
 from flask import Flask, url_for, request, jsonify
 from flask_login import LoginManager
+from flask_cors import CORS
 from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
@@ -27,7 +28,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     # Aqui podemos adiconar difrentes modulos
-    for module_name in ['users', 'home', 'base', 'settings']:
+    for module_name in ['users', 'home', 'base', 'settings', 'documentacao']:
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
 
@@ -58,6 +59,7 @@ def create_app(config, selenium=False) -> object:
     register_extensions(app)
     register_blueprints(app)
     apply_themes(app)
+    CORS(app, resources={r"*": {"origins": "*"}})
     return app
 
 

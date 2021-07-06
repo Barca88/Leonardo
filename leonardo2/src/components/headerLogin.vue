@@ -1,5 +1,45 @@
 <template>
     <v-app-bar app color="#2A3F54">
+        <v-list-item two-line class="px-0" 
+            dense
+            dark
+            color="#2A3F54">
+                <v-list-item-avatar min-width="55px" tile class="ava" @click="about = true">
+                    <v-img src="@/assets/logo_original.png"/>
+                </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title><h2>{{$t('navd.tituloProjeto')}}</h2></v-list-item-title>
+                <v-list-item-subtitle>{{$t('login.adminSystem')}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+            <v-dialog @keydown.esc="about = false" v-model="about" scrollable width="500">
+                <v-card>
+                    <v-toolbar color="#2A3F54" dark>
+                        <h2>{{ $t('nav.sabermais') }}</h2>
+                    </v-toolbar>
+                    <v-divider
+                    class="mx-4"
+                    horizontal
+                ></v-divider>
+
+                    <v-card-text class="change-font" style="white-space: pre-line"
+                    >{{ $t('nav.textoSaberMais') }}</v-card-text
+                    >
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    
+                    <v-tooltip bottom> 
+                        <template v-slot:activator="{ on }">
+                            <v-btn depressed color="white" @click="about=false" v-on="on">
+                            <v-icon large>mdi-exit-to-app</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>{{ $t('nav.Sair') }}</span>
+                        </v-tooltip>
+
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         <div class="spacer"></div>
         <v-tooltip bottom> 
             <template v-slot:activator="{ on }">

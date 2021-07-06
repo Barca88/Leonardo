@@ -1,7 +1,7 @@
 <template>
     <div id="homeAdmin" style="width:70%">
-        <appHeader></appHeader>
         <navDraw></navDraw>
+        <appHeader></appHeader>
         <div >
             <v-toolbar flat style="margin-top:2.5cm;margin-bottom:2.5cm">
                 <v-row>
@@ -132,7 +132,7 @@ export default {
             this.labels.push(label)
         }
         //Users
-        axios.get(`http://localhost:5000/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.nUsers = response.data.users.length
         }).catch(e => {
@@ -141,7 +141,7 @@ export default {
 
 
         //Fólios
-        await axios.get(`http://localhost:5000/folios/folios?nome=${this.$store.state.user._id}`,{headers:{
+        await axios.get(`${process.env.VUE_APP_BACKEND}/folios/folios?nome=${this.$store.state.user._id}`,{headers:{
             Authorization:`Bearer: ${this.$store.state.jwt}`
             }})
             .then(response => {
@@ -159,7 +159,7 @@ export default {
         })
         await this.contains()
         //Tags
-        axios.get(`http://localhost:5000/folios/tags?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`${process.env.VUE_APP_BACKEND}/folios/tags?nome=${this.$store.state.user._id}`,{headers:{
           Authorization:`Bearer: ${this.$store.state.jwt}`
         }})
         .then(response => {
@@ -168,9 +168,10 @@ export default {
             this.errors.push(e)
         })
         //Índices
-        axios.get(`http://localhost:5000/folios/index?nome=${this.$store.state.user._id}`,{headers:{
+        axios.get(`${process.env.VUE_APP_BACKEND}/folios/index?nome=${this.$store.state.user._id}`,{headers:{
           'Content-Type': 'multipart/form-data',
-          Authorization:`Bearer: ${this.$store.state.jwt}`
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+          'Access-Control-Allow-Origin': "*"
         }})
         .then(response => {
             this.nInds = response.data.indexs.length

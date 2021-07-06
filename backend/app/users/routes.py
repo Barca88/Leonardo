@@ -12,6 +12,7 @@ from os.path import join, dirname, realpath
 from shutil import copyfile, move
 ###### este é meu
 import json 
+import csv
 from bson import json_util
 from flask_cors import CORS, cross_origin
 CORS(blueprint)
@@ -179,6 +180,38 @@ def route_cur_atualizar(user):
         return send_from_directory(pathC, user,mimetype='application/pdf')
     else :
         return send_from_directory(pathC, "blank.pdf",mimetype='application/pdf')
+##########################################
+
+
+@blueprint.route('/import_registos', methods=['POST'])
+@token_required
+def route_import_registos():
+    if 'registos' in request.files:
+        registos = request.files['registos']
+        upload_path = join(dirname(realpath(__file__)), 'static/registos/')
+        print("Registos: ", registos.filename)
+        print("up path", upload_path)
+        if registos.filename != '':
+            upload_path2 = join(dirname(realpath(__file__)), 'static/registos/')
+            filename = upload_path2 + registos.filename
+            registos.save(filename)
+
+            with open(filename) as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                line_count = 0
+                for row in csv_reader:
+                    print(row)
+                    if line_count == 0:
+                        line_count += 1
+                        # if len(row) > 10:
+                        #     return json_util.dumps({'message':"Error"})
+                    else:
+                        encryptPass = generate_password_hash("password")
+                        print(row)
+                        value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Student","universidade":row[5],"departamento":"","data":row[8],"obs":""})
+                        line_count += 1
+
+    return json_util.dumps({'message':"OK"})
 ##########################################
 
 

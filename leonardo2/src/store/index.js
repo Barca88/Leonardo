@@ -12,7 +12,8 @@ export default new Vuex.Store({
       idTextoAnotado: "", 
       textoAtualizado: "",
       idTextoAtualizado: "", 
-      replacerList: []
+      replacerList: [],
+      drawerState: false
     },   
     plugins: [createPersistedState()],   
     mutations: {     
@@ -36,6 +37,9 @@ export default new Vuex.Store({
       },
       updateReplacerList: (state, payload) => {
         Vue.set(state, "replacerList", payload);
+      },
+      toggleDrawerState (state, data) {
+        state.drawerState = data
       }
     },
     getters:{
@@ -54,6 +58,12 @@ export default new Vuex.Store({
         }
         return true
       },
+      isStudent(state){
+        if(state.user.tipo != 'Student' ){
+          return false
+        }
+        return true
+      },
       currentTextoAnotado: state => {
         return state.textoAnotado;
       },
@@ -68,7 +78,9 @@ export default new Vuex.Store({
       },
       currentReplacerList: state => {
         return state.replacerList;
-      }
+      },
+      drawerState: (state) => state.drawerState
+
     },
     actions: {},   
     modules: {} 

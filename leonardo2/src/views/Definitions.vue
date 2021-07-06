@@ -217,7 +217,7 @@ export default {
         this.value='ver'
       },
       onUpdate(){
-          axios.get(`http://localhost:5000/settings/ver?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+          axios.get(`${process.env.VUE_APP_BACKEND}/settings/ver?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
@@ -232,7 +232,7 @@ export default {
       deleteItem (item) {
         const index = this.definitions.indexOf(item)
         //console.log('Index: ' + index + ' elemento: ' + this.definitions[index]._id)
-        axios.get(`http://localhost:5000/settings/apagar/` + this.definitions[index]._id + `?nome=` + this.definitions[index].elemento,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/settings/apagar/` + this.definitions[index]._id + `?nome=` + this.definitions[index].elemento,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)

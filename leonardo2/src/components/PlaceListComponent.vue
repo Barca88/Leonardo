@@ -67,7 +67,7 @@
 </template>
 <script>
 import axios from 'axios'
-const lhost = 'http://localhost:5000/'
+const lhost = process.env.VUE_APP_BACKEND
 export default {
   data () {
     return {

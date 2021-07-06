@@ -223,7 +223,7 @@ export default {
     this.pesquisa = this.pesquisa.trim();
     var res = []; 
     axios
-      .get("http://localhost:5000/analise/pesquisa", { params: this.$route.params })
+      .get(`${process.env.VUE_APP_BACKEND}/analise/pesquisa`, { params: this.$route.params })
       .then(dados => {
 
         var tempo_fin = performance.now()
@@ -349,7 +349,7 @@ export default {
       var result = []; 
       var tam = 0;
       axios
-        .get("http://localhost:5000/analise/folio/" + idfolio)
+        .get(`${process.env.VUE_APP_BACKEND}/analise/folio/${idfolio}`)
         .then(dados => {
           // se a pesquisa não começa por aspas não a vai partir para substituir a frase toda no folio
           

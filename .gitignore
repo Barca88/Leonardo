@@ -1,6 +1,8 @@
 node_modules/
 *.pyc
 __pycache__/
+*.py[cod]
+*.cpython-39.pyc
 .DS_Store
 node_modules
 /dist
@@ -23,3 +25,4 @@ yarn-error.log*
 *.sln
 *.sw?
 workspace.code-workspace
+leonardo2/package-lock.json

@@ -3,10 +3,7 @@
     <v-navigation-drawer
       app
       clipped
-      v-if="drawerOn"
-      permanent
-      :expand-on-hover="expandOnHover"
-      :mini-variant="miniVariant"
+      v-model="drawerState"
       color="#2A3F54"
       class="navBar"
     >
@@ -29,39 +26,40 @@
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folio/">
+          <v-list-item link to="/home">
+
             <v-list-item-title class="white--text">{{
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios/">
+          <v-list-item link to="/home/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios/">
+          <v-list-item link to="/home/">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="!$store.getters.isStudent"
           class="white--text"
           prepend-icon="mdi-wrench"
           :value="false"
@@ -72,12 +70,12 @@
               $t("adminNav.prod")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
@@ -89,7 +87,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-check-bold"
           :value="false"
@@ -147,14 +145,14 @@
               $t("adminNav.test")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.quizz")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="!$store.getters.isStudent"
           class="white--text"
           prepend-icon="mdi-wechat"
           :value="false"
@@ -165,22 +163,22 @@
               $t("adminNav.opi")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.inqsis")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.inqAnal")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.estPro")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.sentEx")
             }}</v-list-item-title>
@@ -198,12 +196,12 @@
               $t("adminNav.game")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/compFolios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
@@ -221,24 +219,24 @@
               $t("adminNav.dash")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/tests/results">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/tests/results">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ans")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item v-if="$store.getters.isAdmin" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.acess")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-account-multiple"
           :value="false"
@@ -249,7 +247,7 @@
               $t("adminNav.usr")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/uAtivos">
+          <v-list-item link to="/users">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ges")
             }}</v-list-item-title>
@@ -259,12 +257,12 @@
               $t("adminNav.ped")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/usersImport">
             <v-list-item-title class="white--text">{{
               $t("adminNav.import")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/uAtivos">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ati")
             }}</v-list-item-title>
@@ -287,19 +285,19 @@
               $t("adminNav.events")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.agend")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-group
+        <v-list-group v-if="$store.getters.isAdmin"
           class="white--text"
           prepend-icon="mdi-cog"
           :value="false"
@@ -310,81 +308,170 @@
               $t("adminNav.sett")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/admin/folios">
+          <v-list-item link to="/home">
             <v-list-item-title class="white--text">{{
               $t("adminNav.confger")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-        <v-list-item link to="/admin/documentacao/">
+         <v-list-item link to="/home">
+            <v-list-item-icon>
+            <v-icon>mdi-help</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>{{ $t("navd.help") }}</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item v-if="!$store.getters.isStudent" link to="/documentacao">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t("adminNav.doc") }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-information-outline</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.about") }}</v-list-item-title>
+        <v-list-item link @click="about = true">
+              <v-list-item-icon>
+                <v-icon>mdi-information-outline</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('adminNav.about')}}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-account-group</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.copy") }}</v-list-item-title>
-        </v-list-item>
+        <v-dialog @keydown.esc="about = false" v-model="about" scrollable width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.sabermais') }}</h2>
+                </v-toolbar>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-clipboard-file</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.use") }}</v-list-item-title>
-        </v-list-item>
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoSaberMais') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="about=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
 
-        <v-list-item link to="/admin/documentacao">
-          <v-list-item-icon>
-            <v-icon>mdi-lock</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>{{ $t("adminNav.privacy") }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-      <!-- <template v-slot:append v-if="hover == true"> -->
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                dark
-                depressed
-                min-width="60px"
-                @click="fixNav()"
-                v-on="on"
-              >
-                <v-icon>mdi-axis-arrow-lock</v-icon>
-              </v-btn>
-            </template>
-            <span>{{ $t("navd.fixMenu") }}</span>
-          </v-tooltip>
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                dark
-                depressed
-                min-width="60px"
-                @click="logout()"
-                v-on="on"
-              >
-                <v-icon>mdi-power</v-icon>
-              </v-btn>
-            </template>
-            <span>{{ $t("navd.exit") }}</span>
-          </v-tooltip>
-        </div>
-      </template>
+                </v-card-actions>
+              </v-card>
+        </v-dialog>
+
+        <v-list-item link @click="credits = true">
+              <v-list-item-icon>
+                <v-icon>mdi-account-group</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.credits')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="credits = false"  v-model="credits" scrollable width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.creditos') }}</h2>
+                </v-toolbar>
+                
+                <v-divider
+                class="mx-4"
+                horizontal
+                ></v-divider>
+                
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoCreditos') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="credits=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+
+        <v-list-item link @click="terms = true">
+              <v-list-item-icon>
+                <v-icon>mdi-book-multiple</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.terms')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="terms = false" v-model="terms" scrollable  width="500">
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.termos') }}</h2>
+                </v-toolbar>
+
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
+
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoTermos') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="terms=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+          </v-dialog>
+
+        <v-list-item link @click="priv = true">
+              <v-list-item-icon>
+                <v-icon>mdi-lock</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>{{$t('navd.priv')}}</v-list-item-title>
+            </v-list-item>
+            <v-dialog @keydown.esc="priv = false" v-model="priv" scrollable width="500"> 
+              <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                  <h2>{{ $t('nav.privacidade') }}</h2>
+                </v-toolbar>
+                <v-divider
+                class="mx-4"
+                horizontal
+              ></v-divider>
+
+                <v-card-text class="change-font mt-6" style="white-space: pre-line"
+                  >{{ $t('nav.textoPriv') }}</v-card-text
+                >
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  
+                  <v-tooltip bottom> 
+                    <template v-slot:activator="{ on }">
+                        <v-btn depressed color="white" @click="priv=false" v-on="on">
+                          <v-icon large>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('nav.Sair') }}</span>
+                    </v-tooltip>
+
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-list>
     </v-navigation-drawer>
   </v-card>
 </template>
@@ -409,19 +496,11 @@ export default {
       nDocs: 0,
       nInds: 0,
       runningDialog: false,
-      // links: [
-      //   {
-      //     icon: "casa",
-      //     text: "Início",
-      //     link: "/admin/folios"
-      //   }
-      // ]
-      // hover:false
     };
   },
   created() {
     axios
-      .get(`http://localhost:5000/users/foto/${this.$store.state.user._id}`, {
+      .get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}`, {
         responseType: "arraybuffer",
         headers: {
           Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -438,73 +517,12 @@ export default {
         this.errors.push(e);
       });
   },
-  methods: {
-    reindFunc: function() {
-      axios
-        .get(`https://leonardo2.di.uminho.pt/import/reindex/`, {
-          headers: {
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-          },
-        })
-        .then((response) => {
-          // JSON responses are automatically parsed.
-          //console.log(response.data)
-          if (response.data.message === "ok") {
-            axios
-              .get(
-                `https://leonardo2.di.uminho.pt/folios/folios?nome=${this.$store.state.user._id}`,
-                {
-                  headers: {
-                    Authorization: `Bearer: ${this.$store.state.jwt}`,
-                  },
-                }
-              )
-              .then((response) => {
-                this.nDocs = response.data.folios.length;
-              })
-              .catch((e) => {
-                this.errors.push(e);
-              });
-            axios
-              .get(
-                `https://leonardo2.di.uminho.pt/folios/index?nome=${this.$store.state.user._id}`,
-                {
-                  headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer: ${this.$store.state.jwt}`,
-                  },
-                }
-              )
-              .then((response) => {
-                this.nInds = response.data.indexs.length;
-              })
-              .catch((e) => {
-                this.errors.push(e);
-              });
-            this.runningDialog = false;
-            this.successDialog = true;
-          } else {
-            alert("Algo correu mal");
-          }
-        })
-        .catch((e) => {
-          //console.log(e)
-          this.errors.push(e);
-        });
-    },
-    logout: function() {
-      //console.log("destroy token here")
-      this.$store.commit("guardaTokenUtilizador", "");
-      this.$store.commit("guardaNomeUtilizador", "");
-      this.$router.push({ path: `/login` });
-    },
-    fixNav: function() {
-      this.expandOnHover = !this.expandOnHover;
-      this.miniVariant = !this.miniVariant;
-      this.drawerOn = false;
-      this.$nextTick(() => (this.drawerOn = true));
-    },
-  },
+    computed: {
+        drawerState: {
+        get () { return this.$store.getters.drawerState },
+        set (v) { return this.$store.commit('toggleDrawerState', v) }
+        }
+    }
 };
 </script>
 

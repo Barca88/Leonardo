@@ -145,7 +145,8 @@
                   <v-container fluid>
                   <v-radio-group v-if= "value != 'ver'" v-model="user.tipo" row>
                       <v-radio value="Admin"></v-radio>
-                      <v-radio :label="$t('reg.admin') + ' ' + 'ou' + ' ' + $t('reg.user')" value="Leitor"></v-radio>
+                      <v-radio value="Teacher"></v-radio>
+                      <v-radio :label="$t('reg.admin') + ', ' +  $t('reg.teacher') + ' ' + $t('reg.or') + ' ' + $t('reg.student')" value="Student"></v-radio>
                   </v-radio-group>
                   </v-container>
                   <v-text-field
@@ -377,10 +378,11 @@ export default {
         formData.append('obs',this.user.observacoes)
 
       if(this.value == 'editar'){
-        axios.post(`http://localhost:5000/users/editar/guardar?nome=` + this.user.username,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=` + this.user.username,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer: ${this.$store.state.jwt}`       
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"       
           }}
         )
         .then(response => {
@@ -394,10 +396,11 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post('http://localhost:5000/users/pedidos/registar',formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer: ${this.$store.state.jwt}`       
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"       
           }
         }).then(data => {
             if(data.data.message){

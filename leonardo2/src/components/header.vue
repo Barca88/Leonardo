@@ -1,5 +1,9 @@
 <template>
     <v-app-bar app color="#2A3F54" height="100" clipped-left>
+        <v-app-bar-nav-icon 
+            @click="drawerState = !drawerState"
+            color="#FFF"
+            ></v-app-bar-nav-icon>
         <v-list
             nav
             dense
@@ -12,7 +16,7 @@
                 </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title><h2>{{$t('navd.tituloProjeto')}}</h2></v-list-item-title>
-                <!--v-list-item-subtitle>{{$t('login.adminSystem')}}</v-list-item-subtitle-->
+                <v-list-item-subtitle>{{$t('login.adminSystem')}}</v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
             <v-dialog @keydown.esc="about = false" v-model="about" scrollable width="500">
@@ -101,6 +105,7 @@
             </v-list-item>
         </v-list-item-group> 
     </v-app-bar>
+    
 </template>
 
 <script>
@@ -142,7 +147,7 @@ export default {
     },
     created(){
         this.userPic=''
-        axios.get(`http://localhost:5000/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -181,6 +186,12 @@ export default {
             this.help = 'Esta é a ajuda dos pedidos de acesso'
         }
         //console.log('HELP: ' + this.help)
+    },
+    computed: {
+        drawerState: {
+        get () { return this.$store.getters.drawerState },
+        set (v) { return this.$store.commit('toggleDrawerState', v) }
+        }
     }
 };
 </script>

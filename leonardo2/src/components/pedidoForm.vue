@@ -219,7 +219,7 @@ export default {
             this.$emit('atualizarInfo')
         },
         post(){
-            axios.get(`http://localhost:5000/users/pedidos/mover/` + this.pedido.username + `?nome=` + this.pedido.username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/mover/` + this.pedido.username + `?nome=` + this.pedido.username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
                 //console.log(response.data)
@@ -229,6 +229,7 @@ export default {
                 //console.log(e)
                 this.errors.push(e)
             })
+            this.atualizarInfo()
         },
         emiteFecho(){
           this.$emit('emiteFecho')
