@@ -62,7 +62,7 @@
                 class="mr-2"
                 @click="verObjectItem(item)"
             >
-                mdi-file-pdf
+                mdi-eye
             </v-icon>
             <v-icon
                 small

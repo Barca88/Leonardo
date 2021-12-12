@@ -95,7 +95,7 @@
           <v-spacer></v-spacer>
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
-              <v-btn color="#c9302c" dark @click="dialogPW = false" to="/admin/login" v-on="{ ...tooltip}">
+              <v-btn color="#c9302c" dark @click="dialogPW = false" to="/login" v-on="{ ...tooltip}">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </template>

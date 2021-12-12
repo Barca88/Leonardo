@@ -289,10 +289,20 @@ export default {
     },
     methods:{
       logout: function(){
+
+        let formData = new FormData()
+          formData.append('id',this.id)
+        axios.post(`${process.env.VUE_APP_BACKEND}/logout`,formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization:`Bearer: ${this.$store.state.jwt}`,
+              'Access-Control-Allow-Origin': "*"     
+          }
+        })
         //console.log("destroy token here")
         this.$store.commit("guardaTokenUtilizador", "")
         this.$store.commit("guardaNomeUtilizador", "")
-        this.$router.push( {path:`/admin/login`})
+        this.$router.push( {path:`/login`})
       },
       fixNav: function(){
         this.expandOnHover=!this.expandOnHover

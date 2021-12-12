@@ -10,7 +10,7 @@ from flask_login import (
     logout_user
 )
 from flask_pymongo import PyMongo
-from app import login_manager, create_app, token_required
+from app import login_manager, create_app, token_required, write_log
 from app.base import blueprint
 #from app.base.forms import LoginForm, CreateAccountForm
 from app import mongo
@@ -225,17 +225,22 @@ def login():
         token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=15)),
                            # jwt app.config['SECRET_KEY']
                            '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
+        
+        write_log( user, 'Login', '', 'successfull')
         return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
     else:
+        write_log(_id,  'Login', '', 'failed')
         return json_util.dumps({'error': 'O utilizador não existe!'})
 
 
-@blueprint.route('/logout')
+@blueprint.route('/logout', methods=['POST'])
 @token_required
 # @login_required
 def logout():
     # logout_user()
     print("logging out")
+    _id = request.form.get('id')
+    write_log(_id , 'Logout', '', 'successfull')
     return json_util.dumps({'message': 'Logged out!'})
 
 

@@ -125,10 +125,19 @@ export default {
     },
     methods:{
         logout: function(){
-            //console.log("destroy token here")
-            this.$store.commit("guardaTokenUtilizador", "")
-            this.$store.commit("guardaNomeUtilizador", "")
-            this.$router.push( {path:`/login`})
+            let formData = new FormData()
+          formData.append('id', this.$store.state.user._id)
+        axios.post(`${process.env.VUE_APP_BACKEND}/logout`,formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization:`Bearer: ${this.$store.state.jwt}`,
+              'Access-Control-Allow-Origin': "*"     
+          }
+        })
+        //console.log("destroy token here")
+        this.$store.commit("guardaTokenUtilizador", "")
+        this.$store.commit("guardaNomeUtilizador", "")
+        this.$router.push( {path:`/login`})
         },
         getUrl: function(){
             var components = this.$route.path.split('/')

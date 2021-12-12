@@ -102,7 +102,12 @@ def token_required(f):
             print("wrong token")
             return jsonify(invalid_msg), 401
     return _verify
+    
 
+def write_log( user, action, subAction, details):
+    
+    mongo.db.pageLogs.insert_one({'_id': datetime.datetime.now(), 'user': user, 'action': action, 'subAction': subAction, 'details': details})
+    return
 
 def admin_required(f):
     @wraps(f)
