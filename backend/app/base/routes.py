@@ -34,6 +34,7 @@ def route_default():
 
 @blueprint.route('/home')
 def pesquisa():
+    
     folios = mongo.db.folios.find()
     return render_template('pesquisa/pesquisa.html', folios=folios)
 
@@ -227,6 +228,7 @@ def login():
                            '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
         
         write_log( user, 'Login', '', 'successfull')
+        write_log( user, 'Home' , '', 'successfull')
         return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
     else:
         write_log(_id,  'Login', '', 'failed')
@@ -240,7 +242,8 @@ def logout():
     # logout_user()
     print("logging out")
     _id = request.form.get('id')
-    write_log(_id , 'Logout', '', 'successfull')
+    user = mongo.db.users.find_one({"_id": _id})
+    write_log(user , 'Logout', '', 'successfull')
     return json_util.dumps({'message': 'Logged out!'})
 
 

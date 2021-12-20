@@ -29,7 +29,7 @@
                             show-size
                             v-model="file"
                             :clearable="false"
-                            label="<ficheiro .csv>"
+                            label="<Ficheiro.csv>"
                         ></v-file-input>
                     </v-col>
                     
@@ -37,7 +37,7 @@
                 <v-row no-gutters>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on: tooltip }">
-                        <v-btn  v-on="{ ...tooltip}" @click="onFileChanged()" class="mr-5" dark color = "amber lighten">
+                        <v-btn  v-on="{ ...tooltip}" @click="loadCSV($event)" class="mr-5" dark color = "amber lighten">
                             <v-icon>mdi-checkbox-marked-outline</v-icon>
                         </v-btn>
                         </template>
@@ -47,7 +47,7 @@
                     </v-tooltip>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on: tooltip }">
-                        <v-btn  v-on="{ ...tooltip}" @click="file=''"  class="mr-5" dark color = "green accent-3">
+                        <v-btn  v-on="{ ...tooltip}" @click="file='', parse_csv =[] , parse_header=[], selected=[]"  class="mr-5" dark color = "green accent-3" >
                             <v-icon>mdi-broom</v-icon>
                         </v-btn>
                         </template>
@@ -57,7 +57,7 @@
                     </v-tooltip>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on: tooltip }">
-                        <v-btn  v-on="{ ...tooltip}" class="mr-5" dark color = "blue-grey darken-4">
+                        <v-btn  v-on="{ ...tooltip}" @click="parse_csv=selected" class="mr-5" dark color = "blue-grey darken-4">
                             <v-icon>mdi-help</v-icon>
                         </v-btn>
                         </template>
@@ -67,10 +67,30 @@
                     </v-tooltip>
                 </v-row>
                 
-            </v-container>
                 
+                <v-data-table
+                    v-model="selected"
+                    show-select
+                    @click:row="handleClick"
+                    :headers="headersTable"
+                    item-key="Nome"
+                    :items="parse_csv"
+                    :items-per-page="5"
+                    class="elevation-1"
+                ></v-data-table>
+                
+            </v-container>
+                  
+
                 
         </v-container>
+
+        
+
+
+
+        
+       
         <v-snackbar
             v-model="snackbar"
             timeout="-1"
@@ -99,6 +119,8 @@
             </template>
         </v-snackbar>
     </div>
+    
+    
 </template>
 <script>
 import axios from 'axios'
@@ -107,7 +129,33 @@ import NavDraw from '../components/navDraw.vue'
 export default {
     data(){
         return{
+            channel_name: '',
+            channel_fields: [],
+            channel_entries: [],
+            parse_header: [],
+            parse_csv: [],
+            sortOrders:{},
+            sortKey: '',
             active:[],
+            selected: [],
+            headersTable:[
+                {
+            text: 'Nome',
+            align: 'start',
+            sortable: false,
+            value: 'Nome',
+          },
+          { text: 'Género', value: 'Género' },
+          { text: 'Identificador', value: 'Identificador' },
+          { text: 'Domínio', value: 'Domínio' },
+          { text: 'Instituição', value: 'Instituição' },
+          { text: 'Curso', value: 'Curso' },
+          { text: 'Disciplina', value: 'Disciplina' },
+          { text: 'eMail', value: 'eMail' },
+          { text: 'Tipo', value: 'Tipo' },
+          { text: 'Validade', value: 'Validade' }
+
+            ],
             headers:[
                 { 
                     text:`${this.$t('users.nome')}`,
@@ -126,10 +174,13 @@ export default {
             'appHeader': Header,
             'navDraw': NavDraw
     },
-    methods: {
-        onFileChanged() {
+  filters: {
+    capitalize: function (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+  },methods: {
+       onFileChanged() {
             this.selectedFile = this.file
-
             // console.log(this.file)
             
             let formData = new FormData()
@@ -146,7 +197,61 @@ export default {
                     this.errors.push(e)
                 })
         },
+
+    sortBy: function (key) {
+      var vm = this
+      vm.sortKey = key
+      vm.sortOrders[key] = vm.sortOrders[key] * -1
     },
+    csvJSON(csv){
+      var vm = this
+      var lines = csv.split("\n")
+      var result = []
+      var headers = lines[0].split(";")
+      vm.parse_header = lines[0].split(";") 
+      lines[0].split(";").forEach(function (key) {
+        vm.sortOrders[key] = 1
+      })
+      
+      lines.map(function(line, indexLine){
+        if (indexLine < 1) return // Jump header line
+        
+        var obj = {}
+        var currentline = line.split(";")
+        
+        headers.map(function(header, indexHeader){
+          obj[header] = currentline[indexHeader]
+        })
+        
+        result.push(obj)
+      })
+      
+      result.pop() // remove the last item because undefined values
+      
+      return result // JavaScript object
+    },
+    loadCSV() {
+      var vm = this
+      if (window.FileReader) {
+        var reader = new FileReader();
+        reader.readAsText(this.file);
+        // Handle errors load
+        reader.onload = function(event) {
+          var csv = event.target.result;
+          vm.parse_csv = vm.csvJSON(csv)
+          
+        };
+        reader.onerror = function(evt) {
+          if(evt.target.error.name == "NotReadableError") {
+            alert("Canno't read file !");
+          }
+        };
+      } else {
+        alert('FileReader are not supported in this browser.');
+      }
+    }
+  },
+
     //Active
     created:function(){
         axios.get(`${process.env.VUE_APP_BACKEND}/users/active?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
@@ -180,5 +285,5 @@ export default {
     .container {
         margin: 20px auto 80px auto;
         max-width: 1100px;
-    }
+    } 
 </style>
