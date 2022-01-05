@@ -83,7 +83,7 @@
 
         <template v-slot:action="{ attrs }">
 
-            <v-btn color="green" text v-bind="attrs" @click="snackbar = false; $router.push('/pedidos')">
+            <v-btn color="green" text v-bind="attrs" @click="snackbar = false; $router.push('/users')">
                 Continuar
             </v-btn>
             <v-btn color="pink" text v-bind="attrs" @click="snackbar = false">
