@@ -186,7 +186,9 @@ def route_cur_atualizar(user):
 @blueprint.route('/import_registos', methods=['POST'])
 @token_required
 def route_import_registos():
+    print('teste1')
     if 'registos' in request.files:
+        print('teste2')
         registos = request.files['registos']
         upload_path = join(dirname(realpath(__file__)), 'static/registos/')
         print("Registos: ", registos.filename)
@@ -210,6 +212,15 @@ def route_import_registos():
                         print(row)
                         value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Student","universidade":row[5],"departamento":"","data":row[8],"obs":""})
                         line_count += 1
+        
+            # the result is a Python dictionary:
+    newUsers = request.form.get('newUsers')
+            
+    jsonLst = json.loads(newUsers)
+    for jsonUser in jsonLst:
+        mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
+    
+
 
     return json_util.dumps({'message':"OK"})
 ##########################################

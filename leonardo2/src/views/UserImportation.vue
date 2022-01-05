@@ -60,11 +60,6 @@
     <template>
         <v-row justify="center">
             <v-dialog v-model="dialog" max-width="600px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                        Open Dialog
-                    </v-btn>
-                </template>
                 <v-card>
                     <v-data-table v-model="selected" show-select @click:row="handleClick" :headers="headersTable" item-key="Nome" :items="parse_csv" :items-per-page="5" class="elevation-1"></v-data-table>
 
@@ -73,7 +68,7 @@
                         <v-btn color="blue darken-1" text @click="close()">
                             Close
                         </v-btn>
-                        <v-btn color="blue darken-1" text @click="dialog=false">
+                        <v-btn color="blue darken-1" text @click="dialog=false, onFileChanged()">
                             Save
                         </v-btn>
                     </v-card-actions>
@@ -184,25 +179,28 @@ export default {
     },
     methods: {
         close() {
+            
             this.dialog = false
         },
         onFileChanged() {
-            this.selectedFile = this.file
+            
+            this.selectedFile = this.selected
+            var jsonUsers = JSON.stringify(this.selectedFile)
             // console.log(this.file)
-
-            let formData = new FormData()
-            formData.append('registos', this.selectedFile)
-            axios.post(`${process.env.VUE_APP_BACKEND}/users/import_registos`, formData, {
-                responseType: 'arraybuffer',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer: ${this.$store.state.jwt}`
-                }
-            }).then(() => {
-                this.snackbar = true
-            }).catch(e => {
-                this.errors.push(e)
-            })
+            if(this.selectedFile != null){
+                let formData = new FormData()
+                formData.append('newUsers', jsonUsers)
+                axios.post(`${process.env.VUE_APP_BACKEND}/users/import_registos`, formData, {
+                    responseType: 'arraybuffer',
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer: ${this.$store.state.jwt}`
+                    }
+                }).then(() => {
+                    this.snackbar = true
+                }).catch(e => {
+                    this.errors.push(e)
+                })}
         },
 
         sortBy: function (key) {
