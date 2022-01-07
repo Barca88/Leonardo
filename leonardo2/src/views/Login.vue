@@ -381,7 +381,7 @@ export default {
             this.$refs.form.reset()
             this.dialog = !this.dialog
           }
-          else if(data.data.users && (data.data.token!=undefined)){
+          else if(data.data.token!=undefined){ // &&data.data.users
             this.$store.commit("guardaTokenUtilizador", data.data.token)
             this.$store.commit("guardaNomeUtilizador", data.data.user)
             this.$router.push( {path:`/`})

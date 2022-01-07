@@ -23,7 +23,7 @@
             <v-row no-gutters>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
-                        <v-btn v-on="{ ...tooltip}" @click="loadCSV($event)" class="mr-5" dark color="amber lighten">
+                        <v-btn v-on="{ ...tooltip}" @click="loadCSV($event)" class="mr-5" dark color="green accent-3">   
                             <v-icon>mdi-checkbox-marked-outline</v-icon>
                         </v-btn>
                     </template>
@@ -33,7 +33,7 @@
                 </v-tooltip>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
-                        <v-btn v-on="{ ...tooltip}" @click="file='', parse_csv =[] , parse_header=[], selected=[]" class="mr-5" dark color="green accent-3">
+                        <v-btn v-on="{ ...tooltip}" @click="file='', parse_csv =[] , parse_header=[], selected=[]" class="mr-5" dark color="amber lighten">
                             <v-icon>mdi-broom</v-icon>
                         </v-btn>
                     </template>
@@ -54,7 +54,7 @@
             </v-row>
 
         </v-container>
-
+    
     </v-container>
 
     <template>
@@ -78,6 +78,42 @@
         </v-row>
     </template>
 
+ <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 
+      <v-card>
+        <v-toolbar color="#2A3F54" dark>
+          <h2>{{$t('reg.import')}}</h2>
+        </v-toolbar>
+        <v-divider
+        class="mx-4"
+        horizontal
+      ></v-divider>
+
+        <v-row>
+          <v-col style="margin-left:1cm;max-width:20px; margin-top:15px" >
+            <v-icon x-large color="#c9302c" dark>mdi-close</v-icon>
+          </v-col>
+          <v-col>
+            <v-card-text class="mt-2">
+              {{$t('login.new')}}
+            </v-card-text>
+          </v-col>
+        </v-row>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          
+          <v-tooltip bottom> 
+            <template v-slot:activator="{ on }">
+                <v-btn depressed color="white" @click="failureDialog=false" v-on="on">
+                  <v-icon large>mdi-exit-to-app</v-icon>
+                </v-btn>
+              </template>
+              <span>{{ $t('nav.Sair') }}</span>
+            </v-tooltip>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    
     <v-snackbar v-model="snackbar" timeout="-1">
         Pedidos de Utilizadores adicionados com sucesso
 
@@ -91,6 +127,7 @@
             </v-btn>
         </template>
     </v-snackbar>
+
 </div>
 </template>
 
@@ -111,6 +148,7 @@ export default {
             active: [],
             selected: [],
             dialog: false,
+            failureDialog:false,
             headersTable: [{
                     text: 'Nome',
                     align: 'start',
@@ -190,14 +228,20 @@ export default {
             if(this.selectedFile != null){
                 let formData = new FormData()
                 formData.append('newUsers', jsonUsers)
-                axios.post(`${process.env.VUE_APP_BACKEND}/users/import_registos`, formData, {
-                    responseType: 'arraybuffer',
+                axios.post(`${process.env.VUE_APP_BACKEND}/users/import_registos?nome=${this.$store.state.user._id}`, formData, {
+                    //responseType: 'arraybuffer',
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                        'Access-Control-Allow-Origin': "*",
                         Authorization: `Bearer: ${this.$store.state.jwt}`
                     }
-                }).then(() => {
-                    this.snackbar = true
+                }).then((data) => {
+                    if(data.data.message){
+                        this.failureDialog = true
+                        }
+                    else{
+                        this.snackbar = true
+                    }
                 }).catch(e => {
                     this.errors.push(e)
                 })}
@@ -260,16 +304,10 @@ export default {
 
     //Active
     created: function () {
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/active?nome=${this.$store.state.user._id}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/import?nome=${this.$store.state.user._id}`, {
                 headers: {
                     Authorization: `Bearer: ${this.$store.state.jwt}`
                 }
-            })
-            .then(response => {
-                this.active = response.data.users
-
-            }).catch(e => {
-                this.errors.push(e)
             })
     }
 }

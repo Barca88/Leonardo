@@ -219,7 +219,7 @@ export default {
             this.$emit('atualizarInfo')
         },
         post(){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/mover/` + this.pedido.username + `?nome=` + this.pedido.username,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/mover/` + this.pedido.username + `?nome=${this.$store.state.user._id}`,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
                 //console.log(response.data)

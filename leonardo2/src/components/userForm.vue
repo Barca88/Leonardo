@@ -260,7 +260,7 @@
             </v-col>
             <v-col>
               <v-card-text class="mt-2">
-                {{$t('uF.badChoice')}}
+                {{$t('uF.badChoiceU')}}
               </v-card-text>
             </v-col>
           </v-row>
@@ -378,7 +378,7 @@ export default {
         formData.append('obs',this.user.observacoes)
 
       if(this.value == 'editar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=` + this.user.username,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=${this.$store.state.user._id}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -396,7 +396,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar?nome=${this.$store.state.user._id}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,

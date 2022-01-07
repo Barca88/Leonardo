@@ -270,7 +270,8 @@
         "dep": "Departamento",
         "data": "Data de criação",
         "obs": "Observações",
-        "cur": "CV"
+        "cur": "CV",
+        "import":"Importação de Dados de Utilizador"
     },
     "tags": {
         "title": "Dicionário de etiquetas",
@@ -383,7 +384,8 @@
     "uF": {
         "conf":"Confirmar submissão de utilizador",
         "help":"Ajuda da Gestão de Utilizadores",
-        "badChoice":"Já existe um utilizador com esse username, escolha outro."
+        "badChoice":"Já existe um documento com esse título, escolha outro.",
+        "badChoiceU":"Já existe um Utilizador com esse username, escolha outro."
     },
     "tForm": {
         "vT": "Visualizar etiquetas"

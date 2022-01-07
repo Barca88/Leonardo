@@ -4,7 +4,7 @@
 from app.users import blueprint
 from flask import render_template, request, flash, send_from_directory
 from flask_login import login_required
-from app import mongo, token_required, admin_required, photo_auth
+from app import mongo, token_required, admin_required, photo_auth, write_log
 from os import path, remove, rename, replace
 from werkzeug.security import generate_password_hash
 import datetime
@@ -27,8 +27,9 @@ UPLOAD_FOLDER = './static/pics/'
 def route_users():
     #users = mongo.db.users.find()
     users= [doc for doc in mongo.db.users.find()]
-    nome = request.args.get('nome')
-    return json_util.dumps({'users': users, 'nome': nome})
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Gestão', '', 'successfull')
+    return json_util.dumps({'users': users, 'nome': user})
     #return render_template('users.html',users=users,nome=nome)
 
 
@@ -215,14 +216,24 @@ def route_import_registos():
         
             # the result is a Python dictionary:
     newUsers = request.form.get('newUsers')
-            
+
+    user = request.args.get('nome')
+    success = True
+
     jsonLst = json.loads(newUsers)
     for jsonUser in jsonLst:
-        mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
-    
-
-
-    return json_util.dumps({'message':"OK"})
+        if(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]})):
+            success = False
+        else:
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
+        
+    if(success):
+        write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'successfull')
+        return json_util.dumps({'nome': user})
+    else:
+        print('user ja existe')
+        write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'failed')
+        return json_util.dumps({'nome': user,'message':'já existe'})
 ##########################################
 
 
@@ -253,7 +264,7 @@ def route_template_remover(user):
 @admin_required
 #@login_required
 def route_template_apagar(user):
-    value = mongo.db.users.remove({"_id":user})
+    mongo.db.users.remove({"_id":user})
     upload_path = join(dirname(realpath(__file__)), 'static/pics/', user)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', user)
     if path.exists(upload_path): 
@@ -261,8 +272,10 @@ def route_template_apagar(user):
     if path.exists(upload_path2): 
         remove(upload_path2)
     users = mongo.db.users.find()
-    nome = request.args.get('nome')
-    return json_util.dumps({'users': users, 'nome': nome})
+    userAdmin = request.args.get('nome')
+    write_log(userAdmin, 'Utilizadores/Gestão', 'Eliminar User', 'successfull')
+    print(user)
+    return json_util.dumps({'users': users})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
 @admin_required
@@ -275,7 +288,6 @@ def route_template_editar_guardar():
     universidade = request.form.get('universidade')
     departamento = request.form.get('departamento')
     obs = request.form.get('obs')
-    nome2 = request.args.get('nome')
     if 'foto' in request.files:
             foto = request.files['foto']
             if foto.filename != '':
@@ -290,11 +302,13 @@ def route_template_editar_guardar():
                 curriculo.save(upload_path + curriculo.filename)
     password = request.form.get('password')
     if password:
-        value = mongo.db.users.update({"_id":username},{"nome":nome,"email":email,"password":password,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs})
+        mongo.db.users.update({"_id":username},{"nome":nome,"email":email,"password":password,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs})
     else:
-        value = mongo.db.users.update({"_id":username},{"$set":{"nome":nome,"email":email,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs}})    
+        mongo.db.users.update({"_id":username},{"$set":{"nome":nome,"email":email,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs}})    
     users = mongo.db.users.find()
-    return json_util.dumps({'users': users, 'nome': nome2})
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Gestão', 'Editar utilizadores', 'successfull')
+    return json_util.dumps({'users': users})
 
 ###### PEDIDOS ######
 
@@ -304,8 +318,10 @@ def route_template_editar_guardar():
 #@login_required
 def route_pedidos():
     pedidos= [doc for doc in mongo.db.pedidos.find()]
-    nome = request.args.get('nome')
-    return json_util.dumps({'pedidos': pedidos, 'nome': nome})
+    user = request.args.get('nome')
+    print(user)
+    write_log(user, 'Utilizadores/Pedidos de Acesso', '', 'successfull')
+    return json_util.dumps({'pedidos': pedidos, 'nome': user})
 
 @blueprint.route('/pedidos/registar', methods=['POST'])
 #@admin_required
@@ -315,11 +331,14 @@ def route_template_registar_pedido():
     username = request.form.get('username')
     existeU = mongo.db.users.find_one({"_id":username})
     existeP = mongo.db.pedidos.find_one({"_id":username})
-    nome = request.args.get('nome')
+    user = request.args.get('nome')
+    print(user)
     if existeU or existeP:
         #flash('ERRO: Username já escolhido. Por favor escolha outro...')
         #return render_template('registar.html',nome=nome)
-        return json_util.dumps({'nome': nome,'message':'já existe'})
+        if user:
+            write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'failed')
+        return json_util.dumps({'nome': user,'message':'já existe'})
     else:
         email = request.form.get('email')
         name = request.form.get('name')
@@ -351,9 +370,11 @@ def route_template_registar_pedido():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username + ".pdf")
                 copyfile(src, upload_path)
         obs = request.form.get('obs')
-        value = mongo.db.pedidos.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
-        pedidos = mongo.db.pedidos.find()
-        return json_util.dumps({'nome': nome})
+        mongo.db.pedidos.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
+        mongo.db.pedidos.find()
+        if user:
+            write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'successfull')
+        return json_util.dumps({'nome': user})
 
 
 @blueprint.route('/pedidos/ver/<pedido>', methods=['GET'])
@@ -406,7 +427,7 @@ def route_cur_pedido(pedido):
 @admin_required
 #@login_required
 def route_template_apagar_pedido(pedido):
-    value = mongo.db.pedidos.remove({"_id":pedido})
+    mongo.db.pedidos.remove({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
     if path.exists(upload_path): 
@@ -414,16 +435,18 @@ def route_template_apagar_pedido(pedido):
     if path.exists(upload_path2): 
         remove(upload_path2)
     pedidos = mongo.db.pedidos.find()
-    nome = request.args.get('nome')
-    return json_util.dumps({'pedidos': pedidos, 'nome': nome})
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Pedidos de Acesso', 'Eliminar Pedido', 'successfull')
+    return json_util.dumps({'pedidos': pedidos})
 
 @blueprint.route('/pedidos/mover/<pedido>')
 @admin_required
 #@login_required
 def route_template_mover_pedido(pedido):
+    print(pedido)
     value1 = mongo.db.pedidos.find_one({"_id": pedido})
-    value2 = mongo.db.users.insert(value1)
-    value3 = mongo.db.pedidos.remove({"_id":pedido})
+    mongo.db.users.insert(value1)
+    mongo.db.pedidos.remove({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
     if path.exists(upload_path):
@@ -433,8 +456,10 @@ def route_template_mover_pedido(pedido):
         new_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', pedido)
         rename(upload_path2, new_path2)
     pedidos = mongo.db.pedidos.find()
-    nome = request.args.get('nome')
-    return json_util.dumps({'pedidos': pedidos, 'nome': nome})
+    user = request.args.get('nome')
+    print(user)
+    write_log(user, 'Utilizadores/Pedidos de Acesso', 'Confirmar submissão de utilizador', 'successfull')
+    return json_util.dumps({'pedidos': pedidos})
 
 
 
@@ -444,13 +469,22 @@ def route_active():
     users= [doc for doc in mongo.db.activeUsers.find()]
     date = datetime.datetime.now()
     date = date - datetime.timedelta(minutes = 15)
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Atividade Corrente', '', 'successfull')
     ret=[]
     for u in users:
         if datetime.datetime.strptime(u['stamp'],'%Y-%m-%d %H:%M:%S.%f') > date :
             ret.append(u)
+    
     return json_util.dumps({'users': ret})
     #return render_template('users.html',users=users,nome=nome)
 
+@blueprint.route('/import', methods=['GET'])
+@token_required
+def route_import():
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Importação', '', 'successfull')
+    return json_util.dumps({'users': user})
 
 @blueprint.route('/history', methods=['GET'])
 @token_required

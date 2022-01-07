@@ -115,7 +115,7 @@ const routes = [
     },
   },
   {
-    path: "definitions",
+    path: "/definitions",
     name: "Definições",
     component: () => import("../views/Definitions.vue"),
     beforeEnter(to, from, next) {

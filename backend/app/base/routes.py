@@ -220,8 +220,8 @@ def login():
     password = request.form.get('password')
     user = mongo.db.users.find_one({"_id": _id})
     if user and check_password_hash(user["password"], password):
-        users = [doc for doc in mongo.db.users.find()]
-        nome = request.args.get('nome')
+        #users = [doc for doc in mongo.db.users.find()]
+        #nome = request.args.get('nome')
 
         token = jwt.encode(dict(sub=_id, iat=datetime.utcnow(), exp=datetime.utcnow() + timedelta(minutes=15)),
                            # jwt app.config['SECRET_KEY']
@@ -229,7 +229,8 @@ def login():
         
         write_log( user, 'Login', '', 'successfull')
         write_log( user, 'Home' , '', 'successfull')
-        return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
+        #return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
+        return json_util.dumps({'token': token, 'user': user})
     else:
         write_log(_id,  'Login', '', 'failed')
         return json_util.dumps({'error': 'O utilizador não existe!'})

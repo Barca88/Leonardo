@@ -308,7 +308,7 @@
               $t("adminNav.sett")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/home">
+          <v-list-item link to="/definitions">
             <v-list-item-title class="white--text">{{
               $t("adminNav.confger")
             }}</v-list-item-title>
