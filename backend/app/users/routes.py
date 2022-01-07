@@ -231,7 +231,6 @@ def route_import_registos():
         write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'successfull')
         return json_util.dumps({'nome': user})
     else:
-        print('user ja existe')
         write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'failed')
         return json_util.dumps({'nome': user,'message':'já existe'})
 ##########################################
@@ -274,7 +273,6 @@ def route_template_apagar(user):
     users = mongo.db.users.find()
     userAdmin = request.args.get('nome')
     write_log(userAdmin, 'Utilizadores/Gestão', 'Eliminar User', 'successfull')
-    print(user)
     return json_util.dumps({'users': users})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
@@ -319,7 +317,6 @@ def route_template_editar_guardar():
 def route_pedidos():
     pedidos= [doc for doc in mongo.db.pedidos.find()]
     user = request.args.get('nome')
-    print(user)
     write_log(user, 'Utilizadores/Pedidos de Acesso', '', 'successfull')
     return json_util.dumps({'pedidos': pedidos, 'nome': user})
 
@@ -332,7 +329,6 @@ def route_template_registar_pedido():
     existeU = mongo.db.users.find_one({"_id":username})
     existeP = mongo.db.pedidos.find_one({"_id":username})
     user = request.args.get('nome')
-    print(user)
     if existeU or existeP:
         #flash('ERRO: Username já escolhido. Por favor escolha outro...')
         #return render_template('registar.html',nome=nome)
@@ -443,7 +439,6 @@ def route_template_apagar_pedido(pedido):
 @admin_required
 #@login_required
 def route_template_mover_pedido(pedido):
-    print(pedido)
     value1 = mongo.db.pedidos.find_one({"_id": pedido})
     mongo.db.users.insert(value1)
     mongo.db.pedidos.remove({"_id":pedido})
@@ -457,7 +452,6 @@ def route_template_mover_pedido(pedido):
         rename(upload_path2, new_path2)
     pedidos = mongo.db.pedidos.find()
     user = request.args.get('nome')
-    print(user)
     write_log(user, 'Utilizadores/Pedidos de Acesso', 'Confirmar submissão de utilizador', 'successfull')
     return json_util.dumps({'pedidos': pedidos})
 
@@ -475,7 +469,6 @@ def route_active():
     for u in users:
         if datetime.datetime.strptime(u['stamp'],'%Y-%m-%d %H:%M:%S.%f') > date :
             ret.append(u)
-    
     return json_util.dumps({'users': ret})
     #return render_template('users.html',users=users,nome=nome)
 
