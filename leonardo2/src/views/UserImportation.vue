@@ -16,7 +16,7 @@
                 </v-col>
                 <v-col cols="12" sm="5">
 
-                    <v-file-input truncate-length="150" show-size v-model="file" :clearable="false" label="<Ficheiro.csv>"></v-file-input>
+                    <v-file-input truncate-length="150" accept=".csv" show-size v-model="file" :clearable="false" label="<Ficheiro.csv>"></v-file-input>
                 </v-col>
 
             </v-row>
