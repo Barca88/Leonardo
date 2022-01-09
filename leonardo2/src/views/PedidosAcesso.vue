@@ -53,6 +53,7 @@
             <v-icon
                 small
                 class="mr-2"
+                color="#246a73"
                 @click="editItem(item, 'ver')"
             >
                 mdi-eye
@@ -60,19 +61,22 @@
             <v-icon
                 small
                 class="mr-2"
+                color="#246a73"
                 @click="verObjectItem(item,'curriculo')"
             >
-                mdi-file-pdf
+                mdi-text-box-multiple
             </v-icon>
             <v-icon
                 small
                 class="mr-2"
+                color="#55bcc9"
                 @click="verObjectItem(item,'foto')"
             >
                 mdi-camera
             </v-icon>
             <v-icon
                 small
+                color="#8e363a"
                 @click="deleteDialog = true;tempValue=item"
             >
                 mdi-trash-can
@@ -80,6 +84,9 @@
         </template>
         </v-data-table>
         <v-dialog v-model="picDialog" width="800px">
+            <v-toolbar color="#2A3F54" dark>
+                <h2>{{$t('navd.puser3')}}</h2>
+             </v-toolbar>
             <v-card>
                 <v-img v-bind:src="userPic" contain aspect-ratio="1.5"/>
             </v-card>
@@ -96,6 +103,9 @@
         </v-dialog>
         <v-dialog v-model="cvDialog" width="800px">
             <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                    <h1>{{$t('navd.puser2')}}</h1>
+                </v-toolbar>
                 <template>
 					{{page}}//{{pageCount}}
                     <pdf 
@@ -335,7 +345,7 @@ export default {
             const index = this.pedidos.indexOf(item)
             //console.log(this.pedidos[index])        
             if (value == 'curriculo'){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/curriculo/${this.pedidos[index]._id}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/curriculo/${this.pedidos[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -352,7 +362,7 @@ export default {
             })
             }
             else if(value == 'foto'){
-                axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/foto/${this.pedidos[index]._id}`, {
+                axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/foto/${this.pedidos[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}`, {
                     responseType:'arraybuffer',
                     headers: {
                         'Authorization': `Bearer: ${this.$store.state.jwt}`

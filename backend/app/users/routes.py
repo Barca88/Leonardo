@@ -83,8 +83,8 @@ def route_template_registar():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', username + ".pdf")
                 copyfile(src, upload_path2)
         obs = request.form.get('obs')
-        value = mongo.db.users.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
-        users = mongo.db.users.find()
+        mongo.db.users.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
+        mongo.db.users.find()
         return json_util.dumps({'nome': nome})
 
 
@@ -114,20 +114,31 @@ def route_template_ver(user):
 @blueprint.route('/foto/<user>', methods=['GET'])
 @token_required
 def route_photo(user):
+    userAdmin = request.args.get('nome')
+    action = request.args.get('action')
     pathPhoto = join(dirname(realpath(__file__)), 'static/pics/')
     pathCheck = join(pathPhoto, user)
+    if(action == "perfil"):
+        write_log(userAdmin, 'Consultar Perfil', '', 'successfull')
     if photo_auth (request, user) and path.exists(pathCheck) :
+        if(action == "gestao"):
+            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver fotografia', 'successfull')
         return send_from_directory(pathPhoto, user, mimetype='image/png')
     else :
+        if(action == "gestao"):
+            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver fotografia', 'failed')
         return send_from_directory(pathPhoto, "default", mimetype='image/png')
 
 @blueprint.route('/foto/atualizar/<user>', methods=['POST'])
 @token_required
 def route_foto_atualizar(user):
+    userAdmin = request.args.get('nome')
+    pathPhoto = join(dirname(realpath(__file__)), 'static/pics/')
+    pathCheck = join(pathPhoto, user)
     if 'foto' in request.files:
         foto = request.files['foto']
         upload_path = join(dirname(realpath(__file__)), 'static/pics/', user)
-        if path.exists(upload_path): 
+        if path.exists(upload_path):
             remove(upload_path)
         if foto.filename != '':
             foto.filename = user
@@ -137,12 +148,15 @@ def route_foto_atualizar(user):
             src = join(dirname(realpath(__file__)), 'static/pics/', user + ".png") 
             upload_path2 = join(dirname(realpath(__file__)), 'static/pics/', user + ".png")
             copyfile(src, upload_path2)
+    else:
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar Foto', 'failed')
+        return send_from_directory(pathPhoto, user, mimetype='image/png')
 
-    pathPhoto = join(dirname(realpath(__file__)), 'static/pics/')
-    pathCheck = join(pathPhoto, user)
     if photo_auth (request, user) and path.exists(pathCheck) :
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar Foto', 'successfull')
         return send_from_directory(pathPhoto, user, mimetype='image/png')
     else :
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar Foto', 'failed')
         return send_from_directory(pathPhoto, "default", mimetype='image/png')
 
 
@@ -151,17 +165,29 @@ def route_foto_atualizar(user):
 @blueprint.route('/curriculo/<user>', methods=['GET'])
 @token_required
 def route_cur(user):
-    pathC = join(dirname(realpath(__file__)), 'static/curriculo/')
-    print (pathC)
-    print (user)
-    if photo_auth (request, user) :    
-        return send_from_directory(pathC, user,mimetype='application/pdf')
+    userAdmin = request.args.get('nome')
+    action = request.args.get('action')
+    pathPhoto = join(dirname(realpath(__file__)), 'static/curriculo/')
+    pathC = join(pathPhoto, user)
+    
+    if photo_auth (request, user) and  path.exists(pathC):
+        if(action == "perfil"):
+            write_log(userAdmin, 'Consular Perfil', 'Ver o curriculo', 'successfull')
+        if(action == "gestao"): 
+            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver o curriculo', 'successfull')    
+        return send_from_directory(pathPhoto, user,mimetype='application/pdf')
     else :
-        return send_from_directory(pathC, "blank.pdf",mimetype='application/pdf')
+        if(action == "perfil"):
+            write_log(userAdmin, 'Consular Perfil', 'Ver o curriculo', 'failed')
+        if(action == "gestao"):
+            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver o curriculo', 'failed')
+        return
 
 @blueprint.route('/curriculo/atualizar/<user>', methods=['POST'])
 @token_required
 def route_cur_atualizar(user):
+    userAdmin = request.args.get('nome')
+    pathC = join(dirname(realpath(__file__)), 'static/curriculo/')
     if 'curriculo' in request.files:
         curriculo = request.files['curriculo']
         upload_path = join(dirname(realpath(__file__)), 'static/curriculo/', user)
@@ -175,11 +201,15 @@ def route_cur_atualizar(user):
             src = join(dirname(realpath(__file__)), 'static/curriculo/', user + ".pdf") 
             upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', user + ".pdf")
             copyfile(src, upload_path2)
+    else:
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar curriculo', 'failed')
+        return send_from_directory(pathC, user, mimetype='application/pdf')
 
-    pathC = join(dirname(realpath(__file__)), 'static/curriculo/')
     if photo_auth (request, user) :
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar curriculo', 'successfull')
         return send_from_directory(pathC, user,mimetype='application/pdf')
     else :
+        write_log(userAdmin, 'Consultar Perfil', 'Atualizar curriculo', 'failed')
         return send_from_directory(pathC, "blank.pdf",mimetype='application/pdf')
 ##########################################
 
@@ -394,28 +424,33 @@ def route_template_ver_pedido(pedido):
     return json_util.dumps({'pedido': existe, 'foto':upload_path, 'curriculo':upload_path2, 'nome':nome})
 
 
-
 ###########################################
 @blueprint.route('/pedidos/foto/<pedido>', methods=['GET'])
 @token_required
 def route_photo_pedido(pedido):
+    userAdmin = request.args.get('nome')
     pathPhoto = join(dirname(realpath(__file__)), 'static/picsPedidos/')
     pathCheck = join(pathPhoto, pedido)
-    if photo_auth (request, pedido) and path.exists(pathCheck) :  
+    if photo_auth (request, pedido) and path.exists(pathCheck) :
+        write_log(userAdmin, 'Utilizadores/Pedidos de Acesso', 'Ver fotografia', 'successfull')
         return send_from_directory(pathPhoto, pedido, mimetype='image/png')
     else :
+        write_log(userAdmin, 'Utilizadores/Pedidos de Acesso', 'Ver fotografia', 'failed')
         return send_from_directory(pathPhoto, "default", mimetype='image/png')
 
 ##########################################
 @blueprint.route('/pedidos/curriculo/<pedido>', methods=['GET'])
 @token_required
 def route_cur_pedido(pedido):
+    userAdmin = request.args.get('nome')
     pathC = join(dirname(realpath(__file__)), 'static/curriculoPedidos/')
     print (pathC)
     print (pedido)
-    if photo_auth (request, pedido) :    
+    if photo_auth (request, pedido) : 
+        write_log(userAdmin, 'Utilizadores/Pedidos de Acesso', 'Ver currículo', 'successfull')
         return send_from_directory(pathC, pedido,mimetype='application/pdf')
     else :
+        write_log(userAdmin, 'Utilizadores/Pedidos de Acesso', 'Ver currículo', 'failed')
         return send_from_directory(pathC, "Rafiki",mimetype='application/pdf')
 ##########################################
 

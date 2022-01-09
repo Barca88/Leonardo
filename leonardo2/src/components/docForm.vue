@@ -223,7 +223,7 @@ export default {
         formData.append('tipo',this.doc.tipo)
         formData.append('ficheiro',this.doc.ficheiro)
 
-        axios.post(`${process.env.VUE_APP_BACKEND}/documentacao/adicionar`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/documentacao/adicionar?nome=${this.$store.state.user._id}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,

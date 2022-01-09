@@ -477,45 +477,15 @@
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
   data() {
     return {
-      title: "Vue",
-      userPic: "",
-      nome: this.$store.state.user._id,
-      miniVariant: true,
-      expandOnHover: true,
-      drawerOn: true,
-      reindexar: false,
       priv: false,
       terms: false,
       credits: false,
       about: false,
-      successDialog: false,
-      nDocs: 0,
-      nInds: 0,
-      runningDialog: false,
     };
-  },
-  created() {
-    axios
-      .get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}`, {
-        responseType: "arraybuffer",
-        headers: {
-          Authorization: `Bearer: ${this.$store.state.jwt}`,
-        },
-      })
-      .then((response) => {
-        var image = new Buffer(response.data, "binary").toString("base64");
-        this.userPic = `data:${response.headers[
-          "content-type"
-        ].toLowerCase()};base64,${image}`;
-      })
-      .catch((e) => {
-        //console.log(e)
-        this.errors.push(e);
-      });
   },
     computed: {
         drawerState: {

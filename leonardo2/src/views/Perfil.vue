@@ -7,7 +7,11 @@
         <div v-else>
             <navDrawLeitor></navDrawLeitor>
         </div>
+        
         <v-container fluid style="margin-top:2.5cm">
+            <h3 class="text-h4 mb-4">
+            {{$t('navd.perfil')}}
+            </h3>
             <v-row justify="space-around">
                 <v-col cols="5">
                     <div class="title mb-1">{{$t('perfil.foto')}}</div>
@@ -95,8 +99,13 @@
                     </v-simple-table>
                     <v-row>
                         <v-col>
+                            <v-btn color="#2A3F54" dark depressed link @click="editItem({},'editar')">
+                                <v-icon>mdi-pencil</v-icon> {{$t('pForm.edInf')}}
+                            </v-btn>
+                        </v-col>
+                        <v-col>
                             <v-btn color="#2A3F54" dark depressed @click="onUpdate()">
-                                <v-icon>mdi-file-pdf</v-icon> {{$t('perfil.vercur')}}
+                                <v-icon>mdi-text-box-multiple</v-icon> {{$t('perfil.vercur')}}
                             </v-btn>
                         </v-col>
                         <v-col>
@@ -117,10 +126,14 @@
                         accept="application/pdf"
                         @change="onFileChanged"
                     >
+                    
                 </v-col>
             </v-row>
             <v-dialog v-model="cvDialog" width="800px">
                 <v-card>
+                    <v-toolbar color="#2A3F54" dark>
+                        <h2>{{$t('users.curr')}}</h2>
+                    </v-toolbar>
                     <template>
                         {{page}}//{{pageCount}}
                         <pdf 
@@ -149,7 +162,11 @@
                     </span>
                 </v-tooltip>
             </v-dialog>
+            <v-dialog persistent v-model="dialog" max-width="800px">
+                <userForm :value='value' :passedData='editedItem' @emiteFecho=emiteFecho($event)></userForm>
+            </v-dialog>
         </v-container>
+        
     </div>
 </template>
 <script>
@@ -157,6 +174,7 @@ import Header from '../components/header.vue'
 import NavDraw from '../components/navDraw.vue'
 import pdf from 'vue-pdf'
 import navDrawLeitor from '../components/navDrawLeitor.vue'
+import UserForm from '../components/userForm.vue'
 import axios from 'axios'
 export default {
     data(){
@@ -175,9 +193,18 @@ export default {
             selectedFile: null,
             isSelecting: false,
             cv:'',
+            value:'',
             cvDialog:false,
+            dialog: false,
             pageCount:0,
             currentPage:0,
+            editedIndex: -1,
+            editedItem: {
+                _id: '',
+                nome: '',
+                email: '',
+                tipo: ''
+            },
             page:1
         }
     },
@@ -185,6 +212,7 @@ export default {
         'appHeader': Header,
         'navDrawLeitor':navDrawLeitor,
         'navDraw':NavDraw,
+        'userForm':UserForm,
         'pdf':pdf
     },
     methods:{
@@ -206,7 +234,7 @@ export default {
             
             let formData = new FormData()
             formData.append('curriculo',this.selectedFile)
-            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.username}?nome=${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -221,10 +249,10 @@ export default {
                 })
         },
         onPicChanged(e) {
-            this.selectedFile = e.target.files[0]
+            this.selectedFile = e.target.files[0] 
             let formData = new FormData()
             formData.append('foto',this.selectedFile)
-            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.username}?nome=${this.username}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -235,12 +263,14 @@ export default {
                     this.userPic=''
                     var image = new Buffer(response.data, 'binary').toString('base64')
                     this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+                    //this.$router.push( {path:`/users/ver`})
+                    //this.$router.go()
                 }).catch(e => {
                     this.errors.push(e)
                 })
         },
         onUpdate(){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.username}?seed=${Date.now()}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -255,6 +285,15 @@ export default {
                 this.errors.push(e)
             })
         },
+        editItem (item, value) {
+        this.editedIndex = this.users.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.value=value
+        this.dialog = true
+      },
+        emiteFecho(){
+            this.dialog=false
+        },
         pageshift(shift){
             var temp = this.page + shift
             if (temp > 0 && temp <= this.pageCount){
@@ -264,7 +303,7 @@ export default {
     },
     created() {
         this.userPic=''
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`

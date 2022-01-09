@@ -59,6 +59,7 @@
         <template v-slot:item.options="{ item }">
             <v-icon
                 small
+                color="#246a73"
                 class="mr-2"
                 @click="verObjectItem(item)"
             >
@@ -66,6 +67,7 @@
             </v-icon>
             <v-icon
                 small
+                color="#8e363a"
                 @click="deleteDialog = true;tempValue=item"
             >
                 mdi-trash-can
@@ -74,6 +76,9 @@
         </v-data-table>
         <v-dialog v-model="cvDialog" width="800px">
             <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                    <h1>{{$t('navd.docV')}}</h1>
+                </v-toolbar>
                 <template>
 					{{page}}//{{pageCount}}
                     <pdf 
@@ -148,34 +153,6 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-        <!-- <v-dialog v-model="noCVDialog" scrollable width="500" persistent>
-            <v-card>
-                <v-row>
-                    <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
-                    <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
-                    </v-col>
-                    <v-col>
-                    <v-card-text>
-                        <h3>{{$t('users.noCur')}}</h3>
-                    </v-card-text>
-                    </v-col>
-                </v-row>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-tooltip bottom>
-                    <template v-slot:activator="{ on: tooltip }">
-                        <v-btn color="#2A3F54" dark @click="noCVDialog = false" v-on="{ ...tooltip}">
-                        <v-icon>mdi-exit-to-app</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>
-                        {{$t('indForm.close')}}
-                    </span>
-                    </v-tooltip>
-                </v-card-actions>
-            </v-card>
-        </v-dialog> -->
     </div>
 </template>
 
@@ -271,9 +248,7 @@ export default {
       verObjectItem(item){
         //console.log(item)
         const index = this.docs.indexOf(item)
-        //console.log(this.users[index])        
-        // if (value == 'curriculo'){
-          axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/ficheiro/${this.docs[index]._id}?seed=${Date.now()}`, {
+          axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/ficheiro/${this.docs[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -288,24 +263,7 @@ export default {
               ////console.log(e)
               this.errors.push(e)
           })
-        // }
-        // else if(value == 'foto'){
-        //     axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/ficheiro/${this.docs[index]._id}?seed=${Date.now()}`, {
-        //         responseType:'arraybuffer',
-        //         headers: {
-        //             'Authorization': `Bearer: ${this.$store.state.jwt}`
-        //         }
-        //     })
-        //     .then(response => {
-        //         var image = new Buffer(response.data, 'binary').toString('base64')
-        //         this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
-        //         this.picDialog = true
-        //     }).catch(e => {
-        //         alert('Este utilizador não possui foto')
-        //         //console.log(e)
-        //         this.errors.push(e)
-        //     })
-        // }
+
       },
       close () {
         this.dialog = false
@@ -339,7 +297,7 @@ export default {
     },
     created() {
         //console.log('store->' + this.$store.state.jwt)
-        axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/docs?nome=admin`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/docs?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             this.docs = response.data.docs

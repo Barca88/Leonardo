@@ -70,11 +70,11 @@
             </v-icon>
             <v-icon
                 small
-                color="#f3dfc1"
+                color="#246a73"
                 class="mr-2"
                 @click="verObjectItem(item,'curriculo')"
             >
-                mdi-file-pdf
+                mdi-text-box-multiple
             </v-icon>
             <v-icon
                 small
@@ -88,12 +88,16 @@
                 small
                 color="#8e363a"
                 @click="deleteDialog = true;tempValue=item"
+                
             >
                 mdi-trash-can
             </v-icon>
         </template>
         </v-data-table>
         <v-dialog v-model="picDialog" width="800px">
+            <v-toolbar color="#2A3F54" dark>
+                <h2>{{$t('navd.guser3')}}</h2>
+             </v-toolbar>
             <v-card>
                 <v-img v-bind:src="userPic" contain aspect-ratio="1.5"/>
             </v-card>
@@ -109,6 +113,9 @@
             </v-tooltip>
         </v-dialog>
         <v-dialog v-model="cvDialog" width="800px">
+            <v-toolbar color="#2A3F54" dark>
+                <h1>{{$t('navd.guser2')}}</h1>
+            </v-toolbar>
             <v-card>
                 <template>
 					{{page}}//{{pageCount}}
@@ -186,6 +193,9 @@
         </v-dialog>
         <v-dialog v-model="noCVDialog" scrollable width="500" persistent>
             <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                    <h1>{{$t('navd.guser')}}</h1>
+                 </v-toolbar>
                 <v-row>
                     <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
                     <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
@@ -202,6 +212,37 @@
                     <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
                         <v-btn color="#2A3F54" dark @click="noCVDialog = false" v-on="{ ...tooltip}">
+                        <v-icon>mdi-exit-to-app</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>
+                        {{$t('indForm.close')}}
+                    </span>
+                    </v-tooltip>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-dialog v-model="noFoto" scrollable width="500" persistent>
+            <v-card>
+                <v-toolbar color="#2A3F54" dark>
+                    <h1>{{$t('navd.guser')}}</h1>
+                 </v-toolbar>
+                <v-row>
+                    <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
+                    <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
+                    </v-col>
+                    <v-col>
+                    <v-card-text>
+                        <h3>{{$t('users.noFoto')}}</h3>
+                    </v-card-text>
+                    </v-col>
+                </v-row>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-tooltip bottom>
+                    <template v-slot:activator="{ on: tooltip }">
+                        <v-btn color="#2A3F54" dark @click="noFoto = false" v-on="{ ...tooltip}">
                         <v-icon>mdi-exit-to-app</v-icon>
                         </v-btn>
                     </template>
@@ -266,6 +307,7 @@ export default {
             cv:'',
             cvDialog:false,
             noCVDialog:false,
+            noFoto: false,
             pageCount:0,
             currentPage:0,
             deleteDialog:false,
@@ -316,7 +358,7 @@ export default {
         const index = this.users.indexOf(item)
         //console.log(this.users[index])        
         if (value == 'curriculo'){
-          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?seed=${Date.now()}`, {
+          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao  `, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -333,7 +375,7 @@ export default {
           })
         }
         else if(value == 'foto'){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.users[index]._id}?seed=${Date.now()}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -344,7 +386,8 @@ export default {
                 this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
                 this.picDialog = true
             }).catch(e => {
-                alert('Este utilizador não possui foto')
+                this.noFoto = true
+                //alert('Este utilizador não possui foto')
                 //console.log(e)
                 this.errors.push(e)
             })
@@ -376,8 +419,13 @@ export default {
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
-            this.users = response.data.users
-            this.tempValue = {}
+            var todos = response.data.users
+            for(let i = 0; i<todos.length;i++){ 
+                if(todos[i]._id === this.$store.state.user._id){
+                    todos.splice(i,1)
+                }
+            }
+            this.users = todos
         }).catch(e => {
             //console.log(e)
             this.errors.push(e)

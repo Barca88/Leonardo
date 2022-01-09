@@ -3,7 +3,7 @@
 
 from app.documentacao import blueprint
 from flask import render_template, request, url_for, send_from_directory
-from app import mongo, token_required, admin_required, photo_auth
+from app import mongo, token_required, admin_required, photo_auth, write_log
 from os import path, remove, listdir
 from os.path import join, dirname, realpath
 
@@ -20,8 +20,9 @@ CORS(blueprint)
 @token_required
 def route_docs():
     docs = [doc for doc in mongo.db.documentacao.find()]
-    nome = request.args.get('nome')
-    return json_util.dumps({'docs': docs, 'nome': nome})
+    user = request.args.get('nome')
+    write_log(user, 'Documentação', '', 'successfull')
+    return json_util.dumps({'docs': docs})
 
 
 @blueprint.route('/adicionar', methods=['POST'])
@@ -29,9 +30,10 @@ def route_docs():
 def route_adicionar():
     titulo = request.form.get('titulo')
     existe = mongo.db.documentacao.find_one({"_id":titulo})
-    nome = request.args.get('nome')
+    user = request.args.get('nome')
     if existe:
-        return json_util.dumps({'nome': nome,'message':'já existe'})
+        write_log(user, 'Documentação', 'Adicionar Documento', 'failed')
+        return json_util.dumps({'message':'já existe'})
     else:
         desc = request.form.get('desc')
         autores = request.form.get('autores')
@@ -47,24 +49,28 @@ def route_adicionar():
                 src = join(dirname(realpath(__file__)), 'static/ficheiro/', titulo + ".pdf") 
                 upload_path2 = join(dirname(realpath(__file__)), 'static/ficheiro/', titulo + ".pdf")
                 copyfile(src, upload_path2)
-        value = mongo.db.documentacao.insert({"_id":titulo,"desc":desc,"autores":autores,"data":data,"tipo":tipo})
-        return json_util.dumps({'nome': nome})
+        mongo.db.documentacao.insert({"_id":titulo,"desc":desc,"autores":autores,"data":data,"tipo":tipo})
+        write_log(user, 'Documentação', 'Adicionar Documento', 'successfull')
+        return json_util.dumps({'nome': user})
 
 
 @blueprint.route('/apagar/<doc>')
 @admin_required
 def route_apagar(doc):
-    value = mongo.db.documentacao.remove({"_id":doc})
+    user = request.args.get('nome')  
+    mongo.db.documentacao.remove({"_id":doc})
     upload_path = join(dirname(realpath(__file__)), 'static/ficheiro/', doc)
     if path.exists(upload_path): 
         remove(upload_path)
     docs = mongo.db.documentacao.find()
-    nome = request.args.get('nome')
-    return json_util.dumps({'docs': docs, 'nome': nome})
+    write_log(user, 'Documentação', 'Eliminar Documento', 'successfull')
+    return json_util.dumps({'docs': docs})
 
 
 @blueprint.route('/ficheiro/<doc>', methods=['GET'])
 @token_required
 def route_cur(doc):
+    user = request.args.get('nome')
     pathC = join(dirname(realpath(__file__)), 'static/ficheiro/')
+    write_log(user, 'Documentação', 'Ver Documento', 'successfull')
     return send_from_directory(pathC,doc,mimetype='application/pdf')

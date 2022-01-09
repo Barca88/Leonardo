@@ -57,6 +57,7 @@
     },
     "message": "Bem-vindo ao sistema Leonardo - O Livro das Propriedades do Tombo da Mitra.",
     "navd": {
+        "perfil": "Perfil do Utilizador",
         "home": "Início",
         "import": "Importação",
         "documents": "Documentos",
@@ -74,6 +75,7 @@
         "processamento":"Processamento",
         "annotations": "Anotação",
         "docum":"Documentação",
+        "docV":"Documento",
         "help": "Ajuda",
         "about": "Acerca de",
         "terms":"Termos de Utilização",
@@ -91,8 +93,12 @@
         "ebase": "Re-Anotação da Base",
         "estatisticas": "Pesquisas Realizadas",
         "guser":"Gestão de Utilizadores",
+        "guser2":"Gestão de Utilizadores - Currículo",
+        "guser3":"Gestão de Utilizadores - Fotografia",  
         "uativo":"Utilizadores Ativos",
         "puser":"Pedidos de Acesso",
+        "puser2":"Pedidos de Acesso - Currículo",
+        "puser3":"Pedidos de Acesso - Fotografia", 
         "hacesso":"Historial de Acesso",
         "mans": "Manual do Sistema",
         "pubs": "Publicações",
@@ -288,7 +294,9 @@
         "tipo": "Tipo",
         "opt": "Opções",
         "elim":"Tem a certeza que deseja eliminar este utilizador?",
-        "noCur":"Este utilizador não possui curriculo."
+        "curr":"Currículo do Utilizador",
+        "noCur":"Este utilizador não possui currículo.",
+        "noFoto": "Este utilizador não possui fotografia."
     },
     "defForm": {
         "addDef": "Adicionar definições",
@@ -379,7 +387,8 @@
     "pForm": {
         "aU": "Adicionar utilizadores",
         "vU": "Visualizar utilizadores",
-        "eU": "Editar utilizadores"
+        "eU": "Editar utilizadores",
+        "edInf": "Editar"
     },
     "uF": {
         "conf":"Confirmar submissão de utilizador",

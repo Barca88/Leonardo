@@ -272,21 +272,6 @@ export default {
             drawerOn: true
         }
     },
-    created(){
-      axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.$store.state.user._id}`, {
-        responseType:'arraybuffer',
-        headers: {
-            'Authorization': `Bearer: ${this.$store.state.jwt}`
-        }
-      })
-      .then(response => {
-        var image = new Buffer(response.data, 'binary').toString('base64')
-        this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
-      }).catch(e => {
-        //console.log(e)
-        this.errors.push(e)
-      })
-    },
     methods:{
       logout: function(){
 
