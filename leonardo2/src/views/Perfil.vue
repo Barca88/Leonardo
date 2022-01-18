@@ -99,7 +99,7 @@
                     </v-simple-table>
                     <v-row>
                         <v-col>
-                            <v-btn color="#2A3F54" dark depressed link @click="editItem({},'editar')">
+                            <v-btn color="#2A3F54" dark depressed @click="editItem(item,'editar')">
                                 <v-icon>mdi-pencil</v-icon> {{$t('pForm.edInf')}}
                             </v-btn>
                         </v-col>
@@ -163,7 +163,7 @@
                 </v-tooltip>
             </v-dialog>
             <v-dialog persistent v-model="dialog" max-width="800px">
-                <userForm :value='value' :passedData='editedItem' @emiteFecho=emiteFecho($event)></userForm>
+                <userForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></userForm>
             </v-dialog>
         </v-container>
         
@@ -216,6 +216,22 @@ export default {
         'pdf':pdf
     },
     methods:{
+        atualizarInfo: function(){
+        this.dialog=false
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
+            responseType:'arraybuffer',
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+            var image = new Buffer(response.data, 'binary').toString('base64')
+            this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+
+        }).catch(e => {
+            this.errors.push(e)
+        })
+      },
         onButtonClick(up) {
             this.isSelecting = true
             window.addEventListener('focus', () => {
@@ -264,7 +280,7 @@ export default {
                     var image = new Buffer(response.data, 'binary').toString('base64')
                     this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
                     //this.$router.push( {path:`/users/ver`})
-                    //this.$router.go()
+                    this.$router.go()
                 }).catch(e => {
                     this.errors.push(e)
                 })
@@ -286,8 +302,8 @@ export default {
             })
         },
         editItem (item, value) {
-        this.editedIndex = this.users.indexOf(item)
-        this.editedItem = Object.assign({}, item)
+        //this.editedIndex = this.users.indexOf(item)
+        this.editedItem = this.$store.state.user
         this.value=value
         this.dialog = true
       },
