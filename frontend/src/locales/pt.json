@@ -9,6 +9,8 @@
         "questions": "Questões",
         "tests": "Testes",
         "prod":"Produção",
+        "prodDomain":"Domínios",
+        "prodQuestion":"Questões",
         "impo":"Importação",
         "ver":"Verificação",
         "imp":"Importação de Questões",

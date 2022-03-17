@@ -70,12 +70,12 @@
               $t("adminNav.prod")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/domain">
+          <v-list-item link to="/prodDominio">
             <v-list-item-title class="white--text">{{
-              $t("adminNav.domain")
+              $t("adminNav.prodDomain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/questions">
+          <v-list-item link to="/prodQuestao">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
