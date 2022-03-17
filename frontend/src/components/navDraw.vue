@@ -42,12 +42,12 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item link to="/domain">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/questions">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
@@ -70,12 +70,12 @@
               $t("adminNav.prod")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/home">
+          <v-list-item link to="/domain">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item link to="/questions">
             <v-list-item-title class="white--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
@@ -196,7 +196,7 @@
               $t("adminNav.game")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/home">
+          <v-list-item link to="/domain">
             <v-list-item-title class="white--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>

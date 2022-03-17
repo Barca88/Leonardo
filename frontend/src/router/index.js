@@ -46,6 +46,54 @@ const routes = [
     },
   },
   {
+    path: "/domain",
+    name: "Domain",
+    component: () => import("../views/Dominios.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: '/prodQuestao',
+    name: 'ProdQuestao',
+    component: () => import("../views/prodQuestao.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/prodDominio',
+    name: 'ProdDominio',
+    component: () => import("../views/ProdDominio.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/questions',
+    name: 'Questions',
+    component: () => import("../views/Questoes.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    }
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue"),
