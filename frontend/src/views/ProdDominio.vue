@@ -407,9 +407,33 @@ export default {
 
     submit(){
       console.log(this.editing)
+      
       if(this.editing == false){
         console.log("entrei no true")
-        axios.post(`http://localhost:8001/domain`, this.domain)
+        let formData = new FormData()
+      formData.append('id', this.domain.id)
+      formData.append('description', this.domain.description)
+      formData.append('scholarity', this.domain.scholarity)
+      formData.append('responsible', this.domain.responsible)
+      formData.append('notes', this.domain.notes)
+      formData.append('access_type', this.domain.access_type)
+      formData.append('body', this.domain.body)
+      formData.append('default_user_level', this.domain.default_user_level)
+      formData.append('high_performance_factor', this.domain.high_performance_factor)
+      formData.append('low_performance_factor', this.domain.low_performance_factor)
+      formData.append('high_skill_factor', this.domain.high_skill_factor)
+      formData.append('low_skill_factor', this.domain.low_skill_factor)
+      formData.append('min_questions_number', this.domain.min_questions_number)
+      formData.append('question_factor', this.domain.question_factor)
+      formData.append('inserted_by', this.domain.inserted_by)
+      formData.append('', this.domain.inserted_at)
+        axios.post(`${process.env.VUE_APP_BACKEND}/domain/insert`, formData,{
+          headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
             .then(function(response){
               console.log(response)
             },(error) =>{

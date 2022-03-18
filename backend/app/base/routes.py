@@ -216,6 +216,7 @@ def route_errors(error):
 ####### Login & Registration###############################
 @blueprint.route('/login', methods=['POST'])
 def login():
+    print('logggiiiin')
     _id = request.form.get('id')
     password = request.form.get('password')
     user = mongo.db.users.find_one({"_id": _id})

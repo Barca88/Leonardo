@@ -323,7 +323,7 @@ export default {
                 { text: "Data Criação", sortable: true, value: "inserted_at", class: "white--text"},
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],
-            domain:{
+            domain: {
               id: '',
               description: 'pt',
               scholarity: '',
@@ -346,9 +346,16 @@ export default {
         }
     },
     created(){
-        axios.get(`http://localhost:8001/domain`)
+        axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
           .then((response)=>{
-            this.navDomains=response.data
+            console.log('test ' + response),
+            //this.domain = response.data
+            this.navDomains=response.data.domains
           },(error) =>{
               console.log(error);
           });
