@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from app.domain import blueprint
-from flask import render_template, request, flash, send_from_directory
+from flask import render_template, request, flash, send_from_directory, jsonify
 from flask_login import login_required
 from app import mongo, token_required, admin_required, photo_auth, write_log
 from os import path, remove, rename, replace
@@ -18,6 +18,9 @@ from flask_cors import CORS, cross_origin
 CORS(blueprint)
 #######
 UPLOAD_FOLDER = './static/picss/'
+
+
+
 
 
 @blueprint.route('/getDomains', methods=['GET'])
@@ -68,7 +71,9 @@ def route_template_insert():
         responsible = request.form.get('responsible')
         notes = request.form.get('notes')
         access_type = request.form.get('access_type')
-        body = request.form.get('body')
+
+        body = json.loads(request.form.get('body'))
+        
         default_user_level = request.form.get('default_user_level')
         high_performance_factor = request.form.get('high_performance_factor')
         low_performance_factor = request.form.get('low_performance_factor')

@@ -408,7 +408,6 @@ export default {
       console.log(this.editing)
       
       if(this.editing == false){
-        console.log("entrei no true")
         let formData = new FormData()
       formData.append('_id', this.domain._id)
       formData.append('description', this.domain.description)
@@ -416,7 +415,7 @@ export default {
       formData.append('responsible', this.domain.responsible)
       formData.append('notes', this.domain.notes)
       formData.append('access_type', this.domain.access_type)
-      formData.append('body', this.domain.body)
+      formData.append('body', JSON.stringify(this.domain.body))
       formData.append('default_user_level', this.domain.default_user_level)
       formData.append('high_performance_factor', this.domain.high_performance_factor)
       formData.append('low_performance_factor', this.domain.low_performance_factor)
@@ -439,7 +438,6 @@ export default {
                 console.log(error);
           }); 
       }else{
-        console.log("entrei no false")
         let formData = new FormData()
       formData.append('_id', this.domain._id)
       formData.append('description', this.domain.description)
@@ -447,7 +445,7 @@ export default {
       formData.append('responsible', this.domain.responsible)
       formData.append('notes', this.domain.notes)
       formData.append('access_type', this.domain.access_type)
-      formData.append('body', this.domain.body)
+      formData.append('body', JSON.stringify(this.domain.body))
       formData.append('default_user_level', this.domain.default_user_level)
       formData.append('high_performance_factor', this.domain.high_performance_factor)
       formData.append('low_performance_factor', this.domain.low_performance_factor)
