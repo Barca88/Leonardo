@@ -3,12 +3,12 @@
     <v-container>
       <v-row>
         <v-col cols="6">
-          <v-text-field v-if="editing" v-model="formData.id" 
+          <v-text-field v-if="editing" v-model="formData._id" 
             :rules="[...rules.required,...rules.length30]" 
             :counter="30" label="Identificador" 
             :input="onChange()" readonly/>
             
-            <v-text-field v-else v-model="formData.id" 
+            <v-text-field v-else v-model="formData._id" 
             :rules="[...rules.required,...rules.length30,...rules.repeatedID]" 
             :counter="30" label="Identificador" 
             :input="onChange()"/>
@@ -90,7 +90,6 @@ export default {
       valid: false,
       formData:{
           _id: '',
-          id: '',
           description: '',
           scholarity: '',
           responsible: '',
@@ -110,10 +109,15 @@ export default {
   },
 
   created() {
-    axios.get(`http://localhost:8001/domain`)
+    axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
       .then((response)=>{
         response.data.forEach((obj) =>{
-          this.idDomains.push(obj.id)
+          this.idDomains.push(obj._id)
         });
       },(error) =>{
           console.log(error);
@@ -123,7 +127,6 @@ export default {
       this.editing = true
       let data = this.$route.params.data
           this.formData._id = data._id
-          this.formData.id = data.id
           this.formData.description = data.description
           this.formData.scholarity = data.scholarity
           this.formData.responsible = data.responsible
@@ -134,10 +137,9 @@ export default {
 
   mounted(){
     this.$root.$on('import', data => {
-            axios.get(`http://localhost:8001/domain/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
                 this.formData._id = response.data._id
-                this.formData.id = response.data.id,
                 this.formData.description = response.data.description,
                 this.formData.scholarity = response.data.scholarity,
                 this.formData.responsible = response.data.responsible
@@ -165,7 +167,7 @@ export default {
     },
 
     onChange(){
-      this.sendObject.sendId = this.formData.id
+      this.sendObject.sendId = this.formData._id
       this.sendObject.sendDescription = this.formData.description
       this.$root.$emit('change',this.sendObject)
     }
@@ -173,7 +175,7 @@ export default {
   watch: {
       formData: {
           handler: function() {
-            this.$emit('newdataDominio', [this.formData.id,this.formData.description,this.formData.scholarity,
+            this.$emit('newdataDominio', [this.formData._id,this.formData.description,this.formData.scholarity,
             this.formData.responsible,this.formData.notes,this.formData.access_type,this.editing,this.formData._id]);         
         },
           deep: true

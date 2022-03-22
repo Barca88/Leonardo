@@ -81,7 +81,7 @@
 
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">    
-                         <v-btn v-bind="attrs" v-on="on" to="/dominios" color="#29E898" elevation="5" class="">
+                         <v-btn v-bind="attrs" v-on="on" to="/domain" color="#29E898" elevation="5" class="">
                           <v-icon color="white">mdi-door-open</v-icon>
                         </v-btn>                    
                       </template>
@@ -162,7 +162,7 @@
                             <v-col class="text-right">
                               <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">   
-                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" @click="closeConfirmSubmit" elevation="5" class="mt-5">
+                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" to="/domain" @click="closeConfirmSubmit" elevation="5" class="mt-5">
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
@@ -341,7 +341,7 @@ export default {
         { tab: 'Comportamento'}
       ],
       domain:{
-        id: '',
+        _id: '',
         description: 'pt',
         scholarity: '',
         responsible: '',
@@ -359,8 +359,7 @@ export default {
         inserted_at:new Date().toLocaleString()
       },
       edit:{
-        _id:null,
-        id: '',
+        _id: '',
         description: 'pt',
         scholarity: '',
         responsible: '',
@@ -382,7 +381,7 @@ export default {
   methods:{
 
     handleDataDominios(e) {
-      [this.domain.id,this.domain.description,this.domain.scholarity,this.domain.responsible,
+      [this.domain._id,this.domain.description,this.domain.scholarity,this.domain.responsible,
       this.domain.notes,this.domain.access_type,this.editing,this.edit._id] = e;
     },
 
@@ -411,7 +410,7 @@ export default {
       if(this.editing == false){
         console.log("entrei no true")
         let formData = new FormData()
-      formData.append('id', this.domain.id)
+      formData.append('_id', this.domain._id)
       formData.append('description', this.domain.description)
       formData.append('scholarity', this.domain.scholarity)
       formData.append('responsible', this.domain.responsible)
@@ -426,8 +425,8 @@ export default {
       formData.append('min_questions_number', this.domain.min_questions_number)
       formData.append('question_factor', this.domain.question_factor)
       formData.append('inserted_by', this.domain.inserted_by)
-      formData.append('', this.domain.inserted_at)
-        axios.post(`${process.env.VUE_APP_BACKEND}/domain/insert`, formData,{
+      formData.append('inserted_at', this.domain.inserted_at)
+        axios.post(`${process.env.VUE_APP_BACKEND}/domain/insert?nome=${this.$store.state.user._id}`, formData,{
           headers: {
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`,
@@ -441,24 +440,31 @@ export default {
           }); 
       }else{
         console.log("entrei no false")
-        this.edit.id = this.domain.id
-        this.edit.description = this.domain.description
-        this.edit.scholarity = this.domain.scholarity
-        this.edit.responsible = this.domain.responsible
-        this.edit.notes = this.domain.notes
-        this.edit.access_type = this.domain.access_type
-        this.edit.body = this.domain.body
-        this.edit.default_user_level = this.domain.default_user_level
-        this.edit.high_performance_factor = this.domain.high_performance_factor
-        this.edit.low_performance_factor = this.domain.low_performance_factor
-        this.edit.high_skill_factor = this.domain.high_skill_factor
-        this.edit.low_skill_factor= this.domain.low_skill_factor
-        this.edit.min_questions_number = this.domain.min_questions_number
-        this.edit.question_factor = this.domain.question_factor
-        this.edit.inserted_by = this.domain.inserted_by
-        this.edit.inserted_at = this.domain.inserted_at
+        let formData = new FormData()
+      formData.append('_id', this.domain._id)
+      formData.append('description', this.domain.description)
+      formData.append('scholarity', this.domain.scholarity)
+      formData.append('responsible', this.domain.responsible)
+      formData.append('notes', this.domain.notes)
+      formData.append('access_type', this.domain.access_type)
+      formData.append('body', this.domain.body)
+      formData.append('default_user_level', this.domain.default_user_level)
+      formData.append('high_performance_factor', this.domain.high_performance_factor)
+      formData.append('low_performance_factor', this.domain.low_performance_factor)
+      formData.append('high_skill_factor', this.domain.high_skill_factor)
+      formData.append('low_skill_factor', this.domain.low_skill_factor)
+      formData.append('min_questions_number', this.domain.min_questions_number)
+      formData.append('question_factor', this.domain.question_factor)
+      formData.append('inserted_by', this.domain.inserted_by)
+      formData.append('inserted_at', this.domain.inserted_at)
 
-        axios.put(`http://localhost:8001/domain`, this.edit)
+        axios.post(`${process.env.VUE_APP_BACKEND}/domain/editar?nome=${this.$store.state.user._id}`, formData,{
+          headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
             .then(function(response){
               console.log(response)
             },(error) =>{
@@ -481,6 +487,11 @@ export default {
 
     closeImport() {
       this.openImport = false
+    },
+
+    
+    closeSubmit() {
+      this.openSubmit = false
     },
 
     closeConfirmSubmit() {

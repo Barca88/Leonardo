@@ -262,7 +262,7 @@ export default {
             this.description = data.sendDescription
       })
       this.$root.$on('import', data => {
-            axios.get(`http://localhost:8001/domain/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
                 this.firstSub = true
                 this.formData.body = response.data.body

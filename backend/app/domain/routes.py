@@ -26,20 +26,87 @@ UPLOAD_FOLDER = './static/picss/'
 #@login_required
 def route_domain():
     domains= [doc for doc in mongo.db.domains.find()]
-    print(domains)
-    
-    #write_log(user, 'Utilizadores/Gestão', '', 'successfull')
+
+    userAdmin = request.args.get('nome')
+    if userAdmin:
+        write_log(userAdmin, 'Informação Base/Domínios', '', 'successfull')
     return json_util.dumps({'domains': domains})
     #return render_template('users.html',users=users,nome=nome)
+
+
+
+@blueprint.route('/getDomains/<domain>', methods=['GET'])
+#@admin_required
+#@token_required
+#@login_required
+def route_domain_get(domain):
+    #userAdmin = request.args.get('nome')
+    print(domain)
+    existe = mongo.db.domains.find_one({"_id":domain})
+    print(existe)
+    domains= [doc for doc in mongo.db.domains.find()]
+    #print(userAdmin)
+    return json_util.dumps({'domain': existe})
+
 
 
 @blueprint.route('/insert', methods=['POST'])
 @admin_required
 #@login_required
 def route_template_insert():
-    print('test')
-    print(request)
-    _id = request.form.get('id')
+    _id = request.form.get('_id')
+    print(request.form.get('body'))
+    existe = mongo.db.domains.find_one({"_id":_id})
+    userAdmin = request.args.get('nome')
+    if existe:
+        print('Domain ja existe')
+        write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'failed')
+        return json_util.dumps({'nome': userAdmin,'message':'já existe'})
+    else:
+        description = request.form.get('description')
+        scholarity = request.form.get('scholarity')
+        responsible = request.form.get('responsible')
+        notes = request.form.get('notes')
+        access_type = request.form.get('access_type')
+        body = request.form.get('body')
+        default_user_level = request.form.get('default_user_level')
+        high_performance_factor = request.form.get('high_performance_factor')
+        low_performance_factor = request.form.get('low_performance_factor')
+        high_skill_factor = request.form.get('high_skill_factor')
+        low_skill_factor = request.form.get('low_skill_factor')
+        min_questions_number = request.form.get('min_questions_number')
+        question_factor = request.form.get('question_factor')
+        inserted_by = request.form.get('inserted_by')
+        inserted_at = request.form.get('inserted_at')
+
+        mongo.db.domains.insert({"_id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
+        "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
+        "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": inserted_by,  "inserted_at": inserted_at })
+        write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
+        print(_id)
+        return '1'
+
+
+
+@blueprint.route('/apagar/<domain>', methods=['DELETE'])
+@admin_required
+#@login_required
+def route_template_apagar(domain):
+    print(domain)
+    mongo.db.domains.remove({"_id":domain})
+    domains = mongo.db.domains.find()
+    userAdmin = request.args.get('nome')
+    write_log(userAdmin, 'Informação Base/Domínios', 'Eliminar Domínio', 'successfull')
+    return json_util.dumps({'Domains': domains})
+
+
+
+@blueprint.route('/editar', methods=['POST'])
+@admin_required
+#@login_required
+def route_template_editar_guardar():
+    print("entrei")
+    _id = request.form.get('_id')
     description = request.form.get('description')
     scholarity = request.form.get('scholarity')
     responsible = request.form.get('responsible')
@@ -56,10 +123,14 @@ def route_template_insert():
     inserted_by = request.form.get('inserted_by')
     inserted_at = request.form.get('inserted_at')
 
-    mongo.db.domains.insert({"id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
-    "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
-     "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": inserted_by,  "inserted_at": inserted_at })
+    mongo.db.domains.update({"_id":_id},{"description":description,"scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
+    "high_performance_factor":high_performance_factor,"low_performance_factor":low_performance_factor,"high_skill_factor":high_skill_factor,"low_skill_factor":low_skill_factor,"body":body,
+    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":inserted_by,"inserted_at":inserted_at})
 
+    print(description)
     print(_id)
-    return '1'
 
+    domains = mongo.db.domains.find()
+    userAdmin = request.args.get('nome')
+    write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
+    return json_util.dumps({'Domains': domains})

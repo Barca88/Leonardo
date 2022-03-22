@@ -93,7 +93,7 @@ export default ({
             this.description = data.sendDescription
       })
       this.$root.$on('import', data => {
-            axios.get(`http://localhost:8001/domain/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
                 this.formData.default_user_level = response.data.default_user_level
                 this.formData.high_performance_factor = response.data.high_performance_factor

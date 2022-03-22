@@ -61,7 +61,7 @@
           <v-card>
             <v-app-bar color="#2A3F54" >
               <div class="d-flex align-center">
-                <h3 width="40" class="white--text"> Domínio - {{this.domain.id}} </h3>
+                <h3 width="40" class="white--text"> Domínio - {{this.domain._id}} </h3>
               </div>
             </v-app-bar>
             <v-container>
@@ -214,7 +214,7 @@
           <v-card>
             <v-app-bar color="#2A3F54" >
               <div class="d-flex align-center">
-                <h3 width="40" class="white--text"> REMOVER DOMÍNIO - {{this.domain.id}} </h3>
+                <h3 width="40" class="white--text"> REMOVER DOMÍNIO - {{this.domain._id}} </h3>
               </div>
             </v-app-bar>
             <v-container>
@@ -316,7 +316,7 @@ export default {
             dialogShow: false,
             dialogDelete: false,
             headers: [
-                { text: "Identificador", sortable: true, value: "id", class: "white--text"},
+                { text: "Identificador", sortable: true, value: "_id", class: "white--text"},
                 { text: "Description",  sortable: true, value: "description", class: "white--text" },
                 { text: "Escolaridade",  sortable: true, value: "scholarity", class: "white--text" },
                 { text: "Responsável", sortable: true, value: "responsible", class: "white--text"},
@@ -324,7 +324,7 @@ export default {
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],
             domain: {
-              id: '',
+              _id: '',
               description: 'pt',
               scholarity: '',
               responsible: '',
@@ -346,7 +346,7 @@ export default {
         }
     },
     created(){
-        axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+        axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains?nome=${this.$store.state.user._id}`,{
           headers: {
             'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': "*"    
@@ -385,7 +385,13 @@ export default {
       },     
 
       deleteConfirm(){
-        axios.delete(`http://localhost:8001/domain/`+this.domain.id)
+        axios.delete(`${process.env.VUE_APP_BACKEND}/domain/apagar/` + this.domain._id + `?nome=${this.$store.state.user._id}`,{
+          headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
           .then((response)=>{
             console.log(response.data)
             console.log(this.itemIndex)
