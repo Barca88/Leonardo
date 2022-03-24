@@ -57,6 +57,7 @@ def route_domain_get(domain):
 @admin_required
 #@login_required
 def route_template_insert():
+    print("inserir")
     _id = request.form.get('_id')
     print(request.form.get('body'))
     existe = mongo.db.domains.find_one({"_id":_id})
@@ -81,14 +82,13 @@ def route_template_insert():
         low_skill_factor = request.form.get('low_skill_factor')
         min_questions_number = request.form.get('min_questions_number')
         question_factor = request.form.get('question_factor')
-        inserted_by = request.form.get('inserted_by')
+        #inserted_by = request.form.get('inserted_by')
         inserted_at = request.form.get('inserted_at')
 
         mongo.db.domains.insert({"_id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
         "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
-        "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": inserted_by,  "inserted_at": inserted_at })
+        "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at })
         write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
-        print(_id)
         return '1'
 
 
@@ -110,14 +110,15 @@ def route_template_apagar(domain):
 @admin_required
 #@login_required
 def route_template_editar_guardar():
-    print("entrei")
+    print("editar")
     _id = request.form.get('_id')
+    print(request.form.get('body'))
     description = request.form.get('description')
     scholarity = request.form.get('scholarity')
     responsible = request.form.get('responsible')
     notes = request.form.get('notes')
     access_type = request.form.get('access_type')
-    body = request.form.get('body')
+    body = json.loads(request.form.get('body'))
     default_user_level = request.form.get('default_user_level')
     high_performance_factor = request.form.get('high_performance_factor')
     low_performance_factor = request.form.get('low_performance_factor')
@@ -125,17 +126,15 @@ def route_template_editar_guardar():
     low_skill_factor = request.form.get('low_skill_factor')
     min_questions_number = request.form.get('min_questions_number')
     question_factor = request.form.get('question_factor')
-    inserted_by = request.form.get('inserted_by')
+    #inserted_by = request.form.get('inserted_by')
     inserted_at = request.form.get('inserted_at')
+    userAdmin = request.args.get('nome')
 
     mongo.db.domains.update({"_id":_id},{"description":description,"scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
     "high_performance_factor":high_performance_factor,"low_performance_factor":low_performance_factor,"high_skill_factor":high_skill_factor,"low_skill_factor":low_skill_factor,"body":body,
-    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":inserted_by,"inserted_at":inserted_at})
+    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":userAdmin,"inserted_at":inserted_at})
 
-    print(description)
-    print(_id)
 
     domains = mongo.db.domains.find()
-    userAdmin = request.args.get('nome')
     write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
     return json_util.dumps({'Domains': domains})

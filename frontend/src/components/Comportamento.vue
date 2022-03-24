@@ -95,13 +95,14 @@ export default ({
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
-                this.formData.default_user_level = response.data.default_user_level
-                this.formData.high_performance_factor = response.data.high_performance_factor
-                this.formData.low_performance_factor = response.data.low_performance_factor
-                this.formData.high_skill_factor = response.data.high_skill_factor
-                this.formData.low_skill_factor = response.data.low_skill_factor 
-                this.formData.min_questions_number = response.data.min_questions_number 
-                this.formData.question_factor = response.data.question_factor 
+                this.formData.default_user_level = response.data.domain.default_user_level
+                this.formData.high_performance_factor = response.data.domain.high_performance_factor
+                this.formData.low_performance_factor = response.data.domain.low_performance_factor
+                this.formData.high_skill_factor = response.data.domain.high_skill_factor
+                this.formData.low_skill_factor = response.data.domain.low_skill_factor 
+                this.formData.min_questions_number = response.data.domain.min_questions_number 
+                this.formData.question_factor = response.data.domain.question_factor
+                this.editing = true
               },(error) =>{
                   console.log(error);
               });

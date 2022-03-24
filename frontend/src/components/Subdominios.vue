@@ -264,8 +264,10 @@ export default {
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
+                console.log(response.data.domain.body)
                 this.firstSub = true
-                this.formData.body = response.data.body
+                this.formData.body = response.data.domain.body
+                this.editing = true
               },(error) =>{
                   console.log(error);
               });

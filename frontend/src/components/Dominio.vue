@@ -116,7 +116,8 @@ export default {
           }
         })
       .then((response)=>{
-        response.data.forEach((obj) =>{
+        console.log(response.data)
+        response.data.domains.forEach((obj) =>{
           this.idDomains.push(obj._id)
         });
       },(error) =>{
@@ -139,12 +140,13 @@ export default {
     this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
-                this.formData._id = response.data._id
-                this.formData.description = response.data.description,
-                this.formData.scholarity = response.data.scholarity,
-                this.formData.responsible = response.data.responsible
-                this.formData.notes = response.data.notes
-                this.formData.access_type = response.data.access_type 
+                console.log(response.data.domain._id)
+                this.formData._id = response.data.domain._id
+                this.formData.description = response.data.domain.description,
+                this.formData.scholarity = response.data.domain.scholarity,
+                this.formData.responsible = response.data.domain.responsible
+                this.formData.notes = response.data.domain.notes
+                this.formData.access_type = response.data.domain.access_type 
                 this.editing = true
               },(error) =>{
                   console.log(error);
