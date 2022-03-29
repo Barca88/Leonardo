@@ -61,7 +61,7 @@
           <v-card>
             <v-app-bar color="#2A3F54" >
               <div class="d-flex align-center">
-                <h3 width="40" class="white--text"> QUESTÃO - {{this.questao.id}} </h3>
+                <h3 width="40" class="white--text"> QUESTÃO - {{this.questao._id}} </h3>
               </div>
             </v-app-bar>
             <v-container>
@@ -153,7 +153,7 @@
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Tipo de Questão</dt>
-                    <dd class="ml-5">{{this.questao.type}}</dd>
+                    <dd class="ml-5">{{this.questao.type_}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
@@ -261,7 +261,7 @@
           <v-card>
             <v-app-bar color="#2A3F54" >
               <div class="d-flex align-center">
-                <h3 width="40" class="white--text"> REMOVER QUESTÃO - {{this.questao.id}} </h3>
+                <h3 width="40" class="white--text"> REMOVER QUESTÃO - {{this.questao._id}} </h3>
               </div>
             </v-app-bar>
             <v-container>
@@ -363,7 +363,7 @@ export default {
             dialogShow: false,
             dialogDelete: false,
             headers: [
-                { text: "Identificador", sortable: true, value: "id", class: "white--text"},
+                { text: "Identificador", sortable: true, value: "_id", class: "white--text"},
                 { text: "Domínio",  sortable: true, value: "domain", class: "white--text" },
                 { text: "SubDomínio",  sortable: true, value: "subdomain", class: "white--text" },
                 { text: "Autor", sortable: true, value: "author", class: "white--text"},
@@ -371,7 +371,7 @@ export default {
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],
             questao:{
-              id: '',
+              _id: '',
               language: '',
               study_cycle: '',
               scholarity: '',
@@ -403,9 +403,16 @@ export default {
         }
     },
     created(){
-        axios.get(`http://localhost:8001/question`)
+        axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
           .then((response)=>{
-            this.navQuestoes=response.data
+            console.log('test ' + response.data),
+            //this.domain = response.data
+            this.navQuestoes=response.data.questions
           },(error) =>{
               console.log(error);
           });
@@ -430,12 +437,18 @@ export default {
 
       deleteItem(item){
         this.itemIndex = this.navQuestoes.indexOf(item)
-        this.questao = Object.assign({}, item)
+        this.question = Object.assign({}, item)
         this.dialogDelete = true
       },     
 
       deleteConfirm(){
-        axios.delete(`http://localhost:8001/question/`+this.questao.id)
+        axios.delete(`${process.env.VUE_APP_BACKEND}/question/delete/` + this.question._id + `?nome=${this.$store.state.user._id}`,{
+          headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
           .then((response)=>{
             console.log(response.data)
             console.log(this.itemIndex)

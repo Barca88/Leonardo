@@ -357,7 +357,7 @@ export default {
       },
 
       validate() {
-        return this.$refs.form.validate() && this.formData.body.length!=0
+        return this.$refs.form.validate() && this.formData.body != null && this.formData.body.length!=0
       },
 
       addAnswer(){

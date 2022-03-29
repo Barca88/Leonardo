@@ -3,12 +3,12 @@
     <v-container>
       <v-row> 
         <v-col cols="12" md="4">
-          <v-text-field v-if="editing" v-model="formData.id" 
+          <v-text-field v-if="editing" v-model="formData._id" 
             :rules="[...rules.required,...rules.length30]" 
             :counter="30" label="Identificador" 
             :input="onChange()" readonly/>
             
-            <v-text-field v-else v-model="formData.id" 
+            <v-text-field v-else v-model="formData._id" 
             :rules="[...rules.required,...rules.length30,...rules.repeatedID]" 
             :counter="30" label="Identificador" 
             :input="onChange()"/>
@@ -108,7 +108,7 @@
           <v-select v-model="formData.answering_time" clear :rules="rules.required" :items="tempos" label="Tempo de Resposta" dense/>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-select v-model="formData.type" :rules="rules.required" :items="tipos" label="Tipo de Questão" dense/>
+          <v-select v-model="formData.type_" :rules="rules.required" :items="tipos" label="Tipo de Questão" dense/>
         </v-col>
         <v-col cols="12" sm="4">
           <v-select v-model="formData.repetitions" :rules="rules.required" :items="repeticoes" label="Repetições" dense/>
@@ -169,20 +169,13 @@ export default {
     }  
   },
   created() {
-    axios.get(`http://localhost:8001/question`)
-      .then((response)=>{
-        response.data.forEach((obj) =>{
-          this.idQuestoes.push(obj.id)
-        });
-      },(error) =>{
-          console.log(error);
-    });
+    
 
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
           this.formData._id = data._id
-          this.formData.id = data.id
+          this.formData._id = data._id
           this.formData.study_cycle = data.study_cycle
           this.formData.scholarity = data.scholarity
           this.formData.domain = data.domain
@@ -194,17 +187,17 @@ export default {
           this.formData.display_mode = data.display_mode
           this.formData.repetitions = data.repetitions
           this.formData.answering_time = data.answering_time
-          this.formData.type = data.type
+          this.formData.type_ = data.type_
           this.formData.precedence = data.precedence            
     }
   },
 
   mounted(){
     this.$root.$on('import', data => {
-            axios.get(`http://localhost:8001/question/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/getDomains/`+ data)
               .then((response)=>{
                 this.formData._id = response.data._id
-                this.formData.id = response.data.id
+                this.formData._id = response.data._id
                 this.formData.study_cycle = response.data.study_cycle
                 this.formData.scholarity = response.data.scholarity
                 this.formData.domain = response.data.domain
@@ -214,7 +207,7 @@ export default {
                 this.formData.author = response.data.author
                 this.formData.display_mode = response.data.display_mode,
                 this.formData.answering_time = response.data.answering_time
-                this.formData.type = response.data.type
+                this.formData.type_ = response.data.type_
                 this.formData.precedence = response.data.precedence
                 this.formData.repetitions = response.data.repetitions
                 this.formData.header = response.data.header
@@ -240,7 +233,7 @@ export default {
     },
     
     onChange(){
-      this.sendObject.sendId = this.formData.id
+      this.sendObject.sendId = this.formData._id
       this.sendObject.sendDomain = this.formData.domain
       this.sendObject.sendHeader = this.formData.header
       this.$root.$emit('change',this.sendObject)
@@ -249,9 +242,9 @@ export default {
   watch: {
       formData: {
           handler: function() {
-            this.$emit('newdataCaracterizacao', [this.formData.id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
+            this.$emit('newdataCaracterizacao', [this.formData._id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
             this.formData.subdomain,this.formData.subsubdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
-            this.formData.display_mode,this.formData.answering_time,this.formData.type,this.formData.precedence,this.formData.repetitions,this.editing,this.formData._id]);
+            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData._id]);
         },
           deep: true
       },

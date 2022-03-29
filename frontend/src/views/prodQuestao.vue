@@ -342,7 +342,7 @@ export default {
         { tab: 'Suporte'}
       ],
       questao:{
-        id: '',
+        _id: '',
         language: "pt", 
         study_cycle: '',
         scholarity: '',
@@ -404,9 +404,9 @@ export default {
   methods:{
 
     handleDataCaracterizacao(e) {
-      [this.questao.id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
+      [this.questao._id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
       this.questao.subsubdomain, this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
-      this.questao.answering_time,this.questao.type,this.questao.precedence,this.questao.repetitions,this.editing,this.edit._id] = e;
+      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.edit._id] = e;
     },
 
     handleDataRespostas(e) {
@@ -427,42 +427,87 @@ export default {
     },
 
     submit(){
+      console.log('Submit')
       if(this.editing == false){
-        axios.post(`http://localhost:8001/question`, this.questao)
+        console.log('A enviar')
+        let formData = new FormData()
+        formData.append('_id', this.questao._id)
+        formData.append('language' , this.questao.language)
+        formData.append('study_cycle' , this.questao.study_cycle)
+        formData.append('scholarity' , this.questao.scholarity)
+        formData.append('domain' , this.questao.domain)
+        formData.append('subdomain' , this.questao.subdomain)
+        formData.append('subsubdomain' , this.questao.subsubdomain)
+        formData.append('difficulty_level' , this.questao.difficulty_level)
+        formData.append('author' , this.questao.author)
+        formData.append('display_mode' , this.questao.display_mode)
+        formData.append('answering_time' , this.questao.answering_time)
+        formData.append('type' , this.questao.type_)
+        formData.append('precedence' , this.questao.precedence)
+        formData.append('repetitions' , this.questao.repetitions)
+        formData.append('header' , this.questao.header)
+        formData.append('body' , JSON.stringify(this.questao.body))
+        formData.append('explanation' , this.questao.explanation)
+        formData.append('images' , this.questao.images)
+        formData.append('videos' , this.questao.videos)
+        formData.append('source' , this.questao.source)
+        formData.append('notes' , this.questao.notes)
+        formData.append('status' , this.questao.status)
+        formData.append('inserted_by' , this.questao.inserted_by)
+        formData.append('inserted_at' , this.questao.inserted_at)
+        formData.append('validated_by' , this.questao.validated_by)
+        formData.append('validated_at' , this.questao.validated_at)
+        axios.post(`${process.env.VUE_APP_BACKEND}/question/insert?nome=${this.$store.state.user._id}`, formData,{
+            headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
             .then(function(response){
               console.log(response)
             },(error) =>{
                 console.log(error);
           }); 
+
+          console.log('Enviado')
       }else{
-        this.edit.id = this.questao.id
-        this.edit.language = this.questao.language
-        this.edit.study_cycle = this.questao.study_cycle
-        this.edit.scholarity = this.questao.scholarity
-        this.edit.domain = this.questao.domain
-        this.edit.subdomain = this.questao.subdomain
-        this.edit.subsubdomain = this.questao.subsubdomain
-        this.edit.difficulty_level = this.questao.difficulty_level
-        this.edit.author = this.questao.author
-        this.edit.display_mode = this.questao.display_mode
-        this.edit.answering_time = this.questao.answering_time
-        this.edit.type = this.questao.type
-        this.edit.precedence = this.questao.precedence
-        this.edit.repetitions = this.questao.repetitions
-        this.edit.header = this.questao.header
-        this.edit.body = this.questao.body
-        this.edit.explanation = this.questao.explanation
-        this.edit.images = this.questao.images
-        this.edit.videos = this.questao.videos
-        this.edit.source = this.questao.source
-        this.edit.notes = this.questao.notes
-        this.edit.status = this.questao.status
-        this.edit.inserted_by = this.questao.inserted_by
-        this.edit.inserted_at = this.questao.inserted_at
-        this.edit.validated_by = this.questao.validated_by
-        this.edit.validated_at = this.questao.validated_at
+        console.log('A Editar')
+        let formData = new FormData()
+        formData.append('_id', this.questao._id)
+        formData.append('language' , this.questao.language)
+        formData.append('study_cycle' , this.questao.study_cycle)
+        formData.append('scholarity' , this.questao.scholarity)
+        formData.append('domain' , this.questao.domain)
+        formData.append('subdomain' , this.questao.subdomain)
+        formData.append('subsubdomain' , this.questao.subsubdomain)
+        formData.append('difficulty_level' , this.questao.difficulty_level)
+        formData.append('author' , this.questao.author)
+        formData.append('display_mode' , this.questao.display_mode)
+        formData.append('answering_time' , this.questao.answering_time)
+        formData.append('type' , this.questao.type_)
+        formData.append('precedence' , this.questao.precedence)
+        formData.append('repetitions' , this.questao.repetitions)
+        formData.append('header' , this.questao.header)
+        formData.append('body' , JSON.stringify(this.questao.body))
+        formData.append('explanation' , this.questao.explanation)
+        formData.append('images' , this.questao.images)
+        formData.append('videos' , this.questao.videos)
+        formData.append('source' , this.questao.source)
+        formData.append('notes' , this.questao.notes)
+        formData.append('status' , this.questao.status)
+        formData.append('inserted_by' , this.questao.inserted_by)
+        formData.append('inserted_at' , this.questao.inserted_at)
+        formData.append('validated_by' , this.questao.validated_by)
+        formData.append('validated_at' , this.questao.validated_at)
       
-        axios.put(`http://localhost:8001/question`, this.edit)
+        axios.post(`${process.env.VUE_APP_BACKEND}/question/edit?nome=${this.$store.state.user._id}`, formData,{
+            headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:`Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"     
+        }
+        })
             .then(function(response){
               console.log(response)
             },(error) =>{
