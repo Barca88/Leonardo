@@ -26,18 +26,18 @@
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/home">
+          <v-list-item link to="/responsible">
 
             <v-list-item-title class="white--text">{{
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home/">
+          <v-list-item link to="/teacher">
             <v-list-item-title class="white--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home/">
+          <v-list-item link to="/student">
             <v-list-item-title class="white--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>

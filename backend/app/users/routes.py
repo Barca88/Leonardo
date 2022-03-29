@@ -26,9 +26,22 @@ UPLOAD_FOLDER = './static/pics/'
 #@login_required
 def route_users():
     #users = mongo.db.users.find()
-    users= [doc for doc in mongo.db.users.find()]
+    type = request.args.get('type')
     user = request.args.get('nome')
-    write_log(user, 'Utilizadores/Gestão', '', 'successfull')
+    if(type is None):
+        users= [doc for doc in mongo.db.users.find()]
+    else:
+        if(type == "all"):
+            users= [doc for doc in mongo.db.users.find()]
+            write_log(user, 'Utilizadores/Gestão', '', 'successfull')
+        else:
+            users = mongo.db.users.find({"tipo":type})
+            if(type == "responsible"):
+                write_log(user, 'InformaçãoBase/Responsáveis', '', 'successfull')
+            if(type == "Teacher"):
+                write_log(user, 'InformaçãoBase/Professores', '', 'successfull')
+            if(type == "Student"):
+                write_log(user, 'InformaçãoBase/Alunos', '', 'successfull')
     return json_util.dumps({'users': users, 'nome': user})
     #return render_template('users.html',users=users,nome=nome)
 
@@ -116,17 +129,30 @@ def route_template_ver(user):
 def route_photo(user):
     userAdmin = request.args.get('nome')
     action = request.args.get('action')
+    type = request.args.get('type')
     pathPhoto = join(dirname(realpath(__file__)), 'static/pics/')
     pathCheck = join(pathPhoto, user)
     if(action == "perfil"):
         write_log(userAdmin, 'Consultar Perfil', '', 'successfull')
     if photo_auth (request, user) and path.exists(pathCheck) :
-        if(action == "gestao"):
+        if(type == "all"): 
             write_log(userAdmin, 'Utilizadores/Gestão', 'Ver fotografia', 'successfull')
+        if(type == "responsible"): 
+            write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Ver fotografia', 'successfull')
+        if(type == "Teacher"): 
+            write_log(userAdmin, 'InformaçãoBase/Professores', 'Ver fotografia', 'successfull')
+        if(type == "Student"): 
+            write_log(userAdmin, 'InformaçãoBase/Alunos', 'Ver fotografia', 'successfull')
         return send_from_directory(pathPhoto, user, mimetype='image/png')
     else :
-        if(action == "gestao"):
+        if(type == "all"): 
             write_log(userAdmin, 'Utilizadores/Gestão', 'Ver fotografia', 'failed')
+        if(type == "responsible"): 
+            write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Ver fotografia', 'failed')
+        if(type == "Teacher"): 
+            write_log(userAdmin, 'InformaçãoBase/Professores', 'Ver fotografia', 'failed')
+        if(type == "Student"): 
+            write_log(userAdmin, 'InformaçãoBase/Alunos', 'Ver fotografia', 'failed')
         return send_from_directory(pathPhoto, "default", mimetype='image/png')
 
 @blueprint.route('/foto/atualizar/<user>', methods=['POST'])
@@ -167,20 +193,34 @@ def route_foto_atualizar(user):
 def route_cur(user):
     userAdmin = request.args.get('nome')
     action = request.args.get('action')
+    type = request.args.get('type')
     pathPhoto = join(dirname(realpath(__file__)), 'static/curriculo/')
     pathC = join(pathPhoto, user)
     
+
     if photo_auth (request, user) and  path.exists(pathC):
         if(action == "perfil"):
             write_log(userAdmin, 'Consular Perfil', 'Ver o curriculo', 'successfull')
-        if(action == "gestao"): 
-            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver o curriculo', 'successfull')    
+        if(type == "all"): 
+            write_log(userAdmin, 'Utilizadores/Gestão', 'Ver o curriculo', 'successfull')
+        if(type == "responsible"): 
+            write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Ver o curriculo', 'successfull')
+        if(type == "Teacher"): 
+            write_log(userAdmin, 'InformaçãoBase/Professores', 'Ver o curriculo', 'successfull')
+        if(type == "Student"): 
+            write_log(userAdmin, 'InformaçãoBase/Alunos', 'Ver o curriculo', 'successfull') 
         return send_from_directory(pathPhoto, user,mimetype='application/pdf')
     else :
         if(action == "perfil"):
             write_log(userAdmin, 'Consular Perfil', 'Ver o curriculo', 'failed')
-        if(action == "gestao"):
+        if(type == "all"): 
             write_log(userAdmin, 'Utilizadores/Gestão', 'Ver o curriculo', 'failed')
+        if(type == "responsible"): 
+            write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Ver o curriculo', 'failed')
+        if(type == "Teacher"): 
+            write_log(userAdmin, 'InformaçãoBase/Professores', 'Ver o curriculo', 'failed')
+        if(type == "Student"): 
+            write_log(userAdmin, 'InformaçãoBase/Alunos', 'Ver o curriculo', 'failed') 
         return
 
 @blueprint.route('/curriculo/atualizar/<user>', methods=['POST'])
@@ -302,7 +342,16 @@ def route_template_apagar(user):
         remove(upload_path2)
     users = mongo.db.users.find()
     userAdmin = request.args.get('nome')
-    write_log(userAdmin, 'Utilizadores/Gestão', 'Eliminar User', 'successfull')
+    type = request.args.get('type')
+
+    if(type == "all"): 
+        write_log(userAdmin, 'Utilizadores/Gestão', 'Eliminar User', 'successfull')
+    if(type == "responsible"): 
+        write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Eliminar User', 'successfull')
+    if(type == "Teacher"): 
+        write_log(userAdmin, 'InformaçãoBase/Professores', 'Eliminar User', 'successfull')
+    if(type == "Student"): 
+        write_log(userAdmin, 'InformaçãoBase/Alunos', 'Eliminar User', 'successfull') 
     return json_util.dumps({'users': users})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
@@ -334,8 +383,16 @@ def route_template_editar_guardar():
     else:
         mongo.db.users.update({"_id":username},{"$set":{"nome":nome,"email":email,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs}})    
     users = mongo.db.users.find()
-    user = request.args.get('nome')
-    write_log(user, 'Utilizadores/Gestão', 'Editar utilizadores', 'successfull')
+    userAdmin = request.args.get('nome')
+    type = request.args.get('type')
+    if(type == "all"): 
+        write_log(userAdmin, 'Utilizadores/Gestão', 'Editar utilizadores', 'successfull')
+    if(type == "responsible"): 
+        write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Editar utilizadores', 'successfull')
+    if(type == "Teacher"): 
+        write_log(userAdmin, 'InformaçãoBase/Professores', 'Editar utilizadores', 'successfull')
+    if(type == "Student"): 
+        write_log(userAdmin, 'InformaçãoBase/Alunos', 'Editar utilizadores', 'successfull') 
     return json_util.dumps({'users': users})
 
 ###### PEDIDOS ######
@@ -359,11 +416,19 @@ def route_template_registar_pedido():
     existeU = mongo.db.users.find_one({"_id":username})
     existeP = mongo.db.pedidos.find_one({"_id":username})
     user = request.args.get('nome')
+    type = request.args.get('type')
     if existeU or existeP:
         #flash('ERRO: Username já escolhido. Por favor escolha outro...')
         #return render_template('registar.html',nome=nome)
         if user:
-            write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'failed')
+            if(type == "all"): 
+                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'failed')
+            if(type == "responsible"): 
+                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'failed')
+            if(type == "Teacher"): 
+                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'failed')
+            if(type == "Student"): 
+                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'failed') 
         return json_util.dumps({'nome': user,'message':'já existe'})
     else:
         email = request.form.get('email')
@@ -399,7 +464,14 @@ def route_template_registar_pedido():
         mongo.db.pedidos.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
         mongo.db.pedidos.find()
         if user:
-            write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'successfull')
+            if(type == "all"): 
+                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'successfull')
+            if(type == "responsible"): 
+                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'successfull')
+            if(type == "Teacher"): 
+                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'successfull')
+            if(type == "Student"): 
+                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'successfull') 
         return json_util.dumps({'nome': user})
 
 

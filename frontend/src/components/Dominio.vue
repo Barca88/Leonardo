@@ -112,18 +112,17 @@ export default {
     axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': "*"    
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"   
           }
         })
       .then((response)=>{
-        console.log(response.data)
         response.data.domains.forEach((obj) =>{
           this.idDomains.push(obj._id)
         });
       },(error) =>{
           console.log(error);
     });
-
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data

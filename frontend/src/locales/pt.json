@@ -290,6 +290,9 @@
     },
     "users": {
         "title": "Utilizadores",
+        "titleRes": "Responsáveis",
+        "titleProf": "Professores",
+        "titleAlu": "Alunos",
         "id": "Username",
         "nome": "Nome",
         "email": "Email",

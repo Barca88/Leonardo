@@ -125,6 +125,48 @@ const routes = [
     },
   },
   {
+    path: "/responsible",
+    name: "Responsaveis",
+    component: () => import("../views/Responsaveis.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else if (!store.getters.isAdmin) {
+        next(`/`);
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/teacher",
+    name: "Professores",
+    component: () => import("../views/Professores.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else if (!store.getters.isAdmin) {
+        next(`/`);
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/student",
+    name: "Alunos",
+    component: () => import("../views/Alunos.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else if (!store.getters.isAdmin) {
+        next(`/`);
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "/users/ver",
     name: "Perfil",
     component: () => import("../views/Perfil.vue"),

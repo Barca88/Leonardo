@@ -107,7 +107,7 @@
                           v-if= "value === 'adicionar'"
                           :label="$t('reg.unome')"
                           v-model="user.username"
-                          :rules="[rules.required]"            
+                          :rules="[rules.required,...rules.repeatedID]"            
                       ></v-text-field>
                       <v-text-field 
                           v-else-if="value === 'editar'"
@@ -308,7 +308,9 @@ export default {
       dialogHelp:false,
       valid:true,
       failureDialog:false,
+      idUsers: [],
       rules: {
+          repeatedID: [v => this.checkID(v) || "ID already exists"],
           required: value => !!value || 'Required.',
           email: value => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -342,7 +344,6 @@ export default {
     onUpdate(){
       //console.log(typeof this.value)
       //console.log('VALUE: ' + this.value)
-      //console.log(this.passedData.email)
       if(this.value != 'adicionar'){
         this.user.username = this.passedData._id
         this.user.nome = this.passedData.nome
@@ -378,7 +379,7 @@ export default {
         formData.append('obs',this.user.observacoes)
 
       if(this.value == 'editar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=${this.$store.state.user._id}`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -387,7 +388,7 @@ export default {
         )
         .then(response => {
             // JSON responses are automatically parsed.
-            //console.log(response.data)
+            console.log(response.data.users)
             this.users = response.data.users
             this.$refs.form.reset()
             this.atualizarInfo()
@@ -396,7 +397,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar?nome=${this.$store.state.user._id}`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -433,13 +434,34 @@ export default {
       //console.log('ola')
       this.$emit('atualizarInfo')
     },
+
+    checkID(item){
+      return !this.idUsers.find(x => x === item)
+    },
+
     emiteFecho(){
       this.$emit('emiteFecho')
     }
   },
   created(){
+    axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
+      .then((response)=>{
+        response.data.users.forEach((obj) =>{
+          this.idUsers.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
     this.onUpdate()
   },
+
+
   computed:{
     disableButton (){
       if (this.valid && this.user.username.length > 0 && this.user.nome.length > 0 && this.user.pw.length > 0 && this.user.email.length > 0  && this.user.tipo)

@@ -11,7 +11,7 @@
             multi-sort       
         ><template v-slot:top>
             <v-toolbar flat color="white">
-                <v-toolbar-title>{{$t('users.title')}}</v-toolbar-title>
+                <v-toolbar-title>{{$t('users.titleProf')}}</v-toolbar-title>
                 <v-divider
                 class="mx-4"
                 inset
@@ -300,7 +300,7 @@ export default {
                 _id: '',
                 nome: '',
                 email: '',
-                tip: ''
+                tipo: ''
             },
             userPic:'',
             picDialog:false,
@@ -329,7 +329,7 @@ export default {
     methods: {
       atualizarInfo: function(){
         this.dialog=false
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=all`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=Teacher`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
             // JSON responses are automatically parsed.
             var todos = response.data.users
@@ -347,10 +347,11 @@ export default {
       editItem (item, value) {
         this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
-        this.editedItem.tip = "all"
         this.value=value
+        this.editedItem.tip = "Teacher"
         //console.log("AAAAAAAAAAAAA")
         //console.log(this.value)
+        //console.log(this.editedItem)
         this.dialog = true
       },
       verObjectItem(item,value){
@@ -358,7 +359,7 @@ export default {
         const index = this.users.indexOf(item)
         //console.log(this.users[index])        
         if (value == 'curriculo'){
-          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao&type=all  `, {
+          axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao&type=Teacher  `, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -375,7 +376,7 @@ export default {
           })
         }
         else if(value == 'foto'){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao&type=all`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.users[index]._id}?nome=${this.$store.state.user._id}&?seed=${Date.now()}&action=gestao&type=Teacher`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -393,18 +394,14 @@ export default {
             })
         }
       },
-
-
       close () {
         this.dialog = false
         this.editedItem={}
         this.value='ver'
       },
-
-      
       edit(){
         this.update = true
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=all`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=Teacher`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
               // JSON responses are automatically parsed.
               //console.log(response.data)
@@ -419,7 +416,7 @@ export default {
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/apagar/` + this.users[index]._id + `?nome=${this.$store.state.user._id}&type=all`,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/apagar/` + this.users[index]._id + `?nome=${this.$store.state.user._id}&type=Teacher`,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
@@ -447,8 +444,10 @@ export default {
     },
     created() {
         //console.log('store->' + this.$store.state.jwt)
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}&type=all`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}&type=Teacher`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
+            // JSON responses are automatically parsed.
+            //console.log(response.data)
             var todos = response.data.users
             for(let i = 0; i<todos.length;i++){ 
                 if(todos[i]._id === this.$store.state.user._id){
