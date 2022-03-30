@@ -312,7 +312,7 @@ import axios from 'axios';
 import Caracterizacao from '@/components/Caracterizacao'
 import Respostas from '@/components/Respostas'
 import Suporte from '@/components/Suporte'
-import AppHeader from '@/components/header.vue'
+import AppHeader from '@/components/AppHeader'
 import NavDraw from '@/components/navDraw'
 import Footer from '@/components/Footer'
 
@@ -342,7 +342,7 @@ export default {
         { tab: 'Suporte'}
       ],
       questao:{
-        _id: '',
+        id: '',
         language: "pt", 
         study_cycle: '',
         scholarity: '',

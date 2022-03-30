@@ -81,7 +81,7 @@ def route_template_insert():
         precedence = request.form.get('precedence')
         repetitions = request.form.get('repetitions')
         header = request.form.get('header')
-        body = request.form.get('body')
+        body = json.loads(request.form.get('body'))
         explanation = request.form.get('explanation')
         images = request.form.get('images')
         videos = request.form.get('videos')

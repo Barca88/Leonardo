@@ -136,7 +136,7 @@ export default ({
             this.header = data.sendHeader
       })
       this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question/getDomains/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
               .then((response)=>{
                 this.formData.explanation = response.data.explanation
                 this.formData.notes = response.data.notes

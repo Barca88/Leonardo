@@ -339,7 +339,7 @@ export default {
             this.header = data.sendHeader
       })
       this.$root.$on('import', data => {
-            axios.get(`http://localhost:8001/question/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
               .then((response)=>{
                 this.firstResposta = true
                 this.formData.body = response.data.body
@@ -357,10 +357,12 @@ export default {
       },
 
       validate() {
-        return this.$refs.form.validate() && this.formData.body != null && this.formData.body.length!=0
+        return this.$refs.form.validate() && this.formData.body.length!=0
       },
 
       addAnswer(){
+
+        console.log('AddAnsewr')
         if(this.resposta.answer != "" && this.resposta.points != ""){
           this.formData.body.push(this.resposta);
           this.resposta = Object.assign({}, this.defaultResp)

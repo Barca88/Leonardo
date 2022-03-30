@@ -169,7 +169,14 @@ export default {
     }  
   },
   created() {
-    
+    axios.get(`${process.env.VUE_APP_BACKEND}/question`)
+      .then((response)=>{
+        response.data.forEach((obj) =>{
+          this.idQuestoes.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
 
     if(this.$route.params.data!=null){
       this.editing = true
@@ -194,7 +201,7 @@ export default {
 
   mounted(){
     this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question/getDomains/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
               .then((response)=>{
                 this.formData._id = response.data._id
                 this.formData._id = response.data._id
