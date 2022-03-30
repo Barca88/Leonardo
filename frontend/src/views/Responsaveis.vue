@@ -42,10 +42,10 @@
         <template v-slot:header.nome="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.email="{ header }">
+        <template v-slot:header.dom="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.tipo="{ header }">
+        <template v-slot:header.email="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.options="{ header }">
@@ -276,12 +276,12 @@ export default {
                     value: 'nome'
                 },
                 {
-                    text:`${this.$t('users.email')}`,
-                    value: 'email'
+                    text:`${this.$t('users.dom')}`,
+                    value: 'dom'
                 },
                 {
-                    text:`${this.$t('users.tipo')}`,
-                    value: 'tipo'
+                    text:`${this.$t('users.email')}`,
+                    value: 'email'
                 },
                 {
                     text:`${this.$t('users.opt')}`,
@@ -300,7 +300,7 @@ export default {
                 _id: '',
                 nome: '',
                 email: '',
-                tipo: ''
+                dom: ''
             },
             userPic:'',
             picDialog:false,
@@ -312,6 +312,7 @@ export default {
             currentPage:0,
             deleteDialog:false,
             tempValue:{},
+            navDomains: [],
             page:1
         }
     },
@@ -331,15 +332,23 @@ export default {
         this.dialog=false
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
-            // JSON responses are automatically parsed.
             var todos = response.data.users
+            var domains = response.data.domains
+            for(let i = 0; i<domains.length;i++){ 
+                for(let j = 0; j < todos.length; j++ ){
+                    if(todos[j]._id === domains[i].responsible){
+                        todos[j].dom = domains[i]._id
+                        break
+                    }
+                } 
+            }
             for(let i = 0; i<todos.length;i++){
-                if(todos[i]._id === this.$store.state.user._id){
-                    todos.splice(i,1)
+                if(!todos[i].dom){
+                    todos.splice(i,1) 
                 }
             }
             this.users = todos
-          }).catch(e => {
+        }).catch(e => {
             //console.log(e)
             this.errors.push(e)
         })
@@ -443,19 +452,27 @@ export default {
         }
     },
     created() {
-        //console.log('store->' + this.$store.state.jwt)
+                //console.log('store->' + this.$store.state.jwt)
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}&type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
             var todos = response.data.users
-            for(let i = 0; i<todos.length;i++){ 
-                if(todos[i]._id === this.$store.state.user._id){
-                    todos.splice(i,1)
+            var domains = response.data.domains
+            for(let i = 0; i<domains.length;i++){ 
+                for(let j = 0; j < todos.length; j++ ){
+                    if(todos[j]._id === domains[i].responsible){
+                        todos[j].dom = domains[i]._id
+                        break
+                    }
+                } 
+            }
+            for(let i = 0; i<todos.length;i++){
+                if(!todos[i].dom){
+                    todos.splice(i,1) 
                 }
             }
             this.users = todos
-            //console.log(this.users)
         }).catch(e => {
             //console.log(e)
             this.errors.push(e)

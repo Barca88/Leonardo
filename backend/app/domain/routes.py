@@ -29,11 +29,11 @@ UPLOAD_FOLDER = './static/picss/'
 #@login_required
 def route_domain():
     domains= [doc for doc in mongo.db.domains.find()]
-
+    users = [doc for doc in mongo.db.users.find({"tipo" : "Teacher"})]
     userAdmin = request.args.get('nome')
-    if userAdmin:
+    if userAdmin:  
         write_log(userAdmin, 'Informação Base/Domínios', '', 'successfull')
-    return json_util.dumps({'domains': domains})
+    return json_util.dumps({'domains': domains, 'users': users})
     #return render_template('users.html',users=users,nome=nome)
 
 

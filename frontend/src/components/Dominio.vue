@@ -38,7 +38,7 @@
           <v-text-field v-model="formData.scholarity" :rules="[...rules.required,...rules.length75]" :counter="75" label="Escolaridade"/>
         </v-col>
         <v-col cols="6">
-          <v-text-field v-model="formData.responsible" :rules="[...rules.required,...rules.length75]" :counter="75" label="Responsável"/>
+          <v-select v-model="formData.responsible" :rules="[...rules.required,...rules.length75]" :items="this.idUsers" label="Responsável"/>
         </v-col>
       </v-row>
 
@@ -97,6 +97,7 @@ export default {
           access_type: '',
       },
       idDomains: [],
+      idUsers: [],
 
       rules: {
           required: [(v) => !!v || "Field is required"],
@@ -120,9 +121,13 @@ export default {
         response.data.domains.forEach((obj) =>{
           this.idDomains.push(obj._id)
         });
+        response.data.users.forEach((obj) =>{
+          this.idUsers.push(obj._id)
+        });
       },(error) =>{
           console.log(error);
     });
+    console.log(this.idUsers)
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data

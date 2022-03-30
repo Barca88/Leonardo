@@ -167,6 +167,8 @@
                         </v-row>
                         <v-radio-group v-model="pedido.tipo" :rules="[rules.required]" column >
                             <v-radio label="Admin" value="Admin"></v-radio>
+                            <v-radio label="Teacher" value="Teacher"></v-radio>
+                            <v-radio label="Student" value="Student"></v-radio>
                             <v-radio label="Leitor" value="Leitor"></v-radio>
                         </v-radio-group>
                       </v-container>

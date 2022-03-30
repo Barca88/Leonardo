@@ -294,6 +294,7 @@
         "titleProf": "Professores",
         "titleAlu": "Alunos",
         "id": "Username",
+        "dom": "Domínio",
         "nome": "Nome",
         "email": "Email",
         "tipo": "Tipo",

@@ -28,21 +28,26 @@ def route_users():
     #users = mongo.db.users.find()
     type = request.args.get('type')
     user = request.args.get('nome')
+    domains = None
     if(type is None):
         users= [doc for doc in mongo.db.users.find()]
     else:
         if(type == "all"):
             users= [doc for doc in mongo.db.users.find()]
-            write_log(user, 'Utilizadores/Gestão', '', 'successfull')
+            if(user is not None):
+                write_log(user, 'Utilizadores/Gestão', '', 'successfull')
         else:
             users = mongo.db.users.find({"tipo":type})
             if(type == "responsible"):
-                write_log(user, 'InformaçãoBase/Responsáveis', '', 'successfull')
-            if(type == "Teacher"):
+                users = mongo.db.users.find({"tipo":"Teacher"})
+                domains= [doc for doc in mongo.db.domains.find()]
+                if(user is not None):
+                    write_log(user, 'InformaçãoBase/Responsáveis', '', 'successfull')
+            if(type == "Teacher" and user is not None):
                 write_log(user, 'InformaçãoBase/Professores', '', 'successfull')
-            if(type == "Student"):
+            if(type == "Student" and user is not None):
                 write_log(user, 'InformaçãoBase/Alunos', '', 'successfull')
-    return json_util.dumps({'users': users, 'nome': user})
+    return json_util.dumps({'users': users, 'nome': user, 'domains' : domains})
     #return render_template('users.html',users=users,nome=nome)
 
 
