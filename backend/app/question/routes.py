@@ -137,7 +137,7 @@ def route_template_editar_guardar():
     precedence = request.form.get('precedence')
     repetitions = request.form.get('repetitions')
     header = request.form.get('header')
-    body = request.form.get('body')
+    body = json.loads(request.form.get('body'))
     explanation = request.form.get('explanation')
     images = request.form.get('images')
     videos = request.form.get('videos')
@@ -151,7 +151,7 @@ def route_template_editar_guardar():
     #userAdmin = request.args.get('nome')
 
     mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "subsubdomain": subsubdomain, "difficulty_level":difficulty_level,
-    "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
+    "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
     "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,  "images": images,  "videos": videos,  "source": source,  "notes": notes,  "status": status
     ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at })
@@ -159,6 +159,6 @@ def route_template_editar_guardar():
     
 
 
-    questions = mongo.db.question.find()
+    
     #write_log(userAdmin, 'Informação Base/Domínios', 'Editar Question', 'successfull')
-    return json_util.dumps({'question': question})
+    return json_util.dumps({'question': 'Success'})
