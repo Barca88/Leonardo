@@ -8,7 +8,7 @@
       class="navBar"
     >
       <v-list nav dense dark>
-        <v-list-item link to="/home">
+        <v-list-item link to="/home" >
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
@@ -16,107 +16,107 @@
         </v-list-item>
 
         <v-list-group
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-database"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text" >{{
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/responsible">
+          <v-list-item link to="/responsible" active-class="yellow--text">
 
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.resp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/teacher">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/teacher" active-class="yellow--text" >
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.prof")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/student">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/student" active-class="yellow--text">
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/domain">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/domain" active-class="yellow--text">
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/questions">
-            <v-list-item-title class="white--text">{{
+          <v-list-item v-if="!$store.getters.isStudent" link to="/questions" active-class="yellow--text">
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="!$store.getters.isStudent" link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="!$store.getters.isStudent"
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-wrench"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.prod")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/prodDominio">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/prodDominio" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.prodDomain")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/prodQuestao">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/prodQuestao" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/tests/management">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/tests/management" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.tests")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="$store.getters.isAdmin"
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-check-bold"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.ver")
             }}</v-list-item-title>
           </template>
           <!-- ROTA DA IMPORTAÇÃO  -->
-          <v-list-item link to="/importacao/import">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/importacao/import" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.imp")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/importacao/table">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/importacao/table" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.verquest")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/importacao/errors">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/importacao/errors" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.valida")
             }}</v-list-item-title>
           </v-list-item>
 
-          <v-list-item link to="/importacao/dashboard">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/importacao/dashboard" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.impdashboard")
             }}</v-list-item-title>
           </v-list-item>
@@ -130,206 +130,206 @@
         </v-list-group>
 
         <v-list-group
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-school"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.av")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/tests/evaluation">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/tests/evaluation" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.test")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.quizz")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="!$store.getters.isStudent"
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-wechat"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.opi")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.inqsis")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.inqAnal")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.estPro")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.sentEx")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-trophy-variant"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.game")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/domain">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/domain" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.domain")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-chart-bar"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.dash")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/tests/results">
-            <v-list-item-title class="white--text">{{
+          <v-list-item v-if="!$store.getters.isStudent" link to="/tests/results" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.ans")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="$store.getters.isAdmin" link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.acess")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="$store.getters.isAdmin"
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-account-multiple"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.usr")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/users">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/users" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/pedidos">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/pedidos" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.ped")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/usersImport">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/usersImport" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.import")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/uAtivos">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/uAtivos" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.ati")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/historico">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/historico" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.hist")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-clock"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.events")
             }}</v-list-item-title>
           </template>
           <v-list-item v-if="!$store.getters.isStudent" link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.ges")
             }}</v-list-item-title>
           </v-list-item>
           <v-list-item link to="/home">
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title >{{
               $t("adminNav.agend")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="$store.getters.isAdmin"
-          class="white--text"
+          active-class="yellow--text"
           prepend-icon="mdi-cog"
           :value="false"
           no-action
         >
           <template v-slot:activator>
-            <v-list-item-title class="white--text">{{
+            <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.sett")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/definitions">
-            <v-list-item-title class="white--text">{{
+          <v-list-item link to="/definitions" active-class="yellow--text">
+            <v-list-item-title >{{
               $t("adminNav.confger")
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
 
-         <v-list-item link to="/home">
+         <v-list-item link to="/home" >
             <v-list-item-icon>
             <v-icon>mdi-help</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t("navd.help") }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item v-if="!$store.getters.isStudent" link to="/documentacao">
+        <v-list-item v-if="!$store.getters.isStudent" link to="/documentacao" active-class="yellow--text">
           <v-list-item-icon>
             <v-icon>mdi-text-box-multiple</v-icon>
           </v-list-item-icon>
           <v-list-item-title>{{ $t("adminNav.doc") }}</v-list-item-title>
         </v-list-item>
 
-        <v-list-item link @click="about = true">
+        <v-list-item link @click="about = true" active-class="yellow--text">
               <v-list-item-icon>
                 <v-icon>mdi-information-outline</v-icon>
               </v-list-item-icon>
