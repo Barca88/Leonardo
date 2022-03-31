@@ -400,6 +400,7 @@ export default {
             },
             search:'',
             navQuestoes: [],
+            dominios: []
         }
     },
     created(){
@@ -413,6 +414,8 @@ export default {
             console.log('test ' + response.data),
             //this.domain = response.data
             this.navQuestoes=response.data.questions
+            this.dominios=response.data.domains
+            
           },(error) =>{
               console.log(error);
           });

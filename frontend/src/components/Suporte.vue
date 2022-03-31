@@ -16,6 +16,7 @@
                         chips
                         multiple
                         label="Introduzir Imagens"
+                        accept="image/*" v-model="formData.images" id="file-input"
                     ></v-file-input>
                 </v-col>
             </v-row>
@@ -104,6 +105,7 @@ export default ({
             domain: '',
             header: '',
             formData:{
+                images: '',
                 explanation: '',
                 notes: '',
                 source: '',
@@ -129,6 +131,7 @@ export default ({
             this.formData.language = data.language   
       }
     },
+    
     mounted() {
       this.$root.$on('change', data => {
             this.idQuestao = data.sendId
@@ -159,7 +162,7 @@ export default ({
     watch: {
         formData: {
             handler: function() {
-              this.$emit('newdataSuporte', [this.formData.explanation,this.formData.notes,
+              this.$emit('newdataSuporte', [this.formData.images,this.formData.explanation,this.formData.notes,
               this.formData.source,this.formData.status,this.formData.language]);            
           },
             deep: true

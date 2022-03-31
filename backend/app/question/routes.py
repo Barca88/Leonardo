@@ -29,11 +29,12 @@ UPLOAD_FOLDER = './static/picss/'
 #@login_required
 def question():
     questions= [doc for doc in mongo.db.question.find()]
+    domains= [doc for doc in mongo.db.domains.find()]
     print('Getquestions')
     userAdmin = request.args.get('nome')
     if userAdmin:
         write_log(userAdmin, 'Informação Base/Questions', '', 'successfull')
-    return json_util.dumps({'questions': questions})
+    return json_util.dumps({'questions': questions, 'domains': domains})
     #return render_template('users.html',users=users,nome=nome)
 
 

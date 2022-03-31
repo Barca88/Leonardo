@@ -25,16 +25,12 @@
 
       <v-row>
         <v-col cols="12" md="4">
-          <v-text-field v-model="formData.domain"
-            :rules="[...rules.required,...rules.length100]" 
-            :counter="100" 
-            label="Domínio"
-            :input="onChange()"
-          />
+          <v-select v-model="formData.domain" @change=onChangetest() :rules="[...rules.required,...rules.length75]" :items="this.dominios" label="Domínios"/>
+
         </v-col>
 
         <v-col cols="12" md="4">
-          <v-text-field v-model="formData.subdomain" :rules="[...rules.required,...rules.length100]" :counter="100" label="Subdomínio"/>
+          <v-select v-model="formData.subdomain" :rules="[...rules.required,...rules.length75]" :items="this.subdomains" label="Subdomínio"/>
         </v-col>
 
         <v-col cols="12" md="4">
@@ -165,18 +161,33 @@ export default {
       tempos: ['30', '45', '60'],
       tipos: ['1', '2', '3'],
       repeticoes: ['0','1', '2', '3'],
-      idQuestoes: []
+      idQuestoes: [],
+      dominios: [],
+      dominiosobj:[],
+      subdomains: []
     }  
   },
   created() {
-    axios.get(`${process.env.VUE_APP_BACKEND}/question`)
-      .then((response)=>{
-        response.data.forEach((obj) =>{
-          this.idQuestoes.push(obj._id)
+    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
+          .then((response)=>{
+            console.log('test ' + response.data),
+            //this.domain = response.data
+            //this.navQuestoes=response.data.questions
+
+            response.data.domains.forEach((obj) =>{
+            this.dominios.push(obj._id),
+            this.dominiosobj.push(obj)           
         });
-      },(error) =>{
-          console.log(error);
-    });
+            
+            
+          },(error) =>{
+              console.log(error);
+          });
 
     if(this.$route.params.data!=null){
       this.editing = true
@@ -237,6 +248,21 @@ export default {
 
     validate() {
       return this.$refs.form.validate()
+    },onChangetest(){
+      this.subdomains= []
+       this.dominiosobj.forEach((obj) =>{console.log(obj._id)
+       console.log('data: ' + this.formData.domain)
+         if(obj._id == this.formData.domain){console.log('suuuuub2')
+          obj.body.forEach((obj) =>{
+            this.subdomains.push(obj.subdomain)
+
+          })
+         }
+          
+         
+       })
+
+
     },
     
     onChange(){
