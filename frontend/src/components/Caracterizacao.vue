@@ -173,7 +173,12 @@ export default {
     }  
   },
   created() {
-    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`)
+    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          }
+        })
       .then((response)=>{
         response.data.questions.forEach((obj) =>{
           this.idQuestoes.push(obj._id)
