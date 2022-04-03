@@ -25,16 +25,16 @@
 
       <v-row>
         <v-col cols="12" md="4">
-          <v-text-field v-model="formData.domain"
+          <v-select v-model="formData.domain"
             :rules="[...rules.required,...rules.length100]" 
-            :counter="100" 
             label="Domínio"
+            :items="this.idDomain"
             :input="onChange()"
           />
         </v-col>
 
         <v-col cols="12" md="4">
-          <v-text-field v-model="formData.subdomain" :rules="[...rules.required,...rules.length100]" :counter="100" label="Subdomínio"/>
+          <v-select v-model="formData.subdomain" :rules="[...rules.required,...rules.length100]" :items="this.idSubDomain" label="Subdomínio"/>
         </v-col>
 
         <v-col cols="12" md="4">
@@ -85,7 +85,7 @@
       
       <v-row>
         <v-col xs="12">
-          <v-text-field v-model="formData.author" :rules="[...rules.required,...rules.length75]" :counter="75" label="Autor"/>
+          <v-select v-model="formData.author" :rules="[...rules.required,...rules.length75]" :items="this.idUsers" :counter="75" label="Autor"/>
         </v-col>
       </v-row>
 
@@ -138,6 +138,7 @@ export default {
         sendHeader: '',
       },
       valid: false,
+      idUsers: [],
       formData:{
           _id: '',
           id: '',
@@ -165,19 +166,29 @@ export default {
       tempos: ['30', '45', '60'],
       tipos: ['1', '2', '3'],
       repeticoes: ['0','1', '2', '3'],
-      idQuestoes: []
+      idQuestoes: [],
+      idSubDomain: [],
+      Domain: [],
+      idDomain: []
     }  
   },
   created() {
-    axios.get(`${process.env.VUE_APP_BACKEND}/question`)
+    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`)
       .then((response)=>{
-        response.data.forEach((obj) =>{
+        response.data.questions.forEach((obj) =>{
           this.idQuestoes.push(obj._id)
+        });
+        response.data.users.forEach((obj) =>{
+          this.idUsers.push(obj._id)
+        });
+        response.data.domains.forEach((obj) =>{
+          this.Domain.push(obj)
+          this.idDomain.push(obj._id)
         });
       },(error) =>{
           console.log(error);
     });
-
+    //console.log("users : " + this.idUsers)
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
@@ -201,7 +212,7 @@ export default {
 
   mounted(){
     this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question//getQuestions`+ data)
               .then((response)=>{
                 this.formData._id = response.data._id
                 this.formData._id = response.data._id
@@ -239,8 +250,24 @@ export default {
       return this.$refs.form.validate()
     },
     
+    onDomain(){
+      if(this.sendObject.sendDomain != this.formData.domain){
+        this.idSubDomain = []
+        if(this.formData.domain){
+          this.Domain.forEach((obj) =>{
+            if(obj._id == this.formData.domain){
+              obj.body.forEach((sub) =>{
+                this.idSubDomain.push(sub.subdomain)
+              });
+            }
+          });
+        }
+      }
+    },
+
     onChange(){
       this.sendObject.sendId = this.formData._id
+      this.onDomain()
       this.sendObject.sendDomain = this.formData.domain
       this.sendObject.sendHeader = this.formData.header
       this.$root.$emit('change',this.sendObject)

@@ -42,10 +42,10 @@
         <template v-slot:header.nome="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.dom="{ header }">
+        <template v-slot:header.email="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.email="{ header }">
+        <template v-slot:header.tipo="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.options="{ header }">
@@ -87,10 +87,19 @@
             <v-icon
                 small
                 color="#8e363a"
+                class="mr-2"
                 @click="deleteDialog = true;tempValue=item"
                 
             >
                 mdi-trash-can
+            </v-icon>
+            <v-icon
+                small
+                color="#246a73"
+                class="mr-2"
+                @click= "showItem(item)"
+            >
+                mdi-database
             </v-icon>
         </template>
         </v-data-table>
@@ -253,6 +262,59 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogShow" max-width="900px">
+          <v-card>
+            <v-app-bar color="#2A3F54" >
+              <div class="d-flex align-center">
+                <h3 width="40" class="white--text"> Domínios  </h3>
+              </div>
+            </v-app-bar>
+            <v-container>
+              <v-row>
+    
+                <v-col cols="8">
+                  <dl>
+                    <dt class="title">{{this.user._id}}</dt>
+                    <dd class="ml-5">{{this.domain.header}}</dd>
+                  </dl>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
+                  <v-expansion-panels focusable>
+                    <v-expansion-panel
+                      v-for="(item,i) in this.domain.dom"
+                      :key="i"
+                    >
+                      <v-expansion-panel-header>Domínio {{i+1}}</v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                      
+                          <h4>Domínio:</h4> <span>{{item._id}}</span>
+                          <h4>Descrição:</h4> <span>{{item.description}}</span>  
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </v-col>
+              </v-row>  
+            </v-container>
+            <v-card-actions>
+              <v-container>
+                  <v-row >
+                    <v-col class="text-right">
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">    
+                          <v-btn v-bind="attrs" v-on="on" color="#29E898" @click="closeShow" elevation="5" class="mt-5">
+                            <v-icon color="white">mdi-door-open</v-icon>
+                          </v-btn>                    
+                        </template>
+                      <span>Sair</span>
+                    </v-tooltip>
+                    </v-col>
+                  </v-row>
+              </v-container>
+            </v-card-actions>
+          </v-card>
+       </v-dialog>
     </div>
 </template>
 
@@ -276,12 +338,12 @@ export default {
                     value: 'nome'
                 },
                 {
-                    text:`${this.$t('users.dom')}`,
-                    value: 'dom'
-                },
-                {
                     text:`${this.$t('users.email')}`,
                     value: 'email'
+                },
+                {
+                    text:`${this.$t('users.tipo')}`,
+                    value: 'tipo'
                 },
                 {
                     text:`${this.$t('users.opt')}`,
@@ -302,6 +364,11 @@ export default {
                 email: '',
                 dom: ''
             },
+            domain: {
+              _id: '',
+              description: 'pt',
+              body: [],
+            },
             userPic:'',
             picDialog:false,
             cv:'',
@@ -312,7 +379,9 @@ export default {
             currentPage:0,
             deleteDialog:false,
             tempValue:{},
+            user:{},
             navDomains: [],
+            dialogShow: false,
             page:1
         }
     },
@@ -332,18 +401,21 @@ export default {
         this.dialog=false
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
+            // JSON responses are automatically parsed.
+            //console.log(response.data)
+            this.navDomains=response.data.domains
             var todos = response.data.users
             var domains = response.data.domains
-            for(let i = 0; i<domains.length;i++){ 
-                for(let j = 0; j < todos.length; j++ ){
-                    if(todos[j]._id === domains[i].responsible){
-                        todos[j].dom = domains[i]._id
-                        break
+            for(let i = 0; i<todos.length;i++){ 
+                todos[i].dom = []
+                for(let j = 0; j < domains.length; j++ ){
+                    if(todos[i]._id === domains[j].responsible){
+                        todos[i].dom.push(domains[j])
                     }
                 } 
             }
             for(let i = 0; i<todos.length;i++){
-                if(!todos[i].dom){
+                if(todos[i].dom.length == 0){
                     todos.splice(i,1) 
                 }
             }
@@ -408,6 +480,22 @@ export default {
         this.editedItem={}
         this.value='ver'
       },
+    
+    
+    showItem (item) {
+        console.log(item)
+        this.domain = Object.assign({}, item)
+        this.user = Object.assign({}, item)
+        this.dialogShow = true
+      },
+
+
+      closeShow(){
+        this.dialogShow = false
+      },
+
+
+
       edit(){
         this.update = true
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
@@ -457,18 +545,19 @@ export default {
         .then(response => {
             // JSON responses are automatically parsed.
             //console.log(response.data)
+            this.navDomains=response.data.domains
             var todos = response.data.users
             var domains = response.data.domains
-            for(let i = 0; i<domains.length;i++){ 
-                for(let j = 0; j < todos.length; j++ ){
-                    if(todos[j]._id === domains[i].responsible){
-                        todos[j].dom = domains[i]._id
-                        break
+            for(let i = 0; i<todos.length;i++){ 
+                todos[i].dom = []
+                for(let j = 0; j < domains.length; j++ ){
+                    if(todos[i]._id === domains[j].responsible){
+                        todos[i].dom.push(domains[j])
                     }
                 } 
             }
             for(let i = 0; i<todos.length;i++){
-                if(!todos[i].dom){
+                if(todos[i].dom.length == 0){
                     todos.splice(i,1) 
                 }
             }

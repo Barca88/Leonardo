@@ -10,10 +10,10 @@
       <v-row>
         <v-col cols="8">
           <div v-if="firstResposta">
-            <v-text-field class="mt-4" v-model="resposta.answer" :counter="200" label="Texto da Resposta"></v-text-field>
+            <v-text-field class="mt-4" v-model="resposta.answer" :rules="[...rules.repeatedID]" :counter="200" label="Texto da Resposta"></v-text-field>
           </div>
           <div v-else>
-            <v-text-field class="mt-4" v-model="resposta.answer" :rules="rules.required" :counter="200" label="Texto da Resposta"></v-text-field>
+            <v-text-field class="mt-4" v-model="resposta.answer" :rules="[...rules.required,...rules.repeatedID]" :counter="200" label="Texto da Resposta"></v-text-field>
           </div>
         </v-col>
       </v-row>
@@ -308,6 +308,7 @@ export default {
                 points: ""
             },
             rules: {
+                repeatedID: [v => this.checkID(v) || "ID already exists"],
                 required: [(v) => !!v || "Field is required"],
                 length30: [v => (v && v.length <= 30) || "Field must be less or equal than 30 characters"],
                 length75: [v => (v && v.length <= 75) || "Field must be less or equal than 75 characters"],
@@ -364,10 +365,14 @@ export default {
 
         console.log('AddAnsewr')
         if(this.resposta.answer != "" && this.resposta.points != ""){
-          this.formData.body.push(this.resposta);
-          this.resposta = Object.assign({}, this.defaultResp)
-          if(!this.firstResposta){
-            this.firstResposta = true
+          if(this.checkID(this.resposta.answer)){
+            this.formData.body.push(this.resposta);
+            this.resposta = Object.assign({}, this.defaultResp)
+            if(!this.firstResposta){
+              this.firstResposta = true
+            }
+          }else{
+            this.dialogResp = true
           }
         }else{
           this.dialogResp = true
@@ -409,6 +414,10 @@ export default {
 
       closeResp(){
         this.dialogResp = false
+      },
+
+      checkID(item){
+        return !this.formData.body.find(x => x.answer === item)
       },
 
       closeDelete(){

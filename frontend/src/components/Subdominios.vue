@@ -10,10 +10,10 @@
       <v-row>
         <v-col cols="8">
           <div v-if="firstSub">
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.repeatedID]" :counter="200" label="Subdomínio"></v-text-field>
           </div>
           <div v-else>
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="rules.required" :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.required,...rules.repeatedID]"  :counter="200" label="Subdomínio"></v-text-field>
           </div>
         </v-col>
       </v-row>
@@ -47,11 +47,11 @@
           </template>
 
           <template v-slot:[`item.subdomain`]="{ item }">
-            {{ item.subdomain.length > 15 ? item.subdomain.slice(0, 15) + '...' : item.subdomain }}
+            {{item.subdomain != null && item.subdomain.length > 15 ? item.subdomain.slice(0, 15) + '...' : item.subdomain }}
           </template>
 
           <template v-slot:[`item.sub_description`]="{ item }">
-            {{ item.sub_description.length > 15 ? item.sub_description.slice(0, 15) + '...' : item.sub_description }}
+            {{item.sub_description != null && item.sub_description.length > 15 ? item.sub_description.slice(0, 15) + '...' : item.sub_description }}
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
@@ -84,13 +84,13 @@
             <v-container>
               <v-row>
                 <v-col cols="8">
-                  <v-text-field v-model="subdominio.designation" :rules="rules.required" :counter="200" label="Subdomínio"></v-text-field>
+                  <v-text-field v-model="subdominioEdit.subdomain" :rules="rules.required" :counter="200" label="Subdomínio" disabled></v-text-field>
                 </v-col>
               </v-row>
 
               <v-row class="mt-5">
                 <v-col cols="12" md="12">
-                  <v-textarea v-model="subdominio.description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" :rules="rules.required" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
+                  <v-textarea v-model="subdominioEdit.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" :rules="rules.required" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
                 </v-col>
               </v-row>
             </v-container>
@@ -228,12 +228,17 @@ export default {
                 designation: "",
                 description: ""
             },
+            subdominioEdit: {
+                designation: "",
+                description: ""
+            },
             defaultSub: {
                 designation: "",
                 description: ""
             },
             
             rules: {
+                repeatedID: [v => this.checkID(v) || "ID already exists"],
                 required: [(v) => !!v || "Field is required"],
                 length30: [v => (v && v.length <= 30) || "Field must be less or equal than 30 characters"],
                 length75: [v => (v && v.length <= 75) || "Field must be less or equal than 75 characters"],
@@ -258,13 +263,14 @@ export default {
 
     mounted() {
       this.$root.$on('change', data => {
+            //console.log("change : " + data.sendId)
+            //console.log("change2 : " + data.sendDescription)
             this.idDominio = data.sendId
             this.description = data.sendDescription
       })
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
-                console.log(response.data.domain.body)
                 this.firstSub = true
                 this.formData.body = response.data.domain.body
                 this.editing = true
@@ -286,9 +292,15 @@ export default {
       },
 
       addSubdominio(){
-        if(this.subdominio.subdomain != "" && this.subdominio.sub_description != ""){
-          this.formData.body.push(this.subdominio);
-          this.subdominio = Object.assign({}, this.defaultSub)
+        if(this.subdominio.subdomain != undefined && this.subdominio.sub_description != undefined){
+          if(this.check(this.subdominio.subdomain)){
+            this.formData.body.push(this.subdominio);
+            this.subdominio = Object.assign({}, this.defaultSub)
+            //console.log("formADD : " + this.formData.body[0].subdomain)
+          }
+          else{
+            this.dialogSub = true
+          }
           if(!this.firstSub){
             this.firstSub = true
           }
@@ -299,17 +311,30 @@ export default {
 
       editItem(item){
         this.editedIndex = this.formData.body.indexOf(item)
-        this.subdominio = Object.assign({}, item)
+        this.subdominioEdit = Object.assign({}, item)
         this.dialogEdit = true
       },
 
+
+    checkID(item){
+      return !this.formData.body.find(x => x.subdomain === item)
+    },
+
+
       editConfirm(){
-        this.$set(this.formData.body, this.editedIndex, this.subdominio)
-        this.subdominio = Object.assign({}, this.defaultSub)
-        this.dialogEdit = false
+        if(!this.subdominioEdit.sub_description){
+          this.dialogSub = true
+        }
+        else{
+          this.$set(this.formData.body, this.editedIndex, this.subdominioEdit) 
+          this.formData.body = this.subdominioEdit
+          this.subdominioEdit = Object.assign({}, this.defaultSub)
+          this.dialogEdit = false
+        }
       },
 
       closeEdit(){
+        this.subdominioEdit = Object.assign({}, this.defaultSub)
         this.dialogEdit = false
         this.editedIndex = -1
       },
@@ -342,6 +367,7 @@ export default {
     watch: {
         formData: {
             handler: function() {
+              //console.log("form : " + this.formData.body[0].subdomain)
               this.$emit('newdataSubdominio', this.formData.body);
             },
             deep: true

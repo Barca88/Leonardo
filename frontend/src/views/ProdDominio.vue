@@ -396,6 +396,9 @@ export default {
     },
 
     confirmSubmit(){
+      //console.log("dm : " + this.$refs.dm.validate())
+      //console.log("sm : " + this.$refs.sm.validate())
+      //console.log("cp : " + this.$refs.cp.validate())
       if(this.$refs.dm.validate() && this.$refs.sm.validate() && this.$refs.cp.validate()){
         this.openSubmit = true
       }

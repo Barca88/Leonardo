@@ -77,6 +77,7 @@ export default ({
     },
     created() {
       if(this.$route.params.data!=null){
+        //console.log("222 : ")
         let data = this.$route.params.data
             this.formData.default_user_level = data.default_user_level
             this.formData.high_performance_factor = data.high_performance_factor
@@ -89,6 +90,8 @@ export default ({
     },
     mounted() {
       this.$root.$on('change', data => {
+            //console.log("change_comp : " + data.sendId)
+            //console.log("change2_comp : " + data.sendDescription)
             this.idDominio = data.sendId
             this.description = data.sendDescription
       })

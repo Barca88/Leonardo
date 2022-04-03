@@ -173,6 +173,8 @@ export default {
     },
 
     onChange(){
+      //console.log("change_dominio : " + this.formData._id)
+      //console.log("change2_dominio : " + this.formData.description)
       this.sendObject.sendId = this.formData._id
       this.sendObject.sendDescription = this.formData.description
       this.$root.$emit('change',this.sendObject)
