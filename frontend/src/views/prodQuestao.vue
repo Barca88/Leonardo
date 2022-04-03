@@ -359,7 +359,7 @@ export default {
         header:'',
         body: [], 
         explanation: "", 
-        images: "", 
+        images: {}, 
         videos: "", 
         source: "", 
         notes: "", 
@@ -388,7 +388,7 @@ export default {
         header:'',
         body: [], 
         explanation: "", 
-        images: "", 
+        images: {}, 
         videos: "", 
         source: "", 
         notes: "", 
@@ -414,7 +414,7 @@ export default {
     },
 
     handleDataSuporte(e) {
-      [this.questao.explanation,this.questao.notes,this.questao.source,this.questao.status,this.questao.language] = e;
+      [this.questao.images, this.questao.explanation,this.questao.notes,this.questao.source,this.questao.status,this.questao.language] = e;
     },
 
     confirmSubmit(){
