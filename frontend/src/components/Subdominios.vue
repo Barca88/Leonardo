@@ -263,7 +263,6 @@ export default {
 
     mounted() {
       this.$root.$on('change', data => {
-            //console.log("change : " + data.sendId)
             //console.log("change2 : " + data.sendDescription)
             this.idDominio = data.sendId
             this.description = data.sendDescription
@@ -293,7 +292,7 @@ export default {
 
       addSubdominio(){
         if(this.subdominio.subdomain != undefined && this.subdominio.sub_description != undefined){
-          if(this.check(this.subdominio.subdomain)){
+          if(this.checkID(this.subdominio.subdomain)){
             this.formData.body.push(this.subdominio);
             this.subdominio = Object.assign({}, this.defaultSub)
             //console.log("formADD : " + this.formData.body[0].subdomain)

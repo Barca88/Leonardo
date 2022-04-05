@@ -132,13 +132,13 @@ export default ({
             this.header = data.sendHeader
       })
       this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
               .then((response)=>{
-                this.formData.explanation = response.data.explanation
-                this.formData.notes = response.data.notes
-                this.formData.source = response.data.source
-                this.formData.status = response.data.status
-                this.formData.language = response.data.language
+                this.formData.explanation = response.data.question.explanation
+                this.formData.notes = response.data.question.notes
+                this.formData.source = response.data.question.source
+                this.formData.status = response.data.question.status
+                this.formData.language = response.data.question.language
               },(error) =>{
                   console.log(error);
               });

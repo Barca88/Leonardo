@@ -6,12 +6,12 @@
           <v-text-field v-if="editing" v-model="formData._id" 
             :rules="[...rules.required,...rules.length30]" 
             :counter="30" label="Identificador" 
-            :input="onChange()" readonly/>
+             readonly/>
             
             <v-text-field v-else v-model="formData._id" 
             :rules="[...rules.required,...rules.length30,...rules.repeatedID]" 
             :counter="30" label="Identificador" 
-            :input="onChange()"/>
+            />
         </v-col>
 
         
@@ -127,7 +127,6 @@ export default {
       },(error) =>{
           console.log(error);
     });
-    console.log(this.idUsers)
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
@@ -136,7 +135,7 @@ export default {
           this.formData.scholarity = data.scholarity
           this.formData.responsible = data.responsible
           this.formData.notes = data.notes
-          this.formData.access_type = data.access_type       
+          this.formData.access_type = data.access_type  
     }
   },
 
@@ -158,6 +157,10 @@ export default {
     })
   },
 
+  beforeDestroy(){
+    this.$root.$off('import')
+  },
+
   methods: {
 
     checkID(item){
@@ -173,8 +176,6 @@ export default {
     },
 
     onChange(){
-      //console.log("change_dominio : " + this.formData._id)
-      //console.log("change2_dominio : " + this.formData.description)
       this.sendObject.sendId = this.formData._id
       this.sendObject.sendDescription = this.formData.description
       this.$root.$emit('change',this.sendObject)

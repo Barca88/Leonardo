@@ -230,7 +230,7 @@
                       <v-row>
                         <v-col cols="9" class="ml-5">
                           <v-text-field v-model="idImport" 
-                            :rules="required" 
+                            :rules="[rules.required,...rules.repeatedID]"
                             label="Identificador"/>
                         </v-col>
                       </v-row>
@@ -334,7 +334,10 @@ export default {
       openConfirmSubmit: false,
       openError: false,
       idImport: '',
-      required: [(v) => !!v || "Field is required"],
+      rules: {
+          required: [(v) => !!v || "Field is required"],
+          repeatedID: [v => this.checkID2(v) || "ID does not exist"],
+      },
       items: [
         { tab: 'Caracterizacão'},
         { tab: 'Subdomínios'},
@@ -358,6 +361,7 @@ export default {
         inserted_by: "User_default",
         inserted_at:new Date().toLocaleString()
       },
+      idDomains: [],
       edit:{
         _id: '',
         description: 'pt',
@@ -378,6 +382,27 @@ export default {
       }
     }
   },
+
+  created() {
+      axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"   
+          }
+        })
+      .then((response)=>{
+        response.data.domains.forEach((obj) =>{
+          this.idDomains.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
+    },
+
+
+
+
   methods:{
 
     handleDataDominios(e) {
@@ -481,9 +506,15 @@ export default {
       this.openImport = true
     },
 
+    checkID2(item){
+      return this.idDomains.find(x => x === item)
+    },
+
     confirmImport(){
-      this.$root.$emit('import', this.idImport)
-      this.openImport = false
+      if(this.checkID2(this.idImport)){
+        this.$root.$emit('import', this.idImport)
+        this.openImport = false
+      }
     },
 
     closeImport() {

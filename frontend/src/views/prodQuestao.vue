@@ -81,7 +81,7 @@
 
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">    
-                         <v-btn v-bind="attrs" v-on="on" to="/questoes" color="#29E898" elevation="5" class="">
+                         <v-btn v-bind="attrs" v-on="on" to="/questions" color="#29E898" elevation="5" class="">
                           <v-icon color="white">mdi-door-open</v-icon>
                         </v-btn>                    
                       </template>
@@ -162,7 +162,7 @@
                             <v-col class="text-right">
                               <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">   
-                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" @click="closeConfirmSubmit" elevation="5" class="mt-5">
+                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" to="/questions" @click="closeConfirmSubmit" elevation="5" class="mt-5">
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
@@ -230,7 +230,7 @@
                       <v-row>
                         <v-col cols="9" class="ml-5">
                           <v-text-field v-model="idImport" 
-                            :rules="required" 
+                            :rules="[rules.required,...rules.repeatedID]"
                             label="Identificador"/>
                         </v-col>
                       </v-row>
@@ -335,7 +335,10 @@ export default {
       openError: false,
       idImport: '',
       editing: false,
-      required: [(v) => !!v || "Field is required"],
+      rules: {
+          required: [(v) => !!v || "Field is required"],
+          repeatedID: [v => this.checkID2(v) || "ID does not exist"],
+      },
       items: [
         { tab: 'Caracterizacão'},
         { tab: 'Respostas'},
@@ -369,6 +372,7 @@ export default {
         validated_by:"", 
         validated_at:"" 
       },
+      idQuestion: [],
       edit:{
         _id: null,
         id: '',
@@ -401,6 +405,25 @@ export default {
     }
   },
  
+  created() {
+      axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"   
+          }
+        })
+      .then((response)=>{
+        response.data.questions.forEach((obj) =>{
+          this.idQuestion.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
+
+    },
+
+
   methods:{
 
     handleDataCaracterizacao(e) {
@@ -525,9 +548,16 @@ export default {
       this.$refs.sp.reset()
     },
 
+    checkID2(item){
+      return this.idQuestion.find(x => x === item)
+    },
+
     confirmImport(){
-      this.$root.$emit('import', this.idImport)
-      this.openImport = false
+      if(this.checkID2(this.idImport)){
+        console.log("Import : " + this.idImport)
+        this.$root.$emit('import', this.idImport)
+        this.openImport = false
+      }
     },
 
     startImport() {

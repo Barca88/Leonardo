@@ -340,10 +340,10 @@ export default {
             this.header = data.sendHeader
       })
       this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question/`+ data)
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
               .then((response)=>{
                 this.firstResposta = true
-                this.formData.body = response.data.body
+                this.formData.body = response.data.question.body
               },(error) =>{
                   console.log(error);
               });

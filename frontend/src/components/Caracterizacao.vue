@@ -217,28 +217,32 @@ export default {
 
   mounted(){
     this.$root.$on('import', data => {
-            axios.get(`${process.env.VUE_APP_BACKEND}/question//getQuestions`+ data)
+      console.log("caracterização")
+            axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
               .then((response)=>{
-                this.formData._id = response.data._id
-                this.formData._id = response.data._id
-                this.formData.study_cycle = response.data.study_cycle
-                this.formData.scholarity = response.data.scholarity
-                this.formData.domain = response.data.domain
-                this.formData.subdomain = response.data.subdomain
-                this.formData.subsubdomain = response.data.subsubdomain
-                this.formData.difficulty_level = response.data.difficulty_level
-                this.formData.author = response.data.author
-                this.formData.display_mode = response.data.display_mode,
-                this.formData.answering_time = response.data.answering_time
-                this.formData.type_ = response.data.type_
-                this.formData.precedence = response.data.precedence
-                this.formData.repetitions = response.data.repetitions
-                this.formData.header = response.data.header
+                this.formData._id = response.data.question._id
+                this.formData.study_cycle = response.data.question.study_cycle
+                this.formData.scholarity = response.data.question.scholarity
+                this.formData.domain = response.data.question.domain
+                this.formData.subdomain = response.data.question.subdomain
+                this.formData.subsubdomain = response.data.question.subsubdomain
+                this.formData.difficulty_level = response.data.question.difficulty_level
+                this.formData.author = response.data.question.author
+                this.formData.display_mode = response.data.question.display_mode,
+                this.formData.answering_time = response.data.question.answering_time
+                this.formData.type_ = response.data.question.type_
+                this.formData.precedence = response.data.question.precedence
+                this.formData.repetitions = response.data.question.repetitions
+                this.formData.header = response.data.question.header
                 this.editing = true
               },(error) =>{
                   console.log(error);
               });
     })
+  },
+  
+  beforeDestroy(){
+    this.$root.$off('import')
   },
 
   methods: {
