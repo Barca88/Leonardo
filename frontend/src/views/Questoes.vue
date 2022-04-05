@@ -218,6 +218,12 @@
                 </v-col>
                 <v-col cols="4">
                   <dl>
+                    <dt class="title">Imagem</dt>
+                    <v-img v-bind:src="userPic"/>
+                  </dl>
+                </v-col>
+                <v-col cols="4">
+                  <dl>
                     <dt class="title">Estado</dt>
                     <dd class="ml-5">{{this.questao.status}}</dd>
                   </dl>
@@ -359,6 +365,7 @@ export default {
     }, 
     data(){
         return{
+            userPic: '',
             itemIndex: -1,
             dialogShow: false,
             dialogDelete: false,
@@ -424,7 +431,28 @@ export default {
       showItem (item) {
         this.itemIndex = this.navQuestoes.indexOf(item)
         this.questao = Object.assign({}, item)
+        this.showImage(this.questao._id)
         this.dialogShow = true
+      },
+      showImage(_qId){
+
+        this.userPic=''
+        console.log('pre get')
+        axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
+            responseType:'arraybuffer',
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+          console.log('get')
+            var image = new Buffer(response.data, 'binary').toString('base64')
+            this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+        }).catch(e => {
+            console.log('Erro ' + e)
+            this.errors.push(e)
+        })
+
       },
 
       sendItem(data){

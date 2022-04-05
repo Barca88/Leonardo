@@ -55,12 +55,31 @@ def route_domain_get(question):
     return json_util.dumps({'question': existe})
 
 
+@blueprint.route('/foto/<question>', methods=['GET'])
+#@token_required
+#@login_required
+def route_photo(question):
+    print(question)
+    _id =question
+    pathPhoto = join(dirname(realpath(__file__)), 'static/pics/')
+    print(question + ' 2 ')
+    pathCheck = join(pathPhoto, _id)
+    print(question + ' 3 ')
+    if  path.exists(pathCheck) :
+        print(question + ' 4 ')
+        return send_from_directory(pathPhoto, question, mimetype='image/png')
+    else :
+        print(question + ' 5 ')
+        return send_from_directory(pathPhoto, "default", mimetype='image/png')
+
+
+
 
 @blueprint.route('/insert', methods=['POST'])
 @admin_required
 #@login_required
 def route_template_insert():
-    print("inserir")
+    print("inserirquestao")
     _id = request.form.get('_id')
     print(request.form.get('_id'))
     existe = mongo.db.question.find_one({"_id":_id})
@@ -86,7 +105,14 @@ def route_template_insert():
         header = request.form.get('header')
         body = json.loads(request.form.get('body'))
         explanation = request.form.get('explanation')
-        images = request.form.get('images')
+        foto = request.files.get('images')
+        print('getfoto success')
+        if foto.filename != '':
+            print('getfoto success2')
+            
+            upload_path = join(dirname(realpath(__file__)), 'static/pics/')
+            foto.save(upload_path + _id)
+
         videos = request.form.get('videos')
         source = request.form.get('source')
         notes = request.form.get('notes')
@@ -100,10 +126,12 @@ def route_template_insert():
         mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "subsubdomain": subsubdomain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
         "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
-        ,  "images": images,  "videos": videos,  "source": source,  "notes": notes,  "status": status
+        ,  #"images": images,
+          "videos": videos,  "source": source,  "notes": notes,  "status": status
         ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at })
         write_log(userAdmin, 'Informação Base/Questoes', 'Adicionar Questao', 'successfull')
         return '1'
+
 
 
 

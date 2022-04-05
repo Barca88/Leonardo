@@ -10,14 +10,7 @@
             <v-row>          
                 <v-col cols="8">  
                     <h3 style="color:#2A3F54;padding-bottom:15px;">Escolha os ficheiros de imagem (png/jpg):</h3>
-                    <v-file-input
-                        show-size
-                        counter
-                        chips
-                        multiple
-                        label="Introduzir Imagens"
-                        accept="image/*" v-model="formData.images" id="file-input"
-                    ></v-file-input>
+                    <v-file-input show-size :label="$t('p1.f')" v-model="formData.images"></v-file-input>
                 </v-col>
             </v-row>
             <v-row>
@@ -105,7 +98,7 @@ export default ({
             domain: '',
             header: '',
             formData:{
-                images: '',
+                images: {},
                 explanation: '',
                 notes: '',
                 source: '',
