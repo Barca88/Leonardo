@@ -288,6 +288,7 @@ export default {
       },
 
       validate(){
+        console.log('Validating')
         return this.$refs.form.validate()
       },
 
@@ -326,9 +327,10 @@ export default {
           this.dialogSub = true
         }
         else{
+          this.firstSub = true
           this.$set(this.formData.body, this.editedIndex, this.subdominioEdit) 
-          this.formData.body = this.subdominioEdit
-          this.subdominioEdit = Object.assign({}, this.defaultSub)
+          //this.formData.body = this.subdominioEdit
+          this.subdominio = Object.assign({}, this.defaultSub)
           this.dialogEdit = false
         }
       },
