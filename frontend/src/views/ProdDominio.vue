@@ -327,6 +327,9 @@ export default {
     }, 
   data() {
     return{
+      reset:'',
+      formatting: '',
+      alignment: '',
       tab: null,
       openHelp: false,
       openImport: false,

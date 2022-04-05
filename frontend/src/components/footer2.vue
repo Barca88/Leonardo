@@ -40,7 +40,7 @@ export default {
     };
   }, 
   created() {
-    this.year = Date.getFullYear()
+    this.year = new Date().getFullYear()
   }
 }
 </script>

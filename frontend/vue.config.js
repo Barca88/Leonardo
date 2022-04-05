@@ -3,7 +3,10 @@ module.exports = {
     "vuetify"
   ],
    devServer: {
-   port: "8080"
+   proxy: 'http://localhost:5000/',
+   sockPath: "sockjs-node",
+   port: "8080",
+   disableHostCheck: true
    },
  
   pluginOptions: {

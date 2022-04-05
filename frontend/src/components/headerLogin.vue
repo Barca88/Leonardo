@@ -68,7 +68,8 @@
 export default {
     data() {
         return{
-            help:''
+            help:'',
+            about: ''
         }
     },
     props:{

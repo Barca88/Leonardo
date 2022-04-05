@@ -55,6 +55,7 @@ import axios from 'axios';
 export default ({
     data(){
         return{
+            valid: '',
             idDominio: '',
             description: '',
             editing: false,
