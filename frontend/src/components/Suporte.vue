@@ -143,11 +143,16 @@ export default ({
                   console.log(error);
               });
       })
+    this.$root.$on('reset', data => {
+        console.log(data)
+        this.formData.explanation = ""
+        this.formData.notes = ""
+        this.formData.source = ""
+        this.formData.status = ""
+        this.formData.language = ""
+      })
     },
     methods: {
-      reset () {
-        this.$refs.form.reset()
-      },
       validate() {
         return this.$refs.form.validate()
       }

@@ -348,14 +348,18 @@ export default {
                   console.log(error);
               });
       })
+      this.$root.$on('reset', data => {
+        console.log(data)
+        this.formData.body = []
+        this.resposta.answer = ""
+        this.resposta.correction = ""
+        this.resposta.mandatory = ""
+        this.resposta.eliminative = ""
+        this.resposta.points = ""
+      })
     },
 
     methods: {
-
-      reset(){
-        this.$refs.form.reset()
-        this.formData.body.splice(0)
-      },
 
       validate() {
         return this.$refs.form.validate() && this.formData.body.length!=0

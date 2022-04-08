@@ -111,11 +111,18 @@ export default ({
                   console.log(error);
               });
       })
+      this.$root.$on('reset', data => {
+        console.log(data)
+        this.formData.default_user_level = ""
+        this.formData.high_performance_factor = ""
+        this.formData.low_performance_factor = ""
+        this.formData.high_skill_factor = ""
+        this.formData.low_skill_factor = ""
+        this.formData.min_questions_number = ""
+        this.formData.question_factor = ""
+      })
     },
     methods: {
-      reset () {
-        this.$refs.form.reset()
-      },
       validate() {
         return this.$refs.form.validate()
       }

@@ -60,7 +60,7 @@
 
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">    
-                        <v-btn v-bind="attrs" v-on="on" color="#29E898" elevation="5" @click="reset">
+                        <v-btn v-bind="attrs" v-on="on" color="#29E898" elevation="5" @click="reset1">
                           <v-icon color="white">mdi-broom</v-icon>
                         </v-btn>                    
                       </template>
@@ -539,13 +539,10 @@ export default {
       } 
       this.openSubmit = false
       this.openConfirmSubmit = true
-      this.reset()
     },
 
-    reset() {
-      this.$refs.ct.reset()
-      this.$refs.rp.reset()
-      this.$refs.sp.reset()
+    reset1 () {
+      this.$root.$emit('reset',this.editing)
     },
 
     checkID2(item){

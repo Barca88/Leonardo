@@ -418,8 +418,9 @@ export default {
       }
     },
     reset () {
-      this.$refs.form.reset()
-      this.user.username=''
+      if(this.value == 'adicionar'){
+        this.user.username=''
+      }
       this.user.nome=''
       this.user.pw=''
       this.user.email=''
@@ -431,7 +432,6 @@ export default {
       this.user.observacoes=''
     },
     atualizarInfo(){
-      //console.log('ola')
       this.$emit('atualizarInfo')
     },
 
