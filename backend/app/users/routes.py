@@ -40,7 +40,7 @@ def route_users():
             users = mongo.db.users.find({"tipo":type})
             if(type == "responsible"):
                 users = mongo.db.users.find({"tipo":"Teacher"})
-                domains= [doc for doc in mongo.db.domains.find()]
+                domains = mongo.db.domains.find()
                 if(user is not None):
                     write_log(user, 'InformaçãoBase/Responsáveis', '', 'successfull')
             if(type == "Teacher" and user is not None):
@@ -63,13 +63,30 @@ def route_template_adicionar():
 #@login_required
 def route_template_registar():
     username = request.form.get('username')
-    existe = mongo.db.users.find_one({"_id":username})
-    nome = request.args.get('nome')
-    if existe:
+    existeU = mongo.db.users.find_one({"_id":username})
+    existeP = mongo.db.pedidos.find_one({"_id":username})
+    user = request.args.get('nome')
+    type = request.args.get('type')
+    if existeP:
+        mongo.db.pedidos.remove({"_id":username})
+        upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', username)
+        upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username)
+        if path.exists(upload_path): 
+            remove(upload_path)
+        if path.exists(upload_path2): 
+            remove(upload_path2)
+    if existeU:
+        if user:
+            if(type == "all"): 
+                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'failed')
+            if(type == "responsible"): 
+                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'failed')
+            if(type == "Teacher"): 
+                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'failed')
+            if(type == "Student"): 
+                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'failed') 
         print('user ja existe')
-        #flash('ERRO: Username já escolhido. Por favor escolha outro...')
-        #return render_template('registar.html',nome=nome)
-        return json_util.dumps({'nome': nome,'message':'já existe'})
+        return json_util.dumps({'nome': user,'message':'já existe'})
     else:
         email = request.form.get('email')
         name = request.form.get('name')
@@ -103,7 +120,16 @@ def route_template_registar():
         obs = request.form.get('obs')
         mongo.db.users.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
         mongo.db.users.find()
-        return json_util.dumps({'nome': nome})
+        if user:
+            if(type == "all"): 
+                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'successfull')
+            if(type == "responsible"): 
+                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'successfull')
+            if(type == "Teacher"): 
+                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'successfull')
+            if(type == "Student"): 
+                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'successfull') 
+        return json_util.dumps({'nome': user})
 
 
 @blueprint.route('/ver/<user>', methods=['GET'])
@@ -290,24 +316,28 @@ def route_import_registos():
                         line_count += 1
         
             # the result is a Python dictionary:
+    print("teste3")
     newUsers = request.form.get('newUsers')
 
     user = request.args.get('nome')
     success = True
 
     jsonLst = json.loads(newUsers)
+    list = []
     for jsonUser in jsonLst:
         if(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]})):
+            list.append(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]}))
             success = False
         else:
-            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
+            #mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
         
     if(success):
         write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'successfull')
         return json_util.dumps({'nome': user})
     else:
         write_log(user, 'Utilizadores/Importação', 'Importar Utilizadores', 'failed')
-        return json_util.dumps({'nome': user,'message':'já existe'})
+        return json_util.dumps({'nome': user,'message':'já existe', 'list' : list})
 ##########################################
 
 
@@ -423,17 +453,6 @@ def route_template_registar_pedido():
     user = request.args.get('nome')
     type = request.args.get('type')
     if existeU or existeP:
-        #flash('ERRO: Username já escolhido. Por favor escolha outro...')
-        #return render_template('registar.html',nome=nome)
-        if user:
-            if(type == "all"): 
-                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'failed')
-            if(type == "responsible"): 
-                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'failed')
-            if(type == "Teacher"): 
-                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'failed')
-            if(type == "Student"): 
-                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'failed') 
         return json_util.dumps({'nome': user,'message':'já existe'})
     else:
         email = request.form.get('email')
@@ -468,15 +487,6 @@ def route_template_registar_pedido():
         obs = request.form.get('obs')
         mongo.db.pedidos.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
         mongo.db.pedidos.find()
-        if user:
-            if(type == "all"): 
-                write_log(user, 'Utilizadores/Gestão', 'Adicionar utilizadores', 'successfull')
-            if(type == "responsible"): 
-                write_log(user, 'InformaçãoBase/Responsáveis', 'Adicionar utilizadores', 'successfull')
-            if(type == "Teacher"): 
-                write_log(user, 'InformaçãoBase/Professores', 'Adicionar utilizadores', 'successfull')
-            if(type == "Student"): 
-                write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'successfull') 
         return json_util.dumps({'nome': user})
 
 

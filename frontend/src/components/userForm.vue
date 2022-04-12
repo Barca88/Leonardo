@@ -397,7 +397,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/registar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,

@@ -401,8 +401,6 @@ export default {
         this.dialog=false
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
           .then(response => {
-            // JSON responses are automatically parsed.
-            //console.log(response.data)
             this.navDomains=response.data.domains
             var todos = response.data.users
             var domains = response.data.domains
@@ -414,11 +412,7 @@ export default {
                     }
                 } 
             }
-            for(let i = 0; i<todos.length;i++){
-                if(todos[i].dom.length == 0){
-                    todos.splice(i,1) 
-                }
-            }
+            todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
         }).catch(e => {
             //console.log(e)
@@ -543,11 +537,8 @@ export default {
                 //console.log('store->' + this.$store.state.jwt)
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}&type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
-            // JSON responses are automatically parsed.
-            //console.log(response.data)
-            this.navDomains=response.data.domains
             var todos = response.data.users
-            var domains = response.data.domains
+            var domains = response.data.domains      
             for(let i = 0; i<todos.length;i++){ 
                 todos[i].dom = []
                 for(let j = 0; j < domains.length; j++ ){
@@ -556,11 +547,7 @@ export default {
                     }
                 } 
             }
-            for(let i = 0; i<todos.length;i++){
-                if(todos[i].dom.length == 0){
-                    todos.splice(i,1) 
-                }
-            }
+            todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
         }).catch(e => {
             //console.log(e)
