@@ -79,8 +79,8 @@
     </template>
 
  <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 
-      <v-card>
-        <v-toolbar color="#2A3F54" dark>
+        <v-card>
+            <v-toolbar color="#2A3F54" dark>
           <h2>{{$t('reg.import')}}</h2>
         </v-toolbar>
         <v-divider
@@ -94,7 +94,10 @@
           </v-col>
           <v-col>
             <v-card-text class="mt-2">
-              {{$t('login.new')}}
+              {{$t('login.newImp')}}
+            <li v-for="item in usersRepet" :key="item._id">
+                {{ item._id }}
+            </li>
             </v-card-text>
           </v-col>
         </v-row>
@@ -109,8 +112,8 @@
               </template>
               <span>{{ $t('nav.Sair') }}</span>
             </v-tooltip>
-
-        </v-card-actions>
+            
+            </v-card-actions>
       </v-card>
     </v-dialog>
     
@@ -148,6 +151,7 @@ export default {
             active: [],
             selected: [],
             dialog: false,
+            usersRepet: [],
             failureDialog:false,
             headersTable: [{
                     text: 'Nome',
@@ -232,12 +236,14 @@ export default {
                     //responseType: 'arraybuffer',
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                        'Access-Control-Allow-Origin': "*",
-                        Authorization: `Bearer: ${this.$store.state.jwt}`
+                        Authorization: `Bearer: ${this.$store.state.jwt}`,
+                        'Access-Control-Allow-Origin': "*" 
                     }
                 }).then((data) => {
                     if(data.data.message){
                         this.failureDialog = true
+                        this.usersRepet = data.data.list
+                        console.log(data.data.list)
                         }
                     else{
                         this.snackbar = true

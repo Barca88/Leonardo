@@ -155,10 +155,21 @@ export default {
                   console.log(error);
               });
     })
+    this.$root.$on('reset', data => {
+        if(data == false){
+          this.formData._id = ""
+        }
+        this.formData.description = ""
+        this.formData.scholarity = ""
+        this.formData.responsible = ""
+        this.formData.notes = ""
+        this.formData.access_type = ""
+      })
   },
 
   beforeDestroy(){
     this.$root.$off('import')
+    this.$root.$off('reset')
   },
 
   methods: {
@@ -167,9 +178,6 @@ export default {
       return !this.idDomains.find(x => x === item)
     },
 
-    reset () {
-      this.$refs.form.reset()
-    },
 
     validate() {
       return this.$refs.form.validate()

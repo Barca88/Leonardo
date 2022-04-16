@@ -397,7 +397,7 @@ export default {
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
-        axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
+        axios.post(`${process.env.VUE_APP_BACKEND}/users/registar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -418,8 +418,9 @@ export default {
       }
     },
     reset () {
-      this.$refs.form.reset()
-      this.user.username=''
+      if(this.value == 'adicionar'){
+        this.user.username=''
+      }
       this.user.nome=''
       this.user.pw=''
       this.user.email=''
@@ -431,7 +432,6 @@ export default {
       this.user.observacoes=''
     },
     atualizarInfo(){
-      //console.log('ola')
       this.$emit('atualizarInfo')
     },
 

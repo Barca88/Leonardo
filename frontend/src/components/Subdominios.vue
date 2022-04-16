@@ -278,14 +278,15 @@ export default {
                   console.log(error);
               });
       })
+      this.$root.$on('reset', data => {
+        console.log(data)
+        this.formData.body = []
+        this.subdominio.subdomain = ""
+        this.subdominio.sub_description = ""
+      })
     },
 
     methods: {
-
-      reset(){
-        this.$refs.form.reset()
-        this.formData.body.splice(0)
-      },
 
       validate(){
         console.log('Validating')

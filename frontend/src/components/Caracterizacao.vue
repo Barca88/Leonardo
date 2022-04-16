@@ -239,20 +239,35 @@ export default {
                   console.log(error);
               });
     })
+    this.$root.$on('reset', data => {
+    if(data == false){
+      this.formData._id = ""
+    }
+    this.formData.study_cycle = ""
+    this.formData.scholarity = ""
+    this.formData.domain = ""
+    this.formData.subdomain = ""
+    this.formData.subsubdomain = ""
+    this.formData.difficulty_level = ""
+    this.formData.author = ""
+    this.formData.display_mode = ""
+    this.formData.answering_time = ""
+    this.formData.type_ = ""
+    this.formData.precedence = ""
+    this.formData.repetitions = ""
+    this.formData.header = ""
+    })
   },
   
   beforeDestroy(){
     this.$root.$off('import')
+    this.$root.$off('reset')
   },
 
   methods: {
 
     checkID(item){
       return !this.idQuestoes.find(x => x === item)
-    },
-
-    reset () {
-      this.$refs.form.reset()
     },
 
     validate() {

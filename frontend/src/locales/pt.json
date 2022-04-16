@@ -233,7 +233,8 @@
         "re":"Repôr",
         "sub":"Submeter",
         "uInv":"Utilizador ou password inválidos, por favor tente de novo.",
-        "new":"Já existe um utilizador ou pedido de acesso com esse nome de utilizador, escolha outro."
+        "new":"Já existe um utilizador ou pedido de acesso com esse nome de utilizador, escolha outro.",
+        "newImp":"Já existem utilizadores com os seguintes usernames:"
     },
     "pedac": {
         "title": "Requerer pedidos de acesso",
