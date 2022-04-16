@@ -388,7 +388,6 @@ export default {
         )
         .then(response => {
             // JSON responses are automatically parsed.
-            console.log(response.data.users)
             this.users = response.data.users
             this.$refs.form.reset()
             this.atualizarInfo()

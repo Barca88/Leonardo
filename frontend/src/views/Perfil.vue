@@ -42,7 +42,7 @@
                                     <td class="text-left">{{$t('perfil.nome')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{nome}}
+                                            {{user.nome}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -50,7 +50,7 @@
                                     <td class="text-left">{{$t('perfil.email')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{email}}
+                                            {{user.email}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -58,7 +58,7 @@
                                     <td class="text-left">{{$t('perfil.tipo')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{tipo}}
+                                            {{user.tipo}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -66,7 +66,7 @@
                                     <td class="text-left">{{$t('perfil.uni')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{universidade}}
+                                            {{user.universidade}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -74,15 +74,7 @@
                                     <td class="text-left">{{$t('perfil.dep')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{departamento}}
-                                        </v-layout>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left">{{$t('perfil.data')}}</td>
-                                    <td>
-                                        <v-layout justify-center>
-                                            {{data}}
+                                            {{user.departamento}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -90,7 +82,7 @@
                                     <td class="text-left">{{$t('perfil.obs')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{obs}}
+                                            {{user.obs}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -180,14 +172,7 @@ export default {
     data(){
         return{
             ajuda:'perfil',
-            username: this.$store.state.user._id,
-            nome: this.$store.state.user.nome,
-            email: this.$store.state.user.email,
-            universidade: this.$store.state.user.universidade,
-            departamento: this.$store.state.user.departamento,
-            tipo: this.$store.state.user.tipo,
-            data: this.$store.state.user.data,
-            obs: this.$store.state.user.obs,
+            user: this.$store.state.user,
             userPic: '',
             //////////
             selectedFile: null,
@@ -218,7 +203,7 @@ export default {
     methods:{
         atualizarInfo: function(){
         this.dialog=false
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.user._id}?seed=${Date.now()}&action=perfil&nome=${this.user._id}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -228,6 +213,17 @@ export default {
             var image = new Buffer(response.data, 'binary').toString('base64')
             this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
 
+        }).catch(e => {
+            this.errors.push(e)
+        })
+
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?action=perfil&nome=${this.user._id}`, {
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+            this.user = response.data.users.find(element => element._id == this.user._id)
         }).catch(e => {
             this.errors.push(e)
         })
@@ -250,7 +246,7 @@ export default {
             
             let formData = new FormData()
             formData.append('curriculo',this.selectedFile)
-            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.username}?nome=${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/curriculo/atualizar/${this.user._id}?nome=${this.user._id}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -268,7 +264,7 @@ export default {
             this.selectedFile = e.target.files[0] 
             let formData = new FormData()
             formData.append('foto',this.selectedFile)
-            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.username}?nome=${this.username}`,formData,{
+            axios.post(`${process.env.VUE_APP_BACKEND}/users/foto/atualizar/${this.user._id}?nome=${this.user._id}`,formData,{
                 responseType:'arraybuffer',
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -286,7 +282,7 @@ export default {
                 })
         },
         onUpdate(){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/curriculo/${this.user._id}?seed=${Date.now()}&action=perfil&nome=${this.user._id}`, {
                 responseType:'arraybuffer',
                 headers: {
                     'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -303,7 +299,7 @@ export default {
         },
         editItem (item, value) {
         //this.editedIndex = this.users.indexOf(item)
-        this.editedItem = this.$store.state.user
+        this.editedItem = this.user
         this.value=value
         this.dialog = true
       },
@@ -319,7 +315,7 @@ export default {
     },
     created() {
         this.userPic=''
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.username}?seed=${Date.now()}&action=perfil&nome=${this.username}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/foto/${this.user._id}?seed=${Date.now()}&action=perfil&nome=${this.user._id}`, {
             responseType:'arraybuffer',
             headers: {
                 'Authorization': `Bearer: ${this.$store.state.jwt}`
@@ -328,6 +324,16 @@ export default {
         .then(response => {
             var image = new Buffer(response.data, 'binary').toString('base64')
             this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+        }).catch(e => {
+            this.errors.push(e)
+        })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?action=perfil&nome=${this.user._id}`, {
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+            this.user = response.data.users.find(element => element._id == this.user._id)
         }).catch(e => {
             this.errors.push(e)
         })

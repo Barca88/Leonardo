@@ -94,6 +94,7 @@ import axios from 'axios';
 export default ({
     data(){
         return{
+            valid:'',
             idQuestao: '',
             domain: '',
             header: '',
