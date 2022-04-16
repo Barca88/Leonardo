@@ -327,7 +327,7 @@ export default {
     }, 
   data() {
     return{
-      reset:'',
+      reset_:'',
       formatting: '',
       alignment: '',
       tab: null,
@@ -424,16 +424,19 @@ export default {
     },
 
     confirmSubmit(){
-      //console.log("dm : " + this.$refs.dm.validate())
-      //console.log("sm : " + this.$refs.sm.validate())
-      //console.log("cp : " + this.$refs.cp.validate())
+      console.log("dm : " + this.$refs.dm.validate())
+      console.log("sm : " + this.$refs.sm.validate())
+      console.log("cp : " + this.$refs.cp.validate())
       if(this.$refs.dm.validate() && this.$refs.sm.validate() && this.$refs.cp.validate()){
         this.openSubmit = true
       }
       else{
         this.openError = true   
       }
-    },
+    },reset(){
+        this.$refs.form.reset()
+        this.formData.body.splice(0)
+      },
 
     submit(){
       console.log(this.editing)
