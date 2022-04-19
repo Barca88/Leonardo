@@ -52,14 +52,21 @@
             <label> {{header.text}} </label>
         </template>
         <template v-slot:item.options="{ item }">
-            <v-icon
-                small
-                color="#246a73"
-                class="mr-2"
-                @click="editItem(item, 'ver')"
-            >
-                mdi-eye
-            </v-icon>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click="editItem(item, 'ver')"
+                    >
+                    mdi-eye
+                    </v-icon>
+                </template>
+                <span>Ver</span>
+            </v-tooltip>
+
             <v-icon
                 small
                 color="#368f8b"

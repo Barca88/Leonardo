@@ -337,7 +337,7 @@ export default {
       },
 
       closeEdit(){
-        this.subdominioEdit = Object.assign({}, this.defaultSub)
+        this.subdominio = Object.assign({}, this.defaultSub)
         this.dialogEdit = false
         this.editedIndex = -1
       },
