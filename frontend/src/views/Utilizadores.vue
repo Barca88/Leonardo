@@ -349,8 +349,6 @@ export default {
         this.editedItem = Object.assign({}, item)
         this.editedItem.tip = "all"
         this.value=value
-        //console.log("AAAAAAAAAAAAA")
-        //console.log(this.value)
         this.dialog = true
       },
       verObjectItem(item,value){

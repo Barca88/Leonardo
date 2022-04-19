@@ -98,6 +98,7 @@ export default ({
         return{
             url: null,
             userPic :'',
+            valid:'',
             idQuestao: '',
             domain: '',
             header: '',
