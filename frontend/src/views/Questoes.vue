@@ -219,7 +219,7 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Imagem</dt>
-                    <v-img v-bind:src="userPic"/>
+                    <v-img v-bind:src="userPic"   />
                   </dl>
                 </v-col>
                 <v-col cols="4">
@@ -365,6 +365,7 @@ export default {
     }, 
     data(){
         return{
+            cacheKey: 1,
             userPic: '',
             itemIndex: -1,
             dialogShow: false,
@@ -411,6 +412,8 @@ export default {
         }
     },
     created(){
+      Object.assign(this.$data, this.$options.data())
+      this.userPic=''
         axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{
           headers: {
             'Content-Type': 'multipart/form-data',

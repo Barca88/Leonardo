@@ -10,7 +10,9 @@
             <v-row>          
                 <v-col cols="8">  
                     <h3 style="color:#2A3F54;padding-bottom:15px;">Escolha os ficheiros de imagem (png/jpg):</h3>
-                    <v-file-input show-size :label="$t('p1.f')" v-model="formData.images"></v-file-input>
+                    <v-file-input show-size :label="$t('p1.f')" v-model="formData.images" @change="Preview_image" ></v-file-input>
+                    <v-img v-bind:src="userPic" height="100px"
+    width="150px" />
                 </v-col>
             </v-row>
             <v-row>
@@ -94,6 +96,8 @@ import axios from 'axios';
 export default ({
     data(){
         return{
+            url: null,
+            userPic :'',
             idQuestao: '',
             domain: '',
             header: '',
@@ -121,15 +125,42 @@ export default ({
             this.formData.notes = data.notes
             this.formData.source = data.source
             this.formData.status = data.status
-            this.formData.language = data.language   
+            this.formData.language = data.language 
+            
+            
+            console.log('created with args  - '+ data.sendId)
+            this.url= URL.createObjectURL(this.formData.images)
       }
     },
     
     mounted() {
       this.$root.$on('change', data => {
+          
             this.idQuestao = data.sendId
             this.domain = data.sendDomain
             this.header = data.sendHeader
+
+            if(data.sendId != null){
+                this.userPic=''
+                console.log('pre get')
+                axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + data.sendId,  {
+                    responseType:'arraybuffer',
+                    headers: {
+                        'Authorization': `Bearer: ${this.$store.state.jwt}`
+                    }
+                })
+                .then(response => {
+                console.log('get')
+                    var image = new Buffer(response.data, 'binary').toString('base64')
+                    this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+                }).catch(e => {
+                    console.log('Erro ' + e)
+                    this.errors.push(e)
+        })
+
+            
+            }
+            console.log('created with args  - '+ data.sendId)
       })
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
@@ -153,6 +184,10 @@ export default ({
       })
     },
     methods: {
+        
+        Preview_image() {
+            this.userPic= URL.createObjectURL(this.formData.images)
+        },
       validate() {
         return this.$refs.form.validate()
       }

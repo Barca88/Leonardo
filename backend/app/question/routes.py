@@ -170,7 +170,12 @@ def route_template_editar_guardar():
     header = request.form.get('header')
     body = json.loads(request.form.get('body'))
     explanation = request.form.get('explanation')
-    images = request.form.get('images')
+    foto = request.files.get('images')
+    if foto.filename != '':
+            print('getfoto success2')
+            
+            upload_path = join(dirname(realpath(__file__)), 'static/pics/')
+            foto.save(upload_path + _id)
     videos = request.form.get('videos')
     source = request.form.get('source')
     notes = request.form.get('notes')
@@ -184,7 +189,7 @@ def route_template_editar_guardar():
     mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "subsubdomain": subsubdomain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
     "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
-    ,  "images": images,  "videos": videos,  "source": source,  "notes": notes,  "status": status
+    ,   "videos": videos,  "source": source,  "notes": notes,  "status": status
     ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at })
 
     
