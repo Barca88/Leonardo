@@ -128,10 +128,6 @@ imported_questions = {"$jsonSchema":
                  "bsonType": "string",
                  "description": "describes the error"
                  },
-             "subsubdomain": {
-                 "bsonType": "string",
-                 "description": "describes the error"
-                 },
              "difficulty_level": {
                  "bsonType": "string",
                  "description": "describes the error"

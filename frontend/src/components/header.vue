@@ -99,8 +99,8 @@
         <v-list-item-group>
             <v-list-item disabled dark>
                 <v-list-item-content>
-                    <v-list-item-title>{{this.$store.state.user.nome}}</v-list-item-title>
-                    <v-list-item-subtitle>{{this.$store.state.user.tipo}}</v-list-item-subtitle>
+                    <v-list-item-title>{{this.$store.state.user.name}}</v-list-item-title>
+                    <v-list-item-subtitle>{{this.$store.state.user.type}}</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </v-list-item-group> 

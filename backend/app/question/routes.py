@@ -29,7 +29,7 @@ UPLOAD_FOLDER = './static/picss/'
 #@login_required
 def question():
     questions= [doc for doc in mongo.db.question.find()]
-    users = [doc for doc in mongo.db.users.find({"tipo" : "Teacher"})]
+    users = [doc for doc in mongo.db.users.find({"type" : "Teacher"})]
     domains = [doc for doc in mongo.db.domains.find()]
     print(users)
     print('Getquestions')
@@ -94,7 +94,6 @@ def route_template_insert():
         study_cycle = request.form.get('study_cycle')
         domain = request.form.get('domain')
         subdomain = request.form.get('subdomain')
-        subsubdomain = request.form.get('subsubdomain')
         difficulty_level = request.form.get('difficulty_level')
         author = request.form.get('author')
         display_mode = request.form.get('display_mode')
@@ -123,7 +122,7 @@ def route_template_insert():
         validated_at = request.form.get('validated_at')
 
 
-        mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "subsubdomain": subsubdomain, "difficulty_level":difficulty_level,
+        mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
         "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
         ,  #"images": images,
@@ -159,7 +158,6 @@ def route_template_editar_guardar():
     study_cycle = request.form.get('study_cycle')
     domain = request.form.get('domain')
     subdomain = request.form.get('subdomain')
-    subsubdomain = request.form.get('subsubdomain')
     difficulty_level = request.form.get('difficulty_level')
     author = request.form.get('author')
     display_mode = request.form.get('display_mode')
@@ -186,7 +184,7 @@ def route_template_editar_guardar():
     validated_at = request.form.get('validated_at')
     #userAdmin = request.args.get('nome')
 
-    mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "subsubdomain": subsubdomain, "difficulty_level":difficulty_level,
+    mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
     "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,   "videos": videos,  "source": source,  "notes": notes,  "status": status

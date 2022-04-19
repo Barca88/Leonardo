@@ -354,7 +354,6 @@ export default {
         scholarity: '',
         domain: '',
         subdomain: '',
-        subsubdomain: '',
         difficulty_level: '',
         author: '',
         display_mode: '', 
@@ -384,7 +383,6 @@ export default {
         scholarity: '',
         domain: '',
         subdomain: '',
-        subsubdomain: '',
         difficulty_level: '',
         author: '',
         display_mode: '', 
@@ -431,7 +429,7 @@ export default {
 
     handleDataCaracterizacao(e) {
       [this.questao._id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
-      this.questao.subsubdomain, this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
+      this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
       this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.edit._id] = e;
     },
 
@@ -463,7 +461,6 @@ export default {
         formData.append('scholarity' , this.questao.scholarity)
         formData.append('domain' , this.questao.domain)
         formData.append('subdomain' , this.questao.subdomain)
-        formData.append('subsubdomain' , this.questao.subsubdomain)
         formData.append('difficulty_level' , this.questao.difficulty_level)
         formData.append('author' , this.questao.author)
         formData.append('display_mode' , this.questao.display_mode)
@@ -506,7 +503,6 @@ export default {
         formData.append('scholarity' , this.questao.scholarity)
         formData.append('domain' , this.questao.domain)
         formData.append('subdomain' , this.questao.subdomain)
-        formData.append('subsubdomain' , this.questao.subsubdomain)
         formData.append('difficulty_level' , this.questao.difficulty_level)
         formData.append('author' , this.questao.author)
         formData.append('display_mode' , this.questao.display_mode)

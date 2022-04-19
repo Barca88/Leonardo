@@ -36,7 +36,6 @@ class Config(MongoModel):
     language = fields.CharField(required=False)
     domain = fields.DictField(required=True)
     subdomains = fields.ListField(fields.CharField(required=False))
-    subsubdomains = fields.ListField(fields.CharField(required=False))
     inserted_by = fields.CharField(required=True)
     last_updated = fields.CharField(required=True)
     date = fields.EmbeddedDocumentField(DateSchema)

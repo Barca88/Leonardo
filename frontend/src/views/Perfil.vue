@@ -1,7 +1,7 @@
 <template>
     <div id="perfil">
         <appHeader :ajuda='ajuda'></appHeader>
-        <div v-if="this.$store.state.user.tipo === 'Admin'" >
+        <div v-if="this.$store.state.user.type === 'Admin'" >
             <navDraw></navDraw>
         </div>
         <div v-else>
@@ -42,7 +42,7 @@
                                     <td class="text-left">{{$t('perfil.nome')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{user.nome}}
+                                            {{user.name}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -58,7 +58,7 @@
                                     <td class="text-left">{{$t('perfil.tipo')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{user.tipo}}
+                                            {{user.type}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -66,7 +66,7 @@
                                     <td class="text-left">{{$t('perfil.uni')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{user.universidade}}
+                                            {{user.university}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -74,7 +74,7 @@
                                     <td class="text-left">{{$t('perfil.dep')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{user.departamento}}
+                                            {{user.department}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -82,7 +82,7 @@
                                     <td class="text-left">{{$t('perfil.obs')}}</td>
                                     <td>
                                         <v-layout justify-center>
-                                            {{user.obs}}
+                                            {{user.comments}}
                                         </v-layout>
                                     </td>
                                 </tr>
@@ -188,7 +188,7 @@ export default {
                 _id: '',
                 nome: '',
                 email: '',
-                tipo: ''
+                type: ''
             },
             page:1
         }

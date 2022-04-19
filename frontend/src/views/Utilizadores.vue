@@ -39,13 +39,13 @@
         <template v-slot:header._id="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.nome="{ header }">
+        <template v-slot:header.name="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.email="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.tipo="{ header }">
+        <template v-slot:header.type="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.options="{ header }">
@@ -273,7 +273,7 @@ export default {
                 },
                 {
                     text:`${this.$t('users.nome')}`,
-                    value: 'nome'
+                    value: 'name'
                 },
                 {
                     text:`${this.$t('users.email')}`,
@@ -281,7 +281,7 @@ export default {
                 },
                 {
                     text:`${this.$t('users.tipo')}`,
-                    value: 'tipo'
+                    value: 'type'
                 },
                 {
                     text:`${this.$t('users.opt')}`,
@@ -298,7 +298,7 @@ export default {
             editedIndex: -1,
             editedItem: {
                 _id: '',
-                nome: '',
+                name: '',
                 email: '',
                 tip: ''
             },

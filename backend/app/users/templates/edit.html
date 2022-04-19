@@ -36,7 +36,7 @@
                             <input type="text" value="{{user._id}}" id="username" class="form-control" name="username" readonly="readonly"/>
                             
                             <label for="name">Nome:</label>
-                            <input type="text" value="{{user.nome}}" id="name" class="form-control" name="name" required />
+                            <input type="text" value="{{user.name}}" id="name" class="form-control" name="name" required />
 
                             <label for="password">Password:</label> 
                             <input type="password" placeholder="Caso pretenda, introduza nova password..." id="password" class="form-control" name="password" />
@@ -47,7 +47,7 @@
 
                             <label>Tipo:</label>
                             <p>
-                                {% if user.tipo == "admin" %}
+                                {% if user.type == "admin" %}
                                     Admin:
                                     <input type="radio" class="flat" name="tipo" id="admin" value="admin" checked required /> 
                                     Leitor:
@@ -71,7 +71,7 @@
                             <input type="file" id="foto" class="form-control" name="foto"/> 
 
                             <label for="obs">Observações:</label>
-                            <input type="text" value="{{user.obs}}" id="obs" class="form-control" name="obs"/> 
+                            <input type="text" value="{{user.comments}}" id="obs" class="form-control" name="obs"/> 
 
                             <p></p>
                             <button type="reset" class="btn btn-primary">Reset</button>

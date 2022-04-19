@@ -1,7 +1,7 @@
 <template>
     <div id="docs">
         <appHeader :ajuda='ajuda'></appHeader>
-        <div v-if="this.$store.state.user.tipo === 'Admin'" >
+        <div v-if="this.$store.state.user.type === 'Admin'" >
             <navDraw></navDraw>
         </div>
         <div v-else>
@@ -44,13 +44,13 @@
         <template v-slot:header._id="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.autores="{ header }">
+        <template v-slot:header.authors="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.data="{ header }">
+        <template v-slot:header.date="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.tipo="{ header }">
+        <template v-slot:header.type="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.options="{ header }">
@@ -174,15 +174,15 @@ export default {
                 },
                 {
                     text:`${this.$t('docs.aut')}`,
-                    value: 'autores'
+                    value: 'authors'
                 },
                 {
                     text:`${this.$t('docs.data')}`,
-                    value: 'data'
+                    value: 'date'
                 },
                 {
                     text:`${this.$t('docs.tipo')}`,
-                    value: 'tipo'
+                    value: 'type'
                 },
                 {
                     text:`${this.$t('users.opt')}`,
@@ -199,9 +199,9 @@ export default {
             editedIndex: -1,
             editedItem: {
                 _id: '',
-                nome: '',
+                name: '',
                 email: '',
-                tipo: ''
+                type: ''
             },
             userPic:'',
             picDialog:false,

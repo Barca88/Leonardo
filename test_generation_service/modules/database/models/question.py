@@ -12,7 +12,6 @@ class Question(MongoModel):
     language = fields.CharField(blank=True)
     domain = fields.DictField(blank=True)
     subdomain = fields.CharField(blank=True)
-    subsubdomain = fields.CharField(blank=True)
     difficulty_level = fields.CharField(blank=True)
     display_mode = fields.CharField(blank=True)
     answering_time = fields.CharField(blank=True)

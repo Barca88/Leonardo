@@ -129,7 +129,7 @@ def admin_required(f):
             token = auth_headers[1]
             # data = jwt.decode(token, current_app.config['SECRET_KEY'])
             data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithms="HS256")
-            user = mongo.db.users.find_one({"_id": data['sub'], "tipo": "Admin"})
+            user = mongo.db.users.find_one({"_id": data['sub'], "type": "Admin"})
             now = datetime.datetime.now()
             date = now.strftime("%Y-%m-%d %H:%M:%S.%f")
             did = ObjectId()
@@ -157,7 +157,7 @@ def photo_auth(request, picName):
     data = jwt.decode(token, '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithms="HS256")
     user = mongo.db.users.find_one({"_id": data['sub']})
     if user:
-        if user['tipo'] == 'Admin':
+        if user['type'] == 'Admin':
             return True
         elif user['_id'] == picName:
             return True

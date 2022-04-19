@@ -31,7 +31,7 @@
                                 <td class="text-left"><b>{{$t('users.nome')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
-                                        {{pedido.nome}}
+                                        {{pedido.name}}
                                     </v-layout>
                                 </td>
                             </tr>
@@ -47,7 +47,7 @@
                                 <td class="text-left"><b>{{$t('p1.tipo')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
-                                        {{pedido.tipo}}
+                                        {{pedido.type}}
                                     </v-layout>
                                 </td>
                             </tr>
@@ -55,7 +55,7 @@
                                 <td class="text-left"><b>{{$t('reg.uni')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
-                                        {{pedido.universidade}}
+                                        {{pedido.university}}
                                     </v-layout>
                                 </td>
                             </tr>
@@ -63,7 +63,7 @@
                                 <td class="text-left"><b>{{$t('reg.dep')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
-                                        {{pedido.departamento}}
+                                        {{pedido.department}}
                                     </v-layout>
                                 </td>
                             </tr>
@@ -71,7 +71,7 @@
                                 <td class="text-left"><b>{{$t('reg.obs')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
-                                        {{pedido.observacoes}}
+                                        {{pedido.comment}}
                                     </v-layout>
                                 </td>
                             </tr>
@@ -157,15 +157,15 @@ export default {
     return{
       pedido:{
         username:"",
-        nome:"",
+        name:"",
         pw:"",
         email:"",
-        tipo:"",
-        universidade:"",
-        departamento:"",
+        type:"",
+        university:"",
+        department:"",
         foto:{},
         curriculo:{},
-        observacoes:""
+        comment:""
       },
       dialogHelp:false,
       valid:true,
@@ -206,13 +206,13 @@ export default {
             //console.log('VALUE: ' + this.value)
             //console.log(this.passedData.email)
             this.pedido.username = this.passedData._id
-            this.pedido.nome = this.passedData.nome
+            this.pedido.name = this.passedData.name
             this.pedido.email = this.passedData.email
             this.pedido.pw = this.passedData.password
-            this.pedido.tipo = this.passedData.tipo
-            this.pedido.universidade = this.passedData.universidade
-            this.pedido.departamento = this.passedData.departamento
-            this.pedido.observacoes = this.passedData.obs
+            this.pedido.type = this.passedData.type
+            this.pedido.university = this.passedData.university
+            this.pedido.department = this.passedData.department
+            this.pedido.comment = this.passedData.comment
         },
         atualizarInfo(){
             //console.log('ola')

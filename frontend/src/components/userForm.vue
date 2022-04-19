@@ -23,7 +23,7 @@
                         <td class="text-left"><b>{{$t('users.nome')}}</b></td>
                         <td>
                             <v-layout>
-                                {{user.nome}}
+                                {{user.name}}
                             </v-layout>
                         </td>
                     </tr>
@@ -39,7 +39,7 @@
                         <td class="text-left"><b>{{$t('p1.tipo')}}</b></td>
                         <td>
                             <v-layout>
-                                {{user.tipo}}
+                                {{user.type}}
                             </v-layout>
                         </td>
                     </tr>
@@ -47,7 +47,7 @@
                         <td class="text-left"><b>{{$t('reg.uni')}}</b></td>
                         <td>
                             <v-layout>
-                                {{user.universidade}}
+                                {{user.university}}
                             </v-layout>
                         </td>
                     </tr>
@@ -55,7 +55,7 @@
                         <td class="text-left"><b>{{$t('reg.dep')}}</b></td>
                         <td >
                             <v-layout>
-                                {{user.departamento}}
+                                {{user.department}}
                             </v-layout>
                         </td>
                     </tr>
@@ -63,7 +63,7 @@
                         <td class="text-left"><b>{{$t('reg.obs')}}</b></td>
                         <td>
                             <v-layout>
-                                {{user.observacoes}}
+                                {{user.comments}}
                             </v-layout>
                         </td>
                     </tr>
@@ -121,7 +121,7 @@
                       <v-text-field
                           v-if= "value != 'ver'"
                           :label="$t('users.nome')"
-                          v-model="user.nome"
+                          v-model="user.name"
                           :rules="[rules.required]"  
                       ></v-text-field>
                   </v-col>
@@ -143,7 +143,7 @@
                         :rules="[rules.required]"      
                     ></v-text-field>
                   <v-container fluid>
-                  <v-radio-group v-if= "value != 'ver'" v-model="user.tipo" row>
+                  <v-radio-group v-if= "value != 'ver'" v-model="user.type" row>
                       <v-radio value="Admin"></v-radio>
                       <v-radio value="Teacher"></v-radio>
                       <v-radio :label="$t('reg.admin') + ', ' +  $t('reg.teacher') + ' ' + $t('reg.or') + ' ' + $t('reg.student')" value="Student"></v-radio>
@@ -153,13 +153,13 @@
                       v-if= "value != 'ver'"
                       :label="$t('reg.uni')"
                       :rules="[rules.required]"
-                      v-model="user.universidade"
+                      v-model="user.university"
                   ></v-text-field>
                   <v-text-field
                       v-if= "value != 'ver'"
                       :label="$t('reg.dep')"
                       :rules="[rules.required]"
-                      v-model="user.departamento"
+                      v-model="user.department"
                   ></v-text-field>
                   <v-row align="center" v-if= "value === 'adicionar'">
                       <label>{{$t('p1.foto')}}:</label>
@@ -172,7 +172,7 @@
                   <v-text-field
                       v-if= "value != 'ver'"
                       :label="$t('reg.obs')"
-                      v-model="user.observacoes"
+                      v-model="user.comments"
                   ></v-text-field>
                   <br>
                   <v-row>
@@ -294,12 +294,12 @@ export default {
     return{
       user:{
         username:"",
-        nome:"",
+        name:"",
         pw:"",
         email:"",
-        tipo:"",
-        universidade:"",
-        departamento:"",
+        type:"",
+        university:"",
+        department:"",
         foto:{},
         curriculo:{},
         observacoes:""
@@ -346,37 +346,37 @@ export default {
       //console.log('VALUE: ' + this.value)
       if(this.value != 'adicionar'){
         this.user.username = this.passedData._id
-        this.user.nome = this.passedData.nome
+        this.user.name = this.passedData.name
         this.user.email = this.passedData.email
         this.user.pw = this.passedData.password
-        this.user.tipo = this.passedData.tipo
-        this.user.universidade = this.passedData.universidade
-        this.user.departamento = this.passedData.departamento
-        this.user.observacoes = this.passedData.obs
+        this.user.type = this.passedData.type
+        this.user.university = this.passedData.university
+        this.user.department = this.passedData.department
+        this.user.comments = this.passedData.comments
       }
       else{
         this.user.username = ''
-        this.user.nome = ''
+        this.user.name = ''
         this.user.email = ''
         this.user.pw = ''
-        this.user.tipo = ''
-        this.user.universidade = ''
-        this.user.departamento = ''
-        this.user.observacoes = ''
+        this.user.type = ''
+        this.user.university = ''
+        this.user.department = ''
+        this.user.comments = ''
       }
     },
     post: function() {
       let formData = new FormData()
         formData.append('username',this.user.username)
-        formData.append('name',this.user.nome)
+        formData.append('name',this.user.name)
         formData.append('password',this.user.pw)
         formData.append('email',this.user.email)
-        formData.append('tipo',this.user.tipo)
-        formData.append('universidade',this.user.universidade)
-        formData.append('departamento',this.user.departamento)
+        formData.append('tipo',this.user.type)
+        formData.append('universidade',this.user.university)
+        formData.append('departamento',this.user.department)
         formData.append('foto',this.user.foto)
         formData.append('curriculo',this.user.curriculo)
-        formData.append('obs',this.user.observacoes)
+        formData.append('obs',this.user.comments)
 
       if(this.value == 'editar'){
         axios.post(`${process.env.VUE_APP_BACKEND}/users/editar/guardar?nome=${this.$store.state.user._id}&type=${this.passedData.tip}`,formData,{
@@ -420,15 +420,15 @@ export default {
       if(this.value == 'adicionar'){
         this.user.username=''
       }
-      this.user.nome=''
+      this.user.name=''
       this.user.pw=''
       this.user.email=''
-      this.user.tipo = false
-      this.user.universidade=''
-      this.user.departamento=''
+      this.user.type = false
+      this.user.university=''
+      this.user.department=''
       this.user.foto={}
       this.user.curriculo={}
-      this.user.observacoes=''
+      this.user.comments=''
     },
     atualizarInfo(){
       this.$emit('atualizarInfo')
@@ -463,7 +463,7 @@ export default {
 
   computed:{
     disableButton (){
-      if (this.valid && this.user.username.length > 0 && this.user.nome.length > 0 && this.user.pw.length > 0 && this.user.email.length > 0  && this.user.tipo)
+      if (this.valid && this.user.username.length > 0 && this.user.name.length > 0 && this.user.pw.length > 0 && this.user.email.length > 0  && this.user.type)
         return false
       else
         return true

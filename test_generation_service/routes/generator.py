@@ -32,9 +32,6 @@ def get_query_filter(filter_data):
         questions_filter['domain.description'] = filter_data['domain']['description']
     if 'subdomains' in filter_data.keys():
         questions_filter['subdomain'] = {'$in': filter_data['subdomains']}
-    if 'subsubdomains' in filter_data.keys():
-        questions_filter['subsubdomain'] = {
-            '$in': filter_data['subsubdomains']}
 
     return questions_filter
 

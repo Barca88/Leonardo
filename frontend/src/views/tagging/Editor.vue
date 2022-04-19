@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <div v-if="this.$store.state.user.tipo === 'Admin'">
+    <div v-if="this.$store.state.user.type === 'Admin'">
       <NavDraw></NavDraw>
     </div>
     <div v-else>

@@ -36,10 +36,6 @@
         <v-col cols="12" md="4">
           <v-select v-model="formData.subdomain" :rules="[...rules.required,...rules.length100]" :items="this.idSubDomain" label="Subdomínio"/>
         </v-col>
-
-        <v-col cols="12" md="4">
-          <v-text-field v-model="formData.subsubdomain" :rules="[...rules.required,...rules.length100]" :counter="100" label="Subsubdomínio"/>
-        </v-col>
       </v-row>
 
       <v-row class="mt-5">
@@ -146,7 +142,6 @@ export default {
           scholarity: '',
           domain: '',
           subdomain: '',
-          subsubdomain: '',
           header: '',
           difficulty_level: '',
           author: '',
@@ -203,7 +198,6 @@ export default {
           this.formData.scholarity = data.scholarity
           this.formData.domain = data.domain
           this.formData.subdomain = data.subdomain
-          this.formData.subsubdomain = data.subsubdomain
           this.formData.header = data.header
           this.formData.difficulty_level = data.difficulty_level
           this.formData.author = data.author
@@ -225,7 +219,6 @@ export default {
                 this.formData.scholarity = response.data.question.scholarity
                 this.formData.domain = response.data.question.domain
                 this.formData.subdomain = response.data.question.subdomain
-                this.formData.subsubdomain = response.data.question.subsubdomain
                 this.formData.difficulty_level = response.data.question.difficulty_level
                 this.formData.author = response.data.question.author
                 this.formData.display_mode = response.data.question.display_mode,
@@ -247,7 +240,6 @@ export default {
     this.formData.scholarity = ""
     this.formData.domain = ""
     this.formData.subdomain = ""
-    this.formData.subsubdomain = ""
     this.formData.difficulty_level = ""
     this.formData.author = ""
     this.formData.display_mode = ""
@@ -301,7 +293,7 @@ export default {
       formData: {
           handler: function() {
             this.$emit('newdataCaracterizacao', [this.formData._id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
-            this.formData.subdomain,this.formData.subsubdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
+            this.formData.subdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
             this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData._id]);
         },
           deep: true

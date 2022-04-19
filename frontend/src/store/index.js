@@ -53,13 +53,13 @@ export default new Vuex.Store({
         return now < exp
       },
       isAdmin(state){
-        if(state.user.tipo != 'Admin' ){
+        if(state.user.type != 'Admin' ){
           return false
         }
         return true
       },
       isStudent(state){
-        if(state.user.tipo != 'Student' ){
+        if(state.user.type != 'Student' ){
           return false
         }
         return true

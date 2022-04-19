@@ -19,7 +19,7 @@ CORS(blueprint)
 @blueprint.route('/docs', methods=['GET'])
 @token_required
 def route_docs():
-    docs = [doc for doc in mongo.db.documentacao.find()]
+    docs = [doc for doc in mongo.db.documentation.find()]
     user = request.args.get('nome')
     write_log(user, 'Documentação', '', 'successfull')
     return json_util.dumps({'docs': docs})
@@ -29,7 +29,7 @@ def route_docs():
 @admin_required
 def route_adicionar():
     titulo = request.form.get('titulo')
-    existe = mongo.db.documentacao.find_one({"_id":titulo})
+    existe = mongo.db.documentation.find_one({"_id":titulo})
     user = request.args.get('nome')
     if existe:
         write_log(user, 'Documentação', 'Adicionar Documento', 'failed')
@@ -49,7 +49,7 @@ def route_adicionar():
                 src = join(dirname(realpath(__file__)), 'static/ficheiro/', titulo + ".pdf") 
                 upload_path2 = join(dirname(realpath(__file__)), 'static/ficheiro/', titulo + ".pdf")
                 copyfile(src, upload_path2)
-        mongo.db.documentacao.insert({"_id":titulo,"desc":desc,"autores":autores,"data":data,"tipo":tipo})
+        mongo.db.documentation.insert({"_id":titulo,"desc":desc,"authors":autores,"date":data,"type":tipo})
         write_log(user, 'Documentação', 'Adicionar Documento', 'successfull')
         return json_util.dumps({'nome': user})
 
@@ -58,11 +58,11 @@ def route_adicionar():
 @admin_required
 def route_apagar(doc):
     user = request.args.get('nome')  
-    mongo.db.documentacao.remove({"_id":doc})
+    mongo.db.documentation.remove({"_id":doc})
     upload_path = join(dirname(realpath(__file__)), 'static/ficheiro/', doc)
     if path.exists(upload_path): 
         remove(upload_path)
-    docs = mongo.db.documentacao.find()
+    docs = mongo.db.documentation.find()
     write_log(user, 'Documentação', 'Eliminar Documento', 'successfull')
     return json_util.dumps({'docs': docs})
 

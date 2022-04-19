@@ -1,7 +1,7 @@
 <template>
     <div id="historial">
         <appHeader></appHeader>
-        <div v-if="this.$store.state.user.tipo === 'Admin'" >
+        <div v-if="this.$store.state.user.type === 'Admin'" >
             <navDraw></navDraw>
         </div>
         <v-data-table

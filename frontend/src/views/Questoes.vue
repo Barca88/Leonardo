@@ -116,12 +116,6 @@
                     <dd class="ml-5">{{this.questao.subdomain}}</dd>
                   </dl>
                 </v-col>
-                 <v-col cols="4">
-                   <dl>
-                    <dt class="title">Subsubdomínio</dt>
-                    <dd class="ml-5">{{this.questao.subsubdomain}}</dd>
-                   </dl>
-                </v-col>
               </v-row>
               <v-row>
                 <v-col cols="4">
@@ -385,7 +379,6 @@ export default {
               scholarity: '',
               domain: '',
               subdomain: '',
-              subsubdomain: '',
               difficulty_level: '',
               author: '',
               display_mode: '',

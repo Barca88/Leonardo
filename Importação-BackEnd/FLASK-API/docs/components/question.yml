@@ -13,8 +13,6 @@ properties:
     type: string
   subdomain:
     type: string
-  subsubdomain:
-    type: string
   difficulty_level:
     type: string
   author:

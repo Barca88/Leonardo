@@ -7,7 +7,6 @@ var questionSchema = new mongoose.Schema({
     scholarity: {type:String,required:false},
     domain:{type: String,required: false},
     subdomain:{type: String,required: false},
-    subsubdomain:{type: String,required: false},
     difficulty_level:{type: String,required: false},
     author:{type: String,required: false},
     display_mode:{type: String,required: false},

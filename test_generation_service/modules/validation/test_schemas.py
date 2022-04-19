@@ -27,7 +27,6 @@ TestConfig = Schema.from_dict(
         "language": fields.Str(allow_none=True),
         "domain": fields.Nested(DomainSchema, required=True),
         "subdomains": fields.List(fields.Str(allow_none=True)),
-        "subsubdomains": fields.List(fields.Str(allow_none=True)),
         "inserted_by": fields.Str(required=True),
         "last_updated": fields.Date(required=False),
         "date": fields.Nested(DateSchema, required=True),

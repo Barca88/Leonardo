@@ -19,7 +19,7 @@
                     <v-text-field
                         :label="$t('docs.aut')"
                         :rules="[rules.required]"
-                        v-model="doc.autores"
+                        v-model="doc.authors"
                     ></v-text-field>
                     <h5 style="color:red">*</h5>
                   </v-row>
@@ -32,7 +32,7 @@
                     <h5 style="color:red">*</h5>
                   </v-row>
                   <v-container fluid>
-                  <v-radio-group v-model="doc.tipo" column>
+                  <v-radio-group v-model="doc.type" column>
                       <v-radio :label="$t('docForm.art')" value="Artigo"></v-radio>
                       <v-radio :label="$t('docForm.man')" value="Manual"></v-radio>
                       <v-radio :label="$t('docForm.rel')" value="Relatório Técnico"></v-radio>
@@ -43,7 +43,7 @@
                     <v-text-field
                         :label="$t('docs.data')"
                         :rules="[rules.required]"
-                        v-model="doc.data"
+                        v-model="doc.date"
                     ></v-text-field>
                     <h5 style="color:red">*</h5>
                   </v-row>
@@ -176,9 +176,9 @@ export default {
       doc:{
         titulo:"",
         desc:"",
-        autores:"",
-        data:"",
-        tipo:"",
+        authors:"",
+        date:"",
+        type:"",
         ficheiro:{},
       },
       dialog:false,
@@ -210,17 +210,17 @@ export default {
     onUpdate(){
         this.doc.titulo = ''
         this.doc.desc = ''
-        this.doc.autores = ''
-        this.doc.data = ''
-        this.doc.tipo = ''
+        this.doc.authors = ''
+        this.doc.date = ''
+        this.doc.type = ''
     },
     post: function() {
       let formData = new FormData()
         formData.append('titulo',this.doc.titulo)
         formData.append('desc',this.doc.desc)
-        formData.append('autores',this.doc.autores)
-        formData.append('data',this.doc.data)
-        formData.append('tipo',this.doc.tipo)
+        formData.append('autores',this.doc.authors)
+        formData.append('data',this.doc.date)
+        formData.append('tipo',this.doc.type)
         formData.append('ficheiro',this.doc.ficheiro)
 
         axios.post(`${process.env.VUE_APP_BACKEND}/documentacao/adicionar?nome=${this.$store.state.user._id}`,formData,{
@@ -246,9 +246,9 @@ export default {
       this.$refs.form.reset()
       this.doc.titulo=''
       this.doc.desc=''
-      this.doc.autores=''
-      this.doc.data=''
-      this.doc.tipo = ''
+      this.doc.authors=''
+      this.doc.date=''
+      this.doc.type = ''
       this.doc.ficheiro={}
     },
     atualizarInfo(){
@@ -264,7 +264,7 @@ export default {
   },
   computed:{
     disableButton (){
-      if (this.valid && this.doc.titulo.length > 0 && this.doc.autores.length > 0 && this.doc.desc.length > 0 && this.doc.data.length > 0 && this.doc.ficheiro && this.doc.tipo)
+      if (this.valid && this.doc.titulo.length > 0 && this.doc.authors.length > 0 && this.doc.desc.length > 0 && this.doc.date.length > 0 && this.doc.ficheiro && this.doc.type)
         return false
       else
         return true

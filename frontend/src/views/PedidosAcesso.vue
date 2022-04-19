@@ -37,13 +37,13 @@
         <template v-slot:header._id="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.nome="{ header }">
+        <template v-slot:header.name="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.email="{ header }">
             <label> {{header.text}} </label>
         </template>
-        <template v-slot:header.tipo="{ header }">
+        <template v-slot:header.type="{ header }">
             <label> {{header.text}} </label>
         </template>
         <template v-slot:header.options="{ header }">
@@ -262,7 +262,7 @@ export default {
                 },
                 {
                     text:`${this.$t('pedac.nome')}`,
-                    value: 'nome'
+                    value: 'name'
                 },
                 {
                     text:`${this.$t('pedac.email')}`,
@@ -270,7 +270,7 @@ export default {
                 },
                 {
                     text:`${this.$t('pedac.tipo')}`,
-                    value: 'tipo'
+                    value: 'type'
                 },
                 {
                     text:`${this.$t('pedac.opt')}`,
@@ -287,9 +287,9 @@ export default {
             editedIndex: -1,
             editedItem: {
                 _id: '',
-                nome: '',
+                name: '',
                 email: '',
-                tipo: ''
+                type: ''
             },
             userPic:'',
             picDialog:false,

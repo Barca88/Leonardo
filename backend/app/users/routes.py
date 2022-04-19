@@ -37,9 +37,9 @@ def route_users():
             if(user is not None):
                 write_log(user, 'Utilizadores/Gestão', '', 'successfull')
         else:
-            users = mongo.db.users.find({"tipo":type})
+            users = mongo.db.users.find({"type":type})
             if(type == "responsible"):
-                users = mongo.db.users.find({"tipo":"Teacher"})
+                users = mongo.db.users.find({"type":"Teacher"})
                 domains = mongo.db.domains.find()
                 if(user is not None):
                     write_log(user, 'InformaçãoBase/Responsáveis', '', 'successfull')
@@ -64,11 +64,11 @@ def route_template_adicionar():
 def route_template_registar():
     username = request.form.get('username')
     existeU = mongo.db.users.find_one({"_id":username})
-    existeP = mongo.db.pedidos.find_one({"_id":username})
+    existeP = mongo.db.requests.find_one({"_id":username})
     user = request.args.get('nome')
     type = request.args.get('type')
     if existeP:
-        mongo.db.pedidos.remove({"_id":username})
+        mongo.db.requests.remove({"_id":username})
         upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', username)
         upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username)
         if path.exists(upload_path): 
@@ -118,7 +118,7 @@ def route_template_registar():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', username + ".pdf")
                 copyfile(src, upload_path2)
         obs = request.form.get('obs')
-        mongo.db.users.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
+        mongo.db.users.insert({"_id":username,"name":name,"email":email,"password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
         mongo.db.users.find()
         if user:
             if(type == "all"): 
@@ -312,7 +312,7 @@ def route_import_registos():
                     else:
                         encryptPass = generate_password_hash("password")
                         print(row)
-                        value = mongo.db.pedidos.insert({"_id":row[2],"nome":row[0],"email":row[6],"password":encryptPass,"tipo":"Student","universidade":row[5],"departamento":"","data":row[8],"obs":""})
+                        value = mongo.db.requests.insert({"_id":row[2],"name":row[0],"email":row[6],"password":encryptPass,"type":"Student","university":row[5],"department":"","date":row[8],"comments":""})
                         line_count += 1
         
             # the result is a Python dictionary:
@@ -329,7 +329,7 @@ def route_import_registos():
             list.append(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]}))
             success = False
         else:
-            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género"] })
             #mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
         
     if(success):
@@ -414,9 +414,9 @@ def route_template_editar_guardar():
                 curriculo.save(upload_path + curriculo.filename)
     password = request.form.get('password')
     if password:
-        mongo.db.users.update({"_id":username},{"nome":nome,"email":email,"password":password,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs})
+        mongo.db.users.update({"_id":username},{"name":nome,"email":email,"password":password,"type":tipo,"university":universidade,"department":departamento,"comments":obs})
     else:
-        mongo.db.users.update({"_id":username},{"$set":{"nome":nome,"email":email,"tipo":tipo,"universidade":universidade,"departamento":departamento,"obs":obs}})    
+        mongo.db.users.update({"_id":username},{"$set":{"name":nome,"email":email,"type":tipo,"university":universidade,"department":departamento,"comments":obs}})    
     users = mongo.db.users.find()
     userAdmin = request.args.get('nome')
     type = request.args.get('type')
@@ -437,7 +437,7 @@ def route_template_editar_guardar():
 @token_required
 #@login_required
 def route_pedidos():
-    pedidos= [doc for doc in mongo.db.pedidos.find()]
+    pedidos= [doc for doc in mongo.db.requests.find()]
     user = request.args.get('nome')
     write_log(user, 'Utilizadores/Pedidos de Acesso', '', 'successfull')
     return json_util.dumps({'pedidos': pedidos, 'nome': user})
@@ -449,7 +449,7 @@ def route_template_registar_pedido():
     print("/pedidos/registar")
     username = request.form.get('username')
     existeU = mongo.db.users.find_one({"_id":username})
-    existeP = mongo.db.pedidos.find_one({"_id":username})
+    existeP = mongo.db.requests.find_one({"_id":username})
     user = request.args.get('nome')
     type = request.args.get('type')
     if existeU or existeP:
@@ -485,8 +485,8 @@ def route_template_registar_pedido():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username + ".pdf")
                 copyfile(src, upload_path)
         obs = request.form.get('obs')
-        mongo.db.pedidos.insert({"_id":username,"nome":name,"email":email,"password":encryptPass,"tipo":tipo,"universidade":universidade,"departamento":departamento,"data":data,"obs":obs})
-        mongo.db.pedidos.find()
+        mongo.db.requests.insert({"_id":username,"name":name,"email":email,"password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
+        mongo.db.requests.find()
         return json_util.dumps({'nome': user})
 
 
@@ -495,7 +495,7 @@ def route_template_registar_pedido():
 #@login_required
 def route_template_ver_pedido(pedido):
     nome = request.args.get('nome')
-    existe = mongo.db.pedidos.find_one({"_id":pedido})
+    existe = mongo.db.requests.find_one({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
     print("path: " + upload_path)
@@ -545,14 +545,14 @@ def route_cur_pedido(pedido):
 @admin_required
 #@login_required
 def route_template_apagar_pedido(pedido):
-    mongo.db.pedidos.remove({"_id":pedido})
+    mongo.db.requests.remove({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
     if path.exists(upload_path): 
         remove(upload_path)
     if path.exists(upload_path2): 
         remove(upload_path2)
-    pedidos = mongo.db.pedidos.find()
+    pedidos = mongo.db.requests.find()
     user = request.args.get('nome')
     write_log(user, 'Utilizadores/Pedidos de Acesso', 'Eliminar Pedido', 'successfull')
     return json_util.dumps({'pedidos': pedidos})
@@ -561,9 +561,9 @@ def route_template_apagar_pedido(pedido):
 @admin_required
 #@login_required
 def route_template_mover_pedido(pedido):
-    value1 = mongo.db.pedidos.find_one({"_id": pedido})
+    value1 = mongo.db.requests.find_one({"_id": pedido})
     mongo.db.users.insert(value1)
-    mongo.db.pedidos.remove({"_id":pedido})
+    mongo.db.requests.remove({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
     upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
     if path.exists(upload_path):
@@ -572,7 +572,7 @@ def route_template_mover_pedido(pedido):
     if path.exists(upload_path2):
         new_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', pedido)
         rename(upload_path2, new_path2)
-    pedidos = mongo.db.pedidos.find()
+    pedidos = mongo.db.requests.find()
     user = request.args.get('nome')
     write_log(user, 'Utilizadores/Pedidos de Acesso', 'Confirmar submissão de utilizador', 'successfull')
     return json_util.dumps({'pedidos': pedidos})
@@ -611,5 +611,6 @@ def route_history():
 @token_required
 def route_historyCleanse():
     mongo.db.history.drop()
+    mongo.db.pageLogs.drop()
     reqs= [doc for doc in mongo.db.history.find()]
     return json_util.dumps({'history': reqs})
