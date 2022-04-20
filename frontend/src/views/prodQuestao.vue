@@ -12,8 +12,8 @@
                       <v-img src="@/assets/raccoon.png" max-width="80" class="mt-5 ml-5"></v-img>
                     </v-col>
                     <v-col>
-                      <v-card-title class="yellow--text text--darken-2 text-h4 mr-5">Produção</v-card-title>
-                      <v-card-subtitle class="white--text text-h5">Preparação de Questões</v-card-subtitle>
+                      <v-card-title class="yellow--text text--darken-2 text-h4 mr-5">{{ $t('title.prod') }}</v-card-title>
+                      <v-card-subtitle class="white--text text-h5">{{ $t('title.prepQuestion') }}</v-card-subtitle>
                     </v-col>
                   </v-row>
                 </v-card>
@@ -46,7 +46,7 @@
                           <v-icon color="white">mdi-checkbox-marked-outline</v-icon>
                         </v-btn>                     
                       </template>
-                      <span>Submit</span>
+                      <span>{{ $t('opc.confirm') }}</span>
                     </v-tooltip>
 
                     <v-tooltip bottom>
@@ -55,7 +55,7 @@
                           <v-icon color="black">mdi-import</v-icon>
                         </v-btn>                    
                       </template>
-                      <span>Import</span>
+                      <span>{{ $t('opc.import') }}</span>
                     </v-tooltip>
 
                     <v-tooltip bottom>
@@ -64,7 +64,7 @@
                           <v-icon color="white">mdi-broom</v-icon>
                         </v-btn>                    
                       </template>
-                      <span>Reset</span>
+                      <span>{{ $t('opc.limpar') }}</span>
                     </v-tooltip>
                   </v-btn-toggle>
 
@@ -76,7 +76,7 @@
                           <v-icon color="white">mdi-help</v-icon>
                         </v-btn>                    
                       </template>
-                      <span>Help</span>
+                      <span>{{ $t('opc.ajuda') }}</span>
                     </v-tooltip>
 
                     <v-tooltip bottom>
@@ -85,7 +85,7 @@
                           <v-icon color="white">mdi-door-open</v-icon>
                         </v-btn>                    
                       </template>
-                      <span>Sair</span>
+                      <span>{{ $t('opc.sair') }}</span>
                     </v-tooltip>
                   </v-btn-toggle>
                 </v-row>
@@ -94,7 +94,7 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> Confirmar Submissão</h3>
+                        <h3 width="40" class="white--text"> {{ $t('title.confSubm') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
@@ -105,7 +105,7 @@
                           </v-card>
                         </v-col>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">Pretende confirmar a submissão da questão?</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('title.confQuestion') }}</h3>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -119,7 +119,7 @@
                                     <v-icon color="white">mdi-checkbox-marked-outline</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Submit</span>
+                                <span>{{ $t('opc.confirm') }}</span>
                               </v-tooltip>
 
                               <v-tooltip bottom>
@@ -128,7 +128,7 @@
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Sair</span>
+                                <span>{{ $t('opc.sair') }}</span>
                               </v-tooltip>
                             </v-col>
                           </v-row>
@@ -141,7 +141,7 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> Submissão de Questão</h3>
+                        <h3 width="40" class="white--text"> {{ $t('title.subQuestion') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
@@ -152,7 +152,7 @@
                           </v-card>
                         </v-col>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">Submissão de Questão com Sucesso!</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('title.subQuestionSucc') }}</h3>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -166,7 +166,7 @@
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Sair</span>
+                                <span>{{ $t('opc.sair') }}</span>
                               </v-tooltip>
                             </v-col>
                           </v-row>
@@ -179,7 +179,7 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> Erro na Submissão</h3>
+                        <h3 width="40" class="white--text"> {{ $t('erro.sub') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
@@ -190,8 +190,8 @@
                           </v-card>
                         </v-col>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">Erro na submissão da questão!</h3>
-                          <h3 class="ml-5">Por favor preencha todos os campos obrigatórios.</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('erro.subQuestion') }}</h3>
+                          <h3 class="ml-5">{{ $t('erro.fields') }}</h3>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -205,7 +205,7 @@
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Sair</span>
+                                <span>{{ $t('opc.sair') }}</span>
                               </v-tooltip>
                             </v-col>
                           </v-row>
@@ -218,13 +218,13 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> Import de Questão</h3>
+                        <h3 width="40" class="white--text"> {{ $t('title.importQuestion') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
                       <v-row>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">Insira o identificador da questão que pretende importar.</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('title.importQuestion2') }}</h3>
                         </v-col>
                       </v-row>
                       <v-row>
@@ -245,7 +245,7 @@
                                     <v-icon color="white">mdi-import</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Import</span>
+                                <span>{{ $t('opc.import') }}</span>
                               </v-tooltip>
                               <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">   
@@ -253,7 +253,7 @@
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Sair</span>
+                                <span>{{ $t('opc.sair') }}</span>
                               </v-tooltip>
                             </v-col>
                           </v-row>
@@ -266,7 +266,7 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> Ajuda</h3>
+                        <h3 width="40" class="white--text"> {{ $t('opc.ajuda') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
@@ -277,8 +277,8 @@
                           </v-card>
                         </v-col>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">Preencha todos os campos que constituem a questão.</h3>
-                          <h3 class="ml-5">Navegue por todas as tabs para garantir que toda a informação se encontra correta.</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('title.ajuda') }}</h3>
+                          <h3 class="ml-5">{{ $t('title.ajuda2') }}</h3>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -292,7 +292,7 @@
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
-                                <span>Sair</span>
+                                <span>{{ $t('opc.sair') }}</span>
                               </v-tooltip>
                             </v-col>
                           </v-row>

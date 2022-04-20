@@ -98,7 +98,7 @@
               <v-icon v-text="'mdi-door-open'" />
             </v-btn>
           </template>
-          <span>Sair</span>
+          <span>{{ $t('opc.sair') }}</span>
         </v-tooltip>
       </v-col>
     </v-row>

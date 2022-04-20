@@ -59,14 +59,14 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-icon v-bind="attrs" v-on="on" small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
               </template>
-              <span>Editar</span>
+              <span>{{ $t('opc.editar') }}</span>
             </v-tooltip>
             
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on" small @click="deleteItem(item)">mdi-delete</v-icon>
+                <v-icon v-bind="attrs" v-on="on" small @click="deleteItem(item)">mdi-trash-can</v-icon>
               </template>
-              <span>Remover</span>
+              <span>{{ $t('opc.remover') }}</span>
             </v-tooltip>
           </template>
         </v-data-table>
@@ -104,7 +104,7 @@
                             <v-icon color="white">mdi-checkbox-marked-outline</v-icon>
                           </v-btn>
                         </template>
-                        <span>Confirmar Edição</span>
+                        <span>{{ $t('opc.confEdit') }}</span>
                       </v-tooltip>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
@@ -112,7 +112,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>
                         </template>
-                        <span>Sair</span>
+                        <span>{{ $t('opc.sair') }}</span>
                       </v-tooltip>
                     </v-col>
                   </v-row>
@@ -147,7 +147,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>
                         </template>
-                        <span>Sair</span>
+                        <span>{{ $t('opc.sair') }}</span>
                       </v-tooltip>
                     </v-col>
                   </v-row>              
@@ -186,7 +186,7 @@
                             <v-icon color="white">mdi-checkbox-marked-outline</v-icon>
                           </v-btn>
                         </template>
-                        <span>Confirmar Remoção</span>
+                        <span>{{ $t('opc.confconfRemov') }}</span>
                       </v-tooltip>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
@@ -194,7 +194,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>
                         </template>
-                        <span>Sair</span>
+                        <span>{{ $t('opc.sair') }}</span>
                       </v-tooltip>
                     </v-col>
                   </v-row>              
@@ -289,7 +289,6 @@ export default {
     methods: {
 
       validate(){
-        console.log('Validating')
         return this.$refs.form.validate()
       },
 

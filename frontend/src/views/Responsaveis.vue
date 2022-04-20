@@ -52,47 +52,77 @@
             <label> {{header.text}} </label>
         </template>
         <template v-slot:item.options="{ item }">
-            <v-icon
-                small
-                color="#246a73"
-                class="mr-2"
-                @click="editItem(item, 'ver')"
-            >
-                mdi-eye
-            </v-icon>
-            <v-icon
-                small
-                color="#368f8b"
-                class="mr-2"
-                @click="editItem(item,'editar')"
-            >
-                mdi-pencil
-            </v-icon>
-            <v-icon
-                small
-                color="#246a73"
-                class="mr-2"
-                @click="verObjectItem(item,'curriculo')"
-            >
-                mdi-text-box-multiple
-            </v-icon>
-            <v-icon
-                small
-                color="#55bcc9"
-                class="mr-2"
-                @click="verObjectItem(item,'foto')"
-            >
-                mdi-camera
-            </v-icon>
-            <v-icon
-                small
-                color="#8e363a"
-                class="mr-2"
-                @click="deleteDialog = true;tempValue=item"
-                
-            >
-                mdi-trash-can
-            </v-icon>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click="editItem(item, 'ver')"
+                    >
+                    mdi-eye
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.ver') }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#368f8b"
+                        class="mr-2"
+                        @click="editItem(item,'editar')"
+                    >
+                        mdi-pencil
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.editar') }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click="verObjectItem(item,'curriculo')"
+                    >
+                        mdi-text-box-multiple
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.currículo') }}</span>
+            </v-tooltip>
+             <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#55bcc9"
+                        class="mr-2"
+                        @click="verObjectItem(item,'foto')"
+                    >
+                        mdi-camera
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.foto') }}</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#8e363a"
+                        class="mr-2"
+                        @click="deleteDialog = true;tempValue=item"
+                    >
+                        mdi-trash-can
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.remover') }}</span>
+            </v-tooltip>
             <v-icon
                 small
                 color="#246a73"
@@ -307,7 +337,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>                    
                         </template>
-                      <span>Sair</span>
+                      <span>{{ $t('opc.sair') }}</span>
                     </v-tooltip>
                     </v-col>
                   </v-row>

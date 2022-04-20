@@ -57,21 +57,47 @@
             <label> {{header.text}} </label>
         </template>
         <template v-slot:item.options="{ item }">
-            <v-icon
-                small
-                color="#246a73"
-                class="mr-2"
-                @click="verObjectItem(item)"
-            >
-                mdi-eye
-            </v-icon>
-            <v-icon
-                small
-                color="#8e363a"
-                @click="deleteDialog = true;tempValue=item"
-            >
-                mdi-trash-can
-            </v-icon>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click="verObjectItem(item)"
+                    >
+                    mdi-eye
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.ver') }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#368f8b"
+                        class="mr-2"
+                        @click="editItem(item,'editar')"
+                    >
+                        mdi-pencil
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.editar') }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#8e363a"
+                        @click="deleteDialog = true;tempValue=item"
+                    >
+                        mdi-trash-can
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.remover') }}</span>
+            </v-tooltip>
         </template>
         </v-data-table>
         <v-dialog v-model="cvDialog" width="800px">

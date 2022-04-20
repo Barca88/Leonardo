@@ -106,11 +106,13 @@ def route_template_insert():
         explanation = request.form.get('explanation')
         foto = request.files.get('images')
         print('getfoto success')
-        if foto.filename != '':
-            print('getfoto success2')
-            
-            upload_path = join(dirname(realpath(__file__)), 'static/pics/')
-            foto.save(upload_path + _id)
+        print(foto)
+        if foto is not None :
+            if foto.filename != '':
+                print('getfoto success2')
+                
+                upload_path = join(dirname(realpath(__file__)), 'static/pics/')
+                foto.save(upload_path + _id)
 
         videos = request.form.get('videos')
         source = request.form.get('source')
@@ -169,11 +171,12 @@ def route_template_editar_guardar():
     body = json.loads(request.form.get('body'))
     explanation = request.form.get('explanation')
     foto = request.files.get('images')
-    if foto.filename != '':
-            print('getfoto success2')
-            
-            upload_path = join(dirname(realpath(__file__)), 'static/pics/')
-            foto.save(upload_path + _id)
+    if foto is not None :
+        if foto.filename != '':
+                print('getfoto success2')
+                
+                upload_path = join(dirname(realpath(__file__)), 'static/pics/')
+                foto.save(upload_path + _id)
     videos = request.form.get('videos')
     source = request.form.get('source')
     notes = request.form.get('notes')

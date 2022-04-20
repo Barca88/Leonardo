@@ -11,17 +11,17 @@
         multi-sort>
         <template v-slot:top>
           <v-toolbar>
-            <v-toolbar-title class>Preparação de Questões</v-toolbar-title>
+            <v-toolbar-title class>{{ $t('title.question') }}</v-toolbar-title>
             <v-spacer></v-spacer>
 
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="Pesquisa" single-line hide-details class="mr-5"></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" :label="$t('title.pesq')" single-line hide-details class="mr-5"></v-text-field>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">    
                   <v-btn v-bind="attrs" v-on="on" to="/prodQuestao" color="#2A3F54" class="white--text mr-4">
                     <v-icon>mdi-text-box-plus-outline</v-icon>
                   </v-btn>                    
                 </template>
-              <span>Criar Questão</span>
+              <span>{{ $t('opc.cQ') }}</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">    
@@ -38,21 +38,21 @@
             <template v-slot:activator="{ on, attrs }">
               <v-icon v-bind="attrs" v-on="on" small class="mr-2" @click="showItem(item)">mdi-eye</v-icon>
             </template>
-            <span>Ver</span>
+            <span>{{ $t('opc.ver') }}</span>
           </v-tooltip>
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon v-bind="attrs" v-on="on" small class="mr-2" @click="sendItem(item)">mdi-pencil</v-icon>
             </template>
-            <span>Editar</span>
+            <span>{{ $t('opc.editar') }}</span>
           </v-tooltip>
             
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-icon v-bind="attrs" v-on="on" small @click="deleteItem(item)">mdi-delete</v-icon>
+              <v-icon v-bind="attrs" v-on="on" small @click="deleteItem(item)">mdi-trash-can</v-icon>
             </template>
-            <span>Remover</span>
+            <span>{{ $t('opc.remover') }}</span>
           </v-tooltip>
         </template>
       </v-data-table>
@@ -248,7 +248,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>                    
                         </template>
-                      <span>Sair</span>
+                      <span>{{ $t('opc.sair') }}</span>
                     </v-tooltip>
                     </v-col>
                   </v-row>
@@ -317,7 +317,7 @@
                             <v-icon color="white">mdi-trash-can-outline</v-icon>
                           </v-btn>                    
                         </template>
-                      <span>Confirmar Remoção</span>
+                      <span>{{ $t('opc.confconfRemov') }}</span>
                       </v-tooltip>
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">    
@@ -325,7 +325,7 @@
                             <v-icon color="white">mdi-door-open</v-icon>
                           </v-btn>                    
                         </template>
-                      <span>Sair</span>
+                      <span>{{ $t('opc.sair') }}</span>
                     </v-tooltip>
                     </v-col>
                   </v-row>

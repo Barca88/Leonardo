@@ -12,7 +12,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Pesquisa"
+            :label="$t('title.pesq')"
             single-line
             hide-details
             class="mr-5 search-bar"

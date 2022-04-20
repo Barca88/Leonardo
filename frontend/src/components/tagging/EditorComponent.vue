@@ -171,7 +171,7 @@
                       <v-tooltip top>
                         <template v-slot:activator="{ on }">
                           <v-btn v-on="on" class="ma-2" @click="tag_editor_option = 2">
-                            <v-icon>mdi-delete</v-icon>
+                            <v-icon>mdi-trash-can</v-icon>
                           </v-btn>
                         </template>
                         <span>Apagar Tag</span>

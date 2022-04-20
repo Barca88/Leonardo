@@ -115,7 +115,7 @@
         "close":"Fecho",
         "fixMenu":"Fixar o menu de navegação lateral",
         "exit":"Sair da aplicação",
-        "se":"Procura",
+        "se":"Pesquisa",
         "tituloProjeto" : "Leonardo"
     },
     "nav": { 
@@ -314,7 +314,7 @@
         "wac": "WAC",
         "tag": "TagHTML",
         "ex": "Exemplo",
-        "pro": "Procura",
+        "pro": "Pesquisa",
         "sim": "Sim",
         "nao": "Não"
     },
@@ -459,5 +459,51 @@
         "rel":"Relatório Técnico",
         "diss":"Dissertação",
         "help":"Ajuda da Documentação"
+    },
+    "opc":{
+        "ver":"Ver",
+        "editar":"Editar",
+        "remover":"Remover",
+        "foto": "Foto",
+        "currículo": "Currículo",
+        "confirm": "Confirmar",
+        "limpar": "Limpar",
+        "import": "Importar",
+        "ajuda": "Ajuda",
+        "sair": "Sair",
+        "confEdit": "Confirmar Edição",
+        "confRemov": "Confirmar Remoção",
+        "cD": "Criar Domínio",
+        "cQ": "Criar Questão",
+        "cU": "Criar Utilizador"
+    },
+    "title":{
+        "question": "Questões",
+        "domain": "Domínios",
+        "pesq": "Pesquisa",
+        "confSubm": "Confirmar Submissão",
+        "confQuestion": "Pretende confirmar a submissão da questão?",
+        "confDom": "Pretende confirmar a submissão do domínio?",
+        "prod": "Produção",
+        "defDom": "Definição de Domínios",       
+        "prepQuestion": "Preparação de Questões",
+        "subQuestion": "Submissão de Questão",
+        "subDom": "Submissão de Domínio",
+        "subDomSucc": "Submissão de Domínio com Sucesso!",
+        "subQuestionSucc": "Submissão de Questão com Sucesso!",
+        "importQuestion": "Import de Questão",
+        "importQuestion2": "Insira o identificador da questão que pretende importar.",
+        "importDom": "Import de Domínio",
+        "importDom2": "Insira o identificador do domínio que pretende importar.",
+        "ajuda": "Preencha todos os campos que constituem a questão.",
+        "ajudaDom": "Preencha todos os campos que constituem o domínio.",
+        "ajuda2": "Navegue por todas as tabs para garantir que toda a informação se encontra correta."
+
+    },
+    "error":{
+        "sub": "Erro na Submissão",
+        "subQuestion": "Erro na submissão da questão!",
+        "subDom": "Erro na submissão do domínio!",
+        "fields": "Por favor preencha todos os campos obrigatórios."
     }
 }

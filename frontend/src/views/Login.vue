@@ -198,7 +198,7 @@
                       </v-row>
                       <v-text-field
                           label="Observações"
-                          v-model="pedido.observacoes"                     
+                          v-model="pedido.comments"                     
                       ></v-text-field>
                       <br>
                       <v-tooltip bottom>
@@ -337,7 +337,7 @@ export default {
         departamento:"",
         foto:{},
         curriculo:{},
-        observacoes:""
+        comments:""
       },
       valid:true,
       failureDialog:false,
@@ -365,7 +365,7 @@ export default {
     this.pedido.departamento=''
     this.pedido.foto={}
     this.pedido.curriculo={}
-    this.pedido.observacoes=''
+    this.pedido.comments=''
   },
   methods:{
     postLogin: function () {
@@ -403,7 +403,7 @@ export default {
             formData.append('departamento',this.pedido.departamento)
             formData.append('foto',this.pedido.foto)
             formData.append('curriculo',this.pedido.curriculo)
-            formData.append('obs',this.pedido.observacoes)
+            formData.append('obs',this.pedido.comments)
 
         axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {
@@ -434,7 +434,7 @@ export default {
       this.pedido.departamento=''
       this.pedido.foto={}
       this.pedido.curriculo={}
-      this.pedido.observacoes=''
+      this.pedido.comments=''
     }
   },
   computed:{

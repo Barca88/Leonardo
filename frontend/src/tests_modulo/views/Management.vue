@@ -28,7 +28,7 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Pesquisa"
+            :label="$t('title.pesq')"
             single-line
             hide-details
             class="mr-5"
@@ -104,7 +104,7 @@
               showTestDeleteDialog = true;
             "
           >
-            <v-icon small v-text="'mdi-delete'" />
+            <v-icon small v-text="'mdi-trash-can'" />
           </v-btn>
         </div>
       </template>

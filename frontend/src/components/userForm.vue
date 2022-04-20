@@ -302,7 +302,7 @@ export default {
         department:"",
         foto:{},
         curriculo:{},
-        observacoes:""
+        comments:""
       },
       dialog:false,
       dialogHelp:false,

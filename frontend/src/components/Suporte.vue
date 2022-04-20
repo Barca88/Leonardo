@@ -140,8 +140,8 @@ export default ({
             this.idQuestao = data.sendId
             this.domain = data.sendDomain
             this.header = data.sendHeader
-
-            if(data.sendId != null){
+            /*
+            if(data.sendId != ""){
                 this.userPic=''
                 console.log('pre get')
                 axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + data.sendId,  {
@@ -161,7 +161,7 @@ export default ({
 
             
             }
-            console.log('created with args  - '+ data.sendId)
+            console.log('created with args  - '+ data.sendId)*/
       })
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
