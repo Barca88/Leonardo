@@ -86,7 +86,7 @@
           <v-form ref="form" method="post" enctype="multipart/form-data">
               <v-container class="ml-5">
                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="16" md="4">
                       <v-text-field 
                           v-if= "value === 'adicionar'"
                           :label="$t('docs.id')"
@@ -101,7 +101,7 @@
                           disabled
                       ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col cols="12" sm="16" md="4">
                       <v-text-field
                           v-if= "value != 'ver'"
                           :label="$t('docs.aut')"
@@ -109,7 +109,7 @@
                           :rules="[rules.required]"  
                       ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <v-col>
                     <v-text-field
                       v-if= "value != 'ver'"
                       :label="$t('docForm.descL')"
@@ -120,7 +120,7 @@
                   </v-col>
                  </v-row>
                    <v-container fluid>
-                  <v-radio-group v-model="doc.type" column>
+                  <v-radio-group v-model="doc.type" :label="$t('nav.tipoDeTexto')" column>
                       <v-radio :label="$t('docForm.art')" value="Artigo"></v-radio>
                       <v-radio :label="$t('docForm.man')" value="Manual"></v-radio>
                       <v-radio :label="$t('docForm.rel')" value="Relatório Técnico"></v-radio>
@@ -164,36 +164,6 @@
                           {{$t('p1.ajuda')}}
                       </span>
                     </v-tooltip>
-                    <v-dialog @keydown.esc="dialogHelp = false"  v-model="dialogHelp" scrollable width="500">
-                      <v-card>
-                        <v-toolbar color="#2A3F54" dark>
-                            <h2>{{$t('adminNav.doc')}}</h2>
-                        </v-toolbar>
-                        <v-row>
-                        <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
-                            <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
-                        </v-col>
-                        <v-col>
-                            <v-card-text>
-                            <h3>{{$t('docForm.help')}}</h3>
-                            </v-card-text>
-                        </v-col>
-                        </v-row>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          
-                          <v-tooltip bottom> 
-                            <template v-slot:activator="{ on }">
-                                <v-btn depressed color="white" @click="dialogHelp=false" v-on="on">
-                                  <v-icon large>mdi-exit-to-app</v-icon>
-                                </v-btn>
-                              </template>
-                              <span>{{ $t('nav.Sair') }}</span>
-                            </v-tooltip>
-
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on: tooltip }">
                           <v-btn @click="emiteFecho" v-on="{ ...tooltip}"><v-icon>mdi-exit-to-app</v-icon></v-btn>
@@ -207,6 +177,36 @@
           </v-form>
           </v-card-actions>
       </v-card>
+      <v-dialog @keydown.esc="dialogHelp = false"  v-model="dialogHelp" scrollable width="500">
+          <v-card>
+            <v-toolbar color="#2A3F54" dark>
+                <h2>{{$t('adminNav.doc')}}</h2>
+            </v-toolbar>
+            <v-row>
+            <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
+                <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
+            </v-col>
+            <v-col>
+                <v-card-text>
+                <h3>{{$t('docForm.help')}}</h3>
+                </v-card-text>
+            </v-col>
+            </v-row>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              
+              <v-tooltip bottom> 
+                <template v-slot:activator="{ on }">
+                    <v-btn depressed color="white" @click="dialogHelp=false" v-on="on">
+                      <v-icon large>mdi-exit-to-app</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ $t('nav.Sair') }}</span>
+                </v-tooltip>
+
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 
         <v-card>
           <v-toolbar color="#2A3F54" dark>
@@ -267,8 +267,10 @@ export default {
       dialogHelp:false,
       valid:true,
       failureDialog:false,
+      idDocs: [],
       rules: {
           required: value => !!value || 'Required.',
+          repeatedID: [v => this.checkID(v) || "ID already exists"],
       }
     }
   },
@@ -352,8 +354,9 @@ export default {
       }
     },
     reset () {
-      this.$refs.form.reset()
-      this.doc.titulo=''
+      if(this.value == 'adicionar'){
+        this.doc.titulo=''
+      }
       this.doc.desc=''
       this.doc.authors=''
       this.doc.date=''
@@ -366,10 +369,21 @@ export default {
     },
     emiteFecho(){
       this.$emit('emiteFecho')
-    }
+    },
+    checkID(item){
+      return !this.idDocs.find(x => x === item)
+    },
   },
   created(){
-    console.log(this.value)
+    axios.get(`${process.env.VUE_APP_BACKEND}/documentacao/docs`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+    .then(response => {
+        response.data.docs.forEach((obj) =>{
+          this.idDocs.push(obj._id)
+        });
+    }).catch(e => {
+        //console.log(e)
+        this.errors.push(e)
+    })
     this.onUpdate()
   },
   computed:{

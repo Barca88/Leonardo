@@ -26,14 +26,14 @@
                   hide-details
                   class="mr-5"
                 ></v-text-field>
-                <v-dialog persistent v-model="dialog" max-width="800px">
-                    <template v-slot:activator="{ on }">
-                        <v-btn color="#2A3F54" dark class="mb-2" v-on="on" @click="editItem({}, 'adicionar')">
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">    
+                        <v-btn v-bind="attrs" v-on="on" @click="editItem({}, 'adicionar')" color="#2A3F54" class="white--text mr-4">
                             <v-icon>mdi-account-plus</v-icon>
-                        </v-btn>
-                    </template>
-                    <userForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></userForm>
-                </v-dialog>
+                        </v-btn>                    
+                        </template>
+                    <span>{{ $t('opc.cU') }}</span>
+                    </v-tooltip>
             </v-toolbar>
         </template>
         <template v-slot:header._id="{ header }">
@@ -123,15 +123,21 @@
                 </template>
                 <span>{{ $t('opc.remover') }}</span>
             </v-tooltip>
-            <v-icon
-                small
-                color="#246a73"
-                class="mr-2"
-                @click= "showItem(item)"
-            >
-                mdi-database
-            </v-icon>
-        </template>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click= "showItem(item)"
+                    >
+                        mdi-database
+                    </v-icon>
+                </template>
+                <span>{{ $t('title.domain') }}</span>
+            </v-tooltip>
+        </template>      
         </v-data-table>
         <v-dialog v-model="picDialog" width="800px">
             <v-toolbar color="#2A3F54" dark>
@@ -229,6 +235,9 @@
                     </v-tooltip>
                 </v-card-actions>
             </v-card>
+        </v-dialog>
+        <v-dialog persistent v-model="dialog" max-width="800px">
+            <userForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></userForm>
         </v-dialog>
         <v-dialog v-model="noCVDialog" scrollable width="500" persistent>
             <v-card>

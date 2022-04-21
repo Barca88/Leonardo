@@ -143,10 +143,10 @@
                         :rules="[rules.required]"      
                     ></v-text-field>
                   <v-container fluid>
-                  <v-radio-group v-if= "value != 'ver'" v-model="user.type" row>
-                      <v-radio value="Admin"></v-radio>
-                      <v-radio value="Teacher"></v-radio>
-                      <v-radio :label="$t('reg.admin') + ', ' +  $t('reg.teacher') + ' ' + $t('reg.or') + ' ' + $t('reg.student')" value="Student"></v-radio>
+                  <v-radio-group v-if= "value != 'ver'" :label="$t('nav.tipoDeTexto')" v-model="user.type" column>
+                      <v-radio :label="$t('reg.admin')" value="Admin"></v-radio>
+                      <v-radio :label="$t('reg.teacher')" value="Teacher"></v-radio>
+                      <v-radio :label="$t('reg.student')" value="Student"></v-radio>
                   </v-radio-group>
                   </v-container>
                   <v-text-field
@@ -161,11 +161,11 @@
                       :rules="[rules.required]"
                       v-model="user.department"
                   ></v-text-field>
-                  <v-row align="center" v-if= "value === 'adicionar'">
+                  <v-row align="center" v-if= "value === 'adicionar' || value === 'editar'">
                       <label>{{$t('p1.foto')}}:</label>
                       <v-file-input show-size :label="$t('p1.f')" v-model="user.foto"></v-file-input>
                   </v-row>
-                  <v-row align="center" v-if= "value === 'adicionar'">
+                  <v-row align="center" v-if= "value === 'adicionar' || value === 'editar'">
                       <label>{{$t('p1.file')}}:</label>
                       <v-file-input show-size type="file" :label="$t('p1.file')" v-model="user.curriculo"></v-file-input>
                   </v-row>
@@ -201,36 +201,6 @@
                           {{$t('p1.ajuda')}}
                       </span>
                     </v-tooltip>
-                    <v-dialog @keydown.esc="dialogHelp = false"  v-model="dialogHelp" scrollable width="500">
-                      <v-card>
-                        <v-toolbar color="#2A3F54" dark>
-                            <h2>{{$t('navd.guser')}}</h2>
-                        </v-toolbar>
-                        <v-row>
-                        <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
-                            <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
-                        </v-col>
-                        <v-col>
-                            <v-card-text>
-                            <h3>{{$t('uF.help')}}</h3>
-                            </v-card-text>
-                        </v-col>
-                        </v-row>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          
-                          <v-tooltip bottom> 
-                            <template v-slot:activator="{ on }">
-                                <v-btn depressed color="white" @click="dialogHelp=false" v-on="on">
-                                  <v-icon large>mdi-exit-to-app</v-icon>
-                                </v-btn>
-                              </template>
-                              <span>{{ $t('nav.Sair') }}</span>
-                            </v-tooltip>
-
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on: tooltip }">
                           <v-btn @click="emiteFecho" v-on="{ ...tooltip}"><v-icon>mdi-exit-to-app</v-icon></v-btn>
@@ -244,6 +214,36 @@
           </v-form>
           </v-card-actions>
       </v-card>
+      <v-dialog @keydown.esc="dialogHelp = false"  v-model="dialogHelp" scrollable width="500">
+        <v-card>
+          <v-toolbar color="#2A3F54" dark>
+              <h2>{{$t('navd.guser')}}</h2>
+          </v-toolbar>
+          <v-row>
+          <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
+              <v-icon x-large color="blue" dark>mdi-message-text</v-icon>
+          </v-col>
+          <v-col>
+              <v-card-text>
+              <h3>{{$t('uF.help')}}</h3>
+              </v-card-text>
+          </v-col>
+          </v-row>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            
+            <v-tooltip bottom> 
+              <template v-slot:activator="{ on }">
+                  <v-btn depressed color="white" @click="dialogHelp=false" v-on="on">
+                    <v-icon large>mdi-exit-to-app</v-icon>
+                  </v-btn>
+                </template>
+                <span>{{ $t('nav.Sair') }}</span>
+              </v-tooltip>
+
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 
         <v-card>
           <v-toolbar color="#2A3F54" dark>

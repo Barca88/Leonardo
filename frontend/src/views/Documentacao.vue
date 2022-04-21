@@ -31,14 +31,14 @@
                   hide-details
                   class="mr-5"
                 ></v-text-field>
-                <v-dialog persistent v-model="dialog" max-width="800px">
-                    <template v-slot:activator="{ on }">
-                        <v-btn color="#2A3F54" dark class="mb-2" v-on="on" @click="editItem({}, 'adicionar')">
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">    
+                        <v-btn v-bind="attrs" v-on="on" @click="editItem({}, 'adicionar')" color="#2A3F54" class="white--text mr-4">
                             <v-icon>mdi-file-plus</v-icon>
-                        </v-btn>
-                    </template>
-                    <docForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></docForm>
-                </v-dialog>
+                        </v-btn>                    
+                        </template>
+                    <span>{{ $t('opc.cF') }}</span>
+                    </v-tooltip>
             </v-toolbar>
         </template>
         <template v-slot:header._id="{ header }">
@@ -147,6 +147,9 @@
                 {{$t('indForm.close')}}
                 </span>
             </v-tooltip>
+        </v-dialog>
+        <v-dialog persistent v-model="dialog" max-width="800px">
+            <docForm :value='value' :passedData='editedItem' @atualizarInfo=atualizarInfo($event) @emiteFecho=emiteFecho($event)></docForm>
         </v-dialog>
         <v-dialog
             v-model="deleteDialog"

@@ -479,7 +479,8 @@
         "confRemov": "Confirmar Remoção",
         "cD": "Criar Domínio",
         "cQ": "Criar Questão",
-        "cU": "Criar Utilizador"
+        "cU": "Criar Utilizador",
+        "cF": "Criar Documento"
     },
     "title":{
         "question": "Questões",
