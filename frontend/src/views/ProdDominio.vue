@@ -94,9 +94,9 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> </h3>
+                        <h3 width="40" class="white--text">{{ $t('title.confSubm') }} </h3>
                       </div>
-                    </v-app-bar>{{ $t('title.confSubm') }}
+                    </v-app-bar>
                     <v-container>
                       <v-row>
                         <v-col cols="3">

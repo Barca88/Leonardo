@@ -110,7 +110,7 @@
             <v-container>
               <v-row>
                 <v-col cols="8">
-                  <v-text-field v-model="resposta.answer" 
+                  <v-text-field v-model="respostaEdit.answer" 
                     class="mt-4"
                     :rules="rules.required" 
                     :counter="200" 
@@ -124,7 +124,7 @@
                   <p class="grey--text text--darken-1">Resposta Correta:</p>
                 </v-col>
                 <v-col cols="6" lg="3" md="3" sm="6">
-                  <v-radio-group v-model="resposta.correction" row mandatory>
+                  <v-radio-group v-model="respostaEdit.correction" row mandatory>
                     <v-radio label="0" value="0"></v-radio>
 
                     <v-radio label="1" value="1"></v-radio>
@@ -135,7 +135,7 @@
                   <p class="grey--text text--darken-1">Resposta Obrigatória:</p>
                 </v-col>
                 <v-col lg="3" md="3" sm="6">
-                  <v-radio-group v-model="resposta.mandatory" row mandatory>
+                  <v-radio-group v-model="respostaEdit.mandatory" row mandatory>
 
                     <v-radio label="0" value="0"></v-radio>
 
@@ -150,7 +150,7 @@
                   <p class="grey--text text--darken-1">Resposta Eliminatória:</p>
                 </v-col>
                 <v-col lg="3" md="3" sm="6">
-                  <v-radio-group v-model="resposta.eliminative" row mandatory>
+                  <v-radio-group v-model="respostaEdit.eliminative" row mandatory>
 
                     <v-radio label="0" value="0"></v-radio>
 
@@ -158,7 +158,7 @@
                   </v-radio-group>
                 </v-col>
                 <v-col cols="6">
-                  <v-select :items="pontos" v-model="resposta.points" label="Pontos" dense></v-select>
+                  <v-select :items="pontos" v-model="respostaEdit.points" label="Pontos" dense></v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -301,6 +301,13 @@ export default {
                 eliminative: "",
                 points: ""
             },
+            respostaEdit: {
+                answer: "",
+                correction: "",
+                mandatory: "",
+                eliminative: "",
+                points: ""
+            },
             defaultResp: {
                 answer: "",
                 correction: "",
@@ -384,14 +391,20 @@ export default {
 
        editItem (item) {
         this.editedIndex = this.formData.body.indexOf(item)
-        this.resposta = Object.assign({}, item)
+        this.respostaEdit = Object.assign({}, item)
         this.dialogEdit = true
       },
 
       editConfirm() {
-        this.$set(this.formData.body, this.editedIndex, this.resposta)
-        this.resposta = Object.assign({}, this.defaultResp)
-        this.dialogEdit = false
+        if(!this.respostaEdit.points){
+          this.dialogResp = true
+        }
+        else{
+          this.firstResposta = true
+          this.$set(this.formData.body, this.editedIndex, this.respostaEdit)
+          this.resposta = Object.assign({}, this.defaultResp)
+          this.dialogEdit = false
+        }
       },
 
       deleteItem (item) {
@@ -411,6 +424,7 @@ export default {
       },
 
       closeEdit(){
+        this.resposta = Object.assign({}, this.defaultSub)
         this.dialogEdit = false
         this.editedIndex = -1
       },

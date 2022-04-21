@@ -179,7 +179,7 @@
                   <v-card>
                     <v-app-bar color="#2A3F54" >
                       <div class="d-flex align-center">
-                        <h3 width="40" class="white--text"> {{ $t('erro.sub') }}</h3>
+                        <h3 width="40" class="white--text"> {{ $t('error.sub') }}</h3>
                       </div>
                     </v-app-bar>
                     <v-container>
@@ -190,8 +190,8 @@
                           </v-card>
                         </v-col>
                         <v-col cols="9">
-                          <h3 class="ml-5 mt-5">{{ $t('erro.subQuestion') }}</h3>
-                          <h3 class="ml-5">{{ $t('erro.fields') }}</h3>
+                          <h3 class="ml-5 mt-5">{{ $t('error.subQuestion') }}</h3>
+                          <h3 class="ml-5">{{ $t('error.fields') }}</h3>
                         </v-col>
                       </v-row>
                     </v-container>

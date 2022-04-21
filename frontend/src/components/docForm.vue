@@ -3,35 +3,123 @@
     <v-toolbar color="#2A3F54" dark>
       <h1>{{$t('navd.docum')}}</h1>
     </v-toolbar>
-      <v-card height="100%" >
+    <v-card v-if= "value === 'ver'">
         <v-card-title>
+          <h3>{{$t('docs.ver')}}</h3>
+        </v-card-title>
+        <v-container>
+          <v-simple-table class="table mr-10 ml-10">
+            <template v-slot:default>
+                <tbody>
+                    <tr>
+                        <td class="text-left"><b>{{$t('docs.id')}}</b></td>
+                        <td>
+                            <v-layout>
+                                {{doc.titulo}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><b>{{$t('docs.aut')}}</b></td>
+                        <td>
+                            <v-layout>
+                                {{doc.authors}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><b>{{$t('docForm.descL')}}</b></td>
+                        <td>
+                            <v-layout>
+                                {{doc.desc}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><b>{{$t('docs.tipo')}}</b></td>
+                        <td>
+                            <v-layout>
+                                {{doc.type}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-left"><b>{{$t('docs.data')}}</b></td>
+                        <td>
+                            <v-layout>
+                                {{doc.date}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                </tbody>
+            </template>
+          </v-simple-table>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on: tooltip }">
+                  <v-btn @click="dialogHelp=true" v-on="{ ...tooltip}" class="mr-5"><v-icon>mdi-help</v-icon></v-btn>
+              </template>
+              <span>
+                  {{$t('p1.ajuda')}}
+              </span>
+            </v-tooltip>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on: tooltip }">
+                  <v-btn @click="emiteFecho" v-on="{ ...tooltip}" class="mr-10"><v-icon>mdi-exit-to-app</v-icon></v-btn>
+              </template>
+              <span>
+                  {{$t('indForm.close')}}
+              </span>
+            </v-tooltip>
+          </v-row>
+        </v-container>
+      </v-card>
+      <v-card v-else height="100%">
+        <v-card-title v-if= "value === 'adicionar'">
           <h3>{{$t('docs.ins')}}</h3>
         </v-card-title>
+        <v-card-title v-else>
+          <h3>{{$t('docs.editar')}}</h3>
+        </v-card-title>
+        <v-card-actions>
           <v-form ref="form" method="post" enctype="multipart/form-data">
               <v-container class="ml-5">
-                <div style="width:80%">
-                    <v-text-field
+                 <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field 
+                          v-if= "value === 'adicionar'"
                           :label="$t('docs.id')"
                           v-model="doc.titulo"
-                          :rules="[rules.required]"      
-                    ></v-text-field>
-                  <v-row>
+                          :rules="[rules.required,...rules.repeatedID]"            
+                      ></v-text-field>
+                      <v-text-field 
+                          v-else-if="value === 'editar'"
+                          :label="$t('docs.id')"
+                          v-model="doc.titulo"
+                          :rules="[rules.required]"
+                          disabled
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                          v-if= "value != 'ver'"
+                          :label="$t('docs.aut')"
+                          v-model="doc.authors"
+                          :rules="[rules.required]"  
+                      ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
                     <v-text-field
-                        :label="$t('docs.aut')"
-                        :rules="[rules.required]"
-                        v-model="doc.authors"
-                    ></v-text-field>
-                    <h5 style="color:red">*</h5>
-                  </v-row>
-                  <v-row>
-                    <v-text-field
-                        :label="$t('docForm.descL')"
-                        :rules="[rules.required]"
-                        v-model="doc.desc"
-                    ></v-text-field>
-                    <h5 style="color:red">*</h5>
-                  </v-row>
-                  <v-container fluid>
+                      v-if= "value != 'ver'"
+                      :label="$t('docForm.descL')"
+                      v-model="doc.desc"
+                      :rules="[rules.required, rules.email]"
+                      required
+                  ></v-text-field>
+                  </v-col>
+                 </v-row>
+                   <v-container fluid>
                   <v-radio-group v-model="doc.type" column>
                       <v-radio :label="$t('docForm.art')" value="Artigo"></v-radio>
                       <v-radio :label="$t('docForm.man')" value="Manual"></v-radio>
@@ -39,25 +127,19 @@
                       <v-radio :label="$t('docForm.diss')" value="Dissertação"></v-radio>
                   </v-radio-group>
                   </v-container>
-                  <v-row>
-                    <v-text-field
-                        :label="$t('docs.data')"
-                        :rules="[rules.required]"
-                        v-model="doc.date"
-                    ></v-text-field>
-                    <h5 style="color:red">*</h5>
-                  </v-row>
-                  <v-row align="center">
+                  <v-text-field
+                      v-if= "value != 'ver'"
+                      :label="$t('docs.data')"
+                      :rules="[rules.required]"
+                      v-model="doc.date"
+                  ></v-text-field>
+                  <v-row align="center" v-if= "value === 'adicionar' || value ==='editar'">
                       <label>{{$t('docForm.file')}}:</label>
-                      <v-file-input show-size type="file" :label="$t('p1.file')" v-model="doc.ficheiro"></v-file-input>
-                      <h5 style="color:red">*</h5>
+                      <v-file-input show-size v-model="doc.ficheiro"></v-file-input>
                   </v-row>
-                </div>
-              </v-container>
-              <v-container>
-                <div style="width:90%">
+                  <br>
                   <v-row>
-                    <v-tooltip bottom>
+                    <v-tooltip bottom v-if= "value === 'adicionar' || value === 'editar'">
                       <template v-slot:activator="{ on: tooltip }" >
                           <v-btn @click.prevent="reset" v-on="{ ...tooltip}" class="ml-12 mr-5"><v-icon>mdi-history</v-icon></v-btn>
                       </template>
@@ -65,14 +147,15 @@
                           {{$t('p1.reset')}}
                       </span>
                     </v-tooltip>
-                    <v-tooltip bottom>
+                    <v-tooltip bottom v-if= "value === 'adicionar' || value === 'editar'">
                       <template v-slot:activator="{ on: tooltip }">
-                          <v-btn ref="submit" @click="post()" class="mr-5" :disabled="disableButton" v-on="{ ...tooltip}"><v-icon>mdi-check</v-icon></v-btn>
+                          <v-btn ref="submit" @click="post()" :disabled="disableButton" v-on="{ ...tooltip}"><v-icon>mdi-check</v-icon></v-btn>
                       </template>
                       <span>
-                          {{$t('docs.conf')}}
+                          {{$t('uF.conf')}}
                       </span>
                     </v-tooltip>
+                    <v-spacer></v-spacer>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on: tooltip }">
                           <v-btn @click="dialogHelp=true" v-on="{ ...tooltip}" class="mr-5"><v-icon>mdi-help</v-icon></v-btn>
@@ -84,7 +167,7 @@
                     <v-dialog @keydown.esc="dialogHelp = false"  v-model="dialogHelp" scrollable width="500">
                       <v-card>
                         <v-toolbar color="#2A3F54" dark>
-                            <h2>{{$t('navd.docum')}}</h2>
+                            <h2>{{$t('adminNav.doc')}}</h2>
                         </v-toolbar>
                         <v-row>
                         <v-col style="margin-left:1cm;margin-right:1cm;max-width:20px; margin-top:15px" >
@@ -111,7 +194,6 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    <v-spacer></v-spacer>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on: tooltip }">
                           <v-btn @click="emiteFecho" v-on="{ ...tooltip}"><v-icon>mdi-exit-to-app</v-icon></v-btn>
@@ -121,9 +203,9 @@
                       </span>
                     </v-tooltip>
                   </v-row>
-                </div>
               </v-container>
           </v-form>
+          </v-card-actions>
       </v-card>
       <v-dialog @keydown.esc="failureDialog = false" v-model="failureDialog" scrollable width="500"> 
         <v-card>
@@ -208,11 +290,21 @@ export default {
     }
   },methods:{
     onUpdate(){
+      if(this.value != 'adicionar'){
+        console.log(this.passedData)
+        this.doc.titulo = this.passedData._id
+        this.doc.desc = this.passedData.desc
+        this.doc.authors = this.passedData.authors
+        this.doc.date = this.passedData.date
+        this.doc.type = this.passedData.type
+      }
+      else{
         this.doc.titulo = ''
         this.doc.desc = ''
         this.doc.authors = ''
         this.doc.date = ''
         this.doc.type = ''
+      }
     },
     post: function() {
       let formData = new FormData()
@@ -223,6 +315,7 @@ export default {
         formData.append('tipo',this.doc.type)
         formData.append('ficheiro',this.doc.ficheiro)
 
+      if(this.value == 'adicionar'){
         axios.post(`${process.env.VUE_APP_BACKEND}/documentacao/adicionar?nome=${this.$store.state.user._id}`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -234,13 +327,29 @@ export default {
               this.failureDialog = true
             }
             else{
-              //this.users = data.data.docs
+              this.docs = data.data.docs
               this.$refs.form.reset()
               this.atualizarInfo()
             }
         }).catch(e => {
             this.errors.push(e)
         })
+      }else if(this.value == 'editar'){
+        axios.post(`${process.env.VUE_APP_BACKEND}/documentacao/editar?nome=${this.$store.state.user._id}`,formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"       
+          }
+        }).then(data => {
+          console.log(data.data)
+            this.docs = data.data.docs
+            this.$refs.form.reset()
+            this.atualizarInfo()
+        }).catch(e => {
+            this.errors.push(e)
+        })
+      }
     },
     reset () {
       this.$refs.form.reset()
@@ -260,6 +369,7 @@ export default {
     }
   },
   created(){
+    console.log(this.value)
     this.onUpdate()
   },
   computed:{

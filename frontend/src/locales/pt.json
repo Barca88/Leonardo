@@ -449,7 +449,10 @@
         "data":"Data",
         "tipo":"Tipo",
         "conf":"Confirmar submissão de publicação",
-        "elim":"Tem a certeza que deseja eliminar esta publicação?"
+        "elim":"Tem a certeza que deseja eliminar esta publicação?",
+        "ver":"Visualizar Documento",
+        "editar":"Editar Documento"
+
     },
     "docForm":{
         "descL":"Descrição e Local",
@@ -466,6 +469,7 @@
         "remover":"Remover",
         "foto": "Foto",
         "currículo": "Currículo",
+        "file": "Ficheiro",
         "confirm": "Confirmar",
         "limpar": "Limpar",
         "import": "Importar",

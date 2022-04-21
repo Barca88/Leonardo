@@ -64,13 +64,14 @@
                         small
                         color="#246a73"
                         class="mr-2"
-                        @click="verObjectItem(item)"
+                        @click="editItem(item, 'ver')"
                     >
                     mdi-eye
                     </v-icon>
                 </template>
                 <span>{{ $t('opc.ver') }}</span>
             </v-tooltip>
+
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -84,6 +85,20 @@
                     </v-icon>
                 </template>
                 <span>{{ $t('opc.editar') }}</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                        v-bind="attrs" v-on="on"
+                        small
+                        color="#246a73"
+                        class="mr-2"
+                        @click="verObjectItem(item)"
+                    >
+                    mdi-text-box-multiple
+                    </v-icon>
+                </template>
+                <span>{{ $t('opc.file') }}</span>
             </v-tooltip>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">

@@ -74,3 +74,25 @@ def route_cur(doc):
     pathC = join(dirname(realpath(__file__)), 'static/ficheiro/')
     write_log(user, 'Documentação', 'Ver Documento', 'successfull')
     return send_from_directory(pathC,doc,mimetype='application/pdf')
+
+
+@blueprint.route('/editar', methods=['POST'])
+@admin_required
+#@login_required
+def route_template_editar_guardar():
+    titulo = request.form.get('titulo')
+    desc = request.form.get('desc')
+    autores = request.form.get('autores')
+    data = request.form.get('data')
+    tipo = request.form.get('tipo')
+    if 'ficheiro' in request.files:
+            ficheiro = request.files['ficheiro']
+            if ficheiro.filename != '':
+                ficheiro.filename = titulo
+                upload_path = join(dirname(realpath(__file__)), 'static/ficheiro/')
+                ficheiro.save(upload_path + ficheiro.filename)   
+    mongo.db.documentation.update({"_id":titulo},{"desc":desc, "authors":autores, "date": data, "type": tipo})
+    docs = mongo.db.documentation.find()
+    userAdmin = request.args.get('nome')
+    write_log(userAdmin, 'Documentação', 'Editar Documento', 'successfull') 
+    return json_util.dumps({'docs': docs})
