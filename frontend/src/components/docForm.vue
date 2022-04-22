@@ -86,7 +86,7 @@
           <v-form ref="form" method="post" enctype="multipart/form-data">
               <v-container class="ml-5">
                  <v-row>
-                    <v-col cols="12" sm="16" md="4">
+                    <v-col cols="12" sm="16" md="14">
                       <v-text-field 
                           v-if= "value === 'adicionar'"
                           :label="$t('docs.id')"
@@ -101,7 +101,7 @@
                           disabled
                       ></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="16" md="4">
+                  <v-col cols="12" sm="16" md="14">
                       <v-text-field
                           v-if= "value != 'ver'"
                           :label="$t('docs.aut')"
@@ -120,19 +120,41 @@
                   </v-col>
                  </v-row>
                    <v-container fluid>
+                  <v-col cols="12" sm="3" md="4">
                   <v-radio-group v-model="doc.type" :label="$t('nav.tipoDeTexto')" column>
                       <v-radio :label="$t('docForm.art')" value="Artigo"></v-radio>
                       <v-radio :label="$t('docForm.man')" value="Manual"></v-radio>
                       <v-radio :label="$t('docForm.rel')" value="Relatório Técnico"></v-radio>
                       <v-radio :label="$t('docForm.diss')" value="Dissertação"></v-radio>
                   </v-radio-group>
+                  </v-col>
                   </v-container>
-                  <v-text-field
-                      v-if= "value != 'ver'"
-                      :label="$t('docs.data')"
-                      :rules="[rules.required]"
-                      v-model="doc.date"
-                  ></v-text-field>
+                    <template>
+                  <v-col cols="12" sm="3" md="3">
+                    <v-menu
+                        v-model="menu2"
+                        :nudge-right="40"
+                        transition="scale-transition"
+                        offset-y
+                        min-width="auto"
+                      >
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-text-field
+                            v-model="doc.date"
+                            :label="$t('docs.data')"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker
+                          v-model="doc.date"
+                          @input="menu2 = false"
+                        ></v-date-picker>
+                      </v-menu>
+                      </v-col>
+                    </template>
                   <v-row align="center" v-if= "value === 'adicionar' || value ==='editar'">
                       <label>{{$t('docForm.file')}}:</label>
                       <v-file-input show-size v-model="doc.ficheiro"></v-file-input>
@@ -263,6 +285,7 @@ export default {
         type:"",
         ficheiro:{},
       },
+      menu: false,
       dialog:false,
       dialogHelp:false,
       valid:true,
@@ -306,6 +329,7 @@ export default {
         this.doc.authors = ''
         this.doc.date = ''
         this.doc.type = ''
+        this.doc.ficheiro = ''
       }
     },
     post: function() {

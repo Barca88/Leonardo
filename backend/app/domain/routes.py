@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from app.domain import blueprint
+from app.question.routes import route_template_apagar
 from flask import render_template, request, flash, send_from_directory, jsonify
 from flask_login import login_required
 from app import mongo, token_required, admin_required, photo_auth, write_log
@@ -96,8 +97,13 @@ def route_template_insert():
 @blueprint.route('/apagar/<domain>', methods=['DELETE'])
 @admin_required
 #@login_required
-def route_template_apagar(domain):
-    print(domain)
+def route_template_apagar1(domain):
+    questoes = mongo.db.question.find({"domain":domain})
+    for q in questoes:
+        print(q)
+        question = json.loads(json.dumps(q))
+        route_template_apagar(question['_id'])
+    
     mongo.db.domains.remove({"_id":domain})
     domains = mongo.db.domains.find()
     userAdmin = request.args.get('nome')

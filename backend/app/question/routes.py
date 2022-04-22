@@ -142,7 +142,7 @@ def route_template_insert():
 def route_template_apagar(question):
     print(question)
     mongo.db.question.remove({"_id":question})
-    questions = mongo.db.question.find()
+    question = mongo.db.question.find()
     userAdmin = request.args.get('nome')
     write_log(userAdmin, 'Informação Base/question', 'Eliminar question', 'successfull')
     return json_util.dumps({'question': question})
