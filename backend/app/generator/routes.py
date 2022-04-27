@@ -111,7 +111,7 @@ def Generate_test():
     number_questions = data['config']['number_questions']
     if len(question_pool) < number_questions:
         return make_response("NOT_ENOUGH_QUESTIONS"), 422
-    total_time = data['config']['total_time'] * 60
+    total_time = data['config']['total_time'] 
     avg_difficulty = data['config']['avg_difficulty']
     displayed_answers = data['config']['maximum_displayed_answers']
     result = generate_test(question_pool, number_questions, displayed_answers,
@@ -193,7 +193,7 @@ def edit_test():
         time_buf += int(q['answering_time'])
 
     nr_to_replace = int(test_config['number_questions']) - len(questions)
-    time_to_replace = int(test_config['total_time'])*60 - time_buf
+    time_to_replace = int(test_config['total_time']) - time_buf
     difficulty_to_replace = int(test_config['avg_difficulty'])
 
     result = generate_test(question_pool, nr_to_replace,
