@@ -1,0 +1,27 @@
+#!/bin/bash
+
+curl -sS -H "Content-Type: application/json" \
+    -X POST "localhost:5000/generator/new" -d "{
+        \"id\": \"generated_test\",
+        \"config\": {
+            \"description\": \"Este teste foi gerado de forma automatica\",
+            \"test_type\": \"Avaliação\",
+            \"number_questions\": 2,
+            \"maximum_displayed_answers\": 4,
+            \"avg_difficulty\": 1,
+            \"total_time\": 120,
+            \"question_types\": [\"\"],
+            \"language\": \"uk\",
+            \"domain\": {
+                \"study_cycle\": \"University Course\",
+                \"scholarity\": \"Informatics Engineering\",
+                \"description\": \"Database Systems\"
+            }, 
+            \"subdomains\": [\"SQL\", \"SQL2\"],
+            \"subsubdomains\": [\"\"],
+            \"inserted_by\": \"Belo, O\",
+            \"date\": [\"2021-04-10\", \"2021-04-12\"],
+            \"obs\": \"Test request for generating a test\",
+            \"visibility\": \"author\"
+        }
+  }"

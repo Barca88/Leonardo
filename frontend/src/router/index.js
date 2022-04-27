@@ -8,12 +8,6 @@ import ErrorTable from "@/views/Importacao/ErrorTable.vue"
 import ImportMenu from '@/views/Importacao/ImportMenu.vue'
 import ImportDashboard from '@/views/Importacao/ImportDashboard.vue'
 
-import TestsLayout from "@/tests_modulo/TestsLayout.vue";
-import Preparation from "@/tests_modulo/views/Preparation.vue";
-import Evaluation from "@/tests_modulo/views/Evaluation/Evaluation.vue";
-import EvaluationTest from "@/tests_modulo/views/Evaluation/EvaluationTest.vue";
-import Management from "@/tests_modulo/views/Management.vue";
-import ResultsDashboard from "@/tests_modulo/views/ResultsDashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -274,14 +268,11 @@ const routes = [
       }
     },
   },
-  {
-    path: "/tests",
-    component: TestsLayout,
-    children: [
+  
       {
-        path: "preparation",
+        path: "/preparation",
         name: "Preparation",
-        component: Preparation,
+        component: () => import("../views/Preparation.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -291,9 +282,9 @@ const routes = [
         },
       },
       {
-        path: "evaluation",
+        path: "/evaluation",
         name: "Evaluation",
-        component: Evaluation,
+        component: () => import("../views/Evaluation/Evaluation.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -303,9 +294,9 @@ const routes = [
         },
       },
       {
-        path: "evaluation/:testid",
+        path: "/evaluation/:testid",
         name: "EvaluationTest",
-        component: EvaluationTest,
+        component: () => import("../views/Evaluation/EvaluationTest.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -315,9 +306,9 @@ const routes = [
         },
       },
       {
-        path: "management",
+        path: "/management",
         name: "Management",
-        component: Management,
+        component: () => import("../views/Management.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -329,9 +320,9 @@ const routes = [
         },
       },
       {
-        path: "results",
+        path: "/results",
         name: "results",
-        component: ResultsDashboard,
+        component: () => import("../views/ResultsDashboard.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -395,12 +386,13 @@ const routes = [
             next();
           }
         }, 
-      },
+      
+      }
       /*{ path: "/*",
         name: "Pedidos",
         component: () => import("../views/PageNotFound.vue"), }*/
-    ],
-  },
+    
+  
 ];
 
 const router = new VueRouter({

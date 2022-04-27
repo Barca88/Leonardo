@@ -52,7 +52,7 @@
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/home">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/management">
             <v-list-item-title active-class="yellow--text">{{
               $t("adminNav.tests")
             }}</v-list-item-title>
@@ -80,7 +80,7 @@
               $t("adminNav.questions")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/tests/management" active-class="yellow--text">
+          <v-list-item link to="/preparation" active-class="yellow--text">
             <v-list-item-title >{{
               $t("adminNav.tests")
             }}</v-list-item-title>
@@ -140,7 +140,7 @@
               $t("adminNav.av")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/tests/evaluation" active-class="yellow--text">
+          <v-list-item link to="/evaluation" active-class="yellow--text">
             <v-list-item-title >{{
               $t("adminNav.test")
             }}</v-list-item-title>
@@ -224,7 +224,7 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/tests/results" active-class="yellow--text">
+          <v-list-item v-if="!$store.getters.isStudent" link to="/results" active-class="yellow--text">
             <v-list-item-title >{{
               $t("adminNav.ans")
             }}</v-list-item-title>

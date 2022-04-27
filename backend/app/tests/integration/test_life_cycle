@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import requests
+import json
+
+test_config = {
+    "id": "integration_test",
+    "config": {
+        "description": "Integration Test",
+        "test_type": "Avaliacao",
+        "number_questions": 2,
+        "maximum_displayed_answers": 2,
+        "avg_difficulty": 1,
+        "total_time": 120,
+        "question_types": [""],
+        "language": "uk",
+        "domain": {
+            "study_cycle": "University Course",
+            "scholarity": "Informatics Engineering",
+            "description": "Database Systems"
+        },
+        "subdomains": ["SQL", ""],
+        "subsubdomains": [""],
+        "inserted_by": "Belo, O",
+        "last_updated": "2021-04-21",
+        "date": ["2021-04-10", "2021-04-11"],
+        "obs": "integration test",
+        "visibility": "author"
+    }
+}
+
+r = requests.post('http://localhost:5000/generator/new', json=test_config)
+
+test_object = json.loads(r.text)
+
+update_test_object = {
+    "replace": [0],
+    "test": test_object
+}
+
+r = requests.post('http://localhost:5000/generator/edit',
+                  json=update_test_object)
+
+print(r.text)
