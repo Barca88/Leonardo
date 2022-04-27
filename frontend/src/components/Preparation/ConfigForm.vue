@@ -10,6 +10,7 @@
         :items="this.idDomain"
         label="Escolha o dominioo"
         @change="onChange()"
+        @input="emitChange('domain', $event)"
         clearable
       />
       <!-- SubDominios -->
@@ -300,7 +301,7 @@ export default {
     },
     // Notify parent that a change hapenned (It's not noticed due to v-modle use on props :^/)
     emitChange(key, value) {
-      
+      console.log(key)
       this.$emit('change', { ...this.testConfigs, [key]: value })
     }
   },

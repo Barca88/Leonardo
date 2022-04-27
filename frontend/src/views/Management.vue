@@ -9,7 +9,7 @@
         ref="table"
         :loading="loading"
         :items="tableTests"
-        :sort-by="['id']"
+        :sort-by="['_id']"
         :headers="headers"
         :items-per-page="15"
         :search="search"
@@ -155,7 +155,7 @@ export default {
       headers: [
         {
           text: 'Identificador',
-          value: 'id'
+          value: '_id'
         },
         {
           text: 'Descrição',
@@ -203,8 +203,8 @@ export default {
       return this.tests.map((t) => ({
         ...t.config,
         subdomains: t.config.subdomains.join(', '),
-        domain: t.config.domain.description,
-        id: t.id
+        domain: t.config.domain,
+        _id: t._id
       }))
     }
   },
@@ -215,7 +215,8 @@ export default {
       testsApi
         .getAll()
         .then((data) => {
-          this.tests = data
+          this.tests = data.tests
+          console.log('received -' + this.tests[0])
           this.loading = false
         })
         .catch(() => {

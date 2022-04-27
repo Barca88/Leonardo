@@ -6,6 +6,8 @@ from modules.validation.test_schemas import TestSchema
 from bson.json_util import dumps
 from marshmallow import ValidationError
 from datetime import datetime, timedelta
+from bson import json_util
+
 
 from app.tests import blueprint
 from flask import render_template, request
@@ -18,35 +20,36 @@ tests_api = Blueprint('tests', __name__)
 
 
 @blueprint.route('', methods=['GET'])
-@swag_from('../static/docs/tests/get_tests.yml')
 def get_all_tests():
-    type = request.args.get("type")
-    if type == "active":
-        today = datetime.today().strftime("%Y-%m-%d")
-        tests = dumps(Test.objects.raw(
-            {'config.date.start': {'$lte': today}, 'config.date.finish': {'$gte': today}}).project(
-            {'_id': 0}).values())
-
-        if len(tests) == 0:
-            return make_response('There are no active tests stored in the database', 404)
-
-        return make_response(tests, 200)
-
-    elif type == "nearfuture":
-        today = datetime.today().strftime("%Y-%m-%d")
-        tests = dumps(Test.objects.raw(
-            {'config.date.start': {'$gt': today}}).project({'_id': 0}).values())
-
-        if len(tests) == 0:
-            return make_response('There are tests in the near future stored in the database', 404)
-
-        return make_response(tests, 200)
-    else:
-        try:
-            tests = dumps(list(Test.objects.all().project({'_id': 0}).values()))
-        except Test.DoesNotExist:
-            return make_response('There are no tests stored in the database', 404)
-        return make_response(tests, 200)
+    #type = request.args.get("type")
+    #if type == "active":
+    #    today = datetime.today().strftime("%Y-%m-%d")
+    #    tests = dumps(Test.objects.raw(
+    #        {'config.date.start': {'$lte': today}, 'config.date.finish': {'$gte': today}}).project(
+    #        {'_id': 0}).values())
+#
+    #    if len(tests) == 0:
+    #        return make_response('There are no active tests stored in the database', 404)
+#
+    #    return make_response(tests, 200)
+#
+    #elif type == "nearfuture":
+    #    today = datetime.today().strftime("%Y-%m-%d")
+    #    tests = dumps(Test.objects.raw(
+    #        {'config.date.start': {'$gt': today}}).project({'_id': 0}).values())
+#
+    #    if len(tests) == 0:
+    #        return make_response('There are tests in the near future stored in the database', 404)
+#
+    #    return make_response(tests, 200)
+    #else:
+    #    try:
+    #        tests = dumps(list(Test.objects.all().project({'_id': 0}).values()))
+    #    except Test.DoesNotExist:
+    #        return make_response('There are no tests stored in the database', 404)
+    tests= [doc for doc in mongo.db.tests.find()]
+    print('sending')
+    return json_util.dumps({'tests': tests})
 
 
 @blueprint.route('', methods=['POST'])
