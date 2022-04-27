@@ -123,7 +123,7 @@ def Generate_test():
         result, number_questions, avg_difficulty)
     print('returning')
     return {
-        'id': data['config']['_id'],
+        '_id': data['config']['_id'],
         'questions': result,
         'config': data['config'],
         'compromises': {
