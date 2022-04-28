@@ -81,7 +81,7 @@
               icon
               class="info--text mx-1"
               @click="
-                selectedTest = tests.find((x) => x.id === item.id)
+                selectedTest = tests.find((x) => x._id === item._id)
                 showTestDisplayDialog = true
               "
             >
@@ -95,7 +95,7 @@
               icon
               class="warning--text mx-1"
               link
-              :to="`/preparation?editing=${item.id}`"
+              :to="`/preparation?editing=${item._id}`"
             >
               <v-icon small v-text="'mdi-lead-pencil'" />
             </v-btn>
@@ -106,7 +106,7 @@
               icon
               class="error--text mx-1"
               @click="
-                selectedTest = tests.find((x) => x.id === item.id)
+                selectedTest = tests.find((x) => x._id === item._id)
                 showTestDeleteDialog = true
               "
             >
@@ -228,19 +228,19 @@ export default {
         })
     },
 
-    deleteTest(id) {
+    deleteTest(_id) {
       this.loading = true
 
-      const test = this.tests.find((t) => t.id == id)
+      const test = this.tests.find((t) => t._id == _id)
 
       testsApi
-        .deleteOne(id)
+        .deleteOne(_id)
         .then(() => {
-          this.tests = this.tests.filter((t) => t.id != id)
+          this.tests = this.tests.filter((t) => t._id != _id)
           this.snackbar = {
             show: true,
             color: 'warning',
-            text: `O teste ${test.id} - ${test.description} foi removido com sucesso !! 😉 \n`
+            text: `O teste ${test._id} - ${test.description} foi removido com sucesso !! 😉 \n`
           }
           this.loading = false
           this.showTestDeleteDialog = false
@@ -263,7 +263,7 @@ export default {
     print() {
       alert(
         `🖨 Printing... ${JSON.stringify(
-          this.printableItems.map((i) => i.id),
+          this.printableItems.map((i) => i._id),
           null,
           2
         )}`
