@@ -16,7 +16,7 @@
             </v-btn>
           </v-col>
           <v-col cols="6" md="4" lg="3" class="d-flex justify-center">
-            <v-btn color="error" large @click="$emit('delete', test.id)">
+            <v-btn color="error" large @click="$emit('delete', test._id)">
               Eliminar
             </v-btn>
           </v-col>

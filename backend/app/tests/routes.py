@@ -71,12 +71,7 @@ def post_test():
 @blueprint.route('/<string:test_id>', methods=['DELETE'])
 def delete_test(test_id):
     print('delete_test')
-    try:
-        t = Test.objects.get({"id": test_id})
-        TestLog(action="delete", test=t, time_stamp=datetime.today().strftime('%Y-%m-%dT%H:%M:%SZ')).save()
-        t.delete()
-    except Test.DoesNotExist:
-        return make_response('The test you tried to delete does not exist', 404)
+    mongo.db.tests.remove({"_id" : test_id})
     return make_response('The test was successfully deleted', 200)
 
 
