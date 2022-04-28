@@ -92,6 +92,7 @@ export default {
       loading: true,
       testConfigs: {},
       test: null,
+      testStore:null,
       questionUpdates: {
         replacingQuestions: [],
         replacedQuestions: [],
@@ -133,9 +134,11 @@ export default {
         testsApi
           .getOne(this.$route.query.editing)
           .then((data) => {
-            this.test = data
-            this.testConfigs = { ...data.config }
-            this.testConfigs.id = data.id
+            console.log('receiving1')
+            this.testStore = data.tests
+            this.test = this.testStore[0]
+            this.testConfigs = this.testStore[0]['config']
+            this.testConfigs._id = this.testStore[0]['_id']
             this.step = 2
             this.loading = false
           })
@@ -191,7 +194,7 @@ export default {
           }
           // Submit config if so
         } else {
-          const testId = this.testConfigs.id
+          const testId = this.testConfigs._id
           const config = {
             ...this.testConfigs,
             inserted_by: 'Real Human Person'

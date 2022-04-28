@@ -6,18 +6,17 @@
 
       <!-- Dominio -->
       <v-select
-        v-model="Domainobj"
+        :value="testConfigs.domain"
         :items="this.idDomain"
         label="Escolha o dominioo"
-        @change="onChange()"
+        @change="onChange($event)"
         @input="emitChange('domain', $event)"
         clearable
       />
       <!-- SubDominios -->
       <v-select
         :items="this.idSubDomain"
-        :value="domainValues"
-        @input="emitChange('subdomains', $event)"
+        :value="testConfigs.subdomains"
         label="Escolha os subdominios"
         @change='subchange()'
         multiple
@@ -31,9 +30,9 @@
         <h4 class="text-h4 mb-4">Configuracao do Teste</h4>
         <!-- Identificador  -->
         <v-text-field
-          :value="testConfigs.id"
+          :value="testConfigs._id"
           @input="emitChange('_id', $event.substring(0, 20))"
-          :rules="configrules.id"
+          :rules="configrules._id"
           label="Identificador"
           counter="20"
           required
@@ -249,13 +248,14 @@ export default {
       this.showNext = true;
     },
     onDomain(){
-      if(this.sendObject.sendDomain != this.Domainobj){
+      if(this.sendObject.sendDomain != this.configrules.domain){
         this.idSubDomain = []
         console.log('inicio')
-        if(this.Domainobj){
+        if(this.configrules.domain){
           this.Domain.forEach((obj) =>{
-            console.log('antes if')
-            if(obj._id == this.Domainobj){
+            console.log('antes if  -' + obj._id)
+            console.log(this.configrules.domain)
+            if(obj._id == this.configrules.domain){
               obj.body.forEach((sub) =>{
                 console.log('inserirSub ' + sub.subdomain)
                 this.idSubDomain.push(sub.subdomain)
@@ -266,10 +266,12 @@ export default {
       }
     },
 
-    onChange(){
+    onChange(e){
+      console.log('----  ' + e)
+      this.configrules.domain = e
       this.sendObject.sendId = this.selectedDomain
       this.onDomain()
-      this.sendObject.sendDomain = this.Domainobj
+      this.sendObject.sendDomain = this.configrules.domain
       this.sendObject.sendHeader = this.headerobj
       console.log('Changing')
       this.$root.$emit('change',this.sendObject)
@@ -329,6 +331,10 @@ export default {
     }
   },
   async created() {
+    this.testConfigs.subdomains.forEach((obj)=>{
+      this.idSubDomain.push(obj)
+      this.showNext = true
+    })
     //this.fetchDomains()
     console.log('fetching domains')
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{

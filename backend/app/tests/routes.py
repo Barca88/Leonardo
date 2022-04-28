@@ -21,6 +21,7 @@ tests_api = Blueprint('tests', __name__)
 
 @blueprint.route('', methods=['GET'])
 def get_all_tests():
+    print(get_all_tests)
     #type = request.args.get("type")
     #if type == "active":
     #    today = datetime.today().strftime("%Y-%m-%d")
@@ -53,9 +54,8 @@ def get_all_tests():
 
 
 @blueprint.route('', methods=['POST'])
-@swag_from('../static/docs/tests/post_test.yml')
 def post_test():
-    print('here1')
+    print('post_test')
     data = request.get_json()
     try:
         TestSchema().load(data)
@@ -69,9 +69,8 @@ def post_test():
 
 
 @blueprint.route('/<string:test_id>', methods=['DELETE'])
-@swag_from('../static/docs/tests/delete_test.yml')
 def delete_test(test_id):
-    print('here2')
+    print('delete_test')
     try:
         t = Test.objects.get({"id": test_id})
         TestLog(action="delete", test=t, time_stamp=datetime.today().strftime('%Y-%m-%dT%H:%M:%SZ')).save()
@@ -82,19 +81,17 @@ def delete_test(test_id):
 
 
 @blueprint.route('/<string:test_id>', methods=['GET'])
-@swag_from('../static/docs/tests/get_test.yml')
 def get_test(test_id):
-    try:
-        test = dumps(Test.objects.project({'_id': 0}).get(
-            {'_id': test_id}).to_son().to_dict())
-    except Test.DoesNotExist:
-        return make_response('The test which id you referenced does not exist', 404)
-    return make_response(test, 200)
+    print('get_test')
+    tests = mongo.db.tests.find({"_id": test_id})
+    print(tests)
+    
+    return json_util.dumps({'tests': tests})
 
 
 @blueprint.route('/<string:test_id>', methods=['PUT'])
 def update_test(test_id):
-    print('here4')
+    print('update_test')
     data = request.get_json()
     print(data)
 

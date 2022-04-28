@@ -8,7 +8,7 @@
             <v-col cols="12" md="6">
               <v-list>
                 <v-list-item class="d-flex align-center">
-                  Identificador : {{ test.id }}
+                  Identificador : {{ test['_id'] }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -18,14 +18,8 @@
                 <v-list-item class="d-flex align-center">
                   Dominio :
                   <v-list>
-                    <v-list-item class="d-flex align-center">
-                      Descricao : {{ test.config.domain.description }}
-                    </v-list-item>
-                    <v-list-item class="d-flex align-center">
-                      Escolaridade : {{ test.config.domain.scholarity }}
-                    </v-list-item>
-                    <v-list-item class="d-flex align-center">
-                      Ciclo de estudo : {{ test.config.domain.study_cycle }}
+                    <v-list-item class="d-flex align-left">
+                      {{ test.config['domain'] }}
                     </v-list-item>
                   </v-list>
                 </v-list-item>
