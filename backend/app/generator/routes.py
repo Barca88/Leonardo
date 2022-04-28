@@ -133,83 +133,79 @@ def Generate_test():
     }, 200
 
 
-@generator_api.route('/edit', methods=['POST'])
-@swag_from('../static/docs/generator/edit_test.yml')
+@blueprint.route('/edit', methods=['POST'])
 def edit_test():
     data = request.get_json()
-    try:
-        TestEditSchema().load(data)
-    except ValidationError as err:
-        return make_response(err.messages, 400)
+    print(data)
 
-    replace = data['replace']
-    questions = data['test']['questions']
-    test_config = data['test']['config']
-    displayed_answers = test_config['maximum_displayed_answers']
-    ids = [q['_id'] for q in questions]
 
-    questions = [q for i, q in enumerate(questions) if i not in replace]
+    ids = []
 
-    questions_filter = get_query_filter(data['test']['config'])
-    questions_filter['_id'] = {'$nin': ids}
-    question_pool = Question.objects.raw(
-        questions_filter).project({'_id': 0, '_cls': 0})
-    question_pool = list(question_pool.aggregate(
-        {
-            '$addFields': {
-                'mandatory_count': {
-                    '$size': {
-                        '$filter': {
-                            'input': '$body',
-                            'as': 'item',
-                            'cond': {
-                                '$eq': ['$$item.mandatory', True]
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        {
-            '$match': {
-                'mandatory_count': {
-                    '$lte': test_config['maximum_displayed_answers']
-                }
+    for i in data['replace']:
+        ids.append(data['test']['questions'][i]['_id'])
+    
+    question_pool = list(mongo.db.question.find({"subdomain": { "$in": data['test']['config']['subdomains'] }, "_id": {"$nin" : ids}}))
 
-            }
-        },
-        {
-            '$project': {
-                'mandatory_count': 0
-            }
-        }
-    ))
+    for x in question_pool:
+        print(x)
 
-    if len(question_pool) < len(replace):
+    #try:
+    #    TestConfiguration().load(data)
+    #    if Test.objects.raw({"id": data['_id']}).count() > 0 and editing != 'true':
+    #        return make_response("CONFLICT"), 409
+    #except ValidationError as err:
+    #    return make_response(err.messages, 400)
+
+    #questions_filter = get_query_filter(data['config'])
+    #question_pool = Question.objects.raw(
+    #    questions_filter).project({'_id': 0, '_cls': 0})
+    #question_pool = list(question_pool.aggregate(
+    #    {
+    #        '$addFields': {
+    #            'mandatory_count': {
+    #                '$size': {
+    #                    '$filter': {
+    #                        'input': '$body',
+    #                        'as': 'item',
+    #                        'cond': {
+    #                            '$eq': ['$$item.mandatory', True]
+    #                        }
+    #                    }
+    #                }
+    #            }
+    #        }
+    #    },
+    #    {
+    #        '$match': {
+    #            'mandatory_count': {
+    #                '$lte': data['config']['maximum_displayed_answers']
+    #            }
+#
+    #        }
+    #    },
+    #    {
+    #        '$project': {
+    #            'mandatory_count': 0
+    #        }
+    #    }
+    #))
+    number_questions = data['test']['config']['number_questions']
+    if len(question_pool) < number_questions:
         return make_response("NOT_ENOUGH_QUESTIONS"), 422
-
-    time_buf = 0
-    for q in questions:
-        time_buf += int(q['answering_time'])
-
-    nr_to_replace = int(test_config['number_questions']) - len(questions)
-    time_to_replace = int(test_config['total_time']) - time_buf
-    difficulty_to_replace = int(test_config['avg_difficulty'])
-
-    result = generate_test(question_pool, nr_to_replace,
-                           displayed_answers, time_to_replace, difficulty_to_replace)
-
+    total_time = data['test']['config']['total_time'] 
+    avg_difficulty = data['test']['config']['avg_difficulty']
+    displayed_answers = data['test']['config']['maximum_displayed_answers']
+    result = generate_test(question_pool, number_questions, displayed_answers,
+                           total_time, avg_difficulty)
     if len(result) == 0:
         return make_response("COULDN'T_SOLVE"), 422
 
-    for q in result:
-        questions.append(q)
-
-    nr_drift, difficulty_drift = calculate_drifts(questions, int(test_config['number_questions']),
-                                                  int(test_config['avg_difficulty']))
+    nr_drift, difficulty_drift = calculate_drifts(
+        result, number_questions, avg_difficulty)
+    print('returning')
     return {
-        '_id': data['test']['_id'],
-        'questions': questions,
+        '_id': data['test']['config']['_id'],
+        'questions': result,
         'config': data['test']['config'],
         'compromises': {
             'number_questions': nr_drift,

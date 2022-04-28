@@ -8,7 +8,7 @@
   >
     <v-card-title>
       <h4>
-        {{ index + 1 + '. ' + question.id }}
+        {{ index + 1 + '. ' + question._id }}
       </h4>
       <v-spacer />
       <div class="d-flex flex-column">
