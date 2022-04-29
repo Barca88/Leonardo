@@ -1,20 +1,21 @@
 <template>
   <v-container class="pa-10">
+    <AppHeader></AppHeader>
+    <NavDraw></NavDraw>
     <h3 class="text-h3 grey--text text--lighten-1 mb-5">
       Realizacao de testes
     </h3>
 
     <h4 class="text-h4 mb-4">Escolha o Dominio</h4>
 
-    <DomainForm v-model="domain" @fetchFail="snackbarFetchFailed" />
-
+    <DomainForm v-model="domain" />
+  
     <v-expand-transition>
       <v-data-table
         v-show="domain != null"
         ref="table"
-        :loading="loading"
         :items="tableTests"
-        :sort-by="['id']"
+        :sort-by="['_id']"
         :headers="headers"
         :items-per-page="15"
         :search="search"
@@ -68,31 +69,42 @@
       :show="snackbar.show"
       @close="snackbar.show = false"
     />
+
+    <Footer class="mt-5"></Footer>
   </v-container>
 </template>
 
 <script>
+import AppHeader from '@/components/header.vue'
+import NavDraw from '@/components/navDraw'
+import Footer from '@/components/Footer'
 import DomainForm from '@/components/Evaluation/DomainForm'
 import TextSnackBar from '@/components/UI/TextSnackBar'
-
+import axios from 'axios'
 import * as testsApi from '@/utils/api/tests'
+
 
 export default {
   name: 'Evaluation',
   components: {
     TextSnackBar,
-    DomainForm
+    DomainForm,
+    AppHeader,
+    NavDraw,
+    Footer
   },
   data() {
     return {
       domain: null,
       loading: true,
       search: '',
+      Domain: [],
+      idDomain: [],
       tests: [],
       headers: [
         {
           text: 'Identificador',
-          value: 'id'
+          value: '_id'
         },
         {
           text: 'Descrição',
@@ -138,16 +150,14 @@ export default {
   },
 
   computed: {
+    
     /** @return {any} */
     tableTests() {
-      if (this.domain) {
-        const [study_cycle, scholarity, description] = this.domain.split('-')
+      if (this.domain != null) {
         return this.tests
           .filter(
             (t) =>
-              t.config.domain.study_cycle === study_cycle &&
-              t.config.domain.scholarity === scholarity &&
-              t.config.domain.description === description
+              t.config.domain === this.domain
           )
           .map((t) => ({
             ...t.config,
@@ -156,25 +166,48 @@ export default {
             id: t.id
           }))
       } else return []
+    },
+    tableTests1() {
+      return this.tests.map((t) => ({
+        ...t.config,
+        subdomains: t.config.subdomains.join(', '),
+        domain: t.config.domain,
+        _id: t._id
+      }))
     }
   },
 
   created() {
     this.loading = true
-
+     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          },
+        })
+      .then((response)=>{
+        response.data.domains.forEach((obj) =>{
+          console.log('found something')
+          this.Domain.push(obj)
+          this.idDomain.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
     testsApi
-      .getAll()
-      .then((data) => {
-        this.tests = data
-        this.loading = false
-      })
-      .catch(() => {
-        this.snackbar = {
-          show: true,
-          color: 'error',
-          text: `Não foi possivel obter a lista de testes ou dominios !! 😫 \n`
-        }
-      })
+        .getAll()
+        .then((data) => {
+          this.tests = data.tests
+          console.log('received -' + this.tests[0])
+          this.loading = false
+        })
+        .catch(() => {
+          this.snackbar = {
+            show: true,
+            color: 'error',
+            text: `Não foi possivel obter a lista de testes !! 😫 \n`
+          }
+        })
   }
 }
 </script>

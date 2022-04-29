@@ -8,7 +8,7 @@
       <v-select
         :value="testConfigs.domain"
         :items="this.idDomain"
-        label="Escolha o dominioo"
+        label="Escolha o dominio"
         @change="onChange($event)"
         @input="emitChange('domain', $event)"
         clearable

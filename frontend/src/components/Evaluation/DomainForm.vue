@@ -1,11 +1,10 @@
 <template>
-  <v-form ref="configForm" :disabled="loading">
+  <v-form ref="configForm">
     <!-- Dominio -->
     <v-select
       v-model="selectedDomain"
-      :items="domainIds"
+      :items="this.idDomain"
       label="Escolha o dominio"
-      :disabled="domainValues.length == 0"
       @change="$emit('change', $event)"
       clearable
     />
@@ -14,7 +13,7 @@
 
 <script>
 import * as configApi from '@/utils/api/config'
-
+import axios from 'axios';
 export default {
   name: 'ConfigForm',
   model: {
@@ -26,7 +25,9 @@ export default {
   data: () => ({
     loading: true,
     selectedDomain: null,
-    domainValues: []
+    domainValues: [],
+    Domain: [],
+    idDomain: []
   }),
   methods: {
     fetchDomains() {
@@ -56,9 +57,21 @@ export default {
     }
   },
   async created() {
-    this.fetchDomains()
-    if (this.domain)
-      this.selectedDomain = `${this.domain.study_cycle}-${this.domain.scholarity}-${this.domain.description}`
+    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          },
+        })
+      .then((response)=>{
+        response.data.domains.forEach((obj) =>{
+          console.log('found something')
+          this.Domain.push(obj)
+          this.idDomain.push(obj._id)
+        });
+      },(error) =>{
+          console.log(error);
+    });
   }
 }
 </script>
