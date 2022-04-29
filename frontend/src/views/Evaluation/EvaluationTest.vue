@@ -11,7 +11,7 @@
             <v-col cols="12" md="6">
               <v-list>
                 <v-list-item class="d-flex align-center">
-                  Identificador2 : {{ test._id }}
+                  Identificador : {{ test._id }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -28,19 +28,7 @@
                       style="min-height: 25px"
                       class="d-flex align-center"
                     >
-                      Descricao : {{ test.config.domain.description }}
-                    </v-list-item>
-                    <v-list-item
-                      style="min-height: 25px"
-                      class="d-flex align-center"
-                    >
-                      Escolaridade : {{ test.config.domain.scholarity }}
-                    </v-list-item>
-                    <v-list-item
-                      style="min-height: 25px"
-                      class="d-flex align-center"
-                    >
-                      Ciclo de estudo : {{ test.config.domain.study_cycle }}
+                      {{ test.config.domain }}
                     </v-list-item>
                   </v-list>
                 </v-list-item>
@@ -82,12 +70,11 @@
     >
       <v-carousel
         hide-delimiters
-        :show-arrows="false"
-        class="ma-4"
+        class="ma-2 pa-2 d-flex flex-column align-center"
         height="fit-content"
         v-model="currentQuestion"
       >
-        <v-carousel-item v-for="(q, i) in test.questions" :key="i">
+        <v-carousel-item v-for="(q, i) in test.questions" :key="i"  height="10px">
           <v-card
             light
             class="ma-2 pa-2 d-flex flex-column"
@@ -191,6 +178,7 @@
                     v-bind="attrs"
                     color="warning"
                     class="ma-2"
+                    :disabled="answers[i] === null"
                     @click="nextQuestion()"
                   >
                     <v-icon v-text="'mdi-arrow-right-circle-outline'" />
@@ -431,8 +419,8 @@ export default {
     evaluationApi
       .getOne(this.$route.params['testid'])
       .then((data) => {
-         this.testStore = data.tests
-         this.test = this.testStore[0]
+        this.testStore = data.tests
+        this.test = this.testStore[0]
         this.test.questions.forEach((_, i) => {
           this.answers[i] = null
         })
@@ -452,3 +440,9 @@ export default {
   }
 }
 </script>
+<style>
+.v-carousel{
+  height: fit-content !important;
+}
+</style>
+

@@ -70,6 +70,42 @@ def get_all_tests():
 @blueprint.route('', methods=['POST'])
 def post_test():
     data = request.get_json()
+    print('posting eval\n\n')
+
+    questionsIds = []
+    for x in data["questions"]:
+        questionsIds.append(x["_id"])
+
+    question_pool = list(mongo.db.question.find({ "_id": {"$in" : questionsIds}}))
+    for f in question_pool:
+        print(f["_id"])
+
+    dataresponse = data
+    bodyInt = -1
+    ansInt = -1
+    for q in data["questions"]:
+        print("q ->")
+        print(q)
+        for dbQ in question_pool:
+            if str(dbQ["_id"]) == str(q["_id"]):
+                for ansGiven in dbQ["body"]:
+                    bodyInt=bodyInt+1
+                    print('ansgiven')
+                    print(ansGiven)
+                    for correctAns in q["body"]:
+                        ansInt = ansInt +1
+                        if ansGiven["answer"] == correctAns["answer"]:
+                            print(dataresponse["questions"])
+                            print('yo')
+                            print(dataresponse["questions"][bodyInt])
+                            print('yo')
+                            print(dataresponse["questions"][bodyInt][ansInt])
+                            dataresponse["questions"][bodyInt][ansInt]["result"]= 10
+                            ansGiven["result"] = 10
+                            print('yo')
+    print(dataresponse)
+
+
     try:
         TestSchema().load(data)
         data['config']['last_updated'] = datetime.today().strftime('%Y-%m-%d')

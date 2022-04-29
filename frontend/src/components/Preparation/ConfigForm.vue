@@ -8,7 +8,7 @@
       <v-select
         :value="testConfigs.domain"
         :items="this.idDomain"
-        label="Escolha o dominio"
+        label="Escolha o dominioo"
         @change="onChange($event)"
         @input="emitChange('domain', $event)"
         clearable
@@ -18,6 +18,7 @@
         :items="this.idSubDomain"
         :value="testConfigs.subdomains"
         label="Escolha os subdominios"
+        @input="emitChange('subdomains', $event)"
         @change='subchange()'
         multiple
         chips
@@ -331,10 +332,13 @@ export default {
     }
   },
   async created() {
-    this.testConfigs.subdomains.forEach((obj)=>{
-      this.idSubDomain.push(obj)
-      this.showNext = true
-    })
+    console.log('created')
+    try{
+      this.testConfigs.subdomains.forEach((obj)=>{
+        this.idSubDomain.push(obj)
+        this.showNext = true
+      })}
+      catch( e ){console.log('')}
     //this.fetchDomains()
     console.log('fetching domains')
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
