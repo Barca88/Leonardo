@@ -1,3 +1,0 @@
-#!/bin/bash
-
-curl -sS -X GET "localhost:5000/tests"

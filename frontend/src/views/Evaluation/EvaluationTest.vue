@@ -11,7 +11,7 @@
             <v-col cols="12" md="6">
               <v-list>
                 <v-list-item class="d-flex align-center">
-                  Identificador : {{ test.id }}
+                  Identificador2 : {{ test._id }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
@@ -95,7 +95,7 @@
           >
             <v-card-title>
               <h4>
-                {{ i + 1 + '. ' + q.id }}
+                {{ i + 1 + '. ' + q._id }}
               </h4>
               <v-spacer />
               <div class="d-flex flex-column">
@@ -191,7 +191,6 @@
                     v-bind="attrs"
                     color="warning"
                     class="ma-2"
-                    :disabled="answers[i] === null"
                     @click="nextQuestion()"
                   >
                     <v-icon v-text="'mdi-arrow-right-circle-outline'" />
@@ -432,7 +431,8 @@ export default {
     evaluationApi
       .getOne(this.$route.params['testid'])
       .then((data) => {
-        this.test = data
+         this.testStore = data.tests
+         this.test = this.testStore[0]
         this.test.questions.forEach((_, i) => {
           this.answers[i] = null
         })

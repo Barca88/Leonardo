@@ -48,7 +48,7 @@
 
         <template v-slot:[`item.options`]="{ item }">
           <div class="d-flex">
-            <v-btn small text link :to="`/evaluation/${item.id}`" class="mx-1">
+            <v-btn small text link :to="`/evaluation/${item._id}`" class="mx-1">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn text small class="warning--text change-font" v-on="on">
@@ -163,7 +163,7 @@ export default {
             ...t.config,
             subdomains: t.config.subdomains.join(', '),
             domain: t.config.domain.description,
-            id: t.id
+            _id: t._id
           }))
       } else return []
     },

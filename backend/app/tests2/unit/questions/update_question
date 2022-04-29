@@ -1,6 +1,0 @@
-#!/bin/bash
-
-curl -sS -H "Content-Type: application/json" \
-    -X PUT "localhost:5000/questions/UKEINSBD0150" -d "{
-        \"validated_at\": \"hoje\"
-    }"
