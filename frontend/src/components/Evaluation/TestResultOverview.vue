@@ -2,7 +2,7 @@
   <section v-if="test">
     <v-card class="d-flex flex-column" elevation="0">
       <h4 class="pt-6 pb-0 text-h4 text-center" color="primary ">
-        Resultado : {{ (test.result * 100).toFixed(0) }}%
+        Resultado : {{ test.result  }}%
       </h4>
 
       <v-card-text

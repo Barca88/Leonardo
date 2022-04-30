@@ -2,7 +2,7 @@
   <v-card class="pa-2 d-flex flex-column" height="100%">
     <v-card-title>
       <h4>
-        {{ index + 1 + '. ' + question.id }}
+        {{ index + 1 + '. ' + question._id }}
       </h4>
       <v-spacer />
       <div class="d-flex flex-column">
@@ -22,13 +22,14 @@
           v-for="(answer, i) in question.body"
           :key="i"
           :class="
-            (answer.selected
-              ? answer.correct
+            (answer.selected  && answer.correction ==1
                 ? 'green--text '
-                : 'red--text '
-              : answer.correct
-              ? ''
-              : 'green--text ') + 'py-1'
+                  : (answer.selected  && answer.correction ==0)
+                  ? 'red--text ' 
+                : ( answer.correction ==1) 
+                ? 'green--text '
+                : 'red--text ' 
+             ) + 'py-1'
           "
         >
           <v-icon v-if="answer.selected" v-text="'mdi-close-box-outline'" />

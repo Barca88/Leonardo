@@ -1,5 +1,7 @@
 <template>
   <v-container class="pa-10">
+    <AppHeader></AppHeader>
+    <NavDraw></NavDraw>
     <v-row justify="space-around" class="mb-0">
       <v-col cols="12" md="3">
         <h3 class="text-h3 grey--text text--lighten-1">Realizacao de teste:</h3>
@@ -258,22 +260,22 @@
                 <v-card-title> Questoes </v-card-title>
                 <v-list>
                   <v-list-item class="d-flex align-center">
-                    Apresentadas : {{ result.questions.length }}
+                    Apresentadas : {{ result["questions"].length }}
                   </v-list-item>
 
                   <v-list-item class="d-flex align-center">
                     Certas :
-                    {{ result.questions.filter((q) => q.result == 1).length }}
+                    {{ result["questions"].filter((q) => q["result"] == 1).length }}
                   </v-list-item>
                   <v-list-item class="d-flex align-center">
                     Erradas :
-                    {{ result.questions.filter((q) => q.result == 0).length }}
+                    {{ result["questions"].filter((q) => q["result"] == 0).length }}
                   </v-list-item>
                   <v-list-item class="d-flex align-center">
-                    Taxa de acerto : {{ (result.result * 100).toFixed(0) }} %
+                    Taxa de acerto : {{result["result"]}} %
                   </v-list-item>
                   <v-list-item class="d-flex align-center">
-                    Resultado : {{ (result.result * 100).toFixed(0) }} / 100
+                    Resultado : {{ (result.result  / 10) * 2 }}
                   </v-list-item>
                 </v-list>
               </v-card>
@@ -309,6 +311,7 @@
       :show="snackbar.show"
       @close="snackbar.show = false"
     />
+    <Footer class="mt-5"></Footer>
   </v-container>
 </template>
 
@@ -316,6 +319,9 @@
 import TextSnackBar from '@/components/UI/TextSnackBar'
 import TestDetails from '@/components/UI/TestDetails'
 import TestResultOverview from '@/components/Evaluation/TestResultOverview'
+import AppHeader from '@/components/header.vue'
+import NavDraw from '@/components/navDraw'
+import Footer from '@/components/Footer'
 
 import * as evaluationApi from '@/utils/api/evaluation'
 
@@ -324,7 +330,10 @@ export default {
   components: {
     TextSnackBar,
     TestDetails,
-    TestResultOverview
+    TestResultOverview,
+     AppHeader,
+    NavDraw,
+    Footer
   },
   data() {
     return {
@@ -396,10 +405,22 @@ export default {
       evaluationApi
         .submit(resolution)
         .then((data) => {
+          console.log("results are here")
+          console.log(JSON.stringify(data.tests))
+          this.testStore = data.tests
+          console.log("results are here1")
           this.loading = false
-          this.result = data
+          console.log("results are here2")
+          this.result = this.testStore
+          console.log("results are here3")
+          console.log(this.testStore)
+          console.log(this.result["questions"])
+          console.log("results are here1")
+          console.log(JSON.stringify(this.result["questions"][0]["result"]))
+
         })
         .catch(() => {
+            console.log("erro")
           this.snackbar = {
             show: true,
             color: 'error',

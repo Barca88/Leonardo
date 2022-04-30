@@ -76,45 +76,65 @@ def post_test():
     for x in data["questions"]:
         questionsIds.append(x["_id"])
 
-    question_pool = list(mongo.db.question.find({ "_id": {"$in" : questionsIds}}))
-    for f in question_pool:
-        print(f["_id"])
 
     dataresponse = data
     bodyInt = -1
     ansInt = -1
+    totalquestions = 0
+    correctAns = 0
     for q in data["questions"]:
+        totalquestions += 1
+        bodyInt=bodyInt+1
+        ansInt = -1
         print("q ->")
         print(q)
-        for dbQ in question_pool:
-            if str(dbQ["_id"]) == str(q["_id"]):
-                for ansGiven in dbQ["body"]:
-                    bodyInt=bodyInt+1
-                    print('ansgiven')
-                    print(ansGiven)
-                    for correctAns in q["body"]:
-                        ansInt = ansInt +1
-                        if ansGiven["answer"] == correctAns["answer"]:
-                            print(dataresponse["questions"])
-                            print('yo')
-                            print(dataresponse["questions"][bodyInt])
-                            print('yo')
-                            print(dataresponse["questions"][bodyInt][ansInt])
-                            dataresponse["questions"][bodyInt][ansInt]["result"]= 10
-                            ansGiven["result"] = 10
-                            print('yo')
-    print(dataresponse)
+        correct = 0
+        for ansGiven in q["body"]:
+            
+            ansInt = ansInt +1
+            print(type(ansGiven["correction"]))
+            print(type(ansGiven["selected"]))
+
+            if ansGiven["correction"] == "1" and ansGiven["selected"] == True and "result" not in dataresponse["questions"][bodyInt]["body"][ansInt]:
+                print('\nyo1\n')
+                if correct == 0:
+                    correct += 1
 
 
-    try:
-        TestSchema().load(data)
-        data['config']['last_updated'] = datetime.today().strftime('%Y-%m-%d')
-        t = Test(**data)
-        t.save()
-        TestLog(action="create", test=t, time_stamp=datetime.today().strftime('%Y-%m-%dT%H:%M:%SZ')).save()
-    except ValidationError as err:
-        return make_response(err.messages, 400)
-    return make_response('The test was successfully inserted in the database', 201)
+            elif ansGiven["correction"] == 1 and ansGiven["selected"] == "True" :
+                print('\nyo2\n')
+                if correct == 0:
+                    correct += 1
+
+
+            elif ansGiven["eliminative"] == 1 and "result" not in dataresponse["questions"][bodyInt]["body"][ansInt]:
+                correct = -1
+                print('\nyo3\n')
+
+
+            elif ansGiven["eliminative"] == 1:
+                correct = -1
+                print('\nyo4\n')
+
+               
+            print(correct)
+        if correct == 1:
+            correctAns += 1
+        dataresponse["questions"][bodyInt]["result"]= correct  
+
+        print(dataresponse)    
+        res = "{:.2f}".format((correctAns / totalquestions) * 100)
+        dataresponse["result"]= res
+
+
+            
+
+            
+    #print(dataresponse)
+
+
+    
+    return json_util.dumps({'tests': dataresponse})
 
 
 @blueprint.route('/<string:test_id>', methods=['DELETE'])
