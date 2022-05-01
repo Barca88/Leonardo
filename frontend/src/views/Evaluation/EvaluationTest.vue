@@ -47,10 +47,10 @@
         <v-card>
           <v-list>
             <v-list-item class="d-flex align-center">
-              Nome : {{ 'Jonas Soares de Sousa' }}
+              Nome : {{ this.$store.state.user.name }}
             </v-list-item>
             <v-list-item class="d-flex align-center">
-              Numero de Aluno : {{ 'a11111' }}
+              Numero de Aluno : {{ 'Sem Número' }}
             </v-list-item>
           </v-list>
         </v-card>
@@ -76,7 +76,7 @@
         height="fit-content"
         v-model="currentQuestion"
       >
-        <v-carousel-item v-for="(q, i) in test.questions" :key="i"  height="10px">
+        <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
           <v-card
             light
             class="ma-2 pa-2 d-flex flex-column"
@@ -322,6 +322,7 @@ import TestResultOverview from '@/components/Evaluation/TestResultOverview'
 import AppHeader from '@/components/header.vue'
 import NavDraw from '@/components/navDraw'
 import Footer from '@/components/Footer'
+import axios from 'axios';
 
 import * as evaluationApi from '@/utils/api/evaluation'
 
@@ -346,6 +347,8 @@ export default {
       timeLeft: 999,
       answers: [],
       result: null,
+      check: '',
+      exists: 0,
       snackbar: {
         show: false,
         text: '',
@@ -368,11 +371,13 @@ export default {
       if (this.currentQuestion == this.test.questions.length - 1) {
         this.startStep3()
       } else {
+        
         this.currentQuestion++
         this.timeCurrentQuestion = this.test.questions[
           this.currentQuestion
         ].answering_time
         this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+        this.sendCurrentTest(this.currentQuestion)
       }
     },
     updateAnswers(i, val) {
@@ -383,6 +388,25 @@ export default {
     startStep2() {
       this.step = 2
       this.tick()
+    },
+    sendCurrentTest(currentQuestion){
+      const resolution = { ...this.test }
+      resolution.currentQuestion = currentQuestion
+      resolution.questions.forEach((q, i) => {
+        q.body.forEach((a) => {
+          if (a.answer.localeCompare(this.answers[i]) == 0) {
+            a.selected = true
+          } else {
+            a.selected = false
+          }
+        })
+      }),
+        (resolution.student_id =
+           this.$store.state.user._id)
+      resolution.finished = 0
+
+      evaluationApi
+        .submit(resolution)
     },
     startStep3() {
       this.step = 3
@@ -400,31 +424,28 @@ export default {
         })
       }),
         (resolution.student_id =
-          'José Estevão Soares Carvalho de Cunha e Sousa')
+           this.$store.state.user._id)
+      resolution.finished = 1
 
       evaluationApi
         .submit(resolution)
         .then((data) => {
-          console.log("results are here")
-          console.log(JSON.stringify(data.tests))
+         
           this.testStore = data.tests
-          console.log("results are here1")
+          
           this.loading = false
-          console.log("results are here2")
+          
           this.result = this.testStore
-          console.log("results are here3")
-          console.log(this.testStore)
-          console.log(this.result["questions"])
-          console.log("results are here1")
-          console.log(JSON.stringify(this.result["questions"][0]["result"]))
+          
 
         })
         .catch(() => {
-            console.log("erro")
+            
           this.snackbar = {
             show: true,
             color: 'error',
             text: `Não foi possivel submeter a resolucao !! 😫 \n`
+            
           }
         })
     },
@@ -437,27 +458,74 @@ export default {
   },
   created() {
     this.loading = true
-    evaluationApi
-      .getOne(this.$route.params['testid'])
-      .then((data) => {
-        this.testStore = data.tests
-        this.test = this.testStore[0]
-        this.test.questions.forEach((_, i) => {
-          this.answers[i] = null
+      evaluationApi
+        .getOne(this.$route.params['testid'])
+        .then((data) => {
+          this.testStore = data.tests
+          this.test = this.testStore[0]
+          this.test.questions.forEach((_, i) => {
+            this.answers[i] = null
+          })
+          this.timeCurrentQuestion = this.test.questions[
+            this.currentQuestion
+          ].answering_time
+          this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+          this.loading = false
         })
-        this.timeCurrentQuestion = this.test.questions[
-          this.currentQuestion
-        ].answering_time
-        this.timeLeft = this.test.questions[this.currentQuestion].answering_time
-        this.loading = false
-      })
-      .catch(() => {
-        this.snackbar = {
-          show: true,
-          color: 'error',
-          text: `Não foi possivel obter o teste !! 😫 \n`
-        }
-      })
+        .catch(() => {
+          this.snackbar = {
+            show: true,
+            color: 'error',
+            text: `Não foi possivel obter o teste !! 😫 \n`
+          }
+        })
+
+
+     this.check = this.$route.params['testid'] + this.$store.state.user._id
+     axios.get(`${process.env.VUE_APP_BACKEND}/evaluation/check/${this.check}`,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"   
+          }
+        }).then((response) => {
+          if(response.data['exists'] == 1){
+
+            this.tests = response.data['questions'][0]
+            this.exists = response.data['exists']
+            this.currentQuestion =response.data['questions'][0]["currentQuestion"]
+
+          this.tests.questions.forEach((q, i) => {
+            q.body.forEach((a) => {
+              if (a.selected) {
+                console.log('here')
+                this.answers[i] = a.answer
+              } 
+            })
+          })
+
+
+            if(response.data['questions'][0]["finished"] == 1){
+              this.step = 3
+              this.result = this.tests
+              this.snackbar = {
+              show: true,
+              color: 'error',
+              text: `Já realizou este teste.\n`
+              }
+            }
+          }
+
+        },(error) =>{
+          this.x = error
+    });
+      
+      
+
+
+    
+      
+    
   }
 }
 </script>

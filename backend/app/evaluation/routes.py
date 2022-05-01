@@ -70,7 +70,9 @@ def get_all_tests():
 @blueprint.route('', methods=['POST'])
 def post_test():
     data = request.get_json()
-    print('posting eval\n\n')
+    data["_id"]=data["_id"] + data["student_id"]
+    
+    print('post_test\n\n')
 
     questionsIds = []
     for x in data["questions"]:
@@ -86,8 +88,6 @@ def post_test():
         totalquestions += 1
         bodyInt=bodyInt+1
         ansInt = -1
-        print("q ->")
-        print(q)
         correct = 0
         for ansGiven in q["body"]:
             
@@ -128,7 +128,7 @@ def post_test():
 
 
             
-
+    mongo.db.evaluation.update({"_id" : data["_id"],  "finished" :  0 }, dataresponse, True)
             
     #print(dataresponse)
 
@@ -157,6 +157,11 @@ def get_test(test_id):
     
     return json_util.dumps({'tests': tests})
 
+@blueprint.route('/check/<string:test_id>', methods=['GET'])
+def get_check(test_id):
+    evaluation = mongo.db.evaluation.find({"_id": test_id})
+    return json_util.dumps({'exists': 1, 'questions' : evaluation})
+    
 
 @blueprint.route('/<string:test_id>', methods=['PUT'])
 def update_test(test_id):
