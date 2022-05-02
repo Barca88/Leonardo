@@ -327,206 +327,217 @@ import axios from 'axios';
 import * as evaluationApi from '@/utils/api/evaluation'
 
 export default {
-  name: 'Evaluation',
-  components: {
-    TextSnackBar,
-    TestDetails,
-    TestResultOverview,
-     AppHeader,
-    NavDraw,
-    Footer
-  },
-  data() {
-    return {
-      //1->overview, 2->answering, 3-> result, 3->result details
-      step: 1,
-      loading: true,
-      test: null,
-      currentQuestion: 0,
-      timeCurrentQuestion: 999,
-      timeLeft: 999,
-      answers: [],
-      result: null,
-      check: '',
-      exists: 0,
-      snackbar: {
-        show: false,
-        text: '',
-        color: ''
-      }
-    }
-  },
-  methods: {
-    tick() {
-      if (this.step == 2) {
-        this.timeLeft--
-        if (this.timeLeft == 0) this.nextQuestion()
-
-        setTimeout(() => {
-          this.tick()
-        }, 1000)
-      }
+    name: 'Evaluation',
+    components: {
+        TextSnackBar,
+        TestDetails,
+        TestResultOverview,
+        AppHeader,
+        NavDraw,
+        Footer
     },
-    nextQuestion() {
-      if (this.currentQuestion == this.test.questions.length - 1) {
-        this.startStep3()
-      } else {
-        
-        this.currentQuestion++
-        this.timeCurrentQuestion = this.test.questions[
-          this.currentQuestion
-        ].answering_time
-        this.timeLeft = this.test.questions[this.currentQuestion].answering_time
-        this.sendCurrentTest(this.currentQuestion)
-      }
-    },
-    updateAnswers(i, val) {
-      const newAnswers = { ...this.answers }
-      newAnswers[i] = val
-      this.answers = newAnswers
-    },
-    startStep2() {
-      this.step = 2
-      this.tick()
-    },
-    sendCurrentTest(currentQuestion){
-      const resolution = { ...this.test }
-      resolution.currentQuestion = currentQuestion
-      resolution.questions.forEach((q, i) => {
-        q.body.forEach((a) => {
-          if (a.answer.localeCompare(this.answers[i]) == 0) {
-            a.selected = true
-          } else {
-            a.selected = false
-          }
-        })
-      }),
-        (resolution.student_id =
-           this.$store.state.user._id)
-      resolution.finished = 0
-
-      evaluationApi
-        .submit(resolution)
-    },
-    startStep3() {
-      this.step = 3
-      this.loading = true
-
-      const resolution = { ...this.test }
-
-      resolution.questions.forEach((q, i) => {
-        q.body.forEach((a) => {
-          if (a.answer.localeCompare(this.answers[i]) == 0) {
-            a.selected = true
-          } else {
-            a.selected = false
-          }
-        })
-      }),
-        (resolution.student_id =
-           this.$store.state.user._id)
-      resolution.finished = 1
-
-      evaluationApi
-        .submit(resolution)
-        .then((data) => {
-         
-          this.testStore = data.tests
-          
-          this.loading = false
-          
-          this.result = this.testStore
-          
-
-        })
-        .catch(() => {
-            
-          this.snackbar = {
-            show: true,
-            color: 'error',
-            text: `Não foi possivel submeter a resolucao !! 😫 \n`
-            
-          }
-        })
-    },
-    startStep4() {
-      this.step = 4
-    },
-    returnStep3() {
-      this.step = 3
-    }
-  },
-  created() {
-    this.loading = true
-      evaluationApi
-        .getOne(this.$route.params['testid'])
-        .then((data) => {
-          this.testStore = data.tests
-          this.test = this.testStore[0]
-          this.test.questions.forEach((_, i) => {
-            this.answers[i] = null
-          })
-          this.timeCurrentQuestion = this.test.questions[
-            this.currentQuestion
-          ].answering_time
-          this.timeLeft = this.test.questions[this.currentQuestion].answering_time
-          this.loading = false
-        })
-        .catch(() => {
-          this.snackbar = {
-            show: true,
-            color: 'error',
-            text: `Não foi possivel obter o teste !! 😫 \n`
-          }
-        })
-
-
-     this.check = this.$route.params['testid'] + this.$store.state.user._id
-     axios.get(`${process.env.VUE_APP_BACKEND}/evaluation/check/${this.check}`,{
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-            'Access-Control-Allow-Origin': "*"   
-          }
-        }).then((response) => {
-          if(response.data['exists'] == 1){
-
-            this.tests = response.data['questions'][0]
-            this.exists = response.data['exists']
-            this.currentQuestion =response.data['questions'][0]["currentQuestion"]
-
-          this.tests.questions.forEach((q, i) => {
-            q.body.forEach((a) => {
-              if (a.selected) {
-                console.log('here')
-                this.answers[i] = a.answer
-              } 
-            })
-          })
-
-
-            if(response.data['questions'][0]["finished"] == 1){
-              this.step = 3
-              this.result = this.tests
-              this.snackbar = {
-              show: true,
-              color: 'error',
-              text: `Já realizou este teste.\n`
-              }
+    data() {
+        return {
+            //1->overview, 2->answering, 3-> result, 3->result details
+            step: 1,
+            loading: true,
+            test: null,
+            currentQuestion: 0,
+            timeCurrentQuestion: 999,
+            timeLeft: 999,
+            answers: [],
+            result: null,
+            check: '',
+            exists: 0,
+            snackbar: {
+                show: false,
+                text: '',
+                color: ''
             }
-          }
+        }
+    },
+    methods: {
+        tick() {
+            if (this.step == 2) {
+                this.timeLeft--
+                if (this.timeLeft == 0) this.nextQuestion()
 
-        },(error) =>{
-          this.x = error
-    });
-      
-      
+                setTimeout(() => {
+                    this.tick()
+                }, 1000)
+            }
+        },
+        nextQuestion() {
+            if (this.currentQuestion == this.test.questions.length - 1) {
+                this.startStep3()
+            } else {
+
+                this.currentQuestion++
+                this.timeCurrentQuestion = this.test.questions[
+                    this.currentQuestion
+                ].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.sendCurrentTest(this.currentQuestion)
+            }
+        },
+        updateAnswers(i, val) {
+            const newAnswers = {
+                ...this.answers
+            }
+            newAnswers[i] = val
+            this.answers = newAnswers
+        },
+        startStep2() {
+            this.step = 2
+            this.tick()
+        },
+        sendCurrentTest(currentQuestion) {
+            const resolution = {
+                ...this.test
+            }
+            resolution.currentQuestion = currentQuestion
+            resolution.questions.forEach((q, i) => {
+                    q.body.forEach((a) => {
+                        if (a.answer.localeCompare(this.answers[i]) == 0) {
+                            a.selected = true
+                        } else {
+                            a.selected = false
+                        }
+                    })
+                }),
+                (resolution.student_id =
+                    this.$store.state.user._id)
+            resolution.finished = 0
+
+            evaluationApi
+                .submit(resolution)
+        },
+        startStep3() {
+            this.step = 3
+            this.loading = true
+
+            const resolution = {
+                ...this.test
+            }
+
+            resolution.questions.forEach((q, i) => {
+                    q.body.forEach((a) => {
+                        if (a.answer.localeCompare(this.answers[i]) == 0) {
+                            a.selected = true
+                        } else {
+                            a.selected = false
+                        }
+                    })
+                }),
+                (resolution.student_id =
+                    this.$store.state.user._id)
+            resolution.finished = 1
+
+            evaluationApi
+                .submit(resolution)
+                .then((data) => {
+
+                    this.testStore = data.tests
+
+                    this.loading = false
+
+                    this.result = this.testStore
 
 
-    
-      
-    
-  }
+                })
+                .catch(() => {
+
+                    this.snackbar = {
+                        show: true,
+                        color: 'error',
+                        text: `Não foi possivel submeter a resolucao !! 😫 \n`
+
+                    }
+                })
+        },
+        startStep4() {
+            this.step = 4
+        },
+        returnStep3() {
+            this.step = 3
+        }
+    },
+    async created() {
+        this.loading = true
+        await evaluationApi
+            .getOne(this.$route.params['testid'])
+            .then((data) => {
+                this.testStore = data.tests
+                this.test = this.testStore[0]
+                this.test.questions.forEach((_, i) => {
+                    this.answers[i] = null
+                })
+                this.timeCurrentQuestion = this.test.questions[
+                    this.currentQuestion
+                ].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.loading = false
+                console.log('ending 1')
+            })
+            .catch(() => {
+                this.snackbar = {
+                    show: true,
+                    color: 'error',
+                    text: `Não foi possivel obter o teste !! 😫 \n`
+                }
+            })
+
+
+        console.log('starting 1')
+        this.check = this.$route.params['testid'] + this.$store.state.user._id
+        await axios.get(`${process.env.VUE_APP_BACKEND}/evaluation/check/${this.check}`, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer: ${this.$store.state.jwt}`,
+                'Access-Control-Allow-Origin': "*"
+            }
+        }).then((response) => {
+            try {
+                if (response.data['exists'] == 1) {
+
+
+                    this.tests = response.data['questions'][0]
+                    this.exists = response.data['exists']
+                    this.currentQuestion = response.data['questions'][0]["currentQuestion"]
+
+                    this.tests.questions.forEach((q, i) => {
+                        q.body.forEach((a) => {
+                            if (a.selected) {
+                                console.log('here')
+                                this.answers[i] = a.answer
+                            }
+                        })
+                    })
+
+
+                    if (response.data['questions'][0]["finished"] == 1) {
+                        this.step = 3
+                        this.result = this.tests
+                        this.snackbar = {
+                            show: true,
+                            color: 'error',
+                            text: `Já realizou este teste.\n`
+                        }
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+
+        }, (error) => {
+            console.log(error)
+
+        });
+
+
+
+
+    }
 }
 </script>
 <style>
