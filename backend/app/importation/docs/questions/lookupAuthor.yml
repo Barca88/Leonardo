@@ -1,0 +1,14 @@
+Endpoint that returns the questions from an author.
+    ---
+    tags:
+      - Questions
+    parameters:
+      - name: author
+        in: path
+        type: string
+        required: true
+    responses:
+      200:
+        description: The questions published by the author.
+        schema:
+          $ref: 'components/question.yml'

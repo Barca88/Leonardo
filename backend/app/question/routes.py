@@ -70,7 +70,7 @@ def route_photo(question):
         return send_from_directory(pathPhoto, question, mimetype='image/png')
     else :
         print(question + ' 5 ')
-        return send_from_directory(pathPhoto, "default", mimetype='image/png')
+        return
 
 
 

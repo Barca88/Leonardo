@@ -165,7 +165,13 @@ export default {
     },
 
     loadQuestions: function () {
-      axios.get("http://localhost:1318/imported_questions", {}).then((resp) => {
+      axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,{},{
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"       
+          }}
+        ).then((resp) => {
         this.questions = resp.data;
       });
     },
@@ -195,9 +201,12 @@ export default {
           invalid.push(question.id);
         } else {
           question.flag = "aproved";
-          axios.put(
-            "http://localhost:1318/imported_questions/" + question.id,
-            question
+          axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions/` + question.id + `?nome=${this.$store.state.user._id}`,question,{
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer: ${this.$store.state.jwt}`,
+              'Access-Control-Allow-Origin': "*"       
+            }}
           );
         }
       });

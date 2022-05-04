@@ -1,0 +1,13 @@
+---
+type: object
+properties:
+  header:
+    type: string
+  message:
+    type: string
+  type:
+    type: string
+  confirmB:
+    type: bool
+  createdAt:
+    type: date

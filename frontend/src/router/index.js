@@ -3,12 +3,6 @@ import VueRouter from "vue-router";
 import store from "../store";
 import * as VueGoogleMaps from "vue2-google-maps";
 
-import Table from "@/views/Importacao/Table.vue"
-import ErrorTable from "@/views/Importacao/ErrorTable.vue"
-import ImportMenu from '@/views/Importacao/ImportMenu.vue'
-import ImportDashboard from '@/views/Importacao/ImportDashboard.vue'
-
-
 Vue.use(VueRouter);
 
 Vue.use(VueGoogleMaps, {
@@ -337,7 +331,7 @@ const routes = [
       /* Rotas de Importacao de Questões */
       { 
         path: '/importacao/import', 
-        component: ImportMenu,
+        component: () => import("../views/Importacao/ImportMenu.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -350,7 +344,7 @@ const routes = [
       },
       { 
         path: '/importacao/table', 
-        component: Table,
+        component: () => import("../views/Importacao/Table.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -363,7 +357,7 @@ const routes = [
       },
       { 
         path: '/importacao/errors', 
-        component: ErrorTable,
+        component: () => import("../views/Importacao/ErrorTable.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
@@ -374,9 +368,9 @@ const routes = [
           }
         },
       },
-      { 
+      {
         path: '/importacao/dashboard', 
-        component: ImportDashboard,
+        component: () => import("../views/Importacao/ImportDashboard.vue"),
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);

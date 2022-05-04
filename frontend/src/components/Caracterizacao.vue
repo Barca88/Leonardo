@@ -254,6 +254,7 @@ export default {
   beforeDestroy(){
     this.$root.$off('import')
     this.$root.$off('reset')
+    this.$root.$off('change')
   },
 
   methods: {

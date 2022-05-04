@@ -1,0 +1,14 @@
+---
+type: object
+properties:
+  type:
+    type: string
+  name:
+    type: string
+  number:
+    description: The number of questions imported
+    type: integer
+  date:
+    type: string
+  size:
+    type: integer

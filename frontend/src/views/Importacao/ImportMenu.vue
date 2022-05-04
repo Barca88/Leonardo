@@ -77,7 +77,13 @@ export default {
                 // post it into the question database
                 console.log(domains +'   '+ json[i].domain )
                 if(domains.includes(json[i].domain)){
-                    await axios.post('http://localhost:1318/imported_questions', json[i])
+                    await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer: ${this.$store.state.jwt}`,
+                            'Access-Control-Allow-Origin': "*"       
+                        }}
+                    )
                     .catch(function (error) {
                         if (error.response) {
                             count += 1;
@@ -93,7 +99,13 @@ export default {
                 }
             }
             // post it into the imported files database
-            await axios.post('http://localhost:1318/imported_info', fileInfo)
+            await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_info?nome=${this.$store.state.user._id}`,fileInfo,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
+                }}
+            )
             .catch(function (error) {
                 if (error.response) {
                   // Request made and server responded
@@ -122,7 +134,13 @@ export default {
         },
         loadLEO: function(text, fileInfo){
             // Transform .leo into JSON text
-            axios.post('http://localhost:1338/text', text)
+            axios.post(`${process.env.VUE_APP_BACKEND}/importation/text?nome=${this.$store.state.user._id}`,text,{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
+                }}
+            )
             .then(response => {
                 console.log(response.data);
                 this.loadJSON(response.data, false, fileInfo);
