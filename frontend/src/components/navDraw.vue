@@ -150,6 +150,11 @@
               $t("adminNav.quizz")
             }}</v-list-item-title>
           </v-list-item>
+           <v-list-item link to="/testresults">
+            <v-list-item-title >{{
+              "Resultados"
+            }}</v-list-item-title>
+          </v-list-item>
         </v-list-group>
 
         <v-list-group v-if="!$store.getters.isStudent"

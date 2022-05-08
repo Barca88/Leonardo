@@ -408,6 +408,7 @@ export default {
                 (resolution.student_id =
                     this.$store.state.user._id)
             resolution.finished = 0
+            resolution.testId = this.$route.params['testid']
 
             evaluationApi
                 .submit(resolution)
@@ -432,6 +433,7 @@ export default {
                 (resolution.student_id =
                     this.$store.state.user._id)
             resolution.finished = 1
+            resolution.testId = this.$route.params['testid']
 
             evaluationApi
                 .submit(resolution)

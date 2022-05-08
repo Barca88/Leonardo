@@ -198,7 +198,6 @@ export default {
         .getAll()
         .then((data) => {
           this.tests = data.tests
-          console.log('received -' + this.tests[0])
           this.loading = false
         })
         .catch(() => {

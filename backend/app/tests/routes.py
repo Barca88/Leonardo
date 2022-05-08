@@ -84,13 +84,34 @@ def get_test(test_id):
     return json_util.dumps({'tests': tests})
 
 
+
+@blueprint.route('/results', methods=['POST'])
+def get_eval():
+    domain = request.form.get('domain')
+    subdomains = request.form.get('subdomains').split(',')
+    tests = request.form.get('tests').split(',')
+    if subdomains[0] == '':
+        subdomains = []
+    
+    if tests[0] == '':
+        subdomains = []
+        
+    if(len(subdomains)==0):
+        tests = mongo.db.evaluation.find({"config.domain": domain})
+    elif(len(tests)==0):
+        tests = mongo.db.evaluation.find({"config.domain": domain, "config.subdomains" : {"$in": subdomains}})
+    else:
+        tests = mongo.db.evaluation.find({"config.domain": domain, "config.subdomains" : {"$in": subdomains}, "testId" : {"$in" : tests}})
+    print(tests)
+
+    return json_util.dumps({'tests': tests})
+
+
 @blueprint.route('/<string:test_id>', methods=['PUT'])
 def update_test(test_id):
     print('update_test')
     data = request.get_json()
     print(data)
-
-
     mongo.db.tests.insert(data)
 
     return make_response('The test was created', 201)

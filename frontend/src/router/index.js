@@ -327,6 +327,20 @@ const routes = [
           }
         },
       },
+      {
+        path: "/testresults",
+        name: "testresults",
+        component: () => import("../views/Results.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+            next(`/`);
+          } else {
+            next();
+          }
+        },
+      },
 
       /* Rotas de Importacao de Questões */
       { 
