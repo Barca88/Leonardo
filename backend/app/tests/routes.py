@@ -90,18 +90,27 @@ def get_eval():
     domain = request.form.get('domain')
     subdomains = request.form.get('subdomains').split(',')
     tests = request.form.get('tests').split(',')
+    
     if subdomains[0] == '':
+        
         subdomains = []
     
     if tests[0] == '':
-        subdomains = []
-        
-    if(len(subdomains)==0):
+        print('if')
+        tests = []
+
+    if(len(subdomains)==0 and len(tests)==0):
+        print(1)
         tests = mongo.db.evaluation.find({"config.domain": domain})
-    elif(len(tests)==0):
+    elif(len(tests)==0 and len(subdomains)>0 ):
+        print(2)
         tests = mongo.db.evaluation.find({"config.domain": domain, "config.subdomains" : {"$in": subdomains}})
-    else:
+    elif(len(tests)>0 and len(subdomains)>0 ):
+        print(3)
         tests = mongo.db.evaluation.find({"config.domain": domain, "config.subdomains" : {"$in": subdomains}, "testId" : {"$in" : tests}})
+    elif(len(tests)>0 and len(subdomains)==0 ):
+        print(4)
+        tests = mongo.db.evaluation.find({"config.domain": domain, "testId" : {"$in" : tests}})
     print(tests)
 
     return json_util.dumps({'tests': tests})
