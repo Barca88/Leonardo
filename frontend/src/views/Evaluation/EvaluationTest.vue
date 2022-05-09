@@ -50,7 +50,7 @@
               Nome : {{ this.$store.state.user.name }}
             </v-list-item>
             <v-list-item class="d-flex align-center">
-              Numero de Aluno : {{ 'Sem Número' }}
+              Numero de Aluno : {{ this.$store.state.user.studentNumber }}
             </v-list-item>
           </v-list>
         </v-card>
@@ -406,7 +406,7 @@ export default {
                     })
                 }),
                 (resolution.student_id =
-                    this.$store.state.user._id)
+                    this.$store.state.user.studentNumber)
             resolution.finished = 0
             resolution.testId = this.$route.params['testid']
 
@@ -431,7 +431,7 @@ export default {
                     })
                 }),
                 (resolution.student_id =
-                    this.$store.state.user._id)
+                    this.$store.state.user.studentNumber)
             resolution.finished = 1
             resolution.testId = this.$route.params['testid']
 
@@ -479,7 +479,6 @@ export default {
                 ].answering_time
                 this.timeLeft = this.test.questions[this.currentQuestion].answering_time
                 this.loading = false
-                console.log('ending 1')
             })
             .catch(() => {
                 this.snackbar = {
@@ -490,8 +489,7 @@ export default {
             })
 
 
-        console.log('starting 1')
-        this.check = this.$route.params['testid'] + this.$store.state.user._id
+        this.check = this.$route.params['testid'] + this.$store.state.user.studentNumber
         await axios.get(`${process.env.VUE_APP_BACKEND}/evaluation/check/${this.check}`, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -499,6 +497,7 @@ export default {
                 'Access-Control-Allow-Origin': "*"
             }
         }).then((response) => {
+          console.log(response)
             try {
                 if (response.data['exists'] == 1) {
 

@@ -300,6 +300,18 @@ const routes = [
         },
       },
       {
+        path: "/individualResult/:testid",
+        name: "IndividualResult",
+        component: () => import("../views/IndividualResult.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else {
+            next();
+          }
+        },
+      },
+      {
         path: "/management",
         name: "Management",
         component: () => import("../views/Management.vue"),

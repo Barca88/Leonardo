@@ -10,6 +10,17 @@ export async function getOne(id) {
   }
 }
 
+
+export async function getOneEval(id) {
+  try {
+    const res = await apiFetcher.get(`/evaluation/individualResult/${id}`)
+    return res.data
+  } catch (err) {
+    console.log('Error fetching test', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
 export async function submit(test) {
   try {
     console.log('sending')

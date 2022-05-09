@@ -82,7 +82,7 @@
         </template>
         <template v-slot:[`item.options`]="{ item }">
           <div class="d-flex">
-            <v-btn small text link :to="`/evaluation/${item.testId}`" class="mx-1">
+            <v-btn small text link :to="`/individualResult/${item.testId + item.student_id}`" class="mx-1">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn text small class="warning--text change-font" v-on="on">

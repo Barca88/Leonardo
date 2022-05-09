@@ -95,6 +95,7 @@ def route_template_registar():
         tipo = request.form.get('tipo')
         universidade = request.form.get('universidade')
         departamento = request.form.get('departamento')
+        studentNumber = request.form.get('studentNumber')
         now = datetime.datetime.now()
         data = now.strftime("%Y-%m-%d %H:%M")
         if 'foto' in request.files:
@@ -118,7 +119,7 @@ def route_template_registar():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', username + ".pdf")
                 copyfile(src, upload_path2)
         obs = request.form.get('obs')
-        mongo.db.users.insert({"_id":username,"name":name,"email":email,"password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
+        mongo.db.users.insert({"_id":username,"name":name,"email":email,"studentNumber":studentNumber, "password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
         mongo.db.users.find()
         if user:
             if(type == "all"): 
@@ -399,6 +400,7 @@ def route_template_editar_guardar():
     tipo = request.form.get('tipo')
     universidade = request.form.get('universidade')
     departamento = request.form.get('departamento')
+    studentNumber = request.form.get('studentNumber')
     obs = request.form.get('obs')
     if 'foto' in request.files:
             foto = request.files['foto']
@@ -414,9 +416,9 @@ def route_template_editar_guardar():
                 curriculo.save(upload_path + curriculo.filename)
     password = request.form.get('password')
     if password:
-        mongo.db.users.update({"_id":username},{"name":nome,"email":email,"password":password,"type":tipo,"university":universidade,"department":departamento,"comments":obs})
+        mongo.db.users.update({"_id":username},{"name":nome,"email":email,"studentNumber": studentNumber, "password":password,"type":tipo,"university":universidade,"department":departamento,"comments":obs})
     else:
-        mongo.db.users.update({"_id":username},{"$set":{"name":nome,"email":email,"type":tipo,"university":universidade,"department":departamento,"comments":obs}})    
+        mongo.db.users.update({"_id":username},{"$set":{"name":nome, "studentNumber": studentNumber,"email":email,"type":tipo,"university":universidade,"department":departamento,"comments":obs}})    
     users = mongo.db.users.find()
     userAdmin = request.args.get('nome')
     type = request.args.get('type')
@@ -462,6 +464,7 @@ def route_template_registar_pedido():
         tipo = request.form.get('tipo')
         universidade = request.form.get('universidade')
         departamento = request.form.get('departamento')
+        studentNumber = request.form.get('studentNumber')
         now = datetime.datetime.now()
         data = now.strftime("%Y-%m-%d %H:%M")
         if 'foto' in request.files:
@@ -485,7 +488,7 @@ def route_template_registar_pedido():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username + ".pdf")
                 copyfile(src, upload_path)
         obs = request.form.get('obs')
-        mongo.db.requests.insert({"_id":username,"name":name,"email":email,"password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
+        mongo.db.requests.insert({"_id":username,"name":name,"email":email,"studentNumber": studentNumber, "password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
         mongo.db.requests.find()
         return json_util.dumps({'nome': user})
 

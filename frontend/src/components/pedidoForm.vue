@@ -52,6 +52,14 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td class="text-left"><b>Número de Aluno</b></td>
+                                <td>
+                                    <v-layout class="ml-12">
+                                        {{pedido.studentNumber}}
+                                    </v-layout>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="text-left"><b>{{$t('reg.uni')}}</b></td>
                                 <td>
                                     <v-layout class="ml-12">
@@ -163,6 +171,7 @@ export default {
         type:"",
         university:"",
         department:"",
+        studentNumber:"",
         foto:{},
         curriculo:{},
         comment:""
@@ -212,6 +221,7 @@ export default {
             this.pedido.type = this.passedData.type
             this.pedido.university = this.passedData.university
             this.pedido.department = this.passedData.department
+            this.pedido.studentNumber = this.passedData.studentNumber
             this.pedido.comment = this.passedData.comment
         },
         atualizarInfo(){
