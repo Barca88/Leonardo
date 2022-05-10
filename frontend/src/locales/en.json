@@ -41,6 +41,10 @@
         "use": "Termos de Utilização",
         "privacy": "Privacidade"
     },
+    "title":{
+        "chooseDomain" : "Choose the domain",
+        "chooseSubDomain" : "Choose the subdomains"
+    },
     "tagging": {
         "lista": "Tags list",
         "nome": "Name",

@@ -77,11 +77,43 @@
         v-model="currentQuestion"
       >
         <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
+          
           <v-card
             light
             class="ma-2 pa-2 d-flex flex-column"
             style="min-height: 95%"
           >
+            <v-card-title>
+              <h4>
+                Tempo total
+              </h4>
+              <v-spacer />
+              <div class="d-flex flex-column align-center">
+                <div class="d-flex align-center">
+                  <v-progress-linear
+                    :color="
+                      timeLeft < 10
+                        ? 'error'
+                        : timeLeft < 20
+                        ? 'warning'
+                        : 'info'
+                    "
+                    height="10"
+                    style="width: 200px"
+                    :value="
+                      Math.floor(
+                        ((timeCurrent - (timeCurrent - timeLeft)) /
+                          timeCurrent) *
+                          100
+                      )
+                    "
+                    striped
+                  />
+                  <v-icon class="px-1" v-text="'mdi-timer-outline'" />
+                </div>
+              </div>
+            </v-card-title>
+
             <v-card-title>
               <h4>
                 {{ i + 1 + '. ' + q._id }}
@@ -101,7 +133,7 @@
                     style="width: 200px"
                     :value="
                       Math.floor(
-                        ((timeCurrentQuestion - timeLeft) /
+                        ((timeCurrentQuestion - (timeCurrentQuestion - timeLeftQuestion)) /
                           timeCurrentQuestion) *
                           100
                       )
@@ -344,6 +376,8 @@ export default {
             test: null,
             currentQuestion: 0,
             timeCurrentQuestion: 999,
+            timeCurrent: 999,
+            timeLeftQuestion: 999,
             timeLeft: 999,
             answers: [],
             result: null,
@@ -360,7 +394,11 @@ export default {
         tick() {
             if (this.step == 2) {
                 this.timeLeft--
-                if (this.timeLeft == 0) this.nextQuestion()
+                this.timeLeftQuestion--
+                if (this.timeLeft <= 0){ 
+                  this.step =3
+                  this.nextQuestion()
+                }
 
                 setTimeout(() => {
                     this.tick()
@@ -373,10 +411,10 @@ export default {
             } else {
 
                 this.currentQuestion++
-                this.timeCurrentQuestion = this.test.questions[
+                /*this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
                 ].answering_time
-                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time*/
                 this.sendCurrentTest(this.currentQuestion)
             }
         },
@@ -388,6 +426,18 @@ export default {
             this.answers = newAnswers
         },
         startStep2() {
+            if(this.test.startTime==null){
+              var today = new Date();
+              var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+              today.getSeconds();
+              
+              var dateTime = date+' '+time;
+
+              this.test.startTime = dateTime
+            }
+
+            this.sendCurrentTest(this.currentQuestion)
             this.step = 2
             this.tick()
         },
@@ -474,10 +524,15 @@ export default {
                 this.test.questions.forEach((_, i) => {
                     this.answers[i] = null
                 })
+                this.timeCurrent = this.test.config.total_time
+                this.timeLeft = this.test.config.total_time
+
                 this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
                 ].answering_time
-                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
+
+                
                 this.loading = false
             })
             .catch(() => {
@@ -502,8 +557,33 @@ export default {
 
 
                     this.tests = response.data['questions'][0]
+                    
                     this.exists = response.data['exists']
                     this.currentQuestion = response.data['questions'][0]["currentQuestion"]
+
+
+                    var today = new Date();
+                    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+                    today.getSeconds();
+            
+                    console.log(today)
+
+                    
+                    let timeList = response.data['questions'][0]['startTime'].split(' ')
+                    let dateYearMonthDay = timeList[0]
+                    let timesHourMinutesSeconds = timeList[1]
+                    console.log(response.data['questions'][0]['startTime'])
+                    date = dateYearMonthDay.split('-')
+                    time = timesHourMinutesSeconds.split(':')
+                    let startD = new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2])
+                    console.log(date[0] + date[1] + date[2] + time[0] + time[1] + time[2])
+                    console.log(startD)
+
+                    this.timeLeft = response.data['questions'][0]['config']['total_time'] - (( today - startD ) / 1000)
+                    this.test.startTime = response.data['questions'][0]['startTime']
+                    
+                    console.log(this.timeLeft)
 
                     this.tests.questions.forEach((q, i) => {
                         q.body.forEach((a) => {

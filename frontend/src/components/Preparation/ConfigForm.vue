@@ -8,7 +8,7 @@
       <v-select
         :value="testConfigs.domain"
         :items="this.idDomain"
-        label="Escolha o dominioo"
+        :label="`${$t('title.chooseDomain')}`"
         @change="onChange($event)"
         @input="emitChange('domain', $event)"
         clearable
@@ -17,7 +17,7 @@
       <v-select
         :items="this.idSubDomain"
         :value="testConfigs.subdomains"
-        label="Escolha os subdominios"
+        :label="`${$t('title.chooseSubDomain')}`"
         @input="emitChange('subdomains', $event)"
         @change='subchange()'
         multiple

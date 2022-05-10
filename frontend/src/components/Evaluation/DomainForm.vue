@@ -4,7 +4,7 @@
     <v-select
       v-model="selectedDomain"
       :items="this.idDomain"
-      label="Escolha o dominio"
+      :label="`${$t('title.chooseDomain')}`"
       @change="$emit('change', $event)"
       clearable
     />

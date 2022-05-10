@@ -6,7 +6,7 @@
       Realizacao de testes
     </h3>
 
-    <h4 class="text-h4 mb-4">Escolha o Dominio</h4>
+    <h4 class="text-h4 mb-4">{{$t('title.chooseDomain')}}</h4>
 
     <DomainForm v-model="domain" />
   
