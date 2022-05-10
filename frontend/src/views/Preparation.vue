@@ -134,7 +134,6 @@ export default {
         testsApi
           .getOne(this.$route.query.editing)
           .then((data) => {
-            console.log('receiving1')
             this.testStore = data.tests
             this.test = this.testStore[0]
             this.testConfigs = this.testStore[0]['config']
@@ -176,8 +175,6 @@ export default {
         dateFinish.setHours(0, 0, 0, 0)
         const dateNow = new Date(Date.now())
         dateNow.setHours(0, 0, 0, 0)
-        console.log('dateNow :>> ', dateNow)
-        console.log('dateeStart:>> ', dateStart)
 
         //Check if dates are valid
         if (dateStart < dateNow) {

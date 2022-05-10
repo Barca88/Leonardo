@@ -235,9 +235,6 @@ export default {
     }
   },methods:{
     onUpdate(){
-      //console.log(typeof this.value)
-      //console.log('VALUE: ' + this.value)
-      //console.log('procura: ' + this.passedData.procura)
       if(this.value != 'adicionar'){
         this.definition.elemento = this.passedData._id
         this.definition.desc = this.passedData.desc
@@ -278,13 +275,10 @@ export default {
         )
         .then(response => {
             // JSON responses are automatically parsed.
-            //console.log(response.data)
             this.settings = response.data.settings
             this.$refs.form.reset()
             this.atualizarInfo()
-            //console.log('USERS: ' + this.users[0].elemento)
         }).catch(e => {
-            //console.log(e)
             this.errors.push(e)
         })
       }else if(this.value == 'adicionar'){
@@ -295,7 +289,6 @@ export default {
             'Access-Control-Allow-Origin': "*"       
           }
         }).then(data => {
-            //console.log(data)
             this.settings = data.data.settings
             this.$refs.form.reset()
             this.atualizarInfo()
@@ -314,7 +307,6 @@ export default {
       this.definition.procurar=''
     },
     atualizarInfo(){
-      //console.log('ola')
       this.$emit('atualizarInfo')
     },
     emiteFecho(){

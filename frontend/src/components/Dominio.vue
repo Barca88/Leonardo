@@ -125,7 +125,7 @@ export default {
           this.idUsers.push(obj._id)
         });
       },(error) =>{
-          console.log(error);
+        this.x=error
     });
     if(this.$route.params.data!=null){
       this.editing = true
@@ -143,7 +143,6 @@ export default {
     this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains/`+ data)
               .then((response)=>{
-                console.log(response.data.domain._id)
                 this.formData._id = response.data.domain._id
                 this.formData.description = response.data.domain.description,
                 this.formData.scholarity = response.data.domain.scholarity,
@@ -152,7 +151,7 @@ export default {
                 this.formData.access_type = response.data.domain.access_type 
                 this.editing = true
               },(error) =>{
-                  console.log(error);
+                this.x=error
               });
     })
     this.$root.$on('reset', data => {

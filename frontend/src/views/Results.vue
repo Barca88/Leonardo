@@ -184,14 +184,10 @@ export default {
     onDomain(){
       if(this.sendObject.sendDomain != this.domain){
         this.idSubDomain = []
-        console.log('inicio')
         if(this.domain){
           this.Domain.forEach((obj) =>{
-            console.log('antes if  -' + obj._id)
-            console.log(this.domain)
             if(obj._id == this.domain){
               obj.body.forEach((sub) =>{
-                console.log('inserirSub ' + sub.subdomain)
                 this.idSubDomain.push(sub.subdomain)
               });
             }
@@ -226,13 +222,11 @@ export default {
 
     onChange(e){
       this.step=2
-      console.log('----  ' + e)
       this.domain = e
       this.sendObject.sendId = this.selectedDomain
       this.onDomain()
       this.sendObject.sendDomain = this.domain
       this.sendObject.sendHeader = this.headerobj
-      console.log('Changing')
       //this.$root.$emit('change',this.sendObject)
 
 
@@ -246,7 +240,6 @@ export default {
       formData.append('domain',this.domain)
       formData.append('subdomains', this.subdomains)
       formData.append('tests', this.testItemsChosen)
-      console.log('a enviar - ' + this.testItemsChosen)
       await axios.post(`${process.env.VUE_APP_BACKEND}/tests/results`,formData,{
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -254,9 +247,7 @@ export default {
           },
         })
       .then((response)=>{
-        console.log(response.data)
         response.data.tests.forEach((obj) =>{
-          console.log('found something')
           this.tests.push(obj)
         });
       },(error) =>{
@@ -271,7 +262,6 @@ export default {
   },
 
   async created() {
-    console.log('created')
     try{
       this.testConfigs.subdomains.forEach((obj)=>{
         this.idSubDomain.push(obj)
@@ -279,7 +269,6 @@ export default {
       })}
       catch( e ){console.log('')}
     //this.fetchDomains()
-    console.log('fetching domains')
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -288,7 +277,6 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });

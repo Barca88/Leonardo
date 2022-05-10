@@ -98,7 +98,6 @@ export default {
     logout() {
       // Função de logout
       axios.get()
-      console.log('ola')
     }
   }
 }

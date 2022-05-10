@@ -251,14 +251,10 @@ export default {
     onDomain(){
       if(this.sendObject.sendDomain != this.configrules.domain){
         this.idSubDomain = []
-        console.log('inicio')
         if(this.configrules.domain){
           this.Domain.forEach((obj) =>{
-            console.log('antes if  -' + obj._id)
-            console.log(this.configrules.domain)
             if(obj._id == this.configrules.domain){
               obj.body.forEach((sub) =>{
-                console.log('inserirSub ' + sub.subdomain)
                 this.idSubDomain.push(sub.subdomain)
               });
             }
@@ -268,13 +264,11 @@ export default {
     },
 
     onChange(e){
-      console.log('----  ' + e)
       this.configrules.domain = e
       this.sendObject.sendId = this.selectedDomain
       this.onDomain()
       this.sendObject.sendDomain = this.configrules.domain
       this.sendObject.sendHeader = this.headerobj
-      console.log('Changing')
       this.$root.$emit('change',this.sendObject)
     },
     fetchDomains() {
@@ -304,14 +298,12 @@ export default {
     },
     // Notify parent that a change hapenned (It's not noticed due to v-modle use on props :^/)
     emitChange(key, value) {
-      console.log(key)
       this.$emit('change', { ...this.testConfigs, [key]: value })
     }
   },
   computed: {
     /** @returns {any}*/
     domainsSelectionValid() {
-      console.log('check')
       return (
         
         this.domainValues?.length>0
@@ -332,7 +324,6 @@ export default {
     }
   },
   async created() {
-    console.log('created')
     try{
       this.testConfigs.subdomains.forEach((obj)=>{
         this.idSubDomain.push(obj)
@@ -340,7 +331,6 @@ export default {
       })}
       catch( e ){console.log('')}
     //this.fetchDomains()
-    console.log('fetching domains')
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -349,7 +339,6 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });

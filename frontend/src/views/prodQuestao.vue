@@ -451,9 +451,7 @@ export default {
     },
 
     submit(){
-      console.log('Submit')
       if(this.editing == false){
-        console.log('A enviar')
         let formData = new FormData()
         formData.append('_id', this.questao._id)
         formData.append('language' , this.questao.language)
@@ -488,14 +486,12 @@ export default {
         }
         })
             .then(function(response){
-              console.log(response)
+              this.x=response
             },(error) =>{
                 console.log(error);
           }); 
 
-          console.log('Enviado')
       }else{
-        console.log('A Editar')
         let formData = new FormData()
         formData.append('_id', this.questao._id)
         formData.append('language' , this.questao.language)
@@ -531,7 +527,7 @@ export default {
         }
         })
             .then(function(response){
-              console.log(response)
+              this.x=response
             },(error) =>{
                 console.log(error);
           }); 
@@ -550,7 +546,6 @@ export default {
 
     confirmImport(){
       if(this.checkID2(this.idImport)){
-        console.log("Import : " + this.idImport)
         this.$root.$emit('import', this.idImport)
         this.openImport = false
       }

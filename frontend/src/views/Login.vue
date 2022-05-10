@@ -414,7 +414,6 @@ export default {
             formData.append('curriculo',this.pedido.curriculo)
             formData.append('obs',this.pedido.comments)
             formData.append('studentNumber',this.pedido.studentNumber)
-            console.log(this.pedido.studentNumber)
 
         axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {

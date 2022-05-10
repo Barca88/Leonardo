@@ -103,7 +103,6 @@ export default {
   },
   methods: {
     async eyeClick (popup) {
-        console.log(popup)
         if(popup.type === "confirm") this.alertPopup = alerts.confirmDialog(popup.message)
         else if(popup.type === "info") this.alertPopup = alerts.infoDialog(popup.message)
         else if(popup.type === "del") this.alertPopup = alerts.errorDialog(popup.message) // error

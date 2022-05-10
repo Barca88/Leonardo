@@ -424,9 +424,6 @@ export default {
     },
 
     confirmSubmit(){
-      console.log("dm : " + this.$refs.dm.validate())
-      console.log("sm : " + this.$refs.sm.validate())
-      console.log("cp : " + this.$refs.cp.validate())
       if(this.$refs.dm.validate() && this.$refs.sm.validate() && this.$refs.cp.validate()){
         this.openSubmit = true
       }
@@ -439,7 +436,6 @@ export default {
       },
 
     submit(){
-      console.log(this.editing)
       
       if(this.editing == false){
         let formData = new FormData()
@@ -467,7 +463,7 @@ export default {
         }
         })
             .then(function(response){
-              console.log(response)
+              this.x=response
             },(error) =>{
                 console.log(error);
           }); 
@@ -498,7 +494,7 @@ export default {
         }
         })
             .then(function(response){
-              console.log(response)
+              this.x=response
             },(error) =>{
                 console.log(error);
           }); 

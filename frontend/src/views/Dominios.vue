@@ -353,7 +353,6 @@ export default {
           }
         })
           .then((response)=>{
-            console.log('test ' + response),
             //this.domain = response.data
             this.navDomains=response.data.domains
           },(error) =>{
@@ -393,8 +392,7 @@ export default {
         }
         })
           .then((response)=>{
-            console.log(response.data)
-            console.log(this.itemIndex)
+            this.x=response
             this.navDomains.splice(this.itemIndex, 1)
           },(error) =>{
               console.log(error);

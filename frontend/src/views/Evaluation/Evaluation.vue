@@ -187,7 +187,6 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });

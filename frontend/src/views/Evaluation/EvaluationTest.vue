@@ -497,7 +497,6 @@ export default {
                 'Access-Control-Allow-Origin': "*"
             }
         }).then((response) => {
-          console.log(response)
             try {
                 if (response.data['exists'] == 1) {
 
@@ -509,7 +508,6 @@ export default {
                     this.tests.questions.forEach((q, i) => {
                         q.body.forEach((a) => {
                             if (a.selected) {
-                                console.log('here')
                                 this.answers[i] = a.answer
                             }
                         })

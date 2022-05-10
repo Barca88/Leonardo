@@ -383,7 +383,6 @@ export default {
       }
     },
     post: function() {
-      console.log(this.user.studentNumber)
       let formData = new FormData()
         formData.append('username',this.user.username)
         formData.append('name',this.user.name)

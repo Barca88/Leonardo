@@ -170,11 +170,8 @@ export default {
         await evaluationApi
             .getOneEval(this.$route.params['testid'])
             .then((response) => {
-              console.log(response)
                 this.result = response.tests[0]
                 this.step = 3
-                console.log('ending 1')
-                console.log(this.result)
             })
             .catch(() => {
                 this.snackbar = {

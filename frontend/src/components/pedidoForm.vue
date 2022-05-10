@@ -211,9 +211,6 @@ export default {
   },
   methods:{
         onUpdate(){
-            //console.log(typeof this.value)
-            //console.log('VALUE: ' + this.value)
-            //console.log(this.passedData.email)
             this.pedido.username = this.passedData._id
             this.pedido.name = this.passedData.name
             this.pedido.email = this.passedData.email
@@ -225,18 +222,15 @@ export default {
             this.pedido.comment = this.passedData.comment
         },
         atualizarInfo(){
-            //console.log('ola')
             this.$emit('atualizarInfo')
         },
         post(){
             axios.get(`${process.env.VUE_APP_BACKEND}/users/pedidos/mover/` + this.pedido.username + `?nome=${this.$store.state.user._id}`,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 // JSON responses are automatically parsed.
-                //console.log(response.data)
                 this.pedidos = response.data.pedidos
                 this.atualizarInfo
             }).catch(e => {
-                //console.log(e)
                 this.errors.push(e)
             })
             this.atualizarInfo()

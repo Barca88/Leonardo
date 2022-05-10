@@ -316,7 +316,6 @@ export default {
   },methods:{
     onUpdate(){
       if(this.value != 'adicionar'){
-        console.log(this.passedData)
         this.doc.titulo = this.passedData._id
         this.doc.desc = this.passedData.desc
         this.doc.authors = this.passedData.authors
@@ -368,7 +367,6 @@ export default {
             'Access-Control-Allow-Origin': "*"       
           }
         }).then(data => {
-          console.log(data.data)
             this.docs = data.data.docs
             this.$refs.form.reset()
             this.atualizarInfo()
@@ -388,7 +386,6 @@ export default {
       this.doc.ficheiro={}
     },
     atualizarInfo(){
-      //console.log('ola')
       this.$emit('atualizarInfo')
     },
     emiteFecho(){
@@ -405,7 +402,6 @@ export default {
           this.idDocs.push(obj._id)
         });
     }).catch(e => {
-        //console.log(e)
         this.errors.push(e)
     })
     this.onUpdate()
