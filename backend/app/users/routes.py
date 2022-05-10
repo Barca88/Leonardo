@@ -63,12 +63,15 @@ def route_template_adicionar():
 #@login_required
 def route_template_registar():
     username = request.form.get('username')
-    existeU = mongo.db.users.find_one({"_id":username})
-    existeP = mongo.db.requests.find_one({"_id":username})
+    studentNumber = request.form.get('studentNumber')
+    print("sN")
+    print(studentNumber)
+    existeU = mongo.db.users.find_one({"$or": [{"_id":username},{"studentNumber":studentNumber}]})
+    existeP = mongo.db.requests.find_one({"$or": [{"_id":username},{"studentNumber":studentNumber}]})
     user = request.args.get('nome')
     type = request.args.get('type')
     if existeP:
-        mongo.db.requests.remove({"_id":username})
+        mongo.db.requests.remove({"$or": [{"_id":username},{"studentNumber":studentNumber}]})
         upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', username)
         upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', username)
         if path.exists(upload_path): 
@@ -95,7 +98,7 @@ def route_template_registar():
         tipo = request.form.get('tipo')
         universidade = request.form.get('universidade')
         departamento = request.form.get('departamento')
-        studentNumber = request.form.get('studentNumber')
+        
         now = datetime.datetime.now()
         data = now.strftime("%Y-%m-%d %H:%M")
         if 'foto' in request.files:
@@ -330,7 +333,7 @@ def route_import_registos():
             list.append(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]}))
             success = False
         else:
-            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género"] })
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"studentNumber":jsonUser["Identificador"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género"] })
             #mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
         
     if(success):

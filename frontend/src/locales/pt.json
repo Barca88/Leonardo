@@ -298,6 +298,7 @@
         "dom": "Domínio",
         "nome": "Nome",
         "email": "Email",
+        "studentNumber" : "Número de aluno",
         "tipo": "Tipo",
         "opt": "Opções",
         "elim":"Tem a certeza que deseja eliminar este utilizador?",
@@ -401,7 +402,7 @@
         "conf":"Confirmar submissão de utilizador",
         "help":"Ajuda da Gestão de Utilizadores",
         "badChoice":"Já existe um documento com esse título, escolha outro.",
-        "badChoiceU":"Já existe um Utilizador com esse username, escolha outro."
+        "badChoiceU":"Já existe um Utilizador com esse username ou número de aluno, escolha outro."
     },
     "tForm": {
         "vT": "Visualizar etiquetas"
