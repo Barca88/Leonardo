@@ -123,9 +123,9 @@
                 <div class="d-flex align-center">
                   <v-progress-linear
                     :color="
-                      timeLeft < 10
+                      timeLeftQuestion < 10
                         ? 'error'
-                        : timeLeft < 20
+                        : timeLeftQuestion < 20
                         ? 'warning'
                         : 'info'
                     "

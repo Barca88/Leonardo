@@ -71,7 +71,7 @@
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">
-                  Tempo de realizacao :
+                  Tempo de realizacao. :
                   {{ test.config.total_time }}
                 </v-list-item>
 

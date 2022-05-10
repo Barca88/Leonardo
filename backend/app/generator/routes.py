@@ -59,8 +59,12 @@ def get_query_filter(filter_data):
 
 @blueprint.route('/new', methods=['POST'])
 def Generate_test():
+
+    
     print('inGenerator\n')
     data = request.get_json()
+
+    data['config']['total_time'] = data['config']['total_time'] * 60
     print(data)
     editing = request.args.get('editing')
     question_pool = list(mongo.db.question.find({"subdomain": { "$in": data['config']['subdomains'] }}))
@@ -135,8 +139,10 @@ def Generate_test():
 
 @blueprint.route('/edit', methods=['POST'])
 def edit_test():
+
+    
     data = request.get_json()
-    print(data)
+    data['test']['config']['total_time'] = data['test']['config']['total_time']
 
 
     ids = []
@@ -192,7 +198,7 @@ def edit_test():
     number_questions = data['test']['config']['number_questions']
     if len(question_pool) < number_questions:
         return make_response("NOT_ENOUGH_QUESTIONS"), 422
-    total_time = data['test']['config']['total_time'] 
+    total_time = data['test']['config']['total_time']
     avg_difficulty = data['test']['config']['avg_difficulty']
     displayed_answers = data['test']['config']['maximum_displayed_answers']
     result = generate_test(question_pool, number_questions, displayed_answers,

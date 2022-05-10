@@ -151,7 +151,7 @@ export default {
       } else {
         this.testConfigs.avg_difficulty = 3
         this.testConfigs.maximum_displayed_answers = 4
-        this.testConfigs.total_time = 10
+        this.testConfigs.total_time = 101
         this.testConfigs.date = {}
         this.loading = false
       }
@@ -197,7 +197,6 @@ export default {
             inserted_by: 'Real Human Person'
           }
           delete config.id
-
           generatorApi
             .generateNew(testId, config, !!this.$route.query.editing)
             .then((data) => {
@@ -247,6 +246,7 @@ export default {
     },
 
     submitTest() {
+      this.testConfigs.total_time =  this.test.config.total_time
       const config = { ...this.testConfigs, inserted_by: 'Real Human Person' }
       delete config.id
       testsApi
