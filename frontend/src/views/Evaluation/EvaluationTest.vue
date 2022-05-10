@@ -371,7 +371,7 @@ export default {
     data() {
         return {
             //1->overview, 2->answering, 3-> result, 3->result details
-            step: 1,
+            step: 0,
             loading: true,
             test: null,
             currentQuestion: 0,
@@ -614,7 +614,8 @@ export default {
         });
 
 
-
+      if(this.step ==0 )
+        this.step = 1
 
     }
 }
