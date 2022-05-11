@@ -76,11 +76,10 @@
         height="fit-content"
         v-model="currentQuestion"
       >
-        <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
-          
-          <v-card
+
+      <v-card
             light
-            class="ma-2 pa-2 d-flex flex-column"
+            class="ma-2 pa-2 d-flex flex-column align-center"
             style="min-height: 95%"
           >
             <v-card-title>
@@ -113,7 +112,15 @@
                 </div>
               </div>
             </v-card-title>
-
+          </v-card
+          >
+        <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
+          
+          <v-card
+            light
+            class="ma-2 pa-2 d-flex flex-column"
+            style="min-height: 95%"
+          >
             <v-card-title>
               <h4>
                 {{ i + 1 + '. ' + q._id }}
@@ -415,6 +422,7 @@ export default {
                     this.currentQuestion
                 ].answering_time
                 this.timeLeft = this.test.questions[this.currentQuestion].answering_time*/
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
                 this.sendCurrentTest(this.currentQuestion)
             }
         },

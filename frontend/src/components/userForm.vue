@@ -125,10 +125,11 @@
                           disabled
                       ></v-text-field>
                       <v-text-field
-                      v-if= "value != 'ver'"
+                      v-if= "value != 'ver' "
                       label="Número de alunos"
                       v-model="user.studentNumber"
                       required
+                      :disabled= "!$store.getters.isStudent ? false : true"
                   ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
