@@ -71,6 +71,7 @@
       class="d-flex flex-column align-center mx-auto"
     >
       <v-carousel
+        :show-arrows="false"
         hide-delimiters
         class="ma-2 pa-2 d-flex flex-column align-center"
         height="fit-content"
@@ -212,6 +213,22 @@
                 <span>Ajuda</span>
               </v-tooltip>
 
+              <v-tooltip v-if="i != 0" top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-on="on"
+                    v-bind="attrs"
+                    color="warning"
+                    class="ma-2"
+                    :disabled="i == 0"
+                    @click="lastQuestion()"
+                  >
+                    <v-icon v-text="'mdi-arrow-left-circle-outline'" />
+                  </v-btn>
+                </template>
+                <span>Anterior</span>
+              </v-tooltip>
+
               <v-tooltip v-if="i != test.questions.length - 1" top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -219,7 +236,6 @@
                     v-bind="attrs"
                     color="warning"
                     class="ma-2"
-                    :disabled="answers[i] === null"
                     @click="nextQuestion()"
                   >
                     <v-icon v-text="'mdi-arrow-right-circle-outline'" />
@@ -235,7 +251,6 @@
                     v-bind="attrs"
                     color="success"
                     class="white--text ma-2"
-                    :disabled="answers[i] === null"
                     @click="startStep3()"
                   >
                     <v-icon v-text="'mdi-check-decagram'" />
@@ -425,6 +440,18 @@ export default {
                 this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
                 this.sendCurrentTest(this.currentQuestion)
             }
+        },
+        lastQuestion() {
+            
+
+                this.currentQuestion--
+                /*this.timeCurrentQuestion = this.test.questions[
+                    this.currentQuestion
+                ].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time*/
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
+                this.sendCurrentTest(this.currentQuestion)
+            
         },
         updateAnswers(i, val) {
             const newAnswers = {
