@@ -10,9 +10,31 @@ export async function getAll() {
   }
 }
 
+export async function getAllPersonal() {
+  try {
+    const res = await apiFetcher.get('/tests/personal/$this.{$store.state.user.studentNumber}')
+    return res.data
+  } catch (err) {
+    console.log('Error fetching tests', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
+
+export async function getAllActive() {
+  try {
+    
+    const res = await apiFetcher.get('/tests/actives')
+    return res.data
+  } catch (err) {
+    console.log('Error fetching tests', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
 export async function getNearFuture() {
   try {
-    const res = await apiFetcher.get('/tests?type=nearfuture')
+    const res = await apiFetcher.get('/tests/nextTests')
     return res.data
   } catch (err) {
     console.log('Error fetching tests', err?.response)

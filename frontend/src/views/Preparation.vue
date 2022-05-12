@@ -194,7 +194,7 @@ export default {
           const testId = this.testConfigs._id
           const config = {
             ...this.testConfigs,
-            inserted_by: 'Real Human Person'
+            inserted_by: this.$store.state.user.name
           }
           delete config.id
           generatorApi
@@ -247,7 +247,7 @@ export default {
 
     submitTest() {
       this.testConfigs.total_time =  this.test.config.total_time
-      const config = { ...this.testConfigs, inserted_by: 'Real Human Person' }
+      const config = { ...this.testConfigs, inserted_by: this.$store.state.user.name }
       delete config.id
       testsApi
         .saveTest({ ...this?.test, config })

@@ -229,7 +229,7 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/results" active-class="yellow--text">
+          <v-list-item  link to="/results" active-class="yellow--text">
             <v-list-item-title >{{
               $t("adminNav.ans")
             }}</v-list-item-title>

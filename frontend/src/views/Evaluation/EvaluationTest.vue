@@ -265,7 +265,7 @@
     </section>
 
     <v-card
-      v-if="step == 4 && result"
+      v-if="step == 4 && result && !$store.getters.isStudent"
       class="mx-auto"
       style="width: fit-content"
     >
@@ -298,7 +298,7 @@
       </v-col>
     </v-card>
 
-    <v-card v-if="step == 3" class="d-flex flex-column">
+    <v-card v-if="step == 3 && !$store.getters.isStudent" class="d-flex flex-column">
       <h4 class="pt-6 pb-0 text-h4 text-center" color="primary ">
         Resultado :
       </h4>
@@ -617,7 +617,8 @@ export default {
 
                     this.timeLeft = response.data['questions'][0]['config']['total_time'] - (( today - startD ) / 1000)
                     this.test.startTime = response.data['questions'][0]['startTime']
-                    
+                    this.step=2
+                    this.startStep2()
                     console.log(this.timeLeft)
 
                     this.tests.questions.forEach((q, i) => {

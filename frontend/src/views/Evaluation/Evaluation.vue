@@ -177,7 +177,7 @@ export default {
     }
   },
 
-  created() {
+  async created() {
     this.loading = true
      axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
@@ -193,10 +193,35 @@ export default {
       },(error) =>{
           console.log(error);
     });
+
+    this.testsDone = []
+      let formData = new FormData()
+      formData.append('domain',this.domain)
+      formData.append('subdomains', this.subdomains)
+      formData.append('tests', this.testItemsChosen)
+      formData.append('student', this.$store.state.user.studentNumber )
+      
+      await axios.post(`${process.env.VUE_APP_BACKEND}/tests/results`,formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          },
+        })
+      .then((response)=>{
+        response.data.tests.forEach((obj) =>{
+          this.testsDone.push(obj['testId'])
+        });
+      },(error) =>{
+          console.log(error);
+    });
+
     testsApi
-        .getAll()
+        .getAllActive()
         .then((data) => {
-          this.tests = data.tests
+          data.tests.forEach((obj) =>{
+            if(!this.testsDone.includes(obj._id ))
+                this.tests.push(obj)
+          })
           this.loading = false
         })
         .catch(() => {
@@ -206,6 +231,12 @@ export default {
             text: `Não foi possivel obter a lista de testes !! 😫 \n`
           }
         })
+      
+      
+
+
+
+    
   }
 }
 </script>

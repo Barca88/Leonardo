@@ -333,7 +333,7 @@ const routes = [
           if (!store.getters.isAuthenticated) {
             next(`/login`);
           } else if (store.getters.isStudent) {
-            next(`/`);
+            next(`../views/StudentResultsDashboard.vue`);
           } else {
             next();
           }
@@ -347,12 +347,29 @@ const routes = [
           if (!store.getters.isAuthenticated) {
             next(`/login`);
           } else if (store.getters.isStudent) {
-            next(`/`);
+            next(`/personalTestResults`);
           } else {
             next();
           }
         },
+        
       },
+      {
+        path: "/personalTestResults",
+        name: "personalTestResults",
+        component: () => import("../views/StudentsResults.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+            next();
+          } else {
+            next();
+          }
+        },
+        
+      },
+
 
       /* Rotas de Importacao de Questões */
       { 
