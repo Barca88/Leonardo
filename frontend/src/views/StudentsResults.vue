@@ -11,7 +11,6 @@
         :items="this.idDomain"
         :label="`${$t('title.chooseDomain')}`"
         @change="onChange($event)"
-        @input="emitChange('domain', $event)"
         clearable
       />
       <!-- SubDominios -->
@@ -20,7 +19,6 @@
         :value="this.subdomains"
         :label="`${$t('title.chooseSubDomain')}`"
         @input="onChangeSub($event)"
-        @change='subchange()'
         multiple
         chips
         deletable-chips
@@ -52,7 +50,6 @@
         :sort-by="['_id']"
         :headers="headers"
         :items-per-page="15"
-        :search="search"
         multi-sort
       >
         <template v-slot:top>
@@ -102,7 +99,7 @@ import Footer from '@/components/Footer'
 import axios from 'axios';
 
 export default {
-  name: 'Preparation',
+  name: 'StudentResults',
   components: {
     AppHeader,
     NavDraw,
@@ -119,6 +116,7 @@ export default {
       step: 1,
       domain:{},
       idDomain: [],
+      idSubDomain: [],
       Domain: [],
       tests: [],
       subdomains: [],
@@ -253,12 +251,7 @@ export default {
   },
 
   async created() {
-    try{
-      this.testConfigs.subdomains.forEach((obj)=>{
-        this.idSubDomain.push(obj)
-        this.showNext = true
-      })}
-      catch( e ){console.log('')}
+    
     //this.fetchDomains()
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {

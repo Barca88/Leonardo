@@ -7,7 +7,7 @@
         <h3 class="text-h3 grey--text text--lighten-1">Realizacao de teste:</h3>
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="test!=null">
         <v-card>
           <v-row class="ma-0">
             <v-col cols="12" md="6">
@@ -381,7 +381,7 @@ import axios from 'axios';
 import * as evaluationApi from '@/utils/api/evaluation'
 
 export default {
-    name: 'Evaluation',
+    name: 'EvaluationTest',
     components: {
         TextSnackBar,
         TestDetails,
@@ -602,24 +602,19 @@ export default {
                     var time = today.getHours() + ":" + today.getMinutes() + ":" + 
                     today.getSeconds();
             
-                    console.log(today)
 
                     
                     let timeList = response.data['questions'][0]['startTime'].split(' ')
                     let dateYearMonthDay = timeList[0]
                     let timesHourMinutesSeconds = timeList[1]
-                    console.log(response.data['questions'][0]['startTime'])
                     date = dateYearMonthDay.split('-')
                     time = timesHourMinutesSeconds.split(':')
                     let startD = new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2])
-                    console.log(date[0] + date[1] + date[2] + time[0] + time[1] + time[2])
-                    console.log(startD)
 
                     this.timeLeft = response.data['questions'][0]['config']['total_time'] - (( today - startD ) / 1000)
                     this.test.startTime = response.data['questions'][0]['startTime']
                     this.step=2
                     this.startStep2()
-                    console.log(this.timeLeft)
 
                     this.tests.questions.forEach((q, i) => {
                         q.body.forEach((a) => {
@@ -641,11 +636,11 @@ export default {
                     }
                 }
             } catch (error) {
-                console.log(error)
+                this.x=error
             }
 
         }, (error) => {
-            console.log(error)
+            this.x = error
 
         });
 
