@@ -15,7 +15,7 @@
     
 
     <v-card
-      v-if="step == 4 && result"
+      v-if="step == 4 && result && result['config']['showResponse']== 1"
       class="mx-auto"
       style="width: fit-content"
     >
@@ -48,7 +48,13 @@
       </v-col>
     </v-card>
 
-    <v-card v-if="step == 3" class="d-flex flex-column">
+     <v-card v-if="step == 3 && result['config']['showResponse']== 0" class="d-flex flex-column">
+      <h4 class="pt-6 pb-0 text-h4 text-center" color="primary ">
+        Resultado Indisponivel
+      </h4>
+     </v-card>
+
+    <v-card v-if="step == 3 && result['config']['showResponse']== 1" class="d-flex flex-column">
       <h4 class="pt-6 pb-0 text-h4 text-center" color="primary ">
         Resultado :
       </h4>

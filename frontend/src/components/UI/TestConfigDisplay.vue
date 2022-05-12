@@ -45,7 +45,11 @@
             <v-col cols="12" md="6">
               <v-list>
                 <v-list-item class="d-flex align-center">
-                  Numero de Questoes : {{ test.config.number_questions }}
+                  Número de Questoes : {{ test.config.number_questions }}
+                </v-list-item>
+
+                <v-list-item class="d-flex align-center">
+                  Mostrar respostas : {{ test.config.showResponse == 1 ? 'Yes': 'No' }}
                 </v-list-item>
 
                 <v-list-item class="d-flex align-center">

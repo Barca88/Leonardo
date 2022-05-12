@@ -102,7 +102,6 @@
             </v-menu>
           </v-col>
         </v-row>
-
         <!-- Nr de Questoes  -->
         <v-text-field
           :value="testConfigs.number_questions"
@@ -112,6 +111,8 @@
           required
           type="number"
         />
+
+        
 
         <!-- Nível de Dificuldade  -->
         <v-subheader class="px-0">
@@ -158,6 +159,14 @@
 
         <!-- Tipo do teste  -->
         <!-- Value/Input not working, v-model seems to update parent 🤷‍♂️  -->
+        <v-radio-group
+          v-model="testConfigs.showResponse"
+          label="Mostrar Respostas"
+          row
+        >
+          <v-radio label="Yes" value="1" />
+          <v-radio label="No" value="0" />
+        </v-radio-group>
         <v-radio-group
           v-model="testConfigs.test_type"
           :rules="configrules.test_type"

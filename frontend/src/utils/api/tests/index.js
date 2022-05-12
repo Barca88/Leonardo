@@ -62,6 +62,16 @@ export async function saveTest(test) {
   }
 }
 
+export async function changeTest(testId) {
+  try {
+    const res = await apiFetcher.put(`/tests/change/${testId}`)
+    return res.data
+  } catch (err) {
+    console.log('Error saving test', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
 export async function deleteOne(id) {
   try {
     const res = await apiFetcher.delete(`/tests/${id}`)

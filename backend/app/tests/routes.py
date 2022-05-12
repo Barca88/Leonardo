@@ -183,3 +183,20 @@ def update_test(test_id):
     mongo.db.tests.insert(data)
 
     return make_response('The test was created', 201)
+
+@blueprint.route('/change/<string:test_id>', methods=['PUT'])
+def updateResponse_test(test_id):
+    print(test_id)
+    test = mongo.db.tests.find_one({"_id": test_id})
+    print(test)
+    resp = test['config']['showResponse']
+    print(resp)
+    if resp == 1 : 
+        mongo.db.tests.update({"_id": test_id}, { "$set" : {  "config.showResponse" : 0}})
+        mongo.db.evaluation.update({"testId": test_id}, { "$set" : {  "config.showResponse" : 0}})
+    else:  
+        mongo.db.tests.update({"_id": test_id}, { "$set" : { "config.showResponse" : 1}}) 
+        mongo.db.evaluation.update({"testId": test_id}, { "$set" : {  "config.showResponse" : 1}})   
+    
+
+    return make_response('The test was created', 201)
