@@ -225,7 +225,6 @@ export default {
     changeShowResponse(testId){
       console.log(testId)
 
-
       testsApi
         .changeTest( testId )
         .then(() => {

@@ -333,7 +333,7 @@ const routes = [
           if (!store.getters.isAuthenticated) {
             next(`/login`);
           } else if (store.getters.isStudent) {
-            next(`../views/StudentResultsDashboard.vue`);
+            next(`/`);
           } else {
             next();
           }

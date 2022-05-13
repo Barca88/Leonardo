@@ -115,6 +115,7 @@
             </v-card-title>
           </v-card
           >
+        
         <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
           
           <v-card
@@ -126,7 +127,9 @@
               <h4>
                 {{ i + 1 + '. ' + q._id }}
               </h4>
+              
               <v-spacer />
+              
               <div class="d-flex flex-column">
                 <div class="d-flex align-center">
                   <v-progress-linear
@@ -149,12 +152,14 @@
                     striped
                   />
                   <v-icon class="px-1" v-text="'mdi-timer-outline'" />
+                  
                 </div>
               </div>
             </v-card-title>
             <v-card-subtitle
               class="d-flex align-center justify-space-between align-center"
             >
+            <dl><v-img v-bind:src="userPic"   /></dl>
             </v-card-subtitle>
             <v-card-text>
               {{ q.header }}
@@ -395,6 +400,7 @@ export default {
             //1->overview, 2->answering, 3-> result, 3->result details
             step: 0,
             loading: true,
+            userPic: '',
             test: null,
             currentQuestion: 0,
             timeCurrentQuestion: 999,
@@ -413,6 +419,24 @@ export default {
         }
     },
     methods: {
+      showImage(_qId){
+
+        this.userPic=''
+        axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
+            responseType:'arraybuffer',
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+            var image = new Buffer(response.data, 'binary').toString('base64')
+            this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+        }).catch(e => {
+            console.log('Erro ' + e)
+            this.errors.push(e)
+        })
+
+      },
         tick() {
             if (this.step == 2) {
                 this.timeLeft--
@@ -428,11 +452,15 @@ export default {
             }
         },
         nextQuestion() {
+            this.userPic = ''
             if (this.currentQuestion == this.test.questions.length - 1) {
                 this.startStep3()
             } else {
 
                 this.currentQuestion++
+                console.log(this.test.questions[this.currentQuestion]._id)
+                
+                this.showImage(this.test.questions[this.currentQuestion]._id)
                 /*this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
                 ].answering_time
@@ -443,7 +471,7 @@ export default {
         },
         lastQuestion() {
             
-
+                this.userPic = ''
                 this.currentQuestion--
                 /*this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
@@ -461,6 +489,7 @@ export default {
             this.answers = newAnswers
         },
         startStep2() {
+            this.showImage(this.test.questions[this.currentQuestion]._id)
             if(this.test.startTime==null){
               var today = new Date();
               var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -550,6 +579,7 @@ export default {
         }
     },
     async created() {
+        this.userPic=''
         this.loading = true
         await evaluationApi
             .getOne(this.$route.params['testid'])

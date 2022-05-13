@@ -1,4 +1,5 @@
 import axios from 'axios'
+//import store from '../../store'
 
 export default axios.create({
   baseURL: 'http://localhost:5000',
@@ -7,4 +8,8 @@ export default axios.create({
     'Content-Type': 'application/json',
     Accept: 'application/json'
   }
+  /*responseType:'arraybuffer',
+    headers: {
+        'Authorization': `Bearer: ${store.state.jwt}`
+    }*/ 
 })
