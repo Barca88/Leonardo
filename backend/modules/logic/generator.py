@@ -44,8 +44,8 @@ def generate_test(question_pool, num_questions, displayed_answers, total_time, a
     print('numq - ' +str(num_questions) +  ', disans -' + str(displayed_answers) + ', tots -' + str(total_time) + ', avg  ' + str(average_difficulty) )
     solver = pywraplp.Solver.CreateSolver('SCIP')
 
-    nr_tolerance = int(0.2 * num_questions)
-    difficulty_tolerance = float(0.2 * average_difficulty)
+    nr_tolerance = int(0.4 * num_questions)
+    difficulty_tolerance = float(0.4 * average_difficulty)
 
     lower_nr_bound = num_questions - nr_tolerance
     upper_nr_bound = num_questions + nr_tolerance
@@ -81,7 +81,7 @@ def generate_test(question_pool, num_questions, displayed_answers, total_time, a
     number_questions_constraints = solver.RowConstraint(
         num_questions, num_questions)
     time_sum_constraint = solver.RowConstraint(
-        total_time, total_time)
+        0, total_time)
     average_difficulty_constraint = solver.RowConstraint(
         average_difficulty * num_questions, average_difficulty * num_questions)
     objective = solver.Objective()
@@ -116,7 +116,7 @@ def generate_test(question_pool, num_questions, displayed_answers, total_time, a
     else:
         print("No exact result found, attempting with 20% tolerance")
         number_questions_constraints.SetBounds(lower_nr_bound, upper_nr_bound)
-        time_sum_constraint.SetBounds(total_time, total_time)
+        time_sum_constraint.SetBounds(0, total_time)
         average_difficulty_constraint.SetBounds(
             lower_difficulty_bound, upper_difficulty_bound)
         status = solver.Solve()

@@ -55,6 +55,14 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td class="text-left">Número de Aluno</td>
+                                    <td>
+                                        <v-layout justify-center>
+                                            {{user.studentNumber}}
+                                        </v-layout>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td class="text-left">{{$t('perfil.tipo')}}</td>
                                     <td>
                                         <v-layout justify-center>
@@ -188,6 +196,7 @@ export default {
                 _id: '',
                 nome: '',
                 email: '',
+                studentNumber: '',
                 type: ''
             },
             page:1
@@ -299,6 +308,7 @@ export default {
         },
         editItem (item, value) {
         //this.editedIndex = this.users.indexOf(item)
+        console.log(this.user)
         this.editedItem = this.user
         this.value=value
         this.dialog = true

@@ -119,8 +119,6 @@ export default ({
     },
     created() {
       if(this.$route.params.data!=null){
-        console.log("Edição de questão")
-        console.log(this.$route.params.data)
         let data = this.$route.params.data
             this.formData.explanation = data.explanation
             this.formData.notes = data.notes
@@ -129,7 +127,6 @@ export default ({
             this.formData.language = data.language 
             
             
-            console.log('created with args  - '+ data.sendId)
             this.url= URL.createObjectURL(this.formData.images)
       }
     },
@@ -143,7 +140,6 @@ export default ({
             
             if(data.sendId != ""){
                 this.userPic=''
-                console.log('pre get')
                 axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + data.sendId,  {
                     responseType:'arraybuffer',
                     headers: {
@@ -151,17 +147,14 @@ export default ({
                     }
                 })
                 .then(response => {
-                console.log('get')
                     var image = new Buffer(response.data, 'binary').toString('base64')
                     this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
                 }).catch(e => {
-                    console.log('Erro ' + e)
                     this.errors.push(e)
         })
 
             
             }
-            console.log('created with args  - '+ data.sendId)
       })
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
@@ -172,11 +165,11 @@ export default ({
                 this.formData.status = response.data.question.status
                 this.formData.language = response.data.question.language
               },(error) =>{
-                  console.log(error);
+                  this.x=error
               });
       })
     this.$root.$on('reset', data => {
-        console.log(data)
+        this.x=data
         this.formData.explanation = ""
         this.formData.notes = ""
         this.formData.source = ""

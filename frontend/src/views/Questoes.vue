@@ -414,7 +414,6 @@ export default {
           }
         })
           .then((response)=>{
-            console.log('test ' + response.data),
             //this.domain = response.data
             this.navQuestoes=response.data.questions
             this.dominios=response.data.domains
@@ -433,7 +432,6 @@ export default {
       showImage(_qId){
 
         this.userPic=''
-        console.log('pre get')
         axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
             responseType:'arraybuffer',
             headers: {
@@ -441,7 +439,6 @@ export default {
             }
         })
         .then(response => {
-          console.log('get')
             var image = new Buffer(response.data, 'binary').toString('base64')
             this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
         }).catch(e => {
@@ -477,8 +474,7 @@ export default {
         }
         })
           .then((response)=>{
-            console.log(response.data)
-            console.log(this.itemIndex)
+            this.x=response
             this.navQuestoes.splice(this.itemIndex, 1)
           },(error) =>{
               console.log(error);

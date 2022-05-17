@@ -157,10 +157,21 @@ def get_test(test_id):
     
     return json_util.dumps({'tests': tests})
 
+@blueprint.route('/individualResult/<string:test_id>', methods=['GET'])
+def get_testInd(test_id):
+    print('get1 eval')
+    print('get_test')
+    tests = mongo.db.evaluation.find({"_id": test_id})
+    print(tests)
+    
+    return json_util.dumps({'tests': tests})
+
 @blueprint.route('/check/<string:test_id>', methods=['GET'])
 def get_check(test_id):
+    print(test_id)
     evaluation = mongo.db.evaluation.find({"_id": test_id})
-    return json_util.dumps({'exists': 1, 'questions' : evaluation})
+    print(len(list(evaluation.clone())))
+    return json_util.dumps({'exists': len(list(evaluation.clone())), 'questions' : evaluation})
     
 
 @blueprint.route('/<string:test_id>', methods=['PUT'])

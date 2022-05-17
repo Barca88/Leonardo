@@ -119,7 +119,7 @@ const routes = [
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else if (!store.getters.isAdmin) {
+      } else if (store.getters.isStudent) {
         next(`/`);
       } else {
         next();
@@ -133,7 +133,7 @@ const routes = [
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else if (!store.getters.isAdmin) {
+      } else if (store.getters.isStudent) {
         next(`/`);
       } else {
         next();
@@ -147,7 +147,7 @@ const routes = [
     beforeEnter(to, from, next) {
       if (!store.getters.isAuthenticated) {
         next(`/login`);
-      } else if (!store.getters.isAdmin) {
+      } else if (store.getters.isStudent) {
         next(`/`);
       } else {
         next();
@@ -300,6 +300,18 @@ const routes = [
         },
       },
       {
+        path: "/individualResult/:testid",
+        name: "IndividualResult",
+        component: () => import("../views/IndividualResult.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else {
+            next();
+          }
+        },
+      },
+      {
         path: "/management",
         name: "Management",
         component: () => import("../views/Management.vue"),
@@ -327,6 +339,37 @@ const routes = [
           }
         },
       },
+      {
+        path: "/testresults",
+        name: "testresults",
+        component: () => import("../views/Results.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+            next(`/personalTestResults`);
+          } else {
+            next();
+          }
+        },
+        
+      },
+      {
+        path: "/personalTestResults",
+        name: "personalTestResults",
+        component: () => import("../views/StudentsResults.vue"),
+        beforeEnter(to, from, next) {
+          if (!store.getters.isAuthenticated) {
+            next(`/login`);
+          } else if (store.getters.isStudent) {
+            next();
+          } else {
+            next();
+          }
+        },
+        
+      },
+
 
       /* Rotas de Importacao de Questões */
       { 
@@ -335,7 +378,7 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
-          } else if (!store.getters.isAdmin) {
+          } else if (store.getters.isStudent) {
             next(`/`);
           } else {
             next();
@@ -348,7 +391,7 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
-          } else if (!store.getters.isAdmin) {
+          } else if (store.getters.isStudent) {
             next(`/`);
           } else {
             next();
@@ -374,7 +417,7 @@ const routes = [
         beforeEnter(to, from, next) {
           if (!store.getters.isAuthenticated) {
             next(`/login`);
-          } else if (!store.getters.isAdmin) {
+          } else if (store.getters.isStudent) {
             next(`/`);
           } else {
             next();

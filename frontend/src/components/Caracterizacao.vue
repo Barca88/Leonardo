@@ -186,9 +186,8 @@ export default {
           this.idDomain.push(obj._id)
         });
       },(error) =>{
-          console.log(error);
+          this.x = error
     });
-    //console.log("users : " + this.idUsers)
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
@@ -211,7 +210,7 @@ export default {
 
   mounted(){
     this.$root.$on('import', data => {
-      console.log("caracterização")
+      
             axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)
               .then((response)=>{
                 this.formData._id = response.data.question._id
@@ -229,7 +228,7 @@ export default {
                 this.formData.header = response.data.question.header
                 this.editing = true
               },(error) =>{
-                  console.log(error);
+                  this.x=error
               });
     })
     this.$root.$on('reset', data => {

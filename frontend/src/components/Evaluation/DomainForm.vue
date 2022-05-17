@@ -4,7 +4,7 @@
     <v-select
       v-model="selectedDomain"
       :items="this.idDomain"
-      label="Escolha o dominio"
+      :label="`${$t('title.chooseDomain')}`"
       @change="$emit('change', $event)"
       clearable
     />
@@ -65,7 +65,6 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });

@@ -10,9 +10,31 @@ export async function getAll() {
   }
 }
 
+export async function getAllPersonal() {
+  try {
+    const res = await apiFetcher.get('/tests/personal/$this.{$store.state.user.studentNumber}')
+    return res.data
+  } catch (err) {
+    console.log('Error fetching tests', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
+
+export async function getAllActive() {
+  try {
+    
+    const res = await apiFetcher.get('/tests/actives')
+    return res.data
+  } catch (err) {
+    console.log('Error fetching tests', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
 export async function getNearFuture() {
   try {
-    const res = await apiFetcher.get('/tests?type=nearfuture')
+    const res = await apiFetcher.get('/tests/nextTests')
     return res.data
   } catch (err) {
     console.log('Error fetching tests', err?.response)
@@ -33,6 +55,17 @@ export async function getOne(id) {
 export async function saveTest(test) {
   try {
     const res = await apiFetcher.put(`/tests/${test.id}`, test)
+    return res.data
+  } catch (err) {
+    console.log('Error saving test', err?.response)
+    throw new Error(err?.response?.data || 'UNKNOWN')
+  }
+}
+
+export async function changeTest(testId) {
+  
+  try {
+    const res = await apiFetcher.put(`/tests/change/${testId}`)
     return res.data
   } catch (err) {
     console.log('Error saving test', err?.response)

@@ -264,7 +264,6 @@ export default {
 
     mounted() {
       this.$root.$on('change', data => {
-            //console.log("change2 : " + data.sendDescription)
             this.idDominio = data.sendId
             this.description = data.sendDescription
       })
@@ -275,11 +274,11 @@ export default {
                 this.formData.body = response.data.domain.body
                 this.editing = true
               },(error) =>{
-                  console.log(error);
+                this.x=error
               });
       })
       this.$root.$on('reset', data => {
-        console.log(data)
+        this.x=data
         this.formData.body = []
         this.subdominio.subdomain = ""
         this.subdominio.sub_description = ""
@@ -297,7 +296,6 @@ export default {
           if(this.checkID(this.subdominio.subdomain)){
             this.formData.body.push(this.subdominio);
             this.subdominio = Object.assign({}, this.defaultSub)
-            //console.log("formADD : " + this.formData.body[0].subdomain)
           }
           else{
             this.dialogSub = true
@@ -369,7 +367,6 @@ export default {
     watch: {
         formData: {
             handler: function() {
-              //console.log("form : " + this.formData.body[0].subdomain)
               this.$emit('newdataSubdominio', this.formData.body);
             },
             deep: true

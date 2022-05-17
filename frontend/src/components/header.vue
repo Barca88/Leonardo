@@ -134,7 +134,6 @@ export default {
               'Access-Control-Allow-Origin': "*"     
           }
         })
-        //console.log("destroy token here")
         this.$store.commit("guardaTokenUtilizador", "")
         this.$store.commit("guardaNomeUtilizador", "")
         this.$router.push( {path:`/login`})
@@ -166,7 +165,6 @@ export default {
             var image = new Buffer(response.data, 'binary').toString('base64')
             this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
         }).catch(e => {
-            //console.log(e)
             this.errors.push(e)
         })
 
@@ -194,7 +192,6 @@ export default {
         else if(this.ajuda == 'pedidos'){
             this.help = 'Esta é a ajuda dos pedidos de acesso'
         }
-        //console.log('HELP: ' + this.help)
     },
     computed: {
         drawerState: {

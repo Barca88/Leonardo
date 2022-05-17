@@ -151,6 +151,14 @@
                         ></v-text-field>
                         <h5 style="color:red">*</h5>
                       </v-row>
+                       <v-row>
+                        <v-text-field
+                            label="Número de Aluno"
+                            v-model="pedido.studentNumber"
+                            :rules="[rules.required]"                    
+                        ></v-text-field>
+                        <h5 style="color:red">*</h5>
+                      </v-row>
                       <v-row>
                         <v-text-field
                             label="Email"
@@ -330,6 +338,7 @@ export default {
       pedido:{
         username:"",
         nome:"",
+        studentNumber:"",
         pw:"",
         email:"",
         tipo:"",
@@ -404,6 +413,7 @@ export default {
             formData.append('foto',this.pedido.foto)
             formData.append('curriculo',this.pedido.curriculo)
             formData.append('obs',this.pedido.comments)
+            formData.append('studentNumber',this.pedido.studentNumber)
 
         axios.post(`${process.env.VUE_APP_BACKEND}/users/pedidos/registar`,formData,{
           headers: {

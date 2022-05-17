@@ -100,6 +100,15 @@
               <v-icon small v-text="'mdi-lead-pencil'" />
             </v-btn>
 
+            <v-btn
+              small
+              icon
+              class="warning--text mx-1"
+              @click="changeShowResponse(item._id)"
+            >
+              <v-icon small v-text="'mdi-eye'" />
+            </v-btn>
+
             <!-- Delete Test Button -->
             <v-btn
               small
@@ -178,6 +187,10 @@ export default {
           value: 'last_updated'
         },
         {
+          text: 'Respostas Visiveis',
+          value: 'showResponse'
+        },
+        {
           text: 'Opções',
           value: 'options',
           sortable: false
@@ -209,6 +222,27 @@ export default {
     }
   },
   methods: {
+    changeShowResponse(testId){
+      console.log(testId)
+
+      testsApi
+        .changeTest( testId )
+        .then(() => {
+          this.snackbar = {
+            show: true,
+            color: 'success',
+            text: `O Teste foi salvo !! 😁 \n`
+          }
+          this.fetchTests()
+        })
+        .catch((err) => {
+          this.snackbar = {
+            show: true,
+            color: 'error',
+            text: `Não foi possivel guardar o teste !! ☹ Erro: ${err} \n`
+          }
+        })
+    },
     fetchTests() {
       this.loading = true
 

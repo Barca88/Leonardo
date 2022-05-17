@@ -8,7 +8,7 @@
       <v-select
         :value="testConfigs.domain"
         :items="this.idDomain"
-        label="Escolha o dominioo"
+        :label="`${$t('title.chooseDomain')}`"
         @change="onChange($event)"
         @input="emitChange('domain', $event)"
         clearable
@@ -17,7 +17,7 @@
       <v-select
         :items="this.idSubDomain"
         :value="testConfigs.subdomains"
-        label="Escolha os subdominios"
+        :label="`${$t('title.chooseSubDomain')}`"
         @input="emitChange('subdomains', $event)"
         @change='subchange()'
         multiple
@@ -102,7 +102,6 @@
             </v-menu>
           </v-col>
         </v-row>
-
         <!-- Nr de Questoes  -->
         <v-text-field
           :value="testConfigs.number_questions"
@@ -112,6 +111,8 @@
           required
           type="number"
         />
+
+        
 
         <!-- Nível de Dificuldade  -->
         <v-subheader class="px-0">
@@ -158,6 +159,14 @@
 
         <!-- Tipo do teste  -->
         <!-- Value/Input not working, v-model seems to update parent 🤷‍♂️  -->
+        <v-radio-group
+          v-model="testConfigs.showResponse"
+          label="Mostrar Respostas"
+          row
+        >
+          <v-radio label="Yes" value="1" />
+          <v-radio label="No" value="0" />
+        </v-radio-group>
         <v-radio-group
           v-model="testConfigs.test_type"
           :rules="configrules.test_type"
@@ -251,14 +260,10 @@ export default {
     onDomain(){
       if(this.sendObject.sendDomain != this.configrules.domain){
         this.idSubDomain = []
-        console.log('inicio')
         if(this.configrules.domain){
           this.Domain.forEach((obj) =>{
-            console.log('antes if  -' + obj._id)
-            console.log(this.configrules.domain)
             if(obj._id == this.configrules.domain){
               obj.body.forEach((sub) =>{
-                console.log('inserirSub ' + sub.subdomain)
                 this.idSubDomain.push(sub.subdomain)
               });
             }
@@ -268,13 +273,11 @@ export default {
     },
 
     onChange(e){
-      console.log('----  ' + e)
       this.configrules.domain = e
       this.sendObject.sendId = this.selectedDomain
       this.onDomain()
       this.sendObject.sendDomain = this.configrules.domain
       this.sendObject.sendHeader = this.headerobj
-      console.log('Changing')
       this.$root.$emit('change',this.sendObject)
     },
     fetchDomains() {
@@ -304,14 +307,12 @@ export default {
     },
     // Notify parent that a change hapenned (It's not noticed due to v-modle use on props :^/)
     emitChange(key, value) {
-      console.log(key)
       this.$emit('change', { ...this.testConfigs, [key]: value })
     }
   },
   computed: {
     /** @returns {any}*/
     domainsSelectionValid() {
-      console.log('check')
       return (
         
         this.domainValues?.length>0
@@ -332,7 +333,6 @@ export default {
     }
   },
   async created() {
-    console.log('created')
     try{
       this.testConfigs.subdomains.forEach((obj)=>{
         this.idSubDomain.push(obj)
@@ -340,7 +340,6 @@ export default {
       })}
       catch( e ){console.log('')}
     //this.fetchDomains()
-    console.log('fetching domains')
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -349,7 +348,6 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });

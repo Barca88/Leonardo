@@ -16,18 +16,18 @@
         </v-list-item>
 
         <v-list-group
+          v-if="!$store.getters.isStudent"
           active-class="yellow--text"
           prepend-icon="mdi-database"
           :value="false"
           no-action
         >
-          <template v-slot:activator>
+          <template v-slot:activator >
             <v-list-item-title active-class="yellow--text" >{{
               $t("adminNav.infoBase")
             }}</v-list-item-title>
           </template>
           <v-list-item link to="/responsible" active-class="yellow--text">
-
             <v-list-item-title >{{
               $t("adminNav.resp")
             }}</v-list-item-title>
@@ -140,7 +140,7 @@
               $t("adminNav.av")
             }}</v-list-item-title>
           </template>
-          <v-list-item link to="/evaluation" active-class="yellow--text">
+          <v-list-item link to="/evaluation" active-class="yellow--text" v-if="$store.getters.isStudent || $store.getters.isAdmin ">
             <v-list-item-title >{{
               $t("adminNav.test")
             }}</v-list-item-title>
@@ -148,6 +148,11 @@
           <v-list-item link to="/home">
             <v-list-item-title >{{
               $t("adminNav.quizz")
+            }}</v-list-item-title>
+          </v-list-item>
+           <v-list-item link to="/testresults">
+            <v-list-item-title >{{
+              "Resultados"
             }}</v-list-item-title>
           </v-list-item>
         </v-list-group>
@@ -224,7 +229,7 @@
               $t("adminNav.student")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item v-if="!$store.getters.isStudent" link to="/results" active-class="yellow--text">
+          <v-list-item  link to="/results" active-class="yellow--text">
             <v-list-item-title >{{
               $t("adminNav.ans")
             }}</v-list-item-title>

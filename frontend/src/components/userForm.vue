@@ -52,6 +52,14 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="text-left"><b>Número de Aluno</b></td>
+                        <td>
+                            <v-layout>
+                                {{user.studentNumber}}
+                            </v-layout>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="text-left"><b>{{$t('reg.dep')}}</b></td>
                         <td >
                             <v-layout>
@@ -116,6 +124,13 @@
                           :rules="[rules.required]"
                           disabled
                       ></v-text-field>
+                      <v-text-field
+                      v-if= "value != 'ver' "
+                      label="Número de alunos"
+                      v-model="user.studentNumber"
+                      required
+                      :disabled= "!$store.getters.isStudent ? false : true"
+                  ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                       <v-text-field
@@ -297,6 +312,7 @@ export default {
         name:"",
         pw:"",
         email:"",
+        studentNumber:"",
         type:"",
         university:"",
         department:"",
@@ -348,6 +364,7 @@ export default {
         this.user.username = this.passedData._id
         this.user.name = this.passedData.name
         this.user.email = this.passedData.email
+        this.user.studentNumber = this.passedData.studentNumber
         this.user.pw = this.passedData.password
         this.user.type = this.passedData.type
         this.user.university = this.passedData.university
@@ -358,6 +375,7 @@ export default {
         this.user.username = ''
         this.user.name = ''
         this.user.email = ''
+        this.user.studentNumber = ''
         this.user.pw = ''
         this.user.type = ''
         this.user.university = ''
@@ -371,6 +389,7 @@ export default {
         formData.append('name',this.user.name)
         formData.append('password',this.user.pw)
         formData.append('email',this.user.email)
+        formData.append('studentNumber',this.user.studentNumber)
         formData.append('tipo',this.user.type)
         formData.append('universidade',this.user.university)
         formData.append('departamento',this.user.department)

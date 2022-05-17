@@ -134,7 +134,6 @@ export default {
         testsApi
           .getOne(this.$route.query.editing)
           .then((data) => {
-            console.log('receiving1')
             this.testStore = data.tests
             this.test = this.testStore[0]
             this.testConfigs = this.testStore[0]['config']
@@ -152,7 +151,7 @@ export default {
       } else {
         this.testConfigs.avg_difficulty = 3
         this.testConfigs.maximum_displayed_answers = 4
-        this.testConfigs.total_time = 10
+        this.testConfigs.total_time = 101
         this.testConfigs.date = {}
         this.loading = false
       }
@@ -176,8 +175,6 @@ export default {
         dateFinish.setHours(0, 0, 0, 0)
         const dateNow = new Date(Date.now())
         dateNow.setHours(0, 0, 0, 0)
-        console.log('dateNow :>> ', dateNow)
-        console.log('dateeStart:>> ', dateStart)
 
         //Check if dates are valid
         if (dateStart < dateNow) {
@@ -197,10 +194,9 @@ export default {
           const testId = this.testConfigs._id
           const config = {
             ...this.testConfigs,
-            inserted_by: 'Real Human Person'
+            inserted_by: this.$store.state.user.name
           }
           delete config.id
-
           generatorApi
             .generateNew(testId, config, !!this.$route.query.editing)
             .then((data) => {
@@ -250,7 +246,8 @@ export default {
     },
 
     submitTest() {
-      const config = { ...this.testConfigs, inserted_by: 'Real Human Person' }
+      this.testConfigs.total_time =  this.test.config.total_time
+      const config = { ...this.testConfigs, inserted_by: this.$store.state.user.name }
       delete config.id
       testsApi
         .saveTest({ ...this?.test, config })

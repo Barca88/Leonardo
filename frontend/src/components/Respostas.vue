@@ -353,11 +353,11 @@ export default {
                 this.firstResposta = true
                 this.formData.body = response.data.question.body
               },(error) =>{
-                  console.log(error);
+                this.x=error
               });
       })
       this.$root.$on('reset', data => {
-        console.log(data)
+        this.x=data
         this.formData.body = []
         this.resposta.answer = ""
         this.resposta.correction = ""

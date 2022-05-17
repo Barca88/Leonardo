@@ -1,11 +1,13 @@
 <template>
   <v-container class="pa-10">
+    <AppHeader></AppHeader>
+    <NavDraw></NavDraw>
     <h3 class="text-h3 grey--text text--lighten-1 mb-5">Resultados</h3>
     <h4 class="text-h4 mb-4">Dominios e Testes</h4>
 
     <v-row>
       <v-col cols="12" md="6">
-        <DomainForm v-model="domain" @fetchFail="snackbarFetchFailed" />
+        <DomainForm v-model="domain"  />
       </v-col>
       <v-col cols="12" md="6">
         <v-select placeholder="Escolha o editor" />
@@ -39,7 +41,7 @@
               <span
                 class="mx-1 py-1 text-center"
                 style="width: 70px; background-color: #fff2cc"
-                >{{ (resultData[domain].generalData.average * 20).toFixed(1) }}
+                >{{ (resultData[domain].generalData.average * 0.2).toFixed(1) }}
               </span>
               <h6 class="text-h6 ma-3 text-center">Taxa de Acerto</h6>
               <span
@@ -61,7 +63,7 @@
                 class="mx-1 py-1 text-center"
                 style="width: 70px; background-color: #fff2cc"
                 >{{
-                  (resultData[domain].generalData.bestGrade * 20).toFixed(1)
+                  (resultData[domain].generalData.bestGrade * 0.2).toFixed(1)
                 }}
               </span>
               <h6 class="text-h6 ma-3 text-center">Pior Nota</h6>
@@ -69,7 +71,7 @@
                 class="mx-1 py-1 text-center"
                 style="width: 70px; background-color: #fff2cc"
                 >{{
-                  (resultData[domain].generalData.worstGrade * 20).toFixed(1)
+                  (resultData[domain].generalData.worstGrade * 0.2).toFixed(1)
                 }}
               </span>
             </v-col>
@@ -97,12 +99,16 @@
       :show="snackbar.show"
       @close="snackbar.show = false"
     />
+    <Footer class="mt-5"></Footer>
   </v-container>
 </template>
 
 <script>
 import DomainForm from '@/components/Evaluation/DomainForm'
 import TextSnackBar from '@/components/UI/TextSnackBar'
+import AppHeader from '@/components/header.vue'
+import NavDraw from '@/components/navDraw'
+import Footer from '@/components/Footer'
 
 import TestStatusRow from '@/components/Dashboards/TestStatusRow.vue'
 
@@ -114,7 +120,10 @@ export default {
   components: {
     TextSnackBar,
     DomainForm,
-    TestStatusRow
+    TestStatusRow,
+    AppHeader,
+    NavDraw,
+    Footer
   },
   data() {
     return {
@@ -125,12 +134,16 @@ export default {
       search: '',
       headers: [
         {
-          text: 'Data',
-          value: 'date'
+          text: 'Data de Início',
+          value: 'date.start'
+        },
+        {
+          text: 'Data limite',
+          value: 'date.finish'
         },
         {
           text: 'Identificador',
-          value: 'id'
+          value: '_id'
         },
         {
           text: 'Dominio',
@@ -179,9 +192,8 @@ export default {
       return this.nearFutureTests.map((t) => ({
         ...t.config,
         subdomains: t.config.subdomains.join(', '),
-        domain: t.config.domain.description,
-        id: t.id,
-        date: t.config.date.start
+        domain: t.config.domain,
+        _id: t._id
       }))
     }
   },
@@ -190,7 +202,7 @@ export default {
     testsApi
       .getNearFuture()
       .then((data) => {
-        this.nearFutureTests = data
+        this.nearFutureTests = data['tests']
         this.loading = false
       })
       .catch(() => {
@@ -201,10 +213,13 @@ export default {
         }
       })
 
+    
+
     statsApi
       .getResultStats()
       .then((data) => {
         this.resultData = data
+        console.log(data['Base de Dados'].tests.total)
         this.loading = false
       })
       .catch(() => {

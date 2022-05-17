@@ -6,7 +6,7 @@
       Realizacao de testes
     </h3>
 
-    <h4 class="text-h4 mb-4">Escolha o Dominio</h4>
+    <h4 class="text-h4 mb-4">{{$t('title.chooseDomain')}}</h4>
 
     <DomainForm v-model="domain" />
   
@@ -177,7 +177,7 @@ export default {
     }
   },
 
-  created() {
+  async created() {
     this.loading = true
      axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
@@ -187,18 +187,41 @@ export default {
         })
       .then((response)=>{
         response.data.domains.forEach((obj) =>{
-          console.log('found something')
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
         });
       },(error) =>{
           console.log(error);
     });
+
+    this.testsDone = []
+      let formData = new FormData()
+      formData.append('domain',this.domain)
+      formData.append('subdomains', this.subdomains)
+      formData.append('tests', this.testItemsChosen)
+      formData.append('student', this.$store.state.user.studentNumber )
+      
+      await axios.post(`${process.env.VUE_APP_BACKEND}/tests/results`,formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': "*"    
+          },
+        })
+      .then((response)=>{
+        response.data.tests.forEach((obj) =>{
+          this.testsDone.push(obj['testId'])
+        });
+      },(error) =>{
+          console.log(error);
+    });
+
     testsApi
-        .getAll()
+        .getAllActive()
         .then((data) => {
-          this.tests = data.tests
-          console.log('received -' + this.tests[0])
+          data.tests.forEach((obj) =>{
+            if(!this.testsDone.includes(obj._id ))
+                this.tests.push(obj)
+          })
           this.loading = false
         })
         .catch(() => {
@@ -208,6 +231,12 @@ export default {
             text: `Não foi possivel obter a lista de testes !! 😫 \n`
           }
         })
+      
+      
+
+
+
+    
   }
 }
 </script>

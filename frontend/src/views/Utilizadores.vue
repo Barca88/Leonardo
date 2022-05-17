@@ -313,6 +313,10 @@ export default {
                     value: 'email'
                 },
                 {
+                    text:`${this.$t('users.studentNumber')}`,
+                    value: 'studentNumber'
+                },
+                {
                     text:`${this.$t('users.tipo')}`,
                     value: 'type'
                 },

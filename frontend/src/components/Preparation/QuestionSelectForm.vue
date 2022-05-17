@@ -54,7 +54,6 @@ export default {
   components: { TestConfigDisplay, QuestionCard },
   methods: {
     updateReplacingQuestions(i) {
-      console.log(`index`, i)
       let newReplacingQuestions
       if (this.replacingQuestions.includes(i))
         newReplacingQuestions = this.replacingQuestions.filter((n) => n != i)

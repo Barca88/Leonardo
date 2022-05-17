@@ -284,7 +284,6 @@ export default {
               'Access-Control-Allow-Origin': "*"     
           }
         })
-        //console.log("destroy token here")
         this.$store.commit("guardaTokenUtilizador", "")
         this.$store.commit("guardaNomeUtilizador", "")
         this.$router.push( {path:`/login`})

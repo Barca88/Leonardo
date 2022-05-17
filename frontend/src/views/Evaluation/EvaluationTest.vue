@@ -7,7 +7,7 @@
         <h3 class="text-h3 grey--text text--lighten-1">Realizacao de teste:</h3>
       </v-col>
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="test!=null">
         <v-card>
           <v-row class="ma-0">
             <v-col cols="12" md="6">
@@ -50,7 +50,7 @@
               Nome : {{ this.$store.state.user.name }}
             </v-list-item>
             <v-list-item class="d-flex align-center">
-              Numero de Aluno : {{ 'Sem Número' }}
+              Numero de Aluno : {{ this.$store.state.user.studentNumber }}
             </v-list-item>
           </v-list>
         </v-card>
@@ -71,23 +71,24 @@
       class="d-flex flex-column align-center mx-auto"
     >
       <v-carousel
+        :show-arrows="false"
         hide-delimiters
         class="ma-2 pa-2 d-flex flex-column align-center"
         height="fit-content"
         v-model="currentQuestion"
       >
-        <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
-          <v-card
+
+      <v-card
             light
-            class="ma-2 pa-2 d-flex flex-column"
+            class="ma-2 pa-2 d-flex flex-column align-center"
             style="min-height: 95%"
           >
             <v-card-title>
               <h4>
-                {{ i + 1 + '. ' + q._id }}
+                Tempo total
               </h4>
               <v-spacer />
-              <div class="d-flex flex-column">
+              <div class="d-flex flex-column align-center">
                 <div class="d-flex align-center">
                   <v-progress-linear
                     :color="
@@ -101,8 +102,8 @@
                     style="width: 200px"
                     :value="
                       Math.floor(
-                        ((timeCurrentQuestion - timeLeft) /
-                          timeCurrentQuestion) *
+                        ((timeCurrent - (timeCurrent - timeLeft)) /
+                          timeCurrent) *
                           100
                       )
                     "
@@ -112,9 +113,53 @@
                 </div>
               </div>
             </v-card-title>
+          </v-card
+          >
+        
+        <v-carousel-item v-for="(q, i) in test.questions" :key="i" i = this.currentQuestion height="10px">
+          
+          <v-card
+            light
+            class="ma-2 pa-2 d-flex flex-column"
+            style="min-height: 95%"
+          >
+            <v-card-title>
+              <h4>
+                {{ i + 1 + '. ' + q._id }}
+              </h4>
+              
+              <v-spacer />
+              
+              <div class="d-flex flex-column">
+                <div class="d-flex align-center">
+                  <v-progress-linear
+                    :color="
+                      timeLeftQuestion < 10
+                        ? 'error'
+                        : timeLeftQuestion < 20
+                        ? 'warning'
+                        : 'info'
+                    "
+                    height="10"
+                    style="width: 200px"
+                    :value="
+                      Math.floor(
+                        ((timeCurrentQuestion - (timeCurrentQuestion - timeLeftQuestion)) /
+                          timeCurrentQuestion) *
+                          100
+                      )
+                    "
+                    striped
+                  />
+                  <v-icon class="px-1" v-text="'mdi-timer-outline'" />
+                  
+                </div>
+              </div>
+            </v-card-title>
             <v-card-subtitle
               class="d-flex align-center justify-space-between align-center"
             >
+            <dl><v-img v-bind:src="userPic"   /></dl>
             </v-card-subtitle>
             <v-card-text>
               {{ q.header }}
@@ -173,6 +218,22 @@
                 <span>Ajuda</span>
               </v-tooltip>
 
+              <v-tooltip v-if="i != 0" top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-on="on"
+                    v-bind="attrs"
+                    color="warning"
+                    class="ma-2"
+                    :disabled="i == 0"
+                    @click="lastQuestion()"
+                  >
+                    <v-icon v-text="'mdi-arrow-left-circle-outline'" />
+                  </v-btn>
+                </template>
+                <span>Anterior</span>
+              </v-tooltip>
+
               <v-tooltip v-if="i != test.questions.length - 1" top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -180,7 +241,6 @@
                     v-bind="attrs"
                     color="warning"
                     class="ma-2"
-                    :disabled="answers[i] === null"
                     @click="nextQuestion()"
                   >
                     <v-icon v-text="'mdi-arrow-right-circle-outline'" />
@@ -196,7 +256,6 @@
                     v-bind="attrs"
                     color="success"
                     class="white--text ma-2"
-                    :disabled="answers[i] === null"
                     @click="startStep3()"
                   >
                     <v-icon v-text="'mdi-check-decagram'" />
@@ -211,7 +270,7 @@
     </section>
 
     <v-card
-      v-if="step == 4 && result"
+      v-if="step == 4 && result && !$store.getters.isStudent"
       class="mx-auto"
       style="width: fit-content"
     >
@@ -244,7 +303,7 @@
       </v-col>
     </v-card>
 
-    <v-card v-if="step == 3" class="d-flex flex-column">
+    <v-card v-if="step == 3 && !$store.getters.isStudent" class="d-flex flex-column">
       <h4 class="pt-6 pb-0 text-h4 text-center" color="primary ">
         Resultado :
       </h4>
@@ -327,7 +386,7 @@ import axios from 'axios';
 import * as evaluationApi from '@/utils/api/evaluation'
 
 export default {
-    name: 'Evaluation',
+    name: 'EvaluationTest',
     components: {
         TextSnackBar,
         TestDetails,
@@ -339,11 +398,14 @@ export default {
     data() {
         return {
             //1->overview, 2->answering, 3-> result, 3->result details
-            step: 1,
+            step: 0,
             loading: true,
+            userPic: '',
             test: null,
             currentQuestion: 0,
             timeCurrentQuestion: 999,
+            timeCurrent: 999,
+            timeLeftQuestion: 999,
             timeLeft: 999,
             answers: [],
             result: null,
@@ -357,10 +419,32 @@ export default {
         }
     },
     methods: {
+      showImage(_qId){
+
+        this.userPic=''
+        axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
+            responseType:'arraybuffer',
+            headers: {
+                'Authorization': `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+        .then(response => {
+            var image = new Buffer(response.data, 'binary').toString('base64')
+            this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
+        }).catch(e => {
+            console.log('Erro ' + e)
+            this.errors.push(e)
+        })
+
+      },
         tick() {
             if (this.step == 2) {
                 this.timeLeft--
-                if (this.timeLeft == 0) this.nextQuestion()
+                this.timeLeftQuestion--
+                if (this.timeLeft <= 0){ 
+                  this.step =3
+                  this.nextQuestion()
+                }
 
                 setTimeout(() => {
                     this.tick()
@@ -368,17 +452,34 @@ export default {
             }
         },
         nextQuestion() {
+            this.userPic = ''
             if (this.currentQuestion == this.test.questions.length - 1) {
                 this.startStep3()
             } else {
 
                 this.currentQuestion++
-                this.timeCurrentQuestion = this.test.questions[
+                console.log(this.test.questions[this.currentQuestion]._id)
+                
+                this.showImage(this.test.questions[this.currentQuestion]._id)
+                /*this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
                 ].answering_time
-                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time*/
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
                 this.sendCurrentTest(this.currentQuestion)
             }
+        },
+        lastQuestion() {
+            
+                this.userPic = ''
+                this.currentQuestion--
+                /*this.timeCurrentQuestion = this.test.questions[
+                    this.currentQuestion
+                ].answering_time
+                this.timeLeft = this.test.questions[this.currentQuestion].answering_time*/
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
+                this.sendCurrentTest(this.currentQuestion)
+            
         },
         updateAnswers(i, val) {
             const newAnswers = {
@@ -388,6 +489,19 @@ export default {
             this.answers = newAnswers
         },
         startStep2() {
+            this.showImage(this.test.questions[this.currentQuestion]._id)
+            if(this.test.startTime==null){
+              var today = new Date();
+              var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+              today.getSeconds();
+              
+              var dateTime = date+' '+time;
+
+              this.test.startTime = dateTime
+            }
+
+            this.sendCurrentTest(this.currentQuestion)
             this.step = 2
             this.tick()
         },
@@ -406,8 +520,9 @@ export default {
                     })
                 }),
                 (resolution.student_id =
-                    this.$store.state.user._id)
+                    this.$store.state.user.studentNumber)
             resolution.finished = 0
+            resolution.testId = this.$route.params['testid']
 
             evaluationApi
                 .submit(resolution)
@@ -430,8 +545,9 @@ export default {
                     })
                 }),
                 (resolution.student_id =
-                    this.$store.state.user._id)
+                    this.$store.state.user.studentNumber)
             resolution.finished = 1
+            resolution.testId = this.$route.params['testid']
 
             evaluationApi
                 .submit(resolution)
@@ -463,6 +579,7 @@ export default {
         }
     },
     async created() {
+        this.userPic=''
         this.loading = true
         await evaluationApi
             .getOne(this.$route.params['testid'])
@@ -472,12 +589,16 @@ export default {
                 this.test.questions.forEach((_, i) => {
                     this.answers[i] = null
                 })
+                this.timeCurrent = this.test.config.total_time
+                this.timeLeft = this.test.config.total_time
+
                 this.timeCurrentQuestion = this.test.questions[
                     this.currentQuestion
                 ].answering_time
-                this.timeLeft = this.test.questions[this.currentQuestion].answering_time
+                this.timeLeftQuestion = this.test.questions[this.currentQuestion].answering_time
+
+                
                 this.loading = false
-                console.log('ending 1')
             })
             .catch(() => {
                 this.snackbar = {
@@ -488,8 +609,7 @@ export default {
             })
 
 
-        console.log('starting 1')
-        this.check = this.$route.params['testid'] + this.$store.state.user._id
+        this.check = this.$route.params['testid'] + this.$store.state.user.studentNumber
         await axios.get(`${process.env.VUE_APP_BACKEND}/evaluation/check/${this.check}`, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -502,13 +622,33 @@ export default {
 
 
                     this.tests = response.data['questions'][0]
+                    
                     this.exists = response.data['exists']
                     this.currentQuestion = response.data['questions'][0]["currentQuestion"]
+
+
+                    var today = new Date();
+                    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + 
+                    today.getSeconds();
+            
+
+                    
+                    let timeList = response.data['questions'][0]['startTime'].split(' ')
+                    let dateYearMonthDay = timeList[0]
+                    let timesHourMinutesSeconds = timeList[1]
+                    date = dateYearMonthDay.split('-')
+                    time = timesHourMinutesSeconds.split(':')
+                    let startD = new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2])
+
+                    this.timeLeft = response.data['questions'][0]['config']['total_time'] - (( today - startD ) / 1000)
+                    this.test.startTime = response.data['questions'][0]['startTime']
+                    this.step=2
+                    this.startStep2()
 
                     this.tests.questions.forEach((q, i) => {
                         q.body.forEach((a) => {
                             if (a.selected) {
-                                console.log('here')
                                 this.answers[i] = a.answer
                             }
                         })
@@ -526,16 +666,17 @@ export default {
                     }
                 }
             } catch (error) {
-                console.log(error)
+                this.x=error
             }
 
         }, (error) => {
-            console.log(error)
+            this.x = error
 
         });
 
 
-
+      if(this.step ==0 )
+        this.step = 1
 
     }
 }
