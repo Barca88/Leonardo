@@ -113,7 +113,7 @@ export default {
         },
         {
           text: "Identificador",
-          value: "id",
+          value: "_id",
           align: "align-content-start",
           sortable: true,
           class: "white--text",
@@ -172,7 +172,7 @@ export default {
             'Access-Control-Allow-Origin': "*"       
           }}
         ).then((resp) => {
-        this.questions = resp.data;
+        this.questions = resp.data.questions;
       });
     },
     async confirmDialog (item, str) {

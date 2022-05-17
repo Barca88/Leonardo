@@ -116,8 +116,14 @@ export default {
         return moment(d).format("YYYY-MM-DD hh:mm");
     },
     loadErrors: function () {
-      axios.get("http://localhost:1318/imported_errors", {}).then((resp) => {
-        this.errors = resp.data;
+      axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_errors?nome=${this.$store.state.user._id}`,{},{
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer: ${this.$store.state.jwt}`,
+            'Access-Control-Allow-Origin': "*"       
+          }}
+        ).then((resp) => {
+        this.errors = resp.data.errors;
         this.errors.reverse();
         // Fix the date to a better format right here
         this.errors.forEach(obj => obj.createdAt = this.formatDate(obj.createdAt));

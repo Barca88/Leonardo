@@ -21,18 +21,19 @@ import subprocess
 import settings
 CORS(blueprint)
 
+#leonardo.imported_questions
 
 ####################### QUESTIONS ########################
 @blueprint.route('/imported_questions', methods=['GET']) # check
 @swag_from('docs/questions/listQuestions.yml')
 def listQuestions():
-    questions = mongo.db.questions.find({},{'_id':0})
+    questions = mongo.db.imported_questions.find()
     return json_util.dumps({'questions': questions})
 
 @blueprint.route('/imported_questions/statsByAuthor/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupAuthor.yml')
 def lookupAuthor(id):
-    questions = mongo.db.questions.find({'author':id},{'_id':0})
+    questions = mongo.db.imported_questions.find({'author':id})
     return json_util.dumps({'questions': questions})
 
 
@@ -52,7 +53,12 @@ def lookupBoth(author,domain):
 @swag_from('docs/questions/insertQuestion.yml')
 def insertQuestion():
     question = request.get_json(force=True)
-    mongo.db.questions.insert_one(question)
+    print("error\n\n\n\n\n")
+    exist = mongo.db.imported_questions.find_one({"_id":question['_id']})
+    print(exist)
+    if exist:
+        return json_util.dumps({'message': "error"})
+    mongo.db.imported_questions.insert_one(question)
     return jsonify('Inserted new question')
 
 @blueprint.route('/imported_questions/<id>',methods=['PUT']) # check
@@ -69,13 +75,16 @@ def editQuestion(id):
 @blueprint.route('/imported_errors',methods=['GET']) #check
 @swag_from('docs/errors/listErrors.yml')
 def listErrors():
-    return jsonify(mongo.listErrors())
+    errors = mongo.db.imported_errors.find()
+    return json_util.dumps({'errors': errors})
 
 @blueprint.route('/imported_errors',methods=['POST'])  #check
 @swag_from('docs/errors/insertError.yml')
 def insertError():
     error = request.get_json(force=True)
-    mongo.insertError(error)
+    error['id'] = len(list(mongo.db.imported_errors.find()))
+    print(error)
+    mongo.db.imported_errors.insert_one(error)
     return jsonify('Inserted new error')
 
 #########################################################
@@ -92,7 +101,7 @@ def listInfos():
 @swag_from('docs/info/insertInfo.yml')
 def insertInfo():
     info = request.get_json(force=True)
-    mongo.insertInfo(info)
+    mongo.db.imported_info.insert_one(info)
     return jsonify('Inserted new info')
 
 #########################################################

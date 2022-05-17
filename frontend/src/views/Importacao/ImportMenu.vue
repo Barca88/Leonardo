@@ -48,14 +48,20 @@ export default {
     methods: {
 
         getUserDomains: async  function(){
-            var username=this.$store.state['user']._id;
+            //var username=this.$store.state['user']._id;
             var domains =[]
-            await axios.get('http://localhost:1318/domains')
+            await axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer: ${this.$store.state.jwt}`,
+                        'Access-Control-Allow-Origin': "*"   
+                    }
+                })
                 .then(res =>{
 
-                    res.data.forEach(e => {
-                        if(e.responsible==username)
-                            domains.push(e.id);
+                    res.data.domains.forEach(e => {
+                        //if(e.responsible==username)
+                            domains.push(e._id);
                     });
                 })
                 .catch( e => {
@@ -85,6 +91,9 @@ export default {
                         }}
                     )
                     .catch(function (error) {
+                        console.log("error")
+                        console.log(error)
+                        console.log(error.response)
                         if (error.response) {
                             count += 1;
                             // Request made and server responded
@@ -107,6 +116,7 @@ export default {
                 }}
             )
             .catch(function (error) {
+                console.log(error)
                 if (error.response) {
                   // Request made and server responded
                   console.log(error.response.data);
@@ -130,6 +140,7 @@ export default {
             // Wait for the posts to finish so we can present the alert to the user
             count = await this.performPOST(json, fileInfo)
             rest = json.length - count
+            console.log("alertttt")
             this.alertPopup = alerts.importDialog(rest, count)
         },
         loadLEO: function(text, fileInfo){
@@ -160,8 +171,7 @@ export default {
         importFile: function(){
             if(this.anySelected) {
                 (new Response(this.actualFile)).text().then(
-                    x => {
-
+                    x => {                 
                         // Create the file info object
                         var fileInfo = {
                             date: new Date(),

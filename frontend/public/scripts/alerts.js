@@ -3,13 +3,16 @@ import axios from 'axios'
 export default {
     logPopup (popup){
         // Log it on the db
-        axios.post('http://localhost:1318/imported_errors', popup)
-        .catch(function (error) {
-            if (error.response) {
+        console.log(popup)
+        axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_errors?nome=${this.$store.state.user._id}`,popup)
+            .then((res) => {
+            console.log("errrrrrrrorrrrrrrrr")
+            console.log(res.response)
+            if (res.response) {
               // Request made and server responded
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
+              console.log(res.response.data);
+              console.log(res.response.status);
+              console.log(res.response.headers);
             }
         });
     },
@@ -24,6 +27,7 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
+        console.log("1111111111111111111111")
         this.logPopup(popup)
         return popup
     },

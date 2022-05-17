@@ -20,8 +20,7 @@ export default {
           popup.display(alerts.errorDialog("Invalid question."));
       } else {
         (question.flag = "aproved") &&
-          axios.put(
-            "http://localhost:1318/imported_questions/" + question.id,
+        axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions` + question.id + `?nome=${this.$store.state.user._id}`,
             question
           );
           /*  CORRIGIR A ROTA PARA INSERIR A QUESTION NA COLEÇÃO questions */
@@ -30,7 +29,9 @@ export default {
     },
     rejectQuestion: function (question) {
         (question.flag = "rejected") &&
-        axios.put("http://localhost:1318/imported_questions/" + question.id, question);
+        axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions` + question.id + `?nome=${this.$store.state.user._id}`,
+            question
+          );
     },
     editQuestion: function (question) {
       this.editedIndex = this.questions.indexOf(question);
