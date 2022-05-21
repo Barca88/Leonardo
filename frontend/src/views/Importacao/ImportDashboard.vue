@@ -1,6 +1,8 @@
 <template>
     <v-app>
         <div>
+            <appHeader :ajuda='ajuda'></appHeader>
+            <navDraw></navDraw>
             <div class="greyBG">
                 <h2>Importação de Questões</h2>
             </div>
@@ -82,6 +84,8 @@
 <script>
 import GenericAlert from '../../components/Importacao/GenericAlert.vue'
 import axios from 'axios'
+import Header from '../../components/header.vue'
+import NavDraw from '../../components/navDraw.vue'
 import anychart from 'anychart'
 import moment from 'moment'
 
@@ -108,7 +112,9 @@ export default {
         }
     },
     components:{
-        GenericAlert
+        GenericAlert,
+        'appHeader': Header,
+        'navDraw':NavDraw
     },
     created() {
         this.loadQuestions();

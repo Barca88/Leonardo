@@ -1,6 +1,8 @@
 <template>
     <v-app>
   <div>
+      <appHeader :ajuda='ajuda'></appHeader>
+      <navDraw></navDraw>
     <div>
       <!-- Adicionar template v-slot:top -->
       <template>
@@ -49,6 +51,8 @@
 <script>
 import moment from 'moment'
 import axios from "axios";
+import Header from '../../components/header.vue'
+import NavDraw from '../../components/navDraw.vue'
 import alerts from "../../../public/scripts/alerts.js"
 import helpers from "../../../public/scripts/helpers.js"
 import GenericAlert from '../../components/Importacao/GenericAlert.vue'
@@ -59,7 +63,9 @@ export default {
     },
 
     components:{
-        GenericAlert
+        GenericAlert,
+        'appHeader': Header,
+        'navDraw':NavDraw
     },
   data() {
     return {
@@ -103,13 +109,13 @@ export default {
   },
   methods: {
     async eyeClick (popup) {
-        if(popup.type === "confirm") this.alertPopup = alerts.confirmDialog(popup.message)
-        else if(popup.type === "info") this.alertPopup = alerts.infoDialog(popup.message)
-        else if(popup.type === "del") this.alertPopup = alerts.errorDialog(popup.message) // error
-        else if(popup.type === "warn") this.alertPopup = alerts.warningDialog(popup.message)
+        if(popup.type === "confirm") this.alertPopup = alerts.confirmDialog(popup.message,this.$store.state.user._id)
+        else if(popup.type === "info") this.alertPopup = alerts.infoDialog(popup.message,this.$store.state.user._id)
+        else if(popup.type === "del") this.alertPopup = alerts.errorDialog(popup.message,this.$store.state.user._id) // error
+        else if(popup.type === "warn") this.alertPopup = alerts.warningDialog(popup.message,this.$store.state.user._id)
     },
     async confirmDialog (item) {
-        helpers.confirmDialog(item, this.$refs.popup)
+        helpers.confirmDialog(item, this.$refs.popup,this.$store.state.user._id)
     },
     formatDate: function (d) {
         return moment(d).format("YYYY-MM-DD hh:mm");

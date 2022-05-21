@@ -53,9 +53,7 @@ def lookupBoth(author,domain):
 @swag_from('docs/questions/insertQuestion.yml')
 def insertQuestion():
     question = request.get_json(force=True)
-    print("error\n\n\n\n\n")
     exist = mongo.db.imported_questions.find_one({"_id":question['_id']})
-    print(exist)
     if exist:
         return json_util.dumps({'message': "error"})
     mongo.db.imported_questions.insert_one(question)
@@ -65,7 +63,8 @@ def insertQuestion():
 @swag_from('docs/questions/editQuestion.yml')
 def editQuestion(id):
     question = request.get_json(force=True)
-    mongo.editQuestion(id,question)
+    mongo.db.imported_questions.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
+    #mongo.db.question.insert_one(question)
     return jsonify('Questão actualizada com sucesso ...')
 
 #########################################################

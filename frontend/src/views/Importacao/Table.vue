@@ -1,6 +1,8 @@
 <template>
     <v-app>
   <div>
+    <appHeader :ajuda='ajuda'></appHeader>
+    <navDraw></navDraw>
     <div>
       <!-- Adicionar template v-slot:top -->
       <template>
@@ -59,7 +61,7 @@
             mdi-checkbox-marked-circle
           </v-icon>
 
-          <router-link :to="{ name: 'ProdQuestao', params: { question: item } }">
+          <router-link :to="{ name: 'ProdQuestao', params: { data: item } }">
             <v-icon  medium class="mr-2">
             mdi-pencil
           </v-icon>       
@@ -88,6 +90,8 @@
 
 <script>
 import axios from "axios";
+import Header from '../../components/header.vue'
+import NavDraw from '../../components/navDraw.vue'
 import helpers from "../../../public/scripts/helpers.js"
 import Carousel from "../../components/Importacao/Carousel.vue"
 import GenericAlert from '../../components/Importacao/GenericAlert.vue'
@@ -97,7 +101,9 @@ export default {
       title:'Leonardo-Verificação de Questões'
     },
     components: {
-      Carousel, GenericAlert
+      Carousel, GenericAlert,
+      'appHeader': Header,
+      'navDraw':NavDraw
     },
   data() {
     return {
@@ -175,9 +181,10 @@ export default {
         this.questions = resp.data.questions;
       });
     },
+    
     async confirmDialog (item, str) {
-
-        helpers.confirmDialog(item, str, this.$refs.popup)
+        console.log("confirmar")
+        helpers.confirmDialog(item, str, this.$refs.popup, this.$store.state.user._id)
     },
 
     aproveQuestion: helpers.aproveQuestion,
@@ -196,12 +203,12 @@ export default {
       let aproved = [], invalid = []
       this.selected.forEach((question) => {
         if (question.flag === "aproved") {
-          aproved.push(question.id);
+          aproved.push(question._id);
         } else if (question.flag === "rejected") {
-          invalid.push(question.id);
+          invalid.push(question._id);
         } else {
           question.flag = "aproved";
-          axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions/` + question.id + `?nome=${this.$store.state.user._id}`,question,{
+          axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions/` + question._id + `?nome=${this.$store.state.user._id}`,question,{
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer: ${this.$store.state.jwt}`,

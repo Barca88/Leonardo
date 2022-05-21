@@ -1,6 +1,8 @@
 <template>
     <v-app>
         <div id="outerbox">
+            <appHeader :ajuda='ajuda'></appHeader>
+            <navDraw></navDraw>
             <h2>Importação de Questões</h2>
             <div class="fileSelection">
                 Ficheiro: <span class="selected">{{ selectedFile }}</span>
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+import Header from '../../components/header.vue'
+import NavDraw from '../../components/navDraw.vue'
 import axios from 'axios'
 import GenericAlert from '../../components/Importacao/GenericAlert.vue'
 import alerts from "../../../public/scripts/alerts.js"
@@ -43,7 +47,9 @@ export default {
         }
     },
     components:{
-        GenericAlert
+        GenericAlert,
+        'appHeader': Header,
+        'navDraw':NavDraw
     },
     methods: {
 
@@ -76,13 +82,28 @@ export default {
             this.anySelected = false
         },
         async performPOST (json, fileInfo){
+            var question = []
+            axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,{},{
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer: ${this.$store.state.jwt}`,
+                    'Access-Control-Allow-Origin': "*"       
+                }}
+                ).then((res) => {
+                    res.data.questions.forEach(e => {
+                        question.push(e._id)
+                    })
+                })
+                .catch( e => {
+                    console.log('Erro a obter a lista de importação de questões :: '+ e );
+                })
+
             var i, count = 0,domains= await this.getUserDomains()
             for (i in json) {
-                console.log(domains)
                 json[i].flag = 'pending'
                 // post it into the question database
                 console.log(domains +'   '+ json[i].domain )
-                if(domains.includes(json[i].domain)){
+                if(domains.includes(json[i].domain) && !question.includes(json[i]._id)){
                     await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
                         headers: {
                             'Content-Type': 'multipart/form-data',
@@ -141,7 +162,7 @@ export default {
             count = await this.performPOST(json, fileInfo)
             rest = json.length - count
             console.log("alertttt")
-            this.alertPopup = alerts.importDialog(rest, count)
+            this.alertPopup = alerts.importDialog(rest, count, this.$store.state.user._id)
         },
         loadLEO: function(text, fileInfo){
             // Transform .leo into JSON text
@@ -182,12 +203,12 @@ export default {
                         if(this.actualFile.name.endsWith(".json")) this.loadJSON(x, true, fileInfo);
                         else if(this.actualFile.name.endsWith(".leo")) this.loadLEO(x, fileInfo);
                         else {
-                            this.alertPopup = alerts.errorDialog("Extensão inválida (tem de ser .leo ou .json).")
+                            this.alertPopup = alerts.errorDialog("Extensão inválida (tem de ser .leo ou .json).",this.$store.state.user._id)
                         }
                     }
                 );
             } else {
-                this.alertPopup = alerts.warningDialog("Nome de ficheiro a importar não indicado.")
+                this.alertPopup = alerts.warningDialog("Nome de ficheiro a importar não indicado.",this.$store.state.user._id)
             }
         },
         handleChanged: function(e){
@@ -198,7 +219,7 @@ export default {
             this.anySelected = true
         },
         help: function(){
-        this.alertPopup = alerts.infoDialog("Escolha um ficheiro clicando no símbolo de anexo.<br> De seguida, clique no botão com um certo para importar.")
+        this.alertPopup = alerts.infoDialog("Escolha um ficheiro clicando no símbolo de anexo.<br> De seguida, clique no botão com um certo para importar.",this.$store.state.user._id)
         }
     }
 }

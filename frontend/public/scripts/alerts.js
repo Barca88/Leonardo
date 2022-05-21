@@ -1,13 +1,10 @@
 import axios from 'axios'
 
 export default {
-    logPopup (popup){
+    logPopup : async function (popup, user){
         // Log it on the db
-        console.log(popup)
-        axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_errors?nome=${this.$store.state.user._id}`,popup)
+        await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_errors?nome=${user}`,popup)
             .then((res) => {
-            console.log("errrrrrrrorrrrrrrrr")
-            console.log(res.response)
             if (res.response) {
               // Request made and server responded
               console.log(res.response.data);
@@ -17,7 +14,7 @@ export default {
         });
     },
     // Alert functions also log errors in the errors database
-    importDialog:function(correct, failed){
+    importDialog:function(correct, failed, user){
         // Create the popup
         var popup = {
             header: "Informação",
@@ -27,11 +24,10 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        console.log("1111111111111111111111")
-        this.logPopup(popup)
+        this.logPopup(popup,user)
         return popup
     },
-    infoDialog:function(text){
+    infoDialog:function(text,user){
         // Create the popup
         var popup = {
             header: "Informação",
@@ -41,10 +37,10 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup)
+        this.logPopup(popup,user)
         return popup
     },
-    errorDialog:function(text){
+    errorDialog:function(text,user){
         // Create the popup
         var popup = {
             header: "Erro",
@@ -54,10 +50,10 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup)
+        this.logPopup(popup,user)
         return popup
     },
-    warningDialog: function(text){
+    warningDialog: function(text,user){
         // Create the popup
         var popup = {
             header: "Aviso",
@@ -67,10 +63,10 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup)
+        this.logPopup(popup,user)
         return popup
     },
-    confirmDialog: function(text){
+    confirmDialog: function(text,user){
         // Create the popup
         var popup = {
             header: "Confirmação",
@@ -80,7 +76,8 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup)
+        console.log(popup)
+        this.logPopup(popup,user)
         return popup
     }
 }

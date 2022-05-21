@@ -172,7 +172,7 @@ export default {
 
 
     async confirmDialog (item, str) {
-        helpers.confirmDialog(item, str, this.$refs.popup)
+        helpers.confirmDialog(item, str, this.$refs.popup,this.$store.state.user._id)
     },
 
     getColor: function (flag) {
@@ -193,7 +193,7 @@ export default {
       document.getElementById("eye").click();
     },
      help: function(){
-        this.alertPopup=alerts.infoDialog("Alguma informação relevante para o utilizador.<br> Algum texto nesta linha.")
+        this.alertPopup=alerts.infoDialog("Alguma informação relevante para o utilizador.<br> Algum texto nesta linha.",this.$store.state.user._id)
         }
   },
   created: function(){
