@@ -37,7 +37,9 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup,user)
+        if(user != null){
+            this.logPopup(popup,user)
+        }
         return popup
     },
     errorDialog:function(text,user){
@@ -50,7 +52,9 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup,user)
+        if(user != null){
+            this.logPopup(popup,user)
+        }
         return popup
     },
     warningDialog: function(text,user){
@@ -63,7 +67,9 @@ export default {
             dialog: true,
             createdAt: new Date()
         }
-        this.logPopup(popup,user)
+        if(user != null){
+            this.logPopup(popup,user)
+        }
         return popup
     },
     confirmDialog: function(text,user){
@@ -77,7 +83,9 @@ export default {
             createdAt: new Date()
         }
         console.log(popup)
-        this.logPopup(popup,user)
+        if(user != null){
+            this.logPopup(popup,user)
+        }
         return popup
     }
 }

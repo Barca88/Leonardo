@@ -54,7 +54,7 @@
                               label="Identificador"
                               class="label-style"
                               readonly
-                              v-model="question.id"
+                              v-model="question._id"
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="6" md="4">

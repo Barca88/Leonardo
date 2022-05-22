@@ -33,20 +33,22 @@ def listQuestions():
 @blueprint.route('/imported_questions/statsByAuthor/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupAuthor.yml')
 def lookupAuthor(id):
-    questions = mongo.db.imported_questions.find({'author':id})
+    questions = mongo.db.imported_questions.find({'author':id.replace(","," ")})
     return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByDomain/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupDomain.yml')
 def lookupDomain(id):
-    return jsonify(mongo.lookupDomain(id))
+    questions = mongo.db.imported_questions.find({'domain':id.replace(","," ")})
+    return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByBoth/<author>/<domain>',methods=['GET']) # check
 @swag_from('docs/questions/lookupBoth.yml')
 def lookupBoth(author,domain):
-    return jsonify(mongo.lookupBoth(author,domain))
+    questions = mongo.db.imported_questions.find({'domain':domain.replace(","," "),'author': author.replace(","," ")})
+    return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions',methods=['POST']) # check
@@ -86,6 +88,13 @@ def insertError():
     mongo.db.imported_errors.insert_one(error)
     return jsonify('Inserted new error')
 
+@blueprint.route('/errorCleanse', methods=['GET'])
+@token_required
+def route_error_Cleanse():
+    mongo.db.imported_errors.drop()
+    reqs= [doc for doc in mongo.db.imported_errors.find()]
+    return json_util.dumps({'history': reqs})
+
 #########################################################
 
 
@@ -94,7 +103,8 @@ def insertError():
 @blueprint.route('/imported_info',methods=['GET']) # check
 @swag_from('docs/info/listInfos.yml')
 def listInfos():
-    return jsonify(mongo.listInfos())
+    info = mongo.db.imported_info.find()
+    return json_util.dumps({'info': info})
 
 @blueprint.route('/imported_info',methods=['POST']) # check
 @swag_from('docs/info/insertInfo.yml')

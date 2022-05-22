@@ -180,8 +180,14 @@ export default {
         },
         loadQuestions: function () {
             // Get the questions and obtain a list of domains and editors of those questions
-          axios.get("http://localhost:1318/imported_questions", {}).then((resp) => {
-            this.items = resp.data;
+        axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions`,{},{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer: ${this.$store.state.jwt}`,
+                'Access-Control-Allow-Origin': "*"       
+            }}
+        ).then((resp) => {
+            this.items = resp.data.questions;
             this.domains = Array.from(this.items.map(obj => obj['domain']));
             this.editors = Array.from(this.items.map(obj => obj['author']));
             // Generate stats for the graphs
@@ -190,12 +196,24 @@ export default {
             this.statsPromise(this.stats)
           });
           // Get the imported data for the imported scrollable section
-          axios.get("http://localhost:1318/imported_info", {}).then((resp) => {
-            this.importedData = resp.data;
+        axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_info`,{},{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer: ${this.$store.state.jwt}`,
+                'Access-Control-Allow-Origin': "*"       
+            }}
+        ).then((resp) => {
+            this.importedData = resp.data.info;
           });
           // Load errors for the error scrollable section
-          axios.get("http://localhost:1318/imported_errors", {}).then((resp) => {
-            this.errors = resp.data;
+        axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_errors`,{},{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer: ${this.$store.state.jwt}`,
+                'Access-Control-Allow-Origin': "*"       
+            }}
+        ).then((resp) => {
+            this.errors = resp.data.errors;
           });
         },
         formatDate: function (d) {
@@ -214,16 +232,17 @@ export default {
             await this.createCharts();
         },
         async selectBy () {
-            var query = "http://localhost:1318/imported_questions/stats"
-
+            var query = `${process.env.VUE_APP_BACKEND}/importation/imported_questions/stats`
+            
+            
             // Check if domain or author are unfulfilled and build the query
-            if(this.author == undefined) query = query + "ByDomain/" + this.domain;
-            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author;
-            else query = query + "ByBoth/" + this.author + "/" + this.domain;
+            if(this.author == undefined) query = query + "ByDomain/" + this.domain.replace(" ",",")
+            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author.replace(" ",",")
+            else query = query + "ByBoth/" + this.author.replace(" ",",") + "/" + this.domain.replace(" ",",")
 
             // Load data from endpoint
             axios.get(query, {}).then(resp => {
-                this.stats = this.generateStats(resp.data);
+                this.stats = this.generateStats(resp.data.questions);
                 this.statsPromise(this.stats)
             });
 
