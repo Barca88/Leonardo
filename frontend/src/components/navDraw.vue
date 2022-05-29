@@ -145,7 +145,7 @@
               $t("adminNav.test")
             }}</v-list-item-title>
           </v-list-item>
-          <v-list-item link to="/home">
+          <v-list-item link to="/quizzStart">
             <v-list-item-title >{{
               $t("adminNav.quizz")
             }}</v-list-item-title>

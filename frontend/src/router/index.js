@@ -58,6 +58,30 @@ const routes = [
     }
   },
   {
+    path: '/quizz',
+    name: 'Quizz',
+    component: () => import("../components/Question.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/quizzStart',
+    name: 'StartQuizz',
+    component: () => import("../components/Domains_select.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else {
+        next();
+      }
+    }
+  },
+  {
     path: '/prodDominio',
     name: 'ProdDominio',
     component: () => import("../views/ProdDominio.vue"),
