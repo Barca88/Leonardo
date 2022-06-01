@@ -407,13 +407,14 @@ export default {
     created(){
       Object.assign(this.$data, this.$options.data())
       this.userPic=''
-        axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{
+        axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}&flag=aproved`,{
           headers: {
             'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': "*"    
           }
         })
           .then((response)=>{
+            console.log(response.data)
             //this.domain = response.data
             this.navQuestoes=response.data.questions
             this.dominios=response.data.domains

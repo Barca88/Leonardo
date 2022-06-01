@@ -66,7 +66,7 @@
             mdi-pencil
           </v-icon>       
           </router-link>
-               
+                
           <v-icon medium @click="confirmDialog(item, 'reject')">
             mdi-trash-can-outline
           </v-icon>
@@ -171,7 +171,7 @@ export default {
     },
 
     loadQuestions: function () {
-      axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,{},{
+      axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}&flag=pending`,{},{
         headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer: ${this.$store.state.jwt}`,

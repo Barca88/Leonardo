@@ -478,6 +478,7 @@ export default {
         formData.append('inserted_at' , this.questao.inserted_at)
         formData.append('validated_by' , this.questao.validated_by)
         formData.append('validated_at' , this.questao.validated_at)
+        formData.append('flag' , "aproved")
         axios.post(`${process.env.VUE_APP_BACKEND}/question/insert?nome=${this.$store.state.user._id}`, formData,{
             headers: {
           'Content-Type': 'multipart/form-data',
@@ -518,6 +519,7 @@ export default {
         formData.append('inserted_at' , this.questao.inserted_at)
         formData.append('validated_by' , this.questao.validated_by)
         formData.append('validated_at' , this.questao.validated_at)
+        formData.append('flag' , "aproved")
       
         axios.post(`${process.env.VUE_APP_BACKEND}/question/edit?nome=${this.$store.state.user._id}`, formData,{
             headers: {

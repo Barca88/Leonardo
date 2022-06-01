@@ -28,7 +28,13 @@ UPLOAD_FOLDER = './static/picss/'
 #@token_required
 #@login_required
 def question():
-    questions= [doc for doc in mongo.db.question.find()]
+    flag = request.args.get('flag')
+    if flag == "aproved":
+        questions= [doc for doc in mongo.db.question.find({"flag" : "aproved"})]
+    if flag == "all":
+        questions = [doc for doc in mongo.db.question.find()]
+    if flag is None:
+        questions= [doc for doc in mongo.db.question.find({"flag" : { "$in":["pending","rejected"]}})]
     users = [doc for doc in mongo.db.users.find({"type" : "Teacher"})]
     domains = [doc for doc in mongo.db.domains.find()]
     print(users)
@@ -122,6 +128,7 @@ def route_template_insert():
         inserted_at = request.form.get('inserted_at')
         validated_by = request.form.get('validated_by')
         validated_at = request.form.get('validated_at')
+        flag = request.form.get('flag')
 
 
         mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
@@ -129,7 +136,7 @@ def route_template_insert():
         "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
         ,  #"images": images,
           "videos": videos,  "source": source,  "notes": notes,  "status": status
-        ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at })
+        ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
         write_log(userAdmin, 'Informação Base/Questoes', 'Adicionar Questao', 'successfull')
         return '1'
 
@@ -185,13 +192,14 @@ def route_template_editar_guardar():
     inserted_at = request.form.get('inserted_at')
     validated_by = request.form.get('validated_by')
     validated_at = request.form.get('validated_at')
+    flag = request.form.get('flag')
     #userAdmin = request.args.get('nome')
 
     mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
     "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,   "videos": videos,  "source": source,  "notes": notes,  "status": status
-    ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at })
+    ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
 
     
 

@@ -27,27 +27,27 @@ CORS(blueprint)
 @blueprint.route('/imported_questions', methods=['GET']) # check
 @swag_from('docs/questions/listQuestions.yml')
 def listQuestions():
-    questions = mongo.db.imported_questions.find()
+    questions = mongo.db.question.find()
     return json_util.dumps({'questions': questions})
 
 @blueprint.route('/imported_questions/statsByAuthor/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupAuthor.yml')
 def lookupAuthor(id):
-    questions = mongo.db.imported_questions.find({'author':id.replace(","," ")})
+    questions = mongo.db.question.find({'author':id.replace(","," ")})
     return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByDomain/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupDomain.yml')
 def lookupDomain(id):
-    questions = mongo.db.imported_questions.find({'domain':id.replace(","," ")})
+    questions = mongo.db.question.find({'domain':id.replace(","," ")})
     return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByBoth/<author>/<domain>',methods=['GET']) # check
 @swag_from('docs/questions/lookupBoth.yml')
 def lookupBoth(author,domain):
-    questions = mongo.db.imported_questions.find({'domain':domain.replace(","," "),'author': author.replace(","," ")})
+    questions = mongo.db.question.find({'domain':domain.replace(","," "),'author': author.replace(","," ")})
     return json_util.dumps({'questions': questions})
 
 
@@ -55,18 +55,17 @@ def lookupBoth(author,domain):
 @swag_from('docs/questions/insertQuestion.yml')
 def insertQuestion():
     question = request.get_json(force=True)
-    exist = mongo.db.imported_questions.find_one({"_id":question['_id']})
+    exist = mongo.db.question.find_one({"_id":question['_id']})
     if exist:
         return json_util.dumps({'message': "error"})
-    mongo.db.imported_questions.insert_one(question)
+    mongo.db.question.insert_one(question)
     return jsonify('Inserted new question')
 
 @blueprint.route('/imported_questions/<id>',methods=['PUT']) # check
 @swag_from('docs/questions/editQuestion.yml')
 def editQuestion(id):
     question = request.get_json(force=True)
-    mongo.db.imported_questions.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
-    #mongo.db.question.insert_one(question)
+    mongo.db.question.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
     return jsonify('Questão actualizada com sucesso ...')
 
 #########################################################
@@ -114,20 +113,6 @@ def insertInfo():
     return jsonify('Inserted new info')
 
 #########################################################
-
-
-
-
-####################### DOMAINS ########################
-
-@blueprint.route('/domains',methods=['GET']) # check
-@swag_from('docs/domains/listDomains.yml')
-def listDomains():
-    return jsonify(mongo.listDomains())
-
-
-#########################################################
-
 
 
 @blueprint.route('/text',methods=['POST'])

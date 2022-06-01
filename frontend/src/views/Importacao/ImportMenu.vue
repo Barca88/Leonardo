@@ -43,7 +43,10 @@ export default {
             selectedFile: "<ficheiro .leo>",
             anySelected: false,
             alertPopup: {},
-            actualFile: {}
+            actualFile: {},
+            domains: [],
+            question: [],
+            teachers: []
         }
     },
     components:{
@@ -52,7 +55,7 @@ export default {
         'navDraw':NavDraw
     },
     methods: {
-
+/*
         getUserDomains: async  function(){
             //var username=this.$store.state['user']._id;
             var domains =[]
@@ -75,35 +78,64 @@ export default {
                 })
 
                 return domains;
-        }
-        ,
+        },
+
+
+        getTeachers: async  function(){
+            //var username=this.$store.state['user']._id;
+            var teachers =[]
+            await axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=Teacher`,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer: ${this.$store.state.jwt}`,
+                        'Access-Control-Allow-Origin': "*"   
+                    }
+                })
+                .then(res =>{
+
+                    res.data.users.forEach(e => {
+                        teachers.push(e._id);
+                    });
+                })
+                .catch( e => {
+                    console.log('Erro a obter a lista de domínios :: '+ e );
+                })
+
+                return teachers;
+        },
+*/
         clear: function(){
             this.selectedFile = "<ficheiro .leo>"
             this.anySelected = false
         },
         async performPOST (json, fileInfo){
-            var question = []
-            axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,{},{
+            await axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{},{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`,
                     'Access-Control-Allow-Origin': "*"       
                 }}
                 ).then((res) => {
+                    console.log(res)
                     res.data.questions.forEach(e => {
-                        question.push(e._id)
-                    })
+                        this.question.push(e._id)
+                    });
+                    res.data.users.forEach(e => {
+                        this.teachers.push(e._id)
+                    });
+                    res.data.domains.forEach(e => {
+                        this.domains.push(e._id)
+                    });
+
                 })
                 .catch( e => {
                     console.log('Erro a obter a lista de importação de questões :: '+ e );
                 })
 
-            var i, count = 0,domains= await this.getUserDomains()
+            var i, count = 0//, domai= await this.getUserDomains() //, teachers = await this.getTeachers();
             for (i in json) {
                 json[i].flag = 'pending'
-                // post it into the question database
-                console.log(domains +'   '+ json[i].domain )
-                if(domains.includes(json[i].domain) && !question.includes(json[i]._id)){
+                if(this.domains.includes(json[i].domain) && !this.question.includes(json[i]._id) && this.teachers.includes(json[i].author)){
                     await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
                         headers: {
                             'Content-Type': 'multipart/form-data',
