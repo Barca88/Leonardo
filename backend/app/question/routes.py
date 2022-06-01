@@ -31,10 +31,11 @@ def question():
     flag = request.args.get('flag')
     if flag == "aproved":
         questions= [doc for doc in mongo.db.question.find({"flag" : "aproved"})]
-    if flag == "all":
-        questions = [doc for doc in mongo.db.question.find()]
-    if flag is None:
+    if flag == "pending":
         questions= [doc for doc in mongo.db.question.find({"flag" : { "$in":["pending","rejected"]}})]
+        
+    if flag is None:
+        questions = [doc for doc in mongo.db.question.find()]
     users = [doc for doc in mongo.db.users.find({"type" : "Teacher"})]
     domains = [doc for doc in mongo.db.domains.find()]
     print(users)
