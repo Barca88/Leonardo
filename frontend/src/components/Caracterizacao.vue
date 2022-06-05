@@ -147,9 +147,10 @@ export default {
           author: '',
           display_mode: '',
           answering_time: '',
-          type: '',
+          type_: '',
           precedence: [],
-          repetitions: ''
+          repetitions: '',
+          inf: ''
         },
       rules: {
           required: [(v) => !!v || "Field is required"],
@@ -191,7 +192,7 @@ export default {
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
-          this.formData._id = data._id
+      let inf = this.$route.params.inf
           this.formData._id = data._id
           this.formData.study_cycle = data.study_cycle
           this.formData.scholarity = data.scholarity
@@ -204,7 +205,8 @@ export default {
           this.formData.repetitions = data.repetitions
           this.formData.answering_time = data.answering_time
           this.formData.type_ = data.type_
-          this.formData.precedence = data.precedence            
+          this.formData.precedence = data.precedence
+          this.formData.inf = inf           
     }
   },
 
@@ -294,7 +296,7 @@ export default {
           handler: function() {
             this.$emit('newdataCaracterizacao', [this.formData._id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
             this.formData.subdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
-            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData._id]);
+            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData.inf]);
         },
           deep: true
       },

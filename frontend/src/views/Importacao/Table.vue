@@ -61,7 +61,7 @@
             mdi-checkbox-marked-circle
           </v-icon>
 
-          <router-link :to="{ name: 'ProdQuestao', params: { data: item } }">
+          <router-link :to="{ name: 'ProdQuestao', params: { data: item, inf: inf } }">
             <v-icon  medium class="mr-2">
             mdi-pencil
           </v-icon>       
@@ -81,7 +81,7 @@
     </div>
 
 </div>
-<Carousel :alertPopup="alertPopup" :questions="questions" :index="index" v-if="carousel_display"/>
+<Carousel :alertPopup="alertPopup" :questions="questions" :index="index" :inf="inf" v-if="carousel_display"/>
 
 <GenericAlert :alertPopup="alertPopup" ref="popup"/>
 </v-app>
@@ -112,6 +112,7 @@ export default {
         dialog: false,
         currentQuestion: {},
         alertPopup: {},
+        inf : "/importacao/table",
       headers: [
         {
           text: "E",

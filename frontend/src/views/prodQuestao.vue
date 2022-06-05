@@ -81,7 +81,7 @@
 
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on, attrs }">    
-                         <v-btn v-bind="attrs" v-on="on" to="/questions" color="#29E898" elevation="5" class="">
+                         <v-btn v-bind="attrs" v-on="on" :to=inf color="#29E898" elevation="5" class="">
                           <v-icon color="white">mdi-door-open</v-icon>
                         </v-btn>                    
                       </template>
@@ -162,7 +162,7 @@
                             <v-col class="text-right">
                               <v-tooltip bottom>
                                 <template v-slot:activator="{ on, attrs }">   
-                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" to="/questions" @click="closeConfirmSubmit" elevation="5" class="mt-5">
+                                  <v-btn v-bind="attrs" v-on="on" color="#29E898" :to=inf @click="closeConfirmSubmit" elevation="5" class="mt-5">
                                     <v-icon color="white">mdi-door-open</v-icon>
                                   </v-btn>                     
                                 </template>
@@ -375,6 +375,7 @@ export default {
         validated_at:"" 
       },
       idQuestion: [],
+      inf: "",
       edit:{
         _id: null,
         id: '',
@@ -430,7 +431,7 @@ export default {
     handleDataCaracterizacao(e) {
       [this.questao._id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
       this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
-      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.edit._id] = e;
+      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.inf] = e;
     },
 
     handleDataRespostas(e) {
@@ -519,7 +520,13 @@ export default {
         formData.append('inserted_at' , this.questao.inserted_at)
         formData.append('validated_by' , this.questao.validated_by)
         formData.append('validated_at' , this.questao.validated_at)
-        formData.append('flag' , "aproved")
+        if (this.inf == "/questions"){
+          formData.append('flag' , "aproved")
+        }
+        if (this.inf == "/importacao/table"){
+          formData.append('flag' , "pending")
+        }
+        
       
         axios.post(`${process.env.VUE_APP_BACKEND}/question/edit?nome=${this.$store.state.user._id}`, formData,{
             headers: {

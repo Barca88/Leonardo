@@ -43,7 +43,7 @@
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-icon v-bind="attrs" v-on="on" small class="mr-2" @click="sendItem(item)">mdi-pencil</v-icon>
+              <v-icon v-bind="attrs" v-on="on" small class="mr-2" @click="sendItem(item,inf)">mdi-pencil</v-icon>
             </template>
             <span>{{ $t('opc.editar') }}</span>
           </v-tooltip>
@@ -372,6 +372,7 @@ export default {
                 { text: "Data Criação", sortable: true, value: "inserted_at", class: "white--text"},
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],
+            inf : "/questions",
             questao:{
               _id: '',
               language: '',
@@ -449,10 +450,10 @@ export default {
 
       },
 
-      sendItem(data){
+      sendItem(data,inf){
         this.$router.push({
           name: "ProdQuestao", 
-          params: { data }
+          params: { data, inf }
         });
       },
 

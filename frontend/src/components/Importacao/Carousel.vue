@@ -99,7 +99,7 @@
                             </v-btn>
 
                            
-                          <router-link :to="{ name: 'ProdQuestao', params: { question: item } }">
+                          <router-link :to="{ name: 'ProdQuestao', params: { data: questions[index], inf: inf } }">
                             <v-btn class="btn-carousel" color="primary" >
                                 <v-icon  medium > mdi-pencil</v-icon>
                             </v-btn>
@@ -148,7 +148,7 @@ import GenericAlert from './GenericAlert.vue'
 
 export default {
   name: "Table",
-  props: ["questions", "index"],
+  props: ["questions", "index", "inf"],
   data() {
     return {
       dialog: true,
