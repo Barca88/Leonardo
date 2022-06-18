@@ -1,0 +1,113 @@
+.nav-responsive
+  background-color: $background-gray
+
+  .container	
+    min-height: 100%	
+    display: flex	
+    flex-direction: column
+
+  .top-nav
+    background-color: $blue
+    color: $font-gray
+
+  .navbar-default
+    background-color: inherit
+    border: none
+
+    .container-fluid
+      padding: 0 20px
+
+  .navbar-header
+    background-color: inherit
+
+    @media (min-width: $breakpoint-md)
+      padding-top: 4px
+
+  .navbar-brand
+    padding: 7px 15px
+    display: flex
+    align-items: center
+    color: inherit
+
+    &:hover
+      color: inherit
+
+    img
+      width: auto
+      height: 100%
+      margin-right: 7px
+
+  .navbar-toggle
+    border-color: transparent
+    padding-right: 0
+
+    .icon-bar
+      background-color: $dark-gray
+
+    &:hover, &:focus
+      background-color: transparent
+
+      &.collapsed .icon-bar
+        background-color: $dark-gray
+
+    &.collapsed .icon-bar
+      background-color: $font-gray
+
+  .navbar-collapse
+    padding: 0
+
+  .nav.navbar-nav
+    a
+      color: inherit !important
+
+    .icon-link
+      padding: 5px 25px
+      display: flex
+      align-items: center
+
+      i
+        font-size: 18px
+
+      .icon-link-description
+        margin-left: 10px
+
+      &:hover
+        background-color: lighten($blue, 5%)
+
+      @media (min-width: $breakpoint-md)
+        width: 50px
+        text-align: center
+        padding: 12px 15px
+        display: block
+
+        .icon-link-description
+          display: none
+
+    .active a
+      background-color: lighten($blue, 10%)
+
+    .dropdown
+      color: $font-gray
+
+      &.open
+        & > a
+          background-color: lighten($blue, 5%)
+
+        .dropdown-menu
+          color: $font-blue
+
+      @media (max-width: $breakpoint-md)
+        &.open .dropdown-menu
+          position: static
+          width: auto
+          margin-top: 0
+          background-color: $blue
+          border: 0
+          color: $font-gray
+
+          a:hover
+            color: $font-blue !important
+
+@media (max-width: $breakpoint-md)
+  .tooltip
+    display: none !important

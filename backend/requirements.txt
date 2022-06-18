@@ -12,3 +12,6 @@ nltk
 Werkzeug~=1.0.1
 pymongo~=3.11.3
 PyJWT~=2.1.0
+spacy
+spacy_wordnet
+-m spacy download pt_core_news_md

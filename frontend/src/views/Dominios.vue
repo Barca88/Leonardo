@@ -175,6 +175,12 @@
                     <dd class="ml-5">{{this.domain.question_factor}}</dd>
                    </dl>
                 </v-col>
+                <v-col cols="4">
+                   <dl>
+                    <dt class="title">Factor de Backlog</dt>
+                    <dd class="ml-5">{{this.domain.backlog_factor}}</dd>
+                   </dl>
+                </v-col>
               </v-row>
               <v-row>
                 <v-col cols="6">
@@ -337,6 +343,7 @@ export default {
               high_skill_factor: '',
               low_skill_factor: '',
               min_questions_number: '',
+              backlog_factor: '',
               question_factor: '',
               inserted_by: "User_default",
               inserted_at:new Date().toLocaleString()

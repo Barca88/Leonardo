@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Questão nº <b>{{ question.number }}</b></h2>
+        <h2>Nível {{ question.difficulty_level }}</h2>
+      </div>
+      <div class="x_content">
+        <div class="question-container">
+          <div class='row'>
+          {% if question.images %}
+            <div class="col-md-6 col-xs-12">
+          {% else %}
+            <div class="col-xs-12">
+          {% endif %}
+              <div class="question-header">
+                {{ question.header }}
+              </div>
+              <div class="question-body">
+                {% for element in question.body %}
+                  <div class="answer">
+                    <input type="radio" name="answer_{{ question.number }}" value="{{ loop.index }}" class="flat">
+                    <span>{{ element.answer }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% if question.images %}
+              <div class="col-md-6 col-xs-12">
+                <div class="question-image">
+                  <img src='{{ url_for("static", filename="images/questions/" + question.images) }}' alt='Image'/>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class='row button-container'>
+          <button class="btn btn-primary next-question disabled">Próxima questão</<button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

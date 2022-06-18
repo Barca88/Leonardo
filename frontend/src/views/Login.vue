@@ -395,6 +395,10 @@ export default {
           else if(data.data.token!=undefined){ // &&data.data.users
             this.$store.commit("guardaTokenUtilizador", data.data.token)
             this.$store.commit("guardaNomeUtilizador", data.data.user)
+            this.$store.commit('set_user',  data.data.user) 
+            
+            console.log('-----USER')
+            console.log(data.data.user)
             this.$router.push( {path:`/`})
           }
       }).catch(e => {

@@ -201,13 +201,13 @@
             
             domain: this.select,
             subdomains: this.idSubDomain,
-            id: this.user.userId,
-            username: this.user.userName,
-            name: this.user.name,
-            email: this.user.email,
-            gender: this.user.gender,
-            degree: this.user.degree,
-            user_type: this.user.user_type
+            id: this.$store.state.user._id,
+            username: this.$store.state.user._id,
+            name: this.$store.state.user.name,
+            email: this.$store.state.user.email,
+            gender: 'F',
+            degree: 'Miei',
+            user_type: this.$store.state.user.type
           }
           this.show_subom_page = 1
         }
@@ -226,20 +226,7 @@
         this.user.user_type = this.$router.history.current.query.user_type
 
 
-        this.$http.get('http://localhost:5000/api/v0/evaluation/getDomains?idUser=' + this.user.userId)
-          .then(dados => {
-            let doms = eval(dados.data)
-
-            for(let i = 0; i<doms.length; i++) {
-              for(let j = 0; j<doms[i].domains.length; j++){
-                this.items.push({
-                  description:'BD'
-                  
-                })
-              }
-            }
-          }) 
-          .catch(error => { throw(error) })
+        
       },
       async reload(){
         Object.assign(this.$data, this.$options.data.call(this))

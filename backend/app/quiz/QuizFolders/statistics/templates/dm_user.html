@@ -1,0 +1,93 @@
+{% extends "base_site.html" %} {% block title %} Análise de dados {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+
+<div class="right_col" role="main">  
+    
+    <div class="page-title">
+
+    <div class="title_left">
+        <h3 style=" color:#2A3F54;">{{user.Dim_User.Name}}</h3>
+        <p style="display:inline-block;">
+            <h4 style="display:inline-block;">Curso: </h4>
+            <h4 style="display:inline-block;">{{user.Dim_User.Degree}}</h4>
+        </p>
+        classificação geral
+    </div>
+
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="dashboard_graph">
+
+            <div class="row x_title">
+                <div class="col-md-4 ">
+                    <h3>Desempenho por domínio de avaliação<p><small>Respostas efetuadas</small></p></h3>
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-0">
+                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                        <span></span> <b class="caret"></b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="x_content">
+                <div class="col-md-9 col-xs-12">
+                    <div id="chart_plot_01U" class="demo-placeholder"></div>
+                </div>
+                <div class="col-md-3 col-xs-12 bg-white">
+                    <div class="x_title">
+                        <h2>Domínios</h2>
+                        <div id="widget-update-graph2">
+                            <select class="pull-right select_domain" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                {% for domain in domains %}
+                                <option selected value="{{domain}}">
+                                    {{domain}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_title">
+                        <h2>Subdomínios</h2>
+                        <div id="widget-update-subdomains2">
+                            <select class="pull-right select_subdomain" style=" background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-6">
+                        <div>
+                            <p>Corretas</p>
+                            <div class="">
+                                <div>
+                                    <progress id="progBarCU" class="progress progress_sm barra-verde" value="0" max="100" style="width: 50%;">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p>Incorretas</p>
+                            <div class="">
+                                <div>
+                                    <progress id="progBarWU" class="progress progress_sm barra-vermelha" value="0" max="100" style="width: 50%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+  <div class="clearfix"></div>
+
+</div>
+{% endblock content %} {{ super()}}

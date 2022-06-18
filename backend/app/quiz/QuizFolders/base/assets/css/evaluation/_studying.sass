@@ -1,0 +1,72 @@
+#studying-page
+  padding: 0 20px
+
+  #widget-study-container
+    .x_title
+      display: flex
+      justify-content: space-between
+
+    .question-container
+      margin-bottom: 25px
+
+    .question-header
+      font-weight: 600
+      margin-bottom: 15px
+
+    .question-body
+      display: flex
+      flex-direction: column
+
+      .answer
+        display: flex
+        align-items: center
+        margin-left: 15px
+        margin-bottom: 10px
+
+        span
+          cursor: pointer
+
+        input
+          margin-top: 0
+          margin-right: 10px
+          cursor: pointer
+
+    .question-image
+      display: flex
+      justify-content: center
+      padding-top: 5px
+
+    .button-container
+      margin: 0
+
+      .next-question
+        float: right
+        margin-bottom: 0
+        margin-right: 0
+        background-color: $green
+        border-color: $border-green
+
+        &:hover
+          background-color: $border-green
+
+    @media (max-width: $breakpoint-md)
+      .question-image
+        margin-top: 20px
+
+      .next-question
+        width: 100%
+
+  #widget-study-launcher
+    .row
+      margin-left: 0
+      margin-right: 0
+
+    .select-domain-container
+      padding-left: 0
+
+    .start-studying
+      background-color: $green
+      border-color: $border-green
+
+      &:hover
+        background-color: $border-green

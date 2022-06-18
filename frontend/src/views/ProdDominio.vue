@@ -380,6 +380,7 @@ export default {
         low_skill_factor: '',
         min_questions_number: '',
         question_factor: '',
+        backlog_factor: '',
         inserted_by: "User_default",
         inserted_at:new Date().toLocaleString()
       }
@@ -402,7 +403,7 @@ export default {
     handleDataComportamento(e) {
       [this.domain.default_user_level,this.domain.high_performance_factor,this.domain.low_performance_factor
       ,this.domain.high_skill_factor,this.domain.low_skill_factor,this.domain.min_questions_number,
-      this.domain.question_factor] = e;
+      this.domain.question_factor, this.domain.backlog_factor] = e;
     },
 
     confirmSubmit(){
@@ -434,6 +435,7 @@ export default {
       formData.append('high_skill_factor', this.domain.high_skill_factor)
       formData.append('low_skill_factor', this.domain.low_skill_factor)
       formData.append('min_questions_number', this.domain.min_questions_number)
+      formData.append('backlog_factor', this.domain.backlog_factor)
       formData.append('question_factor', this.domain.question_factor)
       formData.append('inserted_by', this.domain.inserted_by)
       formData.append('inserted_at', this.domain.inserted_at)
@@ -465,6 +467,8 @@ export default {
       formData.append('low_skill_factor', this.domain.low_skill_factor)
       formData.append('min_questions_number', this.domain.min_questions_number)
       formData.append('question_factor', this.domain.question_factor)
+      formData.append('backlog_factor', this.domain.backlog_factor)
+
       formData.append('inserted_by', this.domain.inserted_by)
       formData.append('inserted_at', this.domain.inserted_at)
 

@@ -1,0 +1,40 @@
+<!-- start students' list -->
+<table class="table table-striped projects">
+  <thead>
+    <tr>
+      <th style="width: 10%; padding-bottom: 0">Número<br><small style="font-weight: 400">Data de inserção</small></th>
+      <th style="vertical-align: top">Email</th>
+      <th style="vertical-align: top">Nome</th>
+      <th style="width: 30vw; vertical-align: top">Descrição</th>
+      <th style="vertical-align: top">Adicionado por</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students_list %}
+    <tr>
+      <td>
+        <a>{{ student.id }}</a>
+        <br />
+        <small>{{ student.inserted_at|datetimeformat }}</small>
+      </td>
+      <td>
+        {{ student.email }}
+      </td>
+      <td>
+        {{ student.name }}
+      </td>
+      <td class="bioCell">
+        {{ student.bio }}
+      </td>
+      <td>
+        {{ student.inserted_by.name }}
+      </td>
+      <td>
+        <a href="/students/stats?student_id={{ student.id }}&domain={{ domain }}" title="Ver" class="btn btn-primary" style="padding: 2px 6px"><i class="fa fa-eye"></i></a>
+        <a href="#" title="Editar" class="btn btn-info" style="padding: 2px 6px"><i class="fa fa-pencil"></i></a>
+        <a href="#" title="Apagar" class="btn btn-danger" style="padding: 2px 6px"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

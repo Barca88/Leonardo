@@ -1,0 +1,130 @@
+{% extends "base_site.html" %}
+
+{% block title %} Avaliação {% endblock title %}
+
+{% block content %}
+  <!-- page content -->
+  <div class="right_col" role="main">
+    {% block evaluation_content %}
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Histórico de testes</h3>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="widget-tests-historial" class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_content">
+            <!-- start tests' list -->
+            <table class="table table-striped projects">
+              <thead>
+                <tr>
+                  <th>Ciclo de estudos</th>
+                  <th>Escolaridade</th>
+                  <th>Domínio</th>
+                  <th>Descrição</th>
+                  <th>Questões</th>
+                  <th>Criado a</th>
+                  <th>Edição</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for test in tests %}
+                <tr class="test">
+                  <td class="study-cycle">
+                    {{ test.study_cycle }}
+                  </td>
+                  <td class="scholarity">
+                    {{ test.scholarity }}
+                  </td>
+                  <td class="domain-description">
+                    {{ test.domain.description }}
+                  </td>
+                  <td class="description headerCell">
+                    {{ test.description }}
+                  </td>
+                  <td class="length">
+                    {{ test.length|int }}
+                  </td>
+                  <td class="created-at">
+                    {{ test.created_at|datetimeformat }}
+                  </td>
+                  <td>
+                    <a href="#modal-preview-test" data-test-id="{{ test._id }}" data-toggle="modal" title="Ver" class="edition-btn btn btn-primary preview-test"><i class="fa fa-eye"></i></a>
+                    <a href="javascript:void(0)" title="Editar" class="edition-btn btn btn-info"><i class="fa fa-pencil"></i></a>
+                    <a href="javascript:void(0)" title="Apagar" class="edition-btn btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- end tests' list -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="title_left">
+      <h3>Criar teste</h3>
+    </div>
+    <div id="widget-create-test">
+      <div class="row">
+        <div class="col-md-5">
+          <select class="select2_group form-control select-domain">
+            <option value="">-- Escolha o domínio --</option>
+            {% for group in domains %}
+              <optgroup label="{{ group._id.scholarity }}">
+                {% for domain in group.domains %}
+                  <option
+                    data-study-cycle="{{ group._id.study_cycle }}"
+                    data-scholarity="{{ group._id.scholarity }}"
+                    value="{{ domain.id }}">
+                    {{ domain.description }}
+                  </option>
+                {% endfor %}
+              </optgroup>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-5">
+          <select class="select2_group form-control select-length">
+            <option value="">-- Escolha o número de questões --</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-primary submit-test">Criar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-preview-test" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Ver teste</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock evaluation_content %}
+  </div>
+  <!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+{% endblock javascripts %}

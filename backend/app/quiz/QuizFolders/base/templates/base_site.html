@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+      {% block meta %}
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <link rel="shortcut icon" href="../static/images/favicon-raccoon.ico" type="image/ico" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% endblock meta %}
+
+      <title>{% block title %}{% endblock %}</title>
+
+      {% block stylesheets %}        
+        <!-- Bootstrap -->
+        <link href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="{{ url_for('static', filename='vendors/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="{{ url_for('static', filename='vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+        <!-- bootstrap-daterangepicker -->
+        <link href="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+        <!-- iCheck -->
+        <link href="{{ url_for('static', filename='vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="{{ url_for('static', filename='vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+        <!-- JQVMap -->
+        <link href="{{ url_for('static', filename='vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
+        <!-- DropzoneJS -->
+        <link href="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.css') }}" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+        <!-- Global Leonardo Style -->
+        <link href="{{ url_for('static', filename='css/base.css') }}" rel="stylesheet">
+      {% endblock stylesheets %}
+    {% endblock head %}
+  </head>
+
+  <body class="{% block body_class %}nav-md {% endblock body_class %}">
+    {% block body %}
+
+    <div class="container body">
+        <div class="main_container">
+
+          <div id="acercaDe">
+            <div style="width: 590%; height: 235%; position: absolute; top: 0; left: 0; z-index: 10;"></div>
+            <div style="width: 590px; height: 235px; position: relative;">
+              <iframe id="acercaDeIfr" src="" scrolling="no" frameborder="0" style="display: block; width: 588px; height: 235px;"></iframe>
+              <button class="cancelButton white--text text-capitalize;" type="button" onclick="manageSideBarDiv('Acerca de', 'close')" title="Sair">
+                <i class="iconify" data-icon="mdi-door-open" data-inline="false" style="display: flex; justify-content: center; align-items: center;"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="creditos">
+            <div style="width: 590%; height: 235%; position: absolute; top: 0; left: 0; z-index: 10;"></div>
+            <div style="width: 590px; height: 235px; position: relative;">
+              <iframe id="creditosIfr" src="" scrolling="no" frameborder="0" style="display: block; width: 588px; height: 235px;"></iframe>
+              <button class="cancelButton white--text text-capitalize;" type="button" onclick="manageSideBarDiv('Créditos', 'close')" title="Sair">
+                <i class="iconify" data-icon="mdi-door-open" data-inline="false" style="display: flex; justify-content: center; align-items: center;"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="termosDeUtilizacao">
+            <div style="width: 590%; height: 235%; position: absolute; top: 0; left: 0; z-index: 10;"></div>
+            <div style="width: 590px; height: 235px; position: relative;">
+              <iframe id="termosDeUtilizacaoIfr" src="" scrolling="no" frameborder="0" style="display: block; width: 588px; height: 235px;"></iframe>
+              <button class="cancelButton white--text text-capitalize;" type="button" onclick="manageSideBarDiv('Termos de utilização', 'close')" title="Sair">
+                <i class="iconify" data-icon="mdi-door-open" data-inline="false" style="display: flex; justify-content: center; align-items: center;"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="privacidade">
+            <div style="width: 590%; height: 235%; position: absolute; top: 0; left: 0; z-index: 10;"></div>
+            <div style="width: 590px; height: 235px; position: relative;">
+              <iframe id="privacidadeIfr" src="" scrolling="no" frameborder="0" style="display: block; width: 588px; height: 235px;"></iframe>
+              <button class="cancelButton white--text text-capitalize;" type="button" onclick="manageSideBarDiv('Privacidade', 'close')" title="Sair">
+                <i class="iconify" data-icon="mdi-door-open" data-inline="false" style="display: flex; justify-content: center; align-items: center;"></i>
+              </button>
+            </div>
+          </div>
+
+          {% block sidebar %}
+            <div id="sidebar" class="col-md-3 left_col {% block sidebar_class %} {% endblock sidebar_class %}">
+              {% include "site_template/sidebar.html" %}
+            </div>
+          {% endblock sidebar %}
+
+          {% block top_navigation %}
+            <div class="top_nav">
+              {% include "site_template/top_navigation.html" %}
+            </div>
+          {% endblock top_navigation %}
+
+          {% block content %}
+            <!-- {{ content }} -->
+          {% endblock content %}
+
+          {% block footer %}
+            <footer>
+              {% include "site_template/footer.html" %}
+            </footer>
+          {% endblock footer %}
+        </div>
+      </div>
+
+      {% block javascripts %}
+        <!-- jQuery -->
+        <script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+        <!-- jquery.rest -->
+        <script src="{{ url_for('static', filename='vendors/jquery-rest/jquery.rest.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <!-- FastClick -->
+        <script src="{{ url_for('static', filename='vendors/fastclick/lib/fastclick.js') }}"></script>
+        <!-- NProgress -->
+        <script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script>
+        <!-- bootstrap-progressbar -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
+        <!-- iCheck -->
+        <script src="{{ url_for('static', filename='vendors/iCheck/icheck.min.js') }}"></script>
+        <!-- bootstrap-daterangepicker -->
+        <script src="{{ url_for('static', filename='vendors/moment/min/moment.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+        <!-- bootstrap-wysiwyg -->
+        <script src="{{ url_for('static', filename='vendors/bootstrap-wysiwyg/src/bootstrap-wysiwyg.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+        <script src="{{ url_for('static', filename='vendors/google-code-prettify/src/prettify.js') }}"></script>
+        <!-- jQuery Tags Input -->
+        <script src="{{ url_for('static', filename='vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
+        <!-- Switchery -->
+        <script src="{{ url_for('static', filename='vendors/switchery/dist/switchery.min.js') }}"></script>
+        <!-- Select2 -->
+        <script src="{{ url_for('static', filename='vendors/select2/dist/js/select2.full.min.js') }}"></script>
+        <!-- Autosize -->
+        <script src="{{ url_for('static', filename='vendors/autosize/dist/autosize.min.js') }}"></script>
+        <!-- jQuery autocomplete -->
+        <script src="{{ url_for('static', filename='vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js') }}"></script>
+        <!-- starrr -->
+        <script src="{{ url_for('static', filename='vendors/starrr/dist/starrr.js') }}"></script>
+        <!-- DropzoneJS -->
+        <script src="{{ url_for('static', filename='vendors/dropzone/dist/min/dropzone.min.js') }}"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+        <!-- Global Leonardo Scripts -->
+        <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+        <!-- Styles for some icons -->
+        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+      {% endblock %}
+    {% endblock body %}
+  </body>
+</html>
+
+<script type="text/javascript">
+  function closeModal() {
+    var elem = $('#show_mod');
+    if (!elem.hasClass('fade')){
+      elem.addClass('fade');
+    }
+  }
+
+  function moveElement(htmlElement) {
+    var p1 = 0, p2 = 0, p3 = 0, p4 = 0
+
+    htmlElement.onmousedown = mouseHandler;
+    
+    function mouseHandler(e) {
+      e = e || window.event;
+      e.preventDefault();
+      p3 = e.clientX;
+      p4 = e.clientY;
+      document.onmouseup = closeMovableElement;
+      document.onmousemove = auxMoveElement;
+    }
+
+    function auxMoveElement(e) {
+      e = e || window.event;
+      e.preventDefault();
+      p1 = p3 - e.clientX;
+      p2 = p4 - e.clientY;
+      p3 = e.clientX;
+      p4 = e.clientY;
+      htmlElement.style.top = (htmlElement.offsetTop - p2) + "px";
+      htmlElement.style.left = (htmlElement.offsetLeft - p1) + "px";
+    }
+
+    function closeMovableElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+  }
+  /*
+    option:
+      - 'open': (open div) or (close current div and open a new div with new information)
+      - 'close': close div
+  */
+  function manageSideBarDiv(sideBarOption, option) {
+    var sideBarOptionDesc = (sideBarOption == 'Acerca de') ? "acercaDe" : (sideBarOption == 'Créditos') ? 'creditos' : (sideBarOption == 'Termos de utilização') ? 'termosDeUtilizacao' : (sideBarOption == 'Privacidade') ? 'privacidade' : ''
+    var iframeDesc = (sideBarOption == 'Acerca de') ? "acercaDeIfr" : (sideBarOption == 'Créditos') ? 'creditosIfr' : (sideBarOption == 'Termos de utilização') ? 'termosDeUtilizacaoIfr' : (sideBarOption == 'Privacidade') ? 'privacidadeIfr' : ''
+    var x = document.getElementById(sideBarOptionDesc)
+
+    if (option == 'open') {
+      document.getElementById(iframeDesc).src = "/info?desc=" + sideBarOption
+
+      if($('#' + sideBarOptionDesc + ':visible').length == 0){
+        x.style.display = "block";
+        x.style.top = "30%";
+        x.style.left = "30%";
+      }
+      else {
+        x.style.display = "none";
+      }
+    }
+    else x.style.display = "none";
+  }
+
+  moveElement(document.getElementById("acercaDe"));
+  moveElement(document.getElementById("creditos"));
+  moveElement(document.getElementById("termosDeUtilizacao"));
+  moveElement(document.getElementById("privacidade"));
+</script>
+
+<style>
+.cancelButton {
+  background-color: #00cc99;
+  color: white;
+  border-radius: 4px;
+  padding: 9px 20px;
+  margin-left: 210px;
+  border: none;
+  position: absolute;
+  font-size: 20px;
+  margin-top: -50px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#acercaDe, #creditos, #termosDeUtilizacao, #privacidade{
+  display: none;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  z-index: 9;
+  background-color: white;
+  text-align: center;
+  width: 590px;
+  border: 1px solid lightgrey;
+  /*vertical-align: middle;*/
+}
+</style>

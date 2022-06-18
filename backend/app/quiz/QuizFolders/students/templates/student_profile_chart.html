@@ -1,0 +1,429 @@
+{% extends "base_site.html" %}
+
+{% block title %} Análise de dados {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <!-- top tiles -->
+  <!--div class="row tile_count" style="display: flex; width: 100%"-->
+  <div class="row tile_count">
+    <!--div class="tile_stats_count" style="width: 20%"-->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Estudante</span>
+      <ul class="nav navbar-right panel_toolbox">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-chevron-down" style="font-size: 15px"></i></a>
+          <ul class="dropdown-menu" role="menu">
+            {% for student in students_list %}
+              <li><a href="/students/stats?student_id={{ student.id }}&domain={{ domain }}">{{ student.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      <article class="media event">
+        <a>
+          <span class="pull-left"><img style="height: 4em; width: 4em; margin-right: 0.5em" src="{{ url_for('static', filename='images/avatars/' + personal_info.avatar) }}" alt="Profile Image" /></span>
+        </a>
+        <div class="media-body">
+          <a class="title" style="font-weight: bold">{{ personal_info.name }}</a>
+          <p style="font-size: 11px">{{ personal_info.email }}</p>
+        </div>
+      </article>
+    </div>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Nível do Utilizador</span>
+      <div class="count">
+        {% for i in range (0, stats.user_level) %}
+          <i class="yellow fa fa-star" style="font-size: 25px"></i>
+        {% endfor %}
+        {% for i in range (0, (5 - stats.user_level)) %}
+          <i class="yellow fa fa-star-o" style="font-size: 25px"></i>
+        {% endfor %}
+      </div>
+    </div>
+    <!--div class="tile_stats_count" style="width: 20%"-->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-clock-o"></i> Performance</span>
+      <div class="count">{{ stats.performance }}%</div>
+      {% if stats.performance_dif == 0 %}
+        <span class="count_bottom"><i class="black"><i class="fas fa-equals"></i>0% </i> Na última semana</span>
+      {% elif stats.performance_dif > 0 %}
+        <span class="count_bottom"><i class="green"><i class="fa fa-caret-up"></i>+{{ stats.performance_dif }}% </i> Na última semana</span>
+      {% elif stats.performance_dif < 0 %}
+        <span class="count_bottom"><i class="red"><i class="fa fa-caret-down"></i>{{ stats.performance_dif }}% </i> Na última semana</span>
+      {% endif %}
+    </div>
+    <!--div class="tile_stats_count" style="width: 20%"-->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Destreza</span>
+      <div class="count">{{ stats.skill }}%</div>
+      {% if stats.skill_dif == 0 %}
+        <span class="count_bottom"><i class="black"><i class="fa fa-equals"></i>0% </i> Na última semana</span>
+      {% elif stats.skill_dif > 0 %}
+        <span class="count_bottom"><i class="green"><i class="fa fa-caret-up"></i>+{{ stats.skill_dif }}% </i> Na última semana</span>
+      {% elif stats.skill_dif < 0 %}
+        <span class="count_bottom"><i class="red"><i class="fa fa-caret-down"></i>{{ stats.skill_dif }}% </i> Na última semana</span>
+      {% endif %}
+    </div>
+    <!--div class="tile_stats_count" style="width: 20%"-->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-user"></i> Tempo no Sistema</span>
+      <div class="count">{{ stats.answers_time }}h</div>
+    </div>
+    <!--div class="tile_stats_count" style="width: 20%"-->
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+      <span class="count_top"><i class="fa fa-database"></i> Nº Questões</span>
+      <div class="count">{{ stats.total_questions }}</div>
+    </div>
+  </div>
+  <!-- /top tiles -->
+
+  <!-- Start Network Activities -->
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="dashboard_graph">
+
+        <div class="row x_title">
+          <div class="col-md-6">
+            <h3>Gráfico de atividade <small>Questões lançadas</small></h3>
+          </div>
+        </div>
+
+        <div class="col-md-9 col-sm-9 col-xs-12">
+          <div id="activityGraph" class="demo-placeholder"></div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
+          <div class="x_title">
+            <h2>Os seus domínios</h2>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="col-md-12 col-sm-12 col-xs-6">
+          {% for i in range (0, question_stats|length) %}
+            <div>
+              <p>{{ question_stats[i].subdomain }}</p>
+              <div class="">
+                <div class="progress progress_sm" style="width: 76%;">
+                  <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="55"></div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+  <!-- End Network Activities -->
+  <br />
+  <!-- Start Stats Row -->
+  <div class="row">
+    <!-- Start Evaluation History -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="x_panel tile fixed_height_320">
+        <div class="x_title">
+          <h2 style="font-size: 20px">Histórico de avaliações</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-exchange"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Bases de dados</a>
+                </li>
+                <li><a href="#">Business Intelligence</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p>Bases de dados</p>
+          <p class="" style="float: right; font-weight: bold">Classificação média</p><br>
+          <div class="widget_summary">
+            <div class="w_left w_25">
+              <span>11/02</span>
+            </div>
+            <div class="w_center w_55">
+              <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+              </div>
+            </div>
+            <div class="w_right w_20">
+              <span>14,2</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+          <div class="widget_summary">
+            <div class="w_left w_25">
+              <span>18/12</span>
+            </div>
+            <div class="w_center w_55">
+              <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+              </div>
+            </div>
+            <div class="w_right w_20">
+              <span>12,9</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="widget_summary">
+            <div class="w_left w_25">
+              <span>20/11</span>
+            </div>
+            <div class="w_center w_55">
+              <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="w_right w_20">
+              <span>15,8</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="widget_summary">
+            <div class="w_left w_25">
+              <span>12/10</span>
+            </div>
+            <div class="w_center w_55">
+              <div class="progress">
+                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%;"></div>
+              </div>
+            </div>
+            <div class="w_right w_20">
+              <span>11,0</span>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- End Evaluation History -->
+    <!-- Start Questions Report -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="x_panel tile fixed_height_320 overflow_hidden">
+        <div class="x_title">
+          <h2 style="font-size: 20px">Relatório de questões</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-exchange"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Bases de dados</a>
+                </li>
+                <li><a href="#">Business Intelligence</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p>Bases de dados</p>
+          <table class="" style="width:100%">
+            <tr>
+              <th style="width:37%;">
+                <p>Top 5</p>
+              </th>
+              <th>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                  <p class="">Tema</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                  <p class="">Frequência</p>
+                </div>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+              </td>
+              <td>
+                <table class="tile_info">
+                  <tr>
+                    <td>
+                      <p><i class="fa fa-square blue"></i>Modelo relacional </p>
+                    </td>
+                    <td>30%</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p><i class="fa fa-square green"></i>NoSQL </p>
+                    </td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p><i class="fa fa-square purple"></i>SQL </p>
+                    </td>
+                    <td>20%</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p><i class="fa fa-square aero"></i>Modelo lógico </p>
+                    </td>
+                    <td>15%</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p><i class="fa fa-square red"></i>Outros </p>
+                    </td>
+                    <td>30%</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- End Questions Report -->
+    <!-- Start Last Evaluation Top -->
+    <div class="col-md-4">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2 style="font-size: 20px">Classificações</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-exchange"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Bases de dados</a>
+                </li>
+                <li><a href="#">Business Intelligence</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <p>Bases de dados</p>
+          <p class="" style="float: right; font-weight: bold">Últimas classificações</p><br>
+          <article class="media event">
+            <a>
+              <span class="pull-left"><img style="height: 4em; width: 4em; margin-right: 0.5em" src="/static/images/user.png" alt="Profile Image" /></span>
+            </a>
+            <div class="media-body">
+              <a class="title" href="#">17,9</a>
+              <p>Joana Vasconcelos - A76888</p>
+            </div>
+          </article>
+          <article class="media event">
+            <a>
+              <span class="pull-left"><img style="height: 4em; width: 4em; margin-right: 0.5em" src="/static/images/user.png" alt="Profile Image" /></span>
+            </a>
+            <div class="media-body">
+              <a class="title" href="#">16,0</a>
+              <p>Álvaro Mota - A78536</p>
+            </div>
+          </article>
+          <article class="media event">
+            <a>
+              <span class="pull-left"><img style="height: 4em; width: 4em; margin-right: 0.5em" src="/static/images/girl.jpg" alt="Profile Image" /></span>
+            </a>
+            <div class="media-body">
+              <a class="title" href="#">15,7</a>
+              <p>Marta Lopes - A78735</p>
+            </div>
+          </article>
+          <article class="media event">
+            <a>
+              <span class="pull-left"><img style="height: 4em; width: 4em; margin-right: 0.5em" src="/static/images/img.jpg" alt="Profile Image" /></span>
+            </a>
+            <div class="media-body">
+              <a class="title" href="#">15,7</a>
+              <p>André Marques - A76878</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <!-- End Last Evaluation Top -->
+  </div>
+  <!-- End Stats Row -->
+</div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <!-- Chart.js -->
+  <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+  <!-- Flot -->
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+  <!-- Flot plugins -->
+  <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+  <!-- DateJS -->
+  <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+
+  <script type="text/javascript">
+    var arr_data1 = [
+			[gd(2019, 1, 1), 1],
+			[gd(2019, 1, 2), 74],
+			[gd(2019, 1, 3), 6],
+			[gd(2019, 1, 4), 39],
+			[gd(2019, 1, 5), 20],
+			[gd(2019, 1, 6), 85],
+			[gd(2019, 1, 7), 7]
+		];
+
+    var arr_data2 = [
+      [gd(2019, 1, 1), 82],
+      [gd(2019, 1, 3), 66],
+      [gd(2019, 1, 4), 9],
+      [gd(2019, 1, 5), 119],
+      [gd(2019, 1, 6), 6],
+      [gd(2019, 1, 7), 9]
+    ];
+
+    console.log("HEY THERE!");
+
+    var question_stats_str  = "{{ question_stats}}";
+    var question_stats      = question_stats_str.replace(/&#39;/g, "\"");
+    var question_stats_dict = JSON.parse(JSON.stringify(eval('('+ question_stats +')')));
+    var array_data          = [];
+
+    for (i = 0; i < question_stats_dict.length; i++) {
+      var subdomain_data = [];
+      var subdomain = question_stats_dict[i]
+
+      for (j = 0; j < subdomain['data'].length; j++) {
+        var values = subdomain['data'][j]
+        subdomain_data.push([gd(values[0][0], values[0][1], values[0][2]), values[1] + 90]);
+      }
+      array_data.push(subdomain_data);
+    }
+
+    console.log("ORIGINAL")
+    console.log([arr_data1, arr_data2])
+    console.log("MEUS DADOS")
+    console.log(array_data)
+    initActivityGraph([arr_data1, arr_data2]);
+  </script>
+{% endblock javascripts %}

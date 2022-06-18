@@ -1,0 +1,127 @@
+{% if current_user.user_type == UserType.STUDENT.value %}
+  {% extends "responsive/base_site.html" %}
+{% else %}
+  {% extends "base_site.html" %}
+{% endif %}
+
+{% block title %} Perfil {% endblock title %}
+
+{% block content %}
+  <div id='profile-page' class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Perfil de utilizador</h3>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>Consulte e altere as suas informações</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="col-sm-3 col-xs-12">
+
+              <div class="user-avatar">
+                <!-- Current avatar -->
+                {% if current_user.avatar %}
+                  {% set avatar = current_user.avatar %}
+                {% else %}
+                  {% set avatar = 'user.png' %}
+                {% endif %}
+                <div class="avatar-preview dropzone-previews" style='background-image: url("{{ url_for("static", filename="images/avatars/" + avatar) }}")'>
+                  <div class="change-avatar" data-toggle='tooltip' data-placement='right' data-delay='{"show":"1000"}' title="Alterar foto">
+                    <i class='fa fa-camera'></i>
+                  </div>
+                </div>
+
+                <div id='avatar-preview-template'>
+                  <div class="dz-preview dz-file-preview">
+                    <div class="dz-image">
+                      <img data-dz-thumbnail />
+                    </div>
+                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="progress-bar progress-bar-success" style="width:0%" data-dz-uploadprogress></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <h3 class='user-name'>{{ current_user.name }}</h3>
+
+              <ul class="list-unstyled user_data">
+                <li>
+                  <i class="fa fa-map-marker user-profile-icon"></i>
+                   Universidade do Minho, Braga, Portugal
+                </li>
+                <li>
+                  <i class="fa fa-briefcase user-profile-icon"></i>
+                  {% if current_user.user_type == UserType.STUDENT.value %}
+                     Estudante
+                  {% else %}
+                     Professor
+                  {% endif %}
+                </li>
+              </ul>
+
+              <a class="btn btn-success edit-profile">
+                <i class="fa fa-edit"></i> Editar perfil
+              </a>
+              <a href='#change-password-modal' class="btn btn-default btn-outline change-password" data-toggle="modal">
+                <i class="fa fa-exchange"></i> Alterar password
+              </a>
+            </div>
+            <div class="col-sm-9 col-xs-12 editable-info">
+              <div class="col-sm-6 col-xs-12 form-group">
+                <input type="text" class="form-control has-feedback-left" placeholder="{{ current_user.username }}">
+                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                <input type="text" class="form-control" placeholder="{{ current_user.email }}">
+                <span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="change-password-modal" class="modal">
+    <div class="modalDialog modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Alterar palavra-passe</h4>
+        </div>
+        <div class="modal-body">
+          <input class="form-control old-password" placeholder="Insira a palavra-passe atual" type="password">
+          <br>
+          <input class="form-control new-password" placeholder="Insira a nova palavra-passe" type="password">
+          <br>
+          <input class="form-control new-password-rep" placeholder="Repita a nova palavra-passe" type="password">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary send-passwords">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Change Password Modal -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script type="text/javascript">
+    Dropzone.autoDiscover = false;
+  </script>
+{% endblock javascripts %}

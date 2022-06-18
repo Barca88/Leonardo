@@ -1,0 +1,60 @@
+{% extends "base_site.html" %} {% block title %} Análise de dados {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+
+<div class="right_col" role="main">  <div class="page-title">
+
+    <div class="title_left">
+      <h3>Estudar</h3>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div id="widget-study-launcher">
+    <div class="row">
+      <div class="col-xs-8 col-sm-6 col-lg-3 select-domain-container">
+        <select id="selectedUser" class="select2_group form-control select-domain">
+              {% for user in users %}
+                <option
+                  value="{{ user }}">
+                  {{ user }}
+                </option>
+              {% endfor %}
+
+        </select>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-primary start-studying" onclick="select_user()">Avaliar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+</div>
+
+
+<script>
+var user0_select;
+function setUser(value){
+  user_select=value
+}
+function getSelectedOption(sel) {
+    var opt;
+    for ( var i = 0, len = sel.options.length; i < len; i++ ) {
+        opt = sel.options[i];
+        if ( opt.selected === true ) {
+            break;
+        }
+    }
+    return opt;
+}
+
+function select_user(){
+  sel = document.getElementById("selectedUser")
+  var opt = getSelectedOption(sel);
+  window.location.href = '/statistics/analitics/users_old/'+opt.value
+}
+
+</script>
+
+{% endblock content %} {{ super()}}

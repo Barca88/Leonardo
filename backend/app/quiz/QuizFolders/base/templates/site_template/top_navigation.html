@@ -1,0 +1,80 @@
+<div class="nav_menu">
+  <nav>
+    <div class="nav toggle">
+      <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li class="">
+        <a href="" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          {% if current_user.avatar %}
+            {% set avatar = current_user.avatar %}
+          {% else %}
+            {% set avatar = 'user.png' %}
+          {% endif %}
+          <img src="{{ url_for('static', filename='images/avatars/' + avatar) }}" alt="">{{ current_user.username }}
+          <span class=" fa fa-angle-down"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-usermenu pull-right">
+          <li><a href="/profile"><i class="fa fa-user pull-right"></i>Perfil</a></li>
+          <li><a href="javascript:;"><i class="fa fa-cog pull-right"></i>Definições</a></li>
+          <li><a href="javascript:;"><i class="fa fa-question-circle pull-right"></i>Ajuda</a></li>
+          <li><a href="/sign_out"><i class="fa fa-sign-out pull-right"></i>Terminar sessão</a></li>
+        </ul>
+      </li>
+
+      <li role="presentation" class="dropdown">
+        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-bell-o"></i>
+          <span class="badge bg-green">3</span>
+        </a>
+        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/avatars/user.png" alt="Profile Image" /></span>
+              <span>
+                <span style="font-weight: bold">Joana Vasconcelos</span>
+                <span class="time">Há 3 minutos</span>
+              </span>
+              <span class="message">
+                Bom dia professor. Não fiquei esclarecida com o que li na referência à pergunta relativa ao modelo ...
+              </span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/img.jpg" alt="Profile Image" /></span>
+              <span>
+                <span style="font-weight: bold">André Marques</span>
+                <span class="time">Há 3 horas</span>
+              </span>
+              <span class="message">
+                Professor, a referência para a pergunta "Considere a seguinte relação: R(A,B,C,D,E) ...
+              </span>
+            </a>
+          </li>
+          <li>
+            <a>
+              <span class="image"><img src="/static/images/trophy.png" alt="Profile Image" /></span>
+              <span>
+                <span style="font-weight: bold">Novo recorde!</span>
+                <span class="time">Há 5 horas</span>
+              </span>
+              <span class="message">
+                As suas perguntas acabam de atingir um novo recorde de utilização diária!
+              </span>
+            </a>
+          </li>
+          <li>
+            <div class="text-center">
+              <a>
+                <strong>Ver notificações</strong>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

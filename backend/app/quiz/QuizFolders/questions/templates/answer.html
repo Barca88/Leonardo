@@ -1,0 +1,74 @@
+<p class="answer_num">Resposta {{ n }}</p>
+<form class="form-horizontal form-label-left input_mask col-md-4 col-sm-6 col-xs-12">
+
+  <div class="form-group">
+    <label class="control-label col-md-5 col-sm-3 col-xs-12">Grau de correção</label>
+    <div class="col-md-4 col-sm-9 col-xs-12">
+      <input id="correction_a{{ n }}" type="text" class="form-control text-center" placeholder="Valor (%)">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-5 col-sm-3 col-xs-12">Obrigatória</label>
+    <div class="answer_mandatory col-md-6 col-sm-9 col-xs-12">
+      <span id="mandatory_a{{ n }}">
+        Sim
+        <input type="radio" class="flat" name="mandatory" value="true" required />
+        Não
+        <input type="radio" class="flat" name="mandatory" value="false" checked="" />
+      </span><br>
+    </div>
+  </div>
+</form>
+<div class="col-md-8 col-sm-6 col-xs-12">
+  <label class="control-label col-md-2 col-sm-3 col-xs-12">Conteúdo</label>
+    <div class="btn-toolbar editor col-xs-12" data-role="editor-toolbar" data-target="#editor-answer{{ n }}">
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+        </ul>
+      </div>
+
+      <div class="btn-group">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a data-edit="fontSize 5">
+              <p style="font-size:17px">Huge</p>
+            </a>
+          </li>
+          <li>
+            <a data-edit="fontSize 3">
+              <p style="font-size:14px">Normal</p>
+            </a>
+          </li>
+          <li>
+            <a data-edit="fontSize 1">
+              <p style="font-size:11px">Small</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="btn-group">
+        <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
+        <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
+        <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+        <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
+      </div>
+
+      <div class="btn-group">
+        <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
+        <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
+      </div>
+
+      <div class="btn-group">
+        <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn_a{{ n }}"><i class="fa fa-picture-o"></i></a>
+        <input type="file" data-role="magic-overlay" data-target="#pictureBtn_a{{ n }}" data-edit="insertImage" />
+      </div>
+
+    </div>
+
+    <div id="editor-answer{{ n }}" class="editor-answer editor-wrapper col-xs-12"></div>
+
+    <br />
+</div>
