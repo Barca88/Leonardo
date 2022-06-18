@@ -1,0 +1,230 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import deleteModal, viewSubdomainModal %}
+
+{% block meta %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <link rel="shortcut icon" href="../../static/images/favicon-raccoon.ico" type="image/ico" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock meta %}
+
+{% block title %} Subdomínios {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <script type="text/javascript">
+    var error = "{{ subdomain_error }}";
+    function loadFunc() {
+      $('#tags_1').tagsInput({
+          width: 'auto',
+          defaultText: 'Adicionar email(s)'
+
+        });
+        if (error != "") {
+          $("#addSubdomain_modal").modal('show');
+        }
+        else {
+          $("#addSubdomain_modal").addClass("fade");
+        }
+    }
+    window.onload = loadFunc;
+  </script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+{{ deleteModal(title="Apagar subdomínio", body="Tem a certeza que pretende apagar este subdomínio?") }}
+
+{{ viewSubdomainModal(title="Detalhes do subdomínio") }}
+
+<!-- page content -->
+  <div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Subdomínios de questões</h3>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+    {% for group in dict %}
+      {% for domain in group.domains %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 style="font-size: 25px">{{ domain.description }}<small style="font-weight: 400">{{ group._id.scholarity }}</small></h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li style="float: right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <!-- start subdomains' list -->
+              <table class="table table-striped projects">
+                <thead>
+                  <tr>
+                    <th>Descrição</th>
+                    <th>Inserido por</th>
+                    <th style="width: 14%">Inserido a</th>
+                    <th>Validado por</th>
+                    <th style="width: 14%">Validado a</th>
+                    <th style="width: 14%">Edição</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for subdomain in domain.subdomains %}
+                    <tr>
+                      <td class="headerCell">
+                        {{ subdomain.description }}
+                      </td>
+                      <td>
+                        {{ subdomain.inserted_by.name }}
+                      </td>
+                      <td>
+                        {{ subdomain.inserted_at|datetimeformat }}
+                      </td>
+                      {% if subdomain.validated_by == "" %}
+                      <td>
+                        ---
+                      </td>
+                      <td>
+                        ---
+                      </td>
+                      {% else %}
+                      <td>
+                        {{ subdomain.validated_by.name }}
+                      </td>
+                      <td>
+                        {{ subdomain.validated_at|datetimeformat }}
+                      </td>
+                      {% endif %}
+                      <td>
+                        <a href="javascript:void(0)" onclick='viewTarget("{{ domain }}", "{{ subdomain }}")' data-target="#viewSubdomain_modal" data-toggle="modal" title="Ver" class="edition-btn btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="Editar" class="edition-btn btn btn-info"><i class="fa fa-pencil"></i></a>
+                        <a href="javascript:void(0)" onclick='setTarget("{{ subdomain.id }}")' data-target="#delete_modal" data-toggle="modal" title="Apagar" class="edition-btn btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+              <!-- end subdomains' list -->
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    <button title="Adicionar subdomínio" id="addSubdomain_btn" data-target="#addSubdomain_modal" data-toggle="modal" class="btn btn-primary">+</button>
+
+    <!-- Modal HTML -->
+    <div id="addSubdomain_modal" class="modal">
+      <div class="modalDialog modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Adicionar subdomínio</h4>
+          </div>
+          <div class="modal-body">
+            <select id="domainChoice" class="form-control">
+              <option value="">-- Escolha um domínio --</option>
+              {% for group in dict %}
+                <optgroup label="{{ group._id.scholarity }}">
+                  {% for domain in group.domains %}
+                    <option
+                      data-study-cycle="{{ group._id.study_cycle }}"
+                      data-scholarity="{{ group._id.scholarity }}"
+                      value="{{ domain.description }}">
+                      {{ domain.description }}
+                    </option>
+                  {% endfor %}
+                </optgroup>
+              {% endfor %}
+            </select>
+            <p class="text-warning" style="margin-bottom: 0px"><small>Escolha o domínio para o qual pretende adicionar um subdomínio.</small></p>
+            <br>
+
+            <input id="newSubdom_input" class="form-control" placeholder="Novo subdomínio" type="text">
+            {% if subdomain_error == True %}
+              <p class="error_msg">*Desginação já atribuída a um subdomínio deste domínio</p>
+            {% endif %}
+            <br>
+
+            <label class="control-label">Operadores</label>
+            <input id="tags_1" type="number" class="tags" value="" />
+              <div class="errorsList">
+              {% if user_errors %}
+                {% if user_errors|length > 0 %}
+                  {% for error in user_errors %}
+                    <p class="error_msg">O endereço de email *{{ error }} não corresponde a nenhum utilizador conhecido</p>
+                  {% endfor %}
+                {% endif %}
+              {% endif %}
+              </div>
+          </div>
+          <div class="modal-footer">
+            {% if subdomain_error == False and user_errors|length == 0 %}
+            <p class="input_valid">Novo subdomínio adicionado com sucesso!</p>
+            {% endif %}
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="submitSubdomain" type="button" class="btn btn-primary">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+  <script type="text/javascript">
+    function closeModal() {
+      var elem = $('#addSubdomain_modal');
+      if (!elem.hasClass('fade')){
+        elem.addClass('fade');
+      }
+    }
+    $("#newSubdom_input").attr("onfocus", "hideError()");
+    $("#domainChoice").attr("onfocus", "hideError()");
+
+    var target = -1;
+
+    function setTarget(subdom_id){
+      target = subdom_id;
+    }
+
+    $("#confirmDelete_btn").click( () => {
+      // SEND POST TO DELETE THE TARGET
+      $.ajax({
+        type: 'POST',
+        data: target,
+        url: "/questions/subdomains",
+        contentType: 'text/plain'
+      });
+      $("#delete_modal").modal('hide');
+    });
+
+    function viewTarget(domain, subdomain_str){
+      var patt   = /(\'\_id\'\:\ ObjectId\(\'[a-z0-9]+\'\),\ )/;
+      domain     = domain.replace(patt, "");
+      domain     = JSON.parse(JSON.stringify(eval('('+ domain +')')));
+      subdomain  = JSON.parse(JSON.stringify(eval('('+ subdomain_str +')')));
+      subsubdoms = subdomain.subsubdomains;
+      $("#id_field").html(subdomain.id);
+      $("#desc_field").html(subdomain.description);
+      $("#domain_field").html(domain.description + ' (' + domain.scholarity + ' - ' + domain.study_cycle + ')');
+      list = $("#subsubdomains_field");
+      list.children().remove();
+      for (var i = 0; i < subsubdoms.length; i++){
+        var li = $("<li>").html(subsubdoms[i].description);
+        list.append(li);
+      }
+      $("#insertion_field").html(subdomain.inserted_by.name + ' (' + dateFormat(subdomain.inserted_at) + ')');
+      $("#validation_field").html(subdomain.validated_by.name + ' (' + dateFormat(subdomain.validated_at) + ')');
+    }
+  </script>
+{% endblock javascripts %}

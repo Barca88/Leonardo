@@ -1,0 +1,97 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import errorMsg %}
+
+{% block title %} Leonardo {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <!-- Animate.css -->
+  <link href="{{ url_for('static', filename='vendors/animate.css/animate.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/accounts/accounts.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block body_class %}login{% endblock body_class %}
+
+{% block body %}
+  <div>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+      <div class="animate form login_form">
+        <section class="login_content">
+          <form name="signin_input" method="post">
+            <h1><img src="/static/images/raccoon.png" alt="logo" style="height: 40px"> Leonardo</h1>
+
+            {% for field in (login_form.username,login_form.password) if field.widget.input_type != 'hidden'  %}
+              <div class="loginBox">
+                {{ field(class="form-control", placeholder=field.label.text) }}
+                {% if field.errors %}
+                  {% for error in field.errors %}
+                    {{ errorMsg(class="error_msg", text="*" + error) }}
+                  {% endfor %}
+                {% elif error == 0 and field.id == 'username_login' %}
+                  {% set username_error %}
+                    *{{ _('Nome de utilizador inválido') }}	
+                  {% endset %}	
+                  {{ errorMsg(class="error_msg", text=username_error) }}
+                {% elif error == 1 and field.id == 'pwd_login' %}
+                    {% set password_error %}
+                      *{{ _('Palavra-passe incorreta') }}	
+                    {% endset %}	
+                  {{ errorMsg(class="error_msg", text=password_error) }}
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-default submit" name="login">{{ _('Entrar') }}</button>
+
+            <div class="login_opt">
+              <div class="remember_me">
+                {{ login_form.remember_me }}
+                <a href="javascript:void(0)" onclick="click_box()">Manter sessão iniciada</a>
+              </div>
+              <a href="javascript:void(0)">{{ _('Recuperar palavra-passe') }}</a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="separator">
+              <div class="clearfix"></div>
+              <br />
+            </div>
+          </form>
+          <div class="additional-info">
+            <p><a data-toggle="modal" href="#copyrights-modal">{{ _('Créditos') }}</a></p>
+            <p><a href="#">{{ _('Saber mais') }}</a></p>
+          </div>
+          <p><br><b><i class="fa fa-copyright"></i> 2020 Leonardo</b></p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyrights Modal -->
+  <div id="copyrights-modal" class="modal">
+    <div class="modalDialog modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">{{ _('Créditos') }}</h4>
+        </div>
+        <div class="modal-body">
+          <p>Template inspired by <b><i class="fa fa-copyright"></i>2016 Aigars Silkalns & Colorlib</b>'s <a target="_blank" class="developer" href="https://github.com/puikinsh/gentelella">Gentelella</a> (MIT License).</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Copyrights Modal -->
+
+{% block javascripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/accounts/login.js') }}"></script>
+{% endblock javascripts %}
+
+{% endblock body %}

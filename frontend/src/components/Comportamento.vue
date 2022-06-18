@@ -43,6 +43,10 @@
                     <v-select v-model="formData.question_factor" clear dense 
                     :rules="rules.required" :items="quest_factor" label="Factor de Questões"/>
                 </v-col>
+                <v-col cols="6">
+                    <v-select v-model="formData.backlog_factor" clear dense 
+                    :rules="rules.required" :items="quest_factor" label="Factor de Backlog"/>
+                </v-col>
             </v-row>
             
            
@@ -66,7 +70,8 @@ export default ({
                 high_skill_factor: '',
                 low_skill_factor: '',
                 min_questions_number: '',
-                question_factor: ''
+                question_factor: '',
+                backlog_factor: ''
             },
             rules: {
                 required: [(v) => !!v || "Field is required"],
@@ -86,6 +91,7 @@ export default ({
             this.formData.low_skill_factor = data.low_skill_factor 
             this.formData.min_questions_number = data.min_questions_number 
             this.formData.question_factor = data.question_factor    
+            this.formData.backlog_factor = data.backlog_factor 
       }
     },
     mounted() {
@@ -103,6 +109,7 @@ export default ({
                 this.formData.low_skill_factor = response.data.domain.low_skill_factor 
                 this.formData.min_questions_number = response.data.domain.min_questions_number 
                 this.formData.question_factor = response.data.domain.question_factor
+                this.formData.backlog_factor = response.data.domain.backlog_factor
                 this.editing = true
               },(error) =>{
                 this.x=error
@@ -117,6 +124,7 @@ export default ({
         this.formData.low_skill_factor = ""
         this.formData.min_questions_number = ""
         this.formData.question_factor = ""
+        this.formData.backlog_factor = ""
       })
     },
     methods: {
@@ -130,7 +138,7 @@ export default ({
               this.$emit('newdataComportamento', [this.formData.default_user_level,
               this.formData.high_performance_factor,this.formData.low_performance_factor,
               this.formData.high_skill_factor,this.formData.low_skill_factor,
-              this.formData.min_questions_number,this.formData.question_factor]);            
+              this.formData.min_questions_number,this.formData.question_factor, this.formData.backlog_factor]);            
           },
             deep: true
         }

@@ -1,0 +1,109 @@
+{% extends "base_site.html" %}
+
+{% block title %} Adicionar questão {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <script type="text/javascript">
+    function doWork(){
+      // ACTIVATE MENU TAB
+      var li = $(".side-menu > li:nth-child(2)");
+      li.addClass("active");
+      $('ul:first', li).slideDown(function() {
+          $('li.active > ul:nth-child(2) > li:nth-child(1)').addClass("current-page");
+      });
+
+      //CALL NEXT FUNCTION
+      loadTagsInput();
+    }
+
+    function loadTagsInput() {
+      $('#tags_1').tagsInput({
+          width: 'auto',
+          defaultText: 'Adicionar pergunta(s)'
+
+        });
+    }
+    window.onload = doWork;
+  </script>
+{% endblock stylesheets %}
+
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Adicionar questão</h3>
+    </div>
+
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Importar questão...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12">
+
+      {% include "parameters.html" %}
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Respostas</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li style="float: right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div id="answers_anchor" class="x_content">
+          {% for n in range(1, 4) %}
+          <div class="row">
+
+            {% include "answer.html" %}
+
+          </div>
+          <div class="ln_solid"></div>
+          {% endfor %}
+
+          <div id="nextAnswer" class="invisible row">
+            {% with n = 0 %}
+              {% include "answer.html" %}
+            {% endwith %}
+          </div>
+
+          <span id="addAnswerBtn" class="btn btn-primary">Adicionar resposta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+
+      {% include "solution.html" %}
+
+    </div>
+  </div>
+  <div class="row">
+    <span style="float: right; margin: 1em" id="submitBtn" class="btn btn-success">Validar questão</span>
+    <span class="invisible input_valid"><i class="fa fa-check"></i> Questão submetida para aprovação</span>
+    <span class="invisible input_invalid"></span>
+  </div>
+</div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+{% endblock javascripts %}

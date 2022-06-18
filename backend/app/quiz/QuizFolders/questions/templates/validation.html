@@ -1,0 +1,160 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import validModal, invalidModal, viewQuestionModal %}
+
+{% block title %} Questões {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+{{ validModal(title="Validar questão", body="Tem a certeza que pretende validar esta questão?") }}
+
+{{ invalidModal(title="Invalidar questão", body="Tem a certeza que pretende invalidar esta questão?") }}
+
+{{ viewQuestionModal(title="Detalhes da questão") }}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Questões<br><small style="font-size: 55%">Listagem por domínio</small></h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Procurar...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-angle-right"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+  {% if dict.items()|length > 0 %}
+    {% for domain, docs in dict.items() %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{{ domain }}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li style="float: right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <!-- start domain's question list -->
+            <table class="table table-striped projects">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th style="width: 30vw;">Cabeçalho</th>
+                  <th style="width: 12%;">Subdomínio</th>
+                  <th>Inserido por</th>
+                  <th>Data de inserção</th>
+                  <th>Validação</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for question in docs %}
+                  <tr>
+                    <td>
+                      {{ question.number }}
+                    </td>
+                    <td class="headerCell">
+                      {{ question.header }}
+                    </td>
+                    <td>
+                      {{ question.subdomain }}
+                    </td>
+                    <td>
+                      {{ question.insertedBy.name }}
+                    </td>
+                    <td>
+                      {{ question.insertionDate|datetimeformat }}
+                    </td>
+                    <td>
+                      <a href="javascript:void(0)" onclick='viewTarget("{{ question }}")' data-target="#viewQuestion_modal" data-toggle="modal" title="Ver" class="btn btn-primary" style="padding: 2px 6px"><i class="fa fa-eye"></i></a>
+                      <a href="javascript:void(0)" onclick='setTarget("{{ question.number }}")' data-target="#valid_modal" data-toggle="modal" title="Validar" class="edition-btn btn btn-success"><i class="fa fa-check"></i></a>
+                      <a href="javascript:void(0)" onclick='setTarget("{{ question.number }}")' data-target="#invalid_modal" data-toggle="modal" title="Invalidar" class="edition-btn btn btn-danger"><i class="fa fa-times"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- end domain's questions list -->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <div style="height: 50vh; display: flex; justify-content: center; align-items: center;">
+      <h4>Não existem questões por validar nos domínios que lhe foram atribuídos.</h4>
+    </div>
+  {% endif %}
+</div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+  <script type="text/javascript">
+    var target = -1;
+    function setTarget(id){
+      target = id;
+    }
+
+    $("#confirmValidation_btn").click( () => {
+      // SEND POST TO VALIDATE THE TARGET
+      $.ajax({
+        type: 'POST',
+        data: target,
+        url: "/questions/validation",
+        contentType: 'text/plain'
+      });
+      $("#valid_modal").modal('hide');
+    });
+
+    $("#confirmInvalidation_btn").click( () => {
+      // SEND POST TO INVALIDATE THE TARGET
+      $.ajax({
+        type: 'POST',
+        data: { "number": target, "message": $("#message-text").val() },
+        url: "/questions/validation",
+        contentType: 'application/json'
+      });
+      $("#valid_modal").modal('hide');
+    });
+
+
+    function viewTarget(question_str){
+      var patt = /(\'\_id\'\:\ ObjectId\(\'[a-z0-9]+\'\),\ )/
+      question_str = question_str.replace(patt, "");
+      question = JSON.parse(JSON.stringify(eval('('+ question_str +')')));
+      $("#id_field").html(question.number);
+      $("#domain_field").html(question.subdomain + " (" + question.domain + ")");
+      if (question.degree == "1") {
+        degree_str = "Fácil";
+      }
+      else if (question.degree == "2") {
+          degree_str = "Normal";
+      }
+      else {
+          degree_str = "Difícil";
+      }
+
+      $("#degree_field").html(degree_str);
+      $("#reps_field").html(question.repetitions);
+      $("#insertion_field").html(dateFormat(question.insertionDate));
+    }
+  </script>
+{% endblock javascripts %}

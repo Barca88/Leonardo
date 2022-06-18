@@ -1,0 +1,27 @@
+@import profile
+
+.additional-info
+  display: flex
+  justify-content: center
+  align-items: center
+
+  p
+    margin-bottom: 0
+
+    a
+      color: inherit
+
+      &:hover
+        color: #23527c
+
+    &:first-child
+      margin-right: 11px
+
+      a
+        padding-right: 10px
+
+      &::after
+        content: '\2022'
+        color: #ccc
+        right: -1px
+        position: relative

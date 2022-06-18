@@ -1,0 +1,25 @@
+{% extends "base_site.html" %} {% block title %} Análise de dados {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+
+    <!-- /top tiles -->
+
+    <!-- Start Network Activities -->
+
+
+        <iframe 
+        id='iframe'
+        noresize='noresize' 
+        src={{ dash_url }}
+        frameborder="0"
+        >
+    </iframe>
+<div class="clearfix"></div>
+
+    <!-- End Network Activities -->
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('iframe').style = '{{ styleF }}'; 
+    </script>
+    {% endblock content %} {{ super()}}

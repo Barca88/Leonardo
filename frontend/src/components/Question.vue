@@ -387,9 +387,12 @@
             this.frase = "Se acertares esta pergunta ficas em numero 1 do ranking"
         }
 
+        console.log(this.$store.getters.get_quizz_parameters)
+
         var quizz_parameters = this.$store.getters.get_quizz_parameters
 
         this.session_mode = quizz_parameters.session_mode
+        
 
         var user = {
             id: quizz_parameters.id,
@@ -403,15 +406,20 @@
 
         this.domain = quizz_parameters.domain
         this.sub_domains = eval(quizz_parameters.subdomains)
+        
         this.look_for_monitor_content = false
 
         await this.save_user(user)       
         let url = await this.get_domain()
-
+        console.log('-----------')
+        //console.log(url)
         var current_user = this.$store.getters.get_session_user
-        var user_url = '&id=' + current_user.id + '&username=' + current_user.username + '&name=' + current_user.name + '&email=' + current_user.email + '&gender=' + current_user.gender + '&degree=' + current_user.degree + '&user_type=' + current_user.user_type
-
+        var user_url = '&id=' + current_user.id + '&username=' + current_user.username + '&name=' + current_user.name + '&email=' + current_user.email + '&user_level=' + current_user.user_level + '&gender=' + current_user.gender + '&degree=' + current_user.degree + '&user_type=' + current_user.user_type
+        console.log(user_url)
+        console.log(this.sub_domains[0])
+        console.log(url)
         for(let i = 0; i<this.sub_domains.length;){
+            console.log('for c')
             await this.$http.get('http://localhost:5000/api/v0/evaluation/new?' + url + '&subdomain=' + this.sub_domains[i] + user_url)
                 .then(result => {
                     var dictionary = JSON.parse(result.data)
@@ -445,7 +453,10 @@
                         this.look_for_monitor_content = true
                     }
                 })
-                .catch(error => { throw(error) })   
+                .catch(
+                    error => {console.log('error na eval') 
+                    throw(error) 
+                    })   
         }
 
         if(this.questions_found == 0){
@@ -461,20 +472,25 @@
             await this.$store.commit('set_error_processing_voice', 0)
         },
         async get_domain() {
+            console.log('getdomain')
             var study_cycle = ""
             var scholarity = ""
             var domains = this.$store.getters.get_user_domains
-            
+            console.log(domains)
             for(let i = 0; i<domains.length; i++) {
+                console.log(domains[i].domain)
+                console.log(domains[i])
                 if(domains[i].domain == this.domain){
                     study_cycle = domains[i].study_cycle,
                     scholarity = domains[i].scholarity
-
+                    console.log(study_cycle)
                     await this.$store.commit('set_session_domain', {study_cycle: study_cycle, scholarity: scholarity, description: this.domain })
+                    
+                    let url = "&_id=" + this.domain
 
-                    let url = "study_cycle=" + study_cycle + "&scholarity=" + scholarity + "&description=" + this.domain
-
+                    console.log(url)
                     return url
+
                 }
             }
         },
@@ -586,6 +602,8 @@
             this.look_for_monitor_content = false
 
             var user = this.$store.getters.get_session_user
+            console.log('-------USER')
+            console.log(user)
             var response_db = this.build_answer_db(user)
             var response_dw = this.build_answer_dw(user)
 
@@ -663,17 +681,22 @@
             let domains = []
 
             await this.$store.commit('set_user', user)
-            await this.$http.get('http://localhost:5000/api/v0/evaluation/getDomains?idUser=' + user.id)
+            await this.$http.get('http://localhost:5000/api/v0/evaluation/getDomains?idUser=' + null)
                 .then(async dados => {
                     let doms = eval(dados.data)
+                    console.log(doms)
+                    console.log(doms.length)
+                    for(let i = 0; i<doms.length; i++){
+                        //for(let j = 0; j<doms[i].domains.length; j++){
+                            console.log('adding doms')
+                            domains.push({ domain: doms[i]._id, study_cycle: 'studyC', scholarity: doms[i].scholarity })
 
-                    for(let i = 0; i<doms.length; i++)
-                        for(let j = 0; j<doms[i].domains.length; j++)
-                            domains.push({ domain: doms[i].domains[j].description, study_cycle: doms[i].domains[j].study_cycle, scholarity: doms[i].domains[j].scholarity })
+                        }
 
                     await this.$store.commit('set_user_domains', domains)
                 }) 
-                .catch(error => { throw(error) })
+                .catch(error => { console.log('error') 
+                throw(error) })
         },
         windowClose(){ window.close(); },
         async popupInquiry() {

@@ -1,0 +1,108 @@
+<div class="left_col scroll-view">
+  <div class="navbar nav_title" style="border: 0;">
+    <a href="{{ url_for('base_blueprint.route_default') }}" class="site_title"><img src="/static/images/raccoon.png" alt="logo" style="height: 40px"><span>Leonardo</span></a>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <br />
+
+  <!-- sidebar menu -->
+  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+      {% if current_user.user_type == 1 %}
+        <h3>Administrador</h3>
+      {% elif current_user.user_type == 2 %}
+        <h3>Responsável</h3>
+      {% elif current_user.user_type == 3 %}
+        <h3>Operador</h3>
+      {% elif current_user.user_type == 4 %}
+        <h3>Estudante</h3>
+      {% endif %}
+      <ul class="nav side-menu">
+        <li><a><i class="fa fa-database"></i> Tabelas Base <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="/questions/domsVue"> Domínios </a></li>
+            <li><a href="/questions/subdomsVue"> Subdomínios </a></li>
+            <li><a href="/questions/subsubdomains"> Subsubdomínios </a></li>
+          </ul>
+        </li>
+        <li><a><i class="fa fa-wrench"></i> Produção <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="/questions/list"> Preparação de questões </a></li>
+            <li><a href="/questions/validation"> Validação de questões </a></li>
+            <li><a href="javascript:void(0)"> Preparação de modelos </a></li>
+          </ul>
+        </li>
+        <li><a><i class="fa fa-graduation-cap"></i> Avaliação <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="/evaluation/"><i></i> Testes </a>
+            <li>
+              <a href="/evaluation/chooseDom"><i class="fa fa-address-card"></i> Quizz </a>
+            </li>
+          </ul>
+        </li>      
+        <li><a href="/students/"><i class="fa fa-address-card"></i> Estudantes </a>
+        <li><a><i class="fa fa-trophy"></i> Gamificação <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="/gamification/index"> Utilizadores </a></li>
+              <li><a href="/gamification/index_domain"> Domínios </a></li>
+              <li><a href="/gamification/index_import">Importar </a></li>
+            </ul>
+          </li>
+          <li><a><i class="fa fa-bar-chart-o"></i> Análise de Dados <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="/statistics/analitics/answers"> Análise de Respostas </a></li>
+            <li><a href="/statistics/analitics/users"> Análise Individual </a></li>
+            <li><a href="/statistics/analitics/system"> Análise De Acessos </a></li>
+          </ul>
+        </li> 
+        <li><a><i class="fa fa-bar-chart-o"></i> Opiniões <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="/inquiries/analitics/opinions"> Análise de Inquéritos </a></li>
+            <li><a href="/inquiries/analitics/opinionsDate"> Análise de Propriedades </a></li>
+          </ul>
+        </li>
+        <li><a href="/rules_editor"><i class="fa fa-edit"></i> Editor de regras </a>
+        <li><a href="/users/"><i style="font-size:20px; margin-right: 5px" class="iconify" data-icon="ic:round-group" data-inline="true"></i> Utilizadores </a>
+        <li><a href="javascript:void(0)"><i class="fa fa-list-ol"></i> Eventos </a>
+        <li><a href="javascript:void(0)"><i class="fa fa-cog"></i> Definições </a>
+        <li><a href="javascript:void(0)"><i class="fa fa-book"></i> Documentação </a>
+        <li><a onclick="manageSideBarDiv('Acerca de', 'open')"><i class="fa fa-info-circle"></i> Acerca de </a>
+        <li><a onclick="manageSideBarDiv('Créditos', 'open')"><i class="fa fa-users"></i> Créditos </a>
+        <li><a onclick="manageSideBarDiv('Termos de utilização', 'open')"><i class="fa fa-address-book"></i> Termos de utilização </a>
+        <li><a onclick="manageSideBarDiv('Privacidade', 'open')"><i class="fa fa-lock"></i> Privacidade </a>
+      </ul>
+    </div>
+
+  </div>
+  <!-- /sidebar menu -->
+
+
+  <!-- /menu footer buttons -->
+  <div class="sidebar-footer hidden-small">
+    <a data-toggle="tooltip" data-placement="top" title="Inquérito de sistema" onclick="popupInquiry({{current_user.id}})">
+      <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Definições">
+      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Acerca de">
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Ajuda">
+      <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Terminar sessão" href="/sign_out">
+      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+  </div>
+  <!-- /menu footer buttons -->
+</div>
+
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<script>
+    function popupInquiry(current_user) {
+        window.open('https://leonardo.di.uminho.pt/evaluation/system_inquiry', '_blank', 'width=615, height=500');
+    };
+</script>

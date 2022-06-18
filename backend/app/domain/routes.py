@@ -83,12 +83,12 @@ def route_template_insert():
         low_skill_factor = request.form.get('low_skill_factor')
         min_questions_number = request.form.get('min_questions_number')
         question_factor = request.form.get('question_factor')
-        #inserted_by = request.form.get('inserted_by')
+        backlog_factor = request.form.get('backlog_factor')
         inserted_at = request.form.get('inserted_at')
 
         mongo.db.domains.insert({"_id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
         "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
-        "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at })
+        "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at, "backlog_factor": backlog_factor})
         write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
         return '1'
 

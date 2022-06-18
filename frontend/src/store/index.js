@@ -6,6 +6,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+      session_domain: {
+        study_cycle: "",
+        scholarity: "",
+        description: ""
+      },
+      session_question: {
+        content: {},
+        number: -1,
+        thrown_at: "" 
+      },
       quizz_parameters: {
         domain: "",
         subdomains: [],
@@ -65,9 +75,10 @@ export default new Vuex.Store({
           state.user_domains = domains
       },
       set_session_domain(state, domain) {
+        console.log('setting session domain')
         state.session_domain.study_cycle = domain.study_cycle
         state.session_domain.scholarity = domain.scholarity
-        state.session_domain.description = domain.description
+        state.session_domain._id = domain.description
       },
       set_session_question(state, question) {
         state.session_question.content = question.content
@@ -86,6 +97,7 @@ export default new Vuex.Store({
         state.quizz_parameters.degree = quizz_parameters.degree,
         state.quizz_parameters.user_type = quizz_parameters.user_type,
         state.quizz_parameters.session_mode = quizz_parameters.session_mode
+        console.log(quizz_parameters)
       },
       set_inquiry_id(state, inquiry_id){
         state.inquiry_id = inquiry_id
@@ -113,6 +125,27 @@ export default new Vuex.Store({
   
     },
     getters:{
+      get_session_user(state) {
+        return state.user
+      },
+      get_username(state) {
+        return state.user.username
+      },
+      get_user_domains(state) {
+        return state.user_domains
+      },
+      get_session_domain(state) {
+        return state.session_domain 
+      },
+      get_session_question(state) {
+        return state.session_question
+      },
+      get_quizz_parameters(state){
+        return state.quizz_parameters
+      },
+      get_inquiry_id(state){
+        return state.inquiry_id
+      },
       isAuthenticated (state) {
         if (!state.jwt || state.jwt.split('.').length < 3) {
           return false

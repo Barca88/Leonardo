@@ -122,7 +122,7 @@ def route_template_registar():
                 upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', username + ".pdf")
                 copyfile(src, upload_path2)
         obs = request.form.get('obs')
-        mongo.db.users.insert({"_id":username,"name":name,"email":email,"studentNumber":studentNumber, "password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
+        mongo.db.users.insert({"_id":username,"name":name,"email":email,"studentNumber":studentNumber, "password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs, "user_level": '0'})
         mongo.db.users.find()
         if user:
             if(type == "all"): 
@@ -333,7 +333,7 @@ def route_import_registos():
             list.append(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]}))
             success = False
         else:
-            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"studentNumber":jsonUser["Identificador"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género"] })
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"studentNumber":jsonUser["Identificador"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género", "user_level": '0'] })
             #mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
         
     if(success):
@@ -568,6 +568,7 @@ def route_template_apagar_pedido(pedido):
 #@login_required
 def route_template_mover_pedido(pedido):
     value1 = mongo.db.requests.find_one({"_id": pedido})
+    value1['user_level'] = '0'
     mongo.db.users.insert(value1)
     mongo.db.requests.remove({"_id":pedido})
     upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)

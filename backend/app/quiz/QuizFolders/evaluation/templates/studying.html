@@ -1,0 +1,42 @@
+{% extends "responsive/base_site.html" %}
+
+{% block content %}
+<div id='studying-page' role="main">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Estudar</h3>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div id="widget-study-launcher">
+    <div class="row">
+      <div class="col-xs-8 col-sm-6 col-lg-3 select-domain-container">
+        <select class="select2_group form-control select-domain">
+          <option value="">-- Escolha o domínio --</option>
+          {% for group in domains %}
+            <optgroup label="{{ group._id.scholarity }}">
+              {% for domain in group.domains %}
+                <option
+                  data-study-cycle="{{ group._id.study_cycle }}"
+                  data-scholarity="{{ group._id.scholarity }}"
+                  value="{{ domain.description }}">
+                  {{ domain.description }}
+                </option>
+              {% endfor %}
+            </optgroup>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-primary start-studying">Começar</<button>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div id="widget-study-container" class="hidden"></div>
+</div>
+{% endblock content %}

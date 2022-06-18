@@ -1,0 +1,182 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import deleteModal, viewQuestionModal %}
+
+{% block title %} Questões {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+{% endblock stylesheets %}
+
+{% block content %}
+
+{{ deleteModal(title="Apagar questão", body="Tem a certeza que pretende apagar esta questão?") }}
+
+{{ viewQuestionModal(title="Detalhes da questão") }}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Questões<br><small style="font-size: 55%">Listagem por domínio</small></h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Procurar...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><i class="fa fa-angle-right"></i></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% if dict.items()|length > 0 %}
+      {% for domain, docs in dict.items() %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2 style="font-size: 25px">{{ domain }}</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li style="float: right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <!-- start domain's question list -->
+              <table class="table table-striped projects">
+                <thead>
+                  <tr>
+                    <th style="width: 10%; padding-bottom: 0">Número<br><small style="font-weight: 400">Data de inserção</small></th>
+                    <th style="width: 30vw; vertical-align: top">Cabeçalho</th>
+                    <th style="width: 12%; vertical-align: top">Subdomínio</th>
+                    <th style="vertical-align: top">Precedências</th>
+                    <th style="vertical-align: top">Dificuldade</th>
+                    <th style="vertical-align: top">Edição</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for question in docs %}
+                    <tr>
+                      <td>
+                        <a>{{ question.number }}</a>
+                        <br />
+                        <small>{{ question.inserted_at|datetimeformat }}</small>
+                      </td>
+                      <td class="headerCell">
+                        {{ question.header }}
+                      </td>
+                      <td>
+                        <p style="font-size: 1em">{{ question.subdomain }}</p>
+                      </td>
+                      <td>
+                        <ul style="list-style-type: none">
+                        {% for prec in question.precedence %}
+                          <li>{{ prec }}</li>
+                        {% endfor %}
+                        </ul>
+                      </td>
+                      <td>
+                        {{ question.difficulty_level }}
+                      </td>
+                      <td>
+                        <a href="javascript:void(0)" onclick='viewTarget("{{ question }}")' data-target="#viewQuestion_modal" data-toggle="modal" title="Ver" class="btn btn-primary" style="padding: 2px 6px"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="Editar" class="btn btn-info" style="padding: 2px 6px"><i class="fa fa-pencil"></i></a>
+                        <a href="javascript:void(0)" onclick='setTarget("{{ question.number }}")' data-target="#delete_modal" data-toggle="modal" title="Apagar" class="btn btn-danger" style="padding: 2px 6px"><i class="fa fa-trash-o"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- end domain's questions list -->
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <div style="height: 50vh; display: flex; justify-content: center; align-items: center;">
+        <h4>Ainda não existem questões nos domínios que lhe foram atribuídos.</h4>
+      </div>
+    {% endif %}
+    <a href="/questions/add"><button title="Adicionar questão" id="addQuestion_btn" class="btn btn-primary">+</button></a>
+</div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+  <script type="text/javascript">
+    var target = -1;
+    function setTarget(id){
+      target = id;
+    }
+
+    $("#confirmDelete_btn").click( () => {
+      // SEND POST TO DELETE THE TARGET
+      $.ajax({
+        type: 'POST',
+        data: target,
+        url: "/questions/list",
+        contentType: 'text/plain'
+      });
+      $("#delete_modal").modal('hide');
+    });
+
+    function fillAnswers(answers){
+      $("#answers_field").html("");
+      for(var i = 0; i < answers.length; i++){
+        var body = $("<div>").css("display", "flex");
+        var text = answers[i].answer;
+        var score = " (" + answers[i].correction*100 + "%)";
+        var span = $("<span>").css("font-weight", "bold").html(text);
+        var span2 = $("<span>").html(score);
+        body.append(span).append(span2);
+        var div = $("<div>").css("padding", "0 10px").html(body);
+        if (answers[i].mandatory == "true")
+          div.append($("<p>").html("[Necessária]"));
+        else
+          div.append($("<p>").html("[Opcional]"));
+        $("#answers_field").append(div);
+      }
+    }
+
+    function viewTarget(question_str){
+      console.log(question_str);
+      var patt = /(\'\_id\'\:\ ObjectId\(\'[a-z0-9]+\'\),\ )/
+      question_str = question_str.replace(patt, "");
+      question = JSON.parse(JSON.stringify(eval('('+ question_str +')')));
+      $("#id_field").html("#"+question.number);
+      $("#domain_field").html(question.domain);
+      $("#subdomain_field").html(question.subdomain);
+      if (question.degree == "1") {
+        degree_str = "Fácil";
+      }
+      else if (question.degree == "2") {
+          degree_str = "Normal";
+      }
+      else {
+          degree_str = "Difícil";
+      }
+      $("#header_field").html(question.header);
+      var answers = question.body;
+      fillAnswers(answers);
+      $("#degree_field").html(degree_str);
+      $("#reps_field").html(question.repetitions);
+      $("#insertion_field").html(question.insertedBy.name + ' (' + dateFormat(question.insertionDate) + ')');
+      $("#explain_field").html(question.solution);
+      var refs = question.references;
+      var ul = $("<ul>");
+      for(var i = 0; i < refs.length; i++){
+        ul.append($("<li>").html(refs[i]));
+      }
+      $("#references_field").html(ul);
+    }
+  </script>
+{% endblock javascripts %}

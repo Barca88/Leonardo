@@ -1,0 +1,259 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import deleteModal, viewDomainModal %}
+
+{% block meta %}
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <link rel="shortcut icon" href="../../static/images/favicon-raccoon.ico" type="image/ico" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock meta %}
+
+{% block title %} Domínios {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <script type="text/javascript">
+    var error = "{{ domain_error }}";
+    function loadFunc() {
+      $('#tags_1').tagsInput({
+          width: 'auto',
+          defaultText: 'Adicionar email(s)'
+
+        });
+        if (error != "") {
+          $("#addDomain_modal").modal('show');
+        }
+        else {
+          $("#addDomain_modal").addClass("fade");
+        }
+    }
+    window.onload = loadFunc;
+  </script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+{{ deleteModal(title="Apagar domínio", body="Tem a certeza que pretende apagar este domínio e, consequentemente, todos os seus subdomínios?") }}
+
+{{ viewDomainModal(title="Detalhes do domínio") }}
+
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Domínios de questões</h3>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_content">
+            <!-- start domains' list -->
+            <table class="table table-striped projects">
+              <thead>
+                <tr>
+                  <th>Ciclo de estudos</th>
+                  <th>Escolaridade</th>
+                  <th>Descrição</th>
+                  <th>Inserido por</th>
+                  <th>Data de inserção</th>
+                  <th>Validado por</th>
+                  <th>Data de validação</th>
+                  <th>Edição</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for group in dict %}
+                  {% for domain in group.domains %}
+                    <tr>
+                      <td>
+                        {{ domain.study_cycle }}
+                      </td>
+                      <td>
+                        {{ domain.scholarity }}
+                      </td>
+                      <td class="headerCell">
+                        {{ domain.description }}
+                      </td>
+                      <td>
+                        {{ domain.inserted_by.name }}
+                      </td>
+                      <td>
+                        {{ domain.inserted_at|datetimeformat }}
+                      </td>
+                      {% if domain.validated_by == "" %}
+                      <td>
+                        ---
+                      </td>
+                      <td>
+                        ---
+                      </td>
+                      {% else %}
+                      <td>
+                        {{ domain.validated_by.name }}
+                      </td>
+                      <td>
+                        {{ domain.validated_at|datetimeformat }}
+                      </td>
+                      {% endif %}
+                      <td>
+                        <a href="javascript:void(0)" onclick='viewTarget("{{ domain }}")' data-target="#viewDomain_modal" data-toggle="modal" title="Ver" class="edition-btn btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="Editar" class="edition-btn btn btn-info"><i class="fa fa-pencil"></i></a>
+                        <a href="javascript:void(0)" onclick='setTarget("{{ domain.id }}")' data-target="#delete_modal" data-toggle="modal" title="Apagar" class="edition-btn btn btn-danger"><i class="fa fa-trash-o"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- end domains' list -->
+          </div>
+        </div>
+     </div>
+  </div>
+  {% if current_user.user_type == 1 %}
+  <button title="Adicionar domínio" id="addDomain_btn" data-target="#addDomain_modal" data-toggle="modal" class="btn btn-primary">+</button>
+
+  <!-- Modal HTML -->
+  <div id="addDomain_modal" class="modal">
+    <div class="modalDialog modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" onclick="closeModal()" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Adicionar Domínio</h4>
+        </div>
+        <div class="modal-body">
+          <input id="study-cycle" class="form-control" placeholder="Ciclo de Estudos" type="text">
+          <br>
+          <input id="scholarity" class="form-control" placeholder="Escolaridade" type="text">
+          <br>
+          <input id="description" class="form-control" placeholder="Designação" type="text">
+          {% if domain_error == True %}
+            <p class="error_msg">*Desginação já atribuída a um domínio</p>
+          {% endif %}
+          <br>
+
+          <label class="control-label">Responsáveis:</label>
+          <input id="tags_1" type="number" class="tags" value="" />
+          <div class="errorsList">
+          {% if user_errors %}
+            {% if user_errors|length > 0 %}
+              {% for error in user_errors %}
+                <p class="error_msg">*{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endif %}
+          </div>
+          <br>
+          <div class='domains-config'>
+            <p><b>Configuração:</b></p>
+            <span>Nível do aluno predefinido: <input type="number" name="default_user_level" min="0" max="5" step="1" value="2"></span>
+            <p class="text-warning"><small>Classificação predefinida do nível do aluno.</small></p>
+            <span>Fator de desempenho incremental: <input type="number" name="high_performance_factor" min="0" max="1" step="0.1" value="0.7"></span>
+            <p class="text-warning"><small>Valor mínimo para subida do nível do aluno.</small></p>
+            <span>Fator de desempenho decremental: <input type="number" name="low_performance_factor" min="0" max="1" step="0.1" value="0.4"></span>
+            <p class="text-warning"><small>Valor máximo para descida do nível do aluno.</small></p>
+            <span>Fator de aptidão incremental: <input type="number" name="high_skill_factor" min="0" max="1" step="0.1" value="0.7"></span>
+            <p class="text-warning"><small>Valor mínimo para subida do nível do aluno.</small></p>
+            <span>Fator de aptidão decremental: <input type="number" name="low_skill_factor" min="0" max="1" step="0.1" value="0.4"></span>
+            <p class="text-warning"><small>Valor máximo para descida do nível do aluno.</small></p>
+            <span>Fator de acumulação: <input type="number" name="backlog_factor" min="0" max="10" step="1" value="5"></span>
+            <p class="text-warning"><small>Intervém em respostas certas/erradas consecutivas.</small></p>
+            <span>Fator de questões: <input type="number" name="questions_factor" min="0" max="10" step="1" value="5"></span>
+            <p class="text-warning"><small>Intervém no número de questões a responder num nível.</small></p>
+            <span>Mínimo de questões predefinido: <input type="number" name="min_questions_number" min="0" max="20" step="1" value="10"></span>
+            <p class="text-warning"><small>Número mínimo de questões predefinido para um nível.</small></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          {% if domain_error == False and user_errors|length == 0 %}
+            <p class="input_valid">Novo domínio adicionado com sucesso!</p>
+          {% endif %}
+          <button type="button" class="btn btn-default" onclick="closeModal()">Cancelar</button>
+          <button id="submitDomain" type="button" class="btn btn-primary">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+</div>
+
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+  <script type="text/javascript">
+    function closeModal() {
+      var $elem = $('#addDomain_modal');
+
+      $elem.modal('hide');
+
+      if (!$elem.hasClass('fade')){
+        $elem.addClass('fade');
+      }
+    }
+    $("#description").attr("onfocus", "hideError()");
+    $("#scholarity").attr("onfocus", "hideError()");
+    $("#study-cycle").attr("onfocus", "hideError()");
+
+    var target = -1;
+    function setTarget(id){
+      target = id;
+    }
+
+    $("#confirmDelete_btn").click( () => {
+      // SEND POST TO DELETE THE TARGET
+      $.ajax({
+        type: 'POST',
+        data: target,
+        url: "/questions/domains",
+        contentType: 'text/plain'
+      }).done(function() {
+        $("#delete_modal").modal('hide');
+        location.pathname == '/questions/domains/add' ? location.href = '/questions/domains' : location.reload();
+      });
+    });
+
+    function viewTarget(domain_str){
+      console.log(domain_str);
+      var patt = /(\'\_id\'\:\ ObjectId\(\'[a-z0-9]+\'\),\ )/
+      domain_str = domain_str.replace(patt, "");
+      domain = JSON.parse(JSON.stringify(eval('('+ domain_str +')')));
+      console.log(domain);
+      subdoms = domain.subdomains;
+      $("#id_field").html(domain.id);
+      $("#desc_field").html(domain.description);
+      list = $("#subdomains_field");
+      list.children().remove();
+      for (var i = 0; i < subdoms.length; i++){
+        var li = $("<li>").html(subdoms[i].description);
+        list.append(li);
+      }
+      $("#insertion_field").html(domain.inserted_by.name + ' (' + dateFormat(domain.inserted_at) + ')');
+      $("#validation_field").html(domain.validated_by.name + ' (' + dateFormat(domain.validated_at) + ')');
+      inCharge = domain.users_in_charge;
+      users = $("#inCharge_field");
+      users.children().remove();
+      for (var i = 0; i < inCharge.length; i++){
+        since = inCharge[i].since;
+        until = inCharge[i].until;
+        str = " (desde " + dateFormat(since);
+        if (until == "")
+          str += ")";
+        else
+          str += " a " + dateFormat(until) + ")" ;
+        var li = $("<li>").html(inCharge[i].name + str);
+        users.append(li);
+      }
+    }
+  </script>
+{% endblock javascripts %}

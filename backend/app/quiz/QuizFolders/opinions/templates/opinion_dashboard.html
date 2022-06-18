@@ -1,0 +1,45 @@
+{% extends "base_site.html" %} {% block title %} Dashboard de Opiniões {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+
+    <!-- /top tiles -->
+
+    <!-- Start Network Activities -->
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="col-md-12">
+                    <div style="width: 100%; min-height:900px;" >
+                        <iframe
+                        noresize='noresize'
+                        style='position: absolute; background: transparent; width: 99%; height:100%;'
+                        src={{ dash_url }}
+                        frameborder="0">
+                    </iframe>
+                </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    
+    {% endblock content %} {% block javascripts %} {{ super()}}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/morris.js/morris.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/raphael/raphael.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/morris.js/morris.min.js') }}"></script>
+
+    <!-- Chart.js -->
+    <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+    <!-- Flot -->
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+
+    {% endblock javascripts %}

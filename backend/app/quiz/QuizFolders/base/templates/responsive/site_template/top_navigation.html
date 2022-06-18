@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img alt="logo" src="/static/images/raccoon-white.png"><h4>Leonardo</h4>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li {% if request.path == '/evaluation/' %}class='active'{% endif %}>
+          <a href="#" class='icon-link' data-toggle='tooltip' title='Estudar' data-placement='bottom'>
+            <i class="fa fa-graduation-cap"></i>
+            <span class='icon-link-description'>Estudar</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class='icon-link' data-toggle='tooltip' title='Continuar' data-placement='bottom'>
+            <i class="fa fa-chevron-circle-right"></i>
+            <span class='icon-link-description'>Continuar</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class='icon-link' data-toggle='tooltip' title='Estatísticas' data-placement='bottom'>
+            <i class="fa fa-bar-chart"></i>
+            <span class='icon-link-description'>Estatísticas</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class='icon-link' data-toggle='tooltip' title='Idioma' data-placement='bottom'>
+            <i class="fa fa-globe"></i>
+            <span class='icon-link-description'>Idioma</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class='icon-link' data-toggle='tooltip' title='Ajuda' data-placement='bottom'>
+            <i class="fa fa-question-circle"></i>
+            <span class='icon-link-description'>Ajuda</span>
+          </a>
+        </li>
+        <li class="dropdown" data-toggle='tooltip' title='Ver mais' data-placement='bottom'>
+          <a href="#" class="icon-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="icon-link-description">Ver mais</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="/profile">Perfil</a></li>
+            <li><a href="#">Definições</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/sign_out">Terminar sessão</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

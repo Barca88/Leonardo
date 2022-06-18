@@ -1,0 +1,100 @@
+#profile-page
+  padding: 0 20px
+
+  .panel_toolbox
+    min-width: 0
+
+  .edit-profile, .change-password
+    display: block
+    margin-right: 0
+    border-color: $border-gray
+
+  .change-password
+    color: $font-blue
+
+    &:hover
+      color: $blue
+
+  .edit-profile
+    background-color: $light-blue
+
+    &:hover
+      background-color: $blue
+
+  .has-feedback-left	
+    text-overflow: ellipsis	
+    white-space: nowrap	
+
+  .form-control-feedback	
+    margin-top: 6px	
+
+  .editable-info	
+    padding: 0
+
+  .avatar-preview
+    margin: auto
+    height: 150px
+    width: 150px
+    border-radius: 50%
+    position: relative
+    background-size: cover
+
+    .progress
+      position: absolute
+      height: 16px
+      left: 50%
+      top: 50%
+      margin-top: -8px
+      width: 80px
+      margin-left: -40px
+      border-radius: 8px
+
+    .dz-image img
+      border-radius: 50%
+
+  #avatar-preview-template
+    display: none
+
+  .user-name
+    text-align: center
+
+  .change-avatar
+    height: 30px
+    width: 30px
+    border-radius: 50%
+    background-color: $khaki
+    border: 1px $border-khaki solid
+    position: absolute
+    top: 120px
+    right: 15px
+    cursor: pointer
+
+    i
+      height: 100%
+      display: flex
+      align-items: center
+      justify-content: center
+      color: #ffffff
+      pointer-events: none
+
+    &:hover
+      background-color: $border-khaki
+
+  @media (max-width: $breakpoint-md)
+    .editable-info > .col-xs-12
+      padding: 0
+
+      &:first-child
+        margin-bottom: 5px
+
+    .form-control.has-feedback-left
+      padding-left: 50px
+
+    .x_content > .col-xs-12:first-child
+      margin-bottom: 10px
+
+    .page-title .title_left
+      width: auto
+
+    .x_title h2
+      font-size: 15px

@@ -16,7 +16,8 @@ import jwt
 #########
 
 login_manager = LoginManager()
-mongo = PyMongo()
+mongo       = PyMongo()
+mongoDW     = PyMongo()
 dadosFolio = {}
 indexList = []
 tags = []
@@ -28,7 +29,7 @@ def register_extensions(app):
 
 def register_blueprints(app):
     # Aqui podemos adiconar difrentes modulos
-    for module_name in ['users', 'home', 'base', 'settings', 'documentacao', 'domain', 'question','generator', 'tests', 'evaluation', 'importation', 'stats']:
+    for module_name in ['users', 'home', 'base', 'settings', 'documentacao', 'domain', 'question','generator', 'tests', 'evaluation', 'importation', 'stats', 'quiz']:
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
 
@@ -53,7 +54,13 @@ def create_app(config, selenium=False) -> object:
     app = Flask(__name__, static_folder='base/static')
     app.config["MONGO_URI"] = "mongodb://localhost:27017/leonardo"
     app.config['SECRET_KEY'] = 'leonardo'
+
+    appDW = Flask(__name__, static_folder='base/static')
+    appDW.config["MONGO_URI"] = "mongodb://localhost:27017/leonardoDW"
+    appDW.config['SECRET_KEY'] = 'leonardoDW'
+
     mongo.init_app(app)
+    mongoDW.init_app(appDW)
     if selenium:
         app.config['LOGIN_DISABLED'] = True
     register_extensions(app)

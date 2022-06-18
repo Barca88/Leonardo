@@ -1,0 +1,21 @@
+{% extends "base_site.html" %} {% block title %} Análise de propriedades {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+
+    <!-- /top tiles -->
+
+    <!-- Start Network Activities -->
+        <iframe 
+        noresize='noresize' 
+        src={{ dash_url }}
+        frameborder="0"
+        style="width: 100%; height: 800px;"
+        >
+    </iframe>
+    <div class="clearfix"></div>
+
+    <!-- End Network Activities -->
+    </div>
+
+
+    {% endblock content %} {{ super()}}

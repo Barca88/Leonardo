@@ -1,0 +1,174 @@
+{% extends "base_site.html" %}
+{% from "macros.html" import errorMsg %}
+
+{% block title %} Utilizadores {% endblock title %}
+
+{% block stylesheets %}
+  {{ super() }}
+  <script type="text/javascript">
+    function loadFunc() {
+      if ({{ error }} >= 0) {
+        $("#addUser_modal").modal('show');
+      }
+      else {
+        $("#addUser_modal").addClass("fade");
+      }
+    }
+    window.onload = loadFunc;
+  </script>
+{% endblock stylesheets %}
+
+{% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>{{ _('Utilizadores') }}<br><small style="font-size: 55%">{{ _('Listagem por estatuto') }}</small></h3>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% for type, docs in dict.items() %}
+    <div class="row">
+      <div class="col-md-12">
+        <div class="x_panel">
+          <div class="x_title">
+            {% if type == 1 %}
+              <h2>{{ _('Administrador') }}</h2>
+            {% elif type == 2 %}
+              <h2>{{ _('Responsável') }}</h2>
+            {% elif type == 3 %}
+              <h2>{{ _('Operador') }}</h2>
+            {% elif type == 4 %}
+              <h2>{{ _('Estudante') }}</h2>
+            {% endif %}
+            <ul class="nav navbar-right panel_toolbox">
+              <li style="float: right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <!-- start users' list -->
+            <table class="table table-striped projects">
+              <thead>
+                <tr>
+                  <th style="width: 10%; padding-bottom: 0">{{ _('Número') }}<br><small style="font-weight: 400">{{ _('Data de inserção') }}</small></th>
+                  <th style="vertical-align: top">{{ _('Email') }}</th>
+                  <th style="vertical-align: top">{{ _('Nome') }}</th>
+                  <th style="vertical-align: top">{{ _('Género') }}</th>
+                  <th style="vertical-align: top">{{ _('Curso') }}</th>
+                  <th style="width: 30vw; vertical-align: top">{{ _('Descrição') }}</th>
+                  <th style="vertical-align: top">{{ _('Adicionado por') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in docs %}
+                <tr>
+                  <td>
+                    <a>{{ user.id }}</a>
+                    <br />
+                    <small>{{ user.inserted_at|format_iso8601_to_date }}</small>
+                  </td>
+                  <td>
+                    {{ user.email }}
+                  </td>
+                  <td>
+                    {{ user.name }}
+                  </td>
+                  <td>
+                    {{ user.gender }}
+                  </td>
+                  <td>
+                    {{ user.degree }}
+                  </td>
+                  <td class="bioCell">
+                    {{ user.bio }}
+                  </td>
+                  <td>
+                    {% if not user.inserted_by %}
+                      {{ _('Sistema') }}
+                    {% else %}
+                      {{ user.inserted_by.name }}
+                    {% endif %}
+                  </td>
+                  <td>
+                    <a href="#" title="{{ _('Ver') }}" class="btn btn-primary" style="padding: 2px 6px"><i class="fa fa-eye"></i></a>
+                    <a href="#" title="{{ _('Editar') }}" class="btn btn-info" style="padding: 2px 6px"><i class="fa fa-pencil"></i></a>
+                    <a href="#" title="{{ _('Apagar') }}" class="btn btn-danger" style="padding: 2px 6px"><i class="fa fa-trash-o"></i></a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <!-- end users' list -->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% if current_user.user_type == 1 %}
+    <button title="{{ _('Adicionar utilizador') }}" id="addUser_btn" data-target="#addUser_modal" data-toggle="modal" class="btn btn-primary">+</button>
+
+    <!-- Modal HTML -->
+    <div id="addUser_modal" class="modal">
+      <div class="modalDialog modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" onclick="closeModal()" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{ _('Adicionar utilizador') }}</h4>
+          </div>
+          <form method="post">
+            <div class="modal-body">
+
+              {% for field in create_form if field.widget.input_type != 'hidden'  %}
+                {{ field(class="form-control", placeholder=field.label.text) }}
+                {% if field.description %}
+                  <p class="text-warning" style="margin-bottom: 0px"><small>{{ field.description }}</small></p>
+                {% endif %}
+                {% if field.errors %}
+                  {% for error in field.errors %}
+                      {{ errorMsg(class="error_msg", text="*" + error) }}
+                  {% endfor %}
+                {% elif error == 1 and field.id == 'username_create' %}
+                  {% set username_error %}
+                    *{{ _('Nome de utilizador já existe') }}
+                  {% endset %}
+                  {{ errorMsg(class="error_msg", text=username_error) }}
+                {% endif %}
+                <br>
+              {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+              {% if error == 0 %}
+                <p class="input_valid">{{ _('Utilizador adicionado com sucesso!') }}</p>
+              {% endif %}
+              <button type="button" class="btn btn-default" data-dismiss="modal" onclick="closeModal()">{{ _('Cancelar') }}</button>
+              <button id="submitUser" type="submit" class="btn btn-primary">{{ _('Confirmar') }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+</div>
+<!-- /page content -->
+{% endblock content %}
+
+{% block javascripts %}
+  {{ super()}}
+  <script src="{{ url_for('static', filename='js/questions/questions.js') }}"></script>
+  <script type="text/javascript">
+    function closeModal() {
+      var elem = $('#addUser_modal');
+      if (!elem.hasClass('fade')){
+        elem.addClass('fade');
+      }
+    }
+    $("#email_create").attr("onfocus", "hideError()");
+    $("#username_create").attr("onfocus", "hideError()");
+    $("#name_create").attr("onfocus", "hideError()");
+  </script>
+{% endblock javascripts %}

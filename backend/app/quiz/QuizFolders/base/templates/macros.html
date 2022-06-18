@@ -1,0 +1,292 @@
+<!-- Modal Delete -->
+{% macro deleteModal(title="", body="") %}
+<div id="delete_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <span>{{ body }}</span>
+        <br><br>
+        <span><b>O resultado desta ação é irreversível.</b></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="confirmDelete_btn" type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro viewDomainModal(title="") %}
+<div id="viewDomain_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="viewField">
+          <label class="control-label">Número:</label>
+          <span id="id_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Descrição:</label>
+          <span id="desc_field"></span>
+        </div>
+        <br>
+        <div style="display: flex;">
+          <label class="control-label">Responsáveis:</label>
+          <ul id="inCharge_field"></ul>
+        </div>
+        <br>
+        <div style="display: flex;">
+          <label class="control-label">Subdomínios:</label>
+          <ul id="subdomains_field"></ul>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Inserção:</label>
+          <span id="insertion_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Validação:</label>
+          <span id="validation_field"></span>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro viewSubdomainModal(title="") %}
+<div id="viewSubdomain_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="viewField">
+          <label class="control-label">Número:</label>
+          <span id="id_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Descrição:</label>
+          <span id="desc_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Domínio:</label>
+          <span id="domain_field"></span>
+        </div>
+        <br>
+        <div style="display: flex;">
+          <label class="control-label">Subsubdomínios:</label>
+          <ul id="subsubdomains_field"></ul>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Inserção:</label>
+          <span id="insertion_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Validação:</label>
+          <span id="validation_field"></span>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro viewSubsubdomainModal(title="") %}
+<div id="viewSubsubdomain_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="viewField">
+          <label class="control-label">Número:</label>
+          <span id="id_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Descrição:</label>
+          <span id="desc_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Domínio:</label>
+          <span id="domain_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Subdomínio:</label>
+          <span id="subdomain_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Inserção:</label>
+          <span id="insertion_field"></span>
+        </div>
+        <br>
+        <div class="viewField">
+          <label class="control-label">Validação:</label>
+          <span id="validation_field"></span>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro viewQuestionModal(title="") %}
+<div id="viewQuestion_modal" class="modal fade">
+  <div class="modalDialog modal-dialog" style="width: 700px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="viewField" style="justify-content: space-between;">
+          <div>
+            <span id="id_field"></span>
+          </div>
+          <div>
+            <small>Inserida por</small><span id="insertion_field"></span>
+          </div>
+        </div>
+        <br>
+        <div class="viewField" style="justify-content: space-between;">
+          <div>
+            <label class="control-label">Dificuldade:</label>
+            <span id="degree_field"></span>
+          </div>
+          <div>
+            <label class="control-label">Domínio:</label>
+            <span id="domain_field"></span>
+          </div>
+        </div>
+        <div class="viewField" style="justify-content: space-between;">
+          <div>
+            <label class="control-label">Repetições:</label>
+            <span id="reps_field"></span>
+          </div>
+          <div>
+            <label class="control-label">Subdomínio:</label>
+            <span id="subdomain_field"></span>
+          </div>
+        </div>
+        <br>
+        <label class="control-label">Corpo:</label>
+        <div id="header_field" style="padding: 0 50px;"></div>
+        <br>
+        <div id="answers_field" style="display: flex; justify-content: space-between; flex-wrap: wrap; padding: 0 40px">
+        </div>
+        <br>
+        <div>
+          <label class="control-label">Explicação:</label>
+          <div style="padding: 0 50px;">
+            <div id="explain_field"></div>
+            <br>
+            <p>Referências:</p>
+            <div id="references_field"></div>
+          </div>
+        </div>
+        <div>
+            <label class="control-label">Grafo de precedências:</label>
+            <span id="insertion_field"></span>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+
+{% macro errorMsg(class="", text="") %}
+  <p class="{{ class }}">{{ text }}</p>
+{% endmacro %}
+
+{% macro validModal(title="", body="") %}
+<div id="valid_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <span>{{ body }}</span>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="confirmValidation_btn" type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro invalidModal(title="", body="") %}
+<div id="invalid_modal" class="modal fade">
+  <div class="modalDialog modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+        <span>{{ body }}</span><br><br>
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label" style="font-weight: 500">Mensagem:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+        <p class="text-warning" style="margin-bottom: 0px"><small>A mensagem será enviada ao utilizador que inseriu a questão.</small></p>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="confirmInvalidation_btn" type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endmacro %}

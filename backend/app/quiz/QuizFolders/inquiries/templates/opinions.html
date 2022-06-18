@@ -1,0 +1,100 @@
+{% extends "base_site.html" %} {% block title %} Análise de Inquéritos {% endblock title %} {% block stylesheets %} {{ super() }} {% endblock stylesheets %} {% block content %}
+<!-- page content -->
+<div class="right_col" role="main">
+    <!-- top tiles -->
+    <div id="widget_initial_bar" class="row tile_count">
+    </div>
+    <!-- /top tiles -->
+    <div>
+        <h3>Análise de Inquéritos</h3>
+        <hr>
+    </div>
+    <!-- Start Network Activities -->
+    <div style="width: 100%; min-height:500px; color:transparent">
+        <iframe 
+            noresize='noresize' 
+            src={{ dash_url }}
+            frameborder="0"
+            style="width: 100%; height: 1400px;"
+        ></iframe>
+    </div>
+</div>
+    
+    <!-- End Network Activities -->
+    <style>
+        .x_panel.pie-chart {
+            position: relative;
+        }
+
+        .x_panel {
+            height: 97%;
+        }
+
+        .x_content.pie-chart {
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%,-50%);
+        }
+
+        .row.display-flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .row.display-flex > [class*='col-'] {
+            flex-grow: 1;
+        }
+
+        #pie {
+            display:table;
+            margin:0 auto;
+            width: 150px;
+            height: 150px;
+        }
+
+        #pie canvas {
+            height: 150px !important;
+            width: 150px !important;
+        }
+
+        #percent {
+            line-height: 150px !important;
+            font-size: 18px;
+        }
+
+        .w_55 {
+            width: 90% !important;
+        }
+
+        .w_20 {
+            width: 10% !important
+        }
+
+        #container {
+            display: table-row;
+        }
+
+    </style>
+    {% endblock content %} {% block javascripts %} {{ super()}}
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/morris.js/morris.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/raphael/raphael.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/morris.js/morris.min.js') }}"></script>
+
+    <!-- Chart.js -->
+    <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js') }}"></script>
+    
+    <!-- Flot -->
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+
+    {% endblock javascripts %}

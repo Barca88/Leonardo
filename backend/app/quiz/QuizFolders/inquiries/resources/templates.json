@@ -1,0 +1,120 @@
+{
+    "inquiry_id": "INPTQU0001",
+    "creation_date": "2020-01-01",
+    "author": "Zacarias Zefrânio",
+    "language": "pt",
+    "utility": "Este é o texto que explica o objetivo do formulário",
+    "properties": [
+      {
+        "property": "difficulty",
+        "text": "A questão apresenta um nível de dificuldade adequado."
+      },
+      {
+        "property": "time",
+        "text": "O tempo disponível para resolver a questão foi suficiente."
+      },
+      {
+        "property": "clarity",
+        "text": "A questão está apresentada de forma clara."
+      },
+      {
+        "property": "content",
+        "text": "A questão está de acordo com o conteúdo proposto."
+      },
+      {
+        "property": "knowledge",
+        "text": "Seu conhecimento sobre o assunto permitiu resolver a questão com facilidade."
+      },
+      {
+        "property": "interactivity",
+        "text": "Os feedbacks interativos na resolução da questão são apropriados."
+      }
+    ],
+    "text": "true"
+  }
+  {
+    "inquiry_id": "PTSYFS01",
+    "language": "pt",
+    "utility": "Este é o texto que explica o objetivo do formulário",
+    "datetime": "2019-11-12 11:45",
+    "module": "sy",
+    "profile": "st",
+    "properties" : [
+        {
+          "property": "interface",  
+          "text": "O sistema apresenta elementos gráficos e interface adequados."
+        },
+        {
+          "property": "interactivity",
+          "text": "O sistema dispõe de recursos interativos que tornam sua utilização mais dinâmica e atrativa."
+        },
+        {
+          "property": "gamification", 
+          "text": "O modelo de gamificação proposto no sistema foi apropriado para o desenvolvimento do seu conhecimento."
+        },
+        {
+          "property": "dialogues", 
+          "text": "Os diálogos interativos propostos no sistema foram adequados."
+        },
+        {
+          "property": "facility", 
+          "text": "O sistema foi fácil de usar."
+        },
+        {
+          "property": "performance", 
+          "text": "O sistema apresenta tempo de execução das tarefas adequado."
+        },
+        {
+          "property": "accessibility" ,
+          "text": "O sistema possui recursos de acessibilidade suficientes."
+        },
+        {
+          "property": "availability",
+          "text": "Sempre que requisitado o sistema se mostrou disponível."
+        },
+        {
+          "property": "help", 
+          "text": "O sistema fornece informações documentais e opção de ajuda adequados."
+        }
+    ],
+    "text": "true"
+  }
+  {
+    "inquiry_id": "PTSEFS01",
+    "language": "pt",
+    "utility": "Este é o texto que explica o objetivo do formulário",
+    "datetime": "2019-11-12 11:10",
+    "module": "se",
+    "profile": "st",
+    "properties": [
+        {
+          "property": "time",
+          "text": "O tempo disponível para completar a sessão foi suficiente."
+        },
+        {
+          "property": "sequence",
+          "text": "A sequência das perguntas apresentadas na sessão foi apropriada."
+        },
+        {
+          "property": "variability",
+          "text": "As questões da sessão estavam distribuídas de maneira a atender a todo o conteúdo proposto."
+        },
+        {
+          "property": "sophistication",
+          "text": "As perguntas da sessão apresentaram um grau de sofisticação adequado"
+        },
+        {
+          "property": "evaluative",
+          "text": "A estrutura e organização do feedback do processo de avaliação foi apropriado."
+        },
+        {
+          "property": "interactivity",
+          "text": "Os diálogos e recursos interativos apresentados durante a sessão foram apropriados."
+        },
+        {
+         "property" : "knowledge",
+        "text": "Seu conhecimento sobre o assunto permitiu desenvolver a questões da sessão sem maiores dificuldades."
+        }
+    ],
+    "text":"false"
+  }
