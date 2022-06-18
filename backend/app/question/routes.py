@@ -38,7 +38,6 @@ def question():
         questions = [doc for doc in mongo.db.question.find()]
     users = [doc for doc in mongo.db.users.find({"type" : "Teacher"})]
     domains = [doc for doc in mongo.db.domains.find()]
-    print(users)
     print('Getquestions')
     userAdmin = request.args.get('nome')
     if userAdmin:

@@ -205,6 +205,21 @@ const routes = [
     },
   },
   {
+    path: "/pageLogs",
+    name: "PageLogs",
+    component: () => import("../views/PageLogs.vue"),
+    beforeEnter(to, from, next) {
+      if (!store.getters.isAuthenticated) {
+        next(`/login`);
+      } else if (!store.getters.isAdmin) {
+        next(`/`);
+      } else {
+        next();
+      }
+    },
+  },
+
+  {
     path: "about",
     name: "Acerca",
     component: () => import("../views/About.vue"),

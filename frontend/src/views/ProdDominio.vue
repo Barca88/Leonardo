@@ -386,31 +386,13 @@ export default {
     }
   },
 
-  created() {
-      axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-            'Access-Control-Allow-Origin': "*"   
-          }
-        })
-      .then((response)=>{
-        response.data.domains.forEach((obj) =>{
-          this.idDomains.push(obj._id)
-        });
-      },(error) =>{
-          console.log(error);
-    });
-    },
-
-
 
 
   methods:{
 
     handleDataDominios(e) {
       [this.domain._id,this.domain.description,this.domain.scholarity,this.domain.responsible,
-      this.domain.notes,this.domain.access_type,this.editing,this.edit._id] = e;
+      this.domain.notes,this.domain.access_type,this.editing,this.edit._id,this.idDomains] = e;
     },
 
     handleDataSubdominios(e) {

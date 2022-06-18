@@ -228,8 +228,8 @@ def login():
                            # jwt app.config['SECRET_KEY']
                            '\t\xcf\xbb\xe6~\x01\xdf4\x8b\xf3?i', algorithm='HS256')
         
-        write_log( user, 'Login', '', 'successfull')
-        write_log( user, 'Home' , '', 'successfull')
+        write_log(_id, 'Login', '', 'successfull')
+        write_log(_id, 'Home' , '', 'successfull')
         #return json_util.dumps({'token': token, 'user': user, 'users': users, 'nome': nome})
         return json_util.dumps({'token': token, 'user': user})
     else:
@@ -245,7 +245,7 @@ def logout():
     print("logging out")
     _id = request.form.get('id')
     user = mongo.db.users.find_one({"_id": _id})
-    write_log(user , 'Logout', '', 'successfull')
+    write_log(_id , 'Logout', '', 'successfull')
     return json_util.dumps({'message': 'Logged out!'})
 
 

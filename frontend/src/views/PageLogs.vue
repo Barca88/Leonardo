@@ -15,7 +15,7 @@
         >
             <template v-slot:top>
                 <v-toolbar flat color="white">
-                    <v-toolbar-title>{{$t('hist.haccess')}}</v-toolbar-title>
+                    <v-toolbar-title>{{$t('adminNav.logs')}}</v-toolbar-title>
                     <v-divider
                     class="mx-4"
                     inset
@@ -37,7 +37,7 @@
                         </v-btn>
                         </template>
                         <span>
-                            {{$t('hist.cleanH')}}
+                            {{$t('adminNav.clean')}}
                         </span>
                     </v-tooltip>
                     <v-dialog
@@ -56,7 +56,7 @@
                             </v-col>
                             <v-col>
                                 <v-card-text>
-                                <h3>{{$t('hist.elim')}}</h3>
+                                <h3>{{$t('hist.logs')}}</h3>
                                 </v-card-text>
                             </v-col>
                             </v-row>
@@ -91,10 +91,16 @@
             <template v-slot:header.stamp="{ header }">
                 <label> {{header.text}} </label>
             </template>
+            <template v-slot:header.action="{ header }">
+                <label> {{header.text}} </label>
+            </template>
+            <template v-slot:header.subAction="{ header }">
+                <label> {{header.text}} </label>
+            </template>
             <template v-slot:header.user="{ header }">
                 <label> {{header.text}} </label>
             </template>
-             <template v-slot:header.request="{ header }">
+             <template v-slot:header.details="{ header }">
                 <label> {{header.text}} </label>
             </template>
         </v-data-table>
@@ -118,12 +124,20 @@ export default {
                     align:'start'
                 },
                 { 
-                    text:`${this.$t('users.nome')}`,
+                    text:`${this.$t('adminNav.user')}`,
                     value: 'user'
                 },
+                { 
+                    text:`${this.$t('adminNav.action')}`,
+                    value: 'action'
+                },
+                { 
+                    text:`${this.$t('adminNav.subaction')}`,
+                    value: 'subAction'
+                },
                 {
-                    text:`${this.$t('hist.req')}`,
-                    value: 'request'
+                    text:`${this.$t('adminNav.details')}`,
+                    value: 'details'
                 }
             ]
         }
@@ -134,7 +148,7 @@ export default {
     },
     created: async function() {
         //Active
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/history?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/pageLogs?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             this.active = response.data.reqs
 
@@ -144,7 +158,7 @@ export default {
     },
     methods:{
         eliminarHistorico:function(){
-            axios.get(`${process.env.VUE_APP_BACKEND}/users/historyCleanse?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+            axios.get(`${process.env.VUE_APP_BACKEND}/users/pageLogsCleanse?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
             .then(response => {
                 this.active=response.data.history
 

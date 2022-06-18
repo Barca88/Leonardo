@@ -124,21 +124,18 @@ export default ({
             this.formData.notes = data.notes
             this.formData.source = data.source
             this.formData.status = data.status
-            this.formData.language = data.language 
-            
-            
+            this.formData.language = data.language   
+
             this.url= URL.createObjectURL(this.formData.images)
       }
     },
     
     mounted() {
       this.$root.$on('change', data => {
-          
-            this.idQuestao = data.sendId
             this.domain = data.sendDomain
             this.header = data.sendHeader
-            
-            if(data.sendId != ""){
+
+            if(data.sendId != "" && this.idQuestao != data.sendId){
                 this.userPic=''
                 axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + data.sendId,  {
                     responseType:'arraybuffer',
@@ -155,6 +152,7 @@ export default ({
 
             
             }
+            this.idQuestao = data.sendId
       })
       this.$root.$on('import', data => {
             axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions/`+ data)

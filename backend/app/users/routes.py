@@ -610,13 +610,35 @@ def route_import():
 @blueprint.route('/history', methods=['GET'])
 @token_required
 def route_history():
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Historial de Acesso', '', 'successfull')
     reqs= [doc for doc in mongo.db.history.find()]
     return json_util.dumps({'reqs': reqs})
 
 @blueprint.route('/historyCleanse', methods=['GET'])
 @token_required
 def route_historyCleanse():
+    user = request.args.get('nome')
     mongo.db.history.drop()
-    mongo.db.pageLogs.drop()
+    write_log(user, 'Utilizadores/Historial de Acesso', 'Limpar histórico', 'successfull')
     reqs= [doc for doc in mongo.db.history.find()]
+    return json_util.dumps({'history': reqs})
+
+
+@blueprint.route('/pageLogs', methods=['GET'])
+@admin_required
+def route_pageLogs():
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Logs', '', 'successfull')
+    reqs= [doc for doc in mongo.db.pageLogs.find()]
+    return json_util.dumps({'reqs': reqs})
+
+
+@blueprint.route('/pageLogsCleanse', methods=['GET'])
+@token_required
+def route_pageLogsCleanse():
+    mongo.db.pageLogs.drop()
+    user = request.args.get('nome')
+    write_log(user, 'Utilizadores/Logs', 'Limpar Logs', 'successfull')
+    reqs= [doc for doc in mongo.db.pageLogs.find()]
     return json_util.dumps({'history': reqs})

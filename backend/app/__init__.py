@@ -105,8 +105,9 @@ def token_required(f):
     
 
 def write_log( user, action, subAction, details):
-    
-    mongo.db.pageLogs.insert_one({'_id': ObjectId(), 'stamp' :  datetime.datetime.now(), 'user': user, 'action': action, 'subAction': subAction, 'details': details})
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M:%S")
+    mongo.db.pageLogs.insert_one({'_id': ObjectId(), 'stamp' :  date, 'user': user, 'action': action, 'subAction': subAction, 'details': details})
     return
 
 def admin_required(f):

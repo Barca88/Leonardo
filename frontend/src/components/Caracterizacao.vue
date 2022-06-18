@@ -6,12 +6,12 @@
           <v-text-field v-if="editing" v-model="formData._id" 
             :rules="[...rules.required,...rules.length30]" 
             :counter="30" label="Identificador" 
-            :input="onChange()" readonly/>
+             readonly/>
             
             <v-text-field v-else v-model="formData._id" 
             :rules="[...rules.required,...rules.length30,...rules.repeatedID]" 
             :counter="30" label="Identificador" 
-            :input="onChange()"/>
+            />
         </v-col>
 
         <v-col cols="12" md="4" >
@@ -29,7 +29,6 @@
             :rules="[...rules.required,...rules.length100]" 
             label="Domínio"
             :items="this.idDomain"
-            :input="onChange()"
           />
         </v-col>
 
@@ -168,8 +167,8 @@ export default {
       idDomain: []
     }  
   },
-  created() {
-    axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
+  async created() {
+    await axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
             'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': "*"    
@@ -193,6 +192,7 @@ export default {
       this.editing = true
       let data = this.$route.params.data
       let inf = this.$route.params.inf
+          this.formData.inf = inf  
           this.formData._id = data._id
           this.formData.study_cycle = data.study_cycle
           this.formData.scholarity = data.scholarity
@@ -205,8 +205,9 @@ export default {
           this.formData.repetitions = data.repetitions
           this.formData.answering_time = data.answering_time
           this.formData.type_ = data.type_
-          this.formData.precedence = data.precedence
-          this.formData.inf = inf           
+          this.formData.precedence = data.precedence         
+    }else{
+        this.formData.inf = "/questions"
     }
   },
 
@@ -288,7 +289,9 @@ export default {
       this.onDomain()
       this.sendObject.sendDomain = this.formData.domain
       this.sendObject.sendHeader = this.formData.header
-      this.$root.$emit('change',this.sendObject)
+      if(this.sendObject.sendHeader != "" || this.sendObject.sendDomain != "" || this.sendObject.sendHeader != ""){
+        this.$root.$emit('change',this.sendObject)
+      }
     },
   },
   watch: {
@@ -296,7 +299,7 @@ export default {
           handler: function() {
             this.$emit('newdataCaracterizacao', [this.formData._id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
             this.formData.subdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
-            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData.inf]);
+            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData.inf, this.idQuestoes]);
         },
           deep: true
       },

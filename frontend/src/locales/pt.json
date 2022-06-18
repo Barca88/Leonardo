@@ -44,7 +44,13 @@
         "about": "Acerca de",
         "copy": "Créditos",
         "use": "Termos de Utilização",
-        "privacy": "Privacidade"
+        "privacy": "Privacidade",
+        "logs": "Logs",
+        "user": "Utilizador",
+        "action": "Ação",
+        "subaction": "Subação",
+        "details": "Detalhes",
+        "clean" : "Limpar Logs"
     },
     "tagging": {
         "lista": "Lista de Etiquetas",
@@ -411,6 +417,7 @@
         "haccess":"Historial De Acesso",
         "cleanH":"Limpar histórico",
         "elim":"Tem a certeza que deseja eliminar o histórico de acesso?",
+        "logs":"Tem a certeza que deseja eliminar os Logs?",
         "adate":"Data de acesso",
         "req":"Pedido"
     },

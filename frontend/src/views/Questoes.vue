@@ -17,7 +17,7 @@
             <v-text-field v-model="search" append-icon="mdi-magnify" :label="$t('title.pesq')" single-line hide-details class="mr-5"></v-text-field>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">    
-                  <v-btn v-bind="attrs" v-on="on" to="/prodQuestao" color="#2A3F54" class="white--text mr-4">
+                  <v-btn v-bind="attrs" v-on="on" @click="sendItem(null,inf)" color="#2A3F54" class="white--text mr-4">
                     <v-icon>mdi-text-box-plus-outline</v-icon>
                   </v-btn>                    
                 </template>

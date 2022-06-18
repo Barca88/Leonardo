@@ -192,7 +192,7 @@ export default {
       formData: {
           handler: function() {
             this.$emit('newdataDominio', [this.formData._id,this.formData.description,this.formData.scholarity,
-            this.formData.responsible,this.formData.notes,this.formData.access_type,this.editing,this.formData._id]);         
+            this.formData.responsible,this.formData.notes,this.formData.access_type,this.editing,this.formData._id, this.idDomains]);         
         },
           deep: true
       }

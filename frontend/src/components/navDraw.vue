@@ -277,6 +277,11 @@
               $t("adminNav.hist")
             }}</v-list-item-title>
           </v-list-item>
+          <v-list-item link to="/pageLogs" active-class="yellow--text">
+            <v-list-item-title >{{
+              $t("adminNav.logs")
+            }}</v-list-item-title>
+          </v-list-item>
         </v-list-group>
 
         <v-list-group

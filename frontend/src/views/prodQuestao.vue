@@ -375,7 +375,7 @@ export default {
         validated_at:"" 
       },
       idQuestion: [],
-      inf: "",
+      inf : "/questions",
       edit:{
         _id: null,
         id: '',
@@ -407,31 +407,12 @@ export default {
     }
   },
  
-  created() {
-      axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer: ${this.$store.state.jwt}`,
-            'Access-Control-Allow-Origin': "*"   
-          }
-        })
-      .then((response)=>{
-        response.data.questions.forEach((obj) =>{
-          this.idQuestion.push(obj._id)
-        });
-      },(error) =>{
-          console.log(error);
-    });
-
-    },
-
-
   methods:{
 
     handleDataCaracterizacao(e) {
       [this.questao._id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
       this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
-      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.inf] = e;
+      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.inf,this.idQuestion] = e;
     },
 
     handleDataRespostas(e) {
