@@ -190,7 +190,7 @@ def route_template_insert():
         validated_at = request.form.get('validated_at')
         flag = request.form.get('flag')
 
-
+        print('A inserir questao - app quiz')
         mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
         "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation

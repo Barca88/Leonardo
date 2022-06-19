@@ -38,11 +38,7 @@ class Profiler:
             return pattern
         else:
             print("\nEstou no else do get_pattern\n")
-            print(domain)
-            print(subdomain)
-            print(subsubdomain)
 
-            print("\nEdited_user_profile:", edited_user_profile, "\n")
 
             if (domain is None) and (subdomain is None) and (subsubdomain is None):
                 print('if1')
@@ -87,7 +83,6 @@ class Profiler:
                     user_profile.pattern_insert(query_subsubdomain, pattern, 'subsubdomain')
 
 
-        print(pattern)
         return pattern
 
 

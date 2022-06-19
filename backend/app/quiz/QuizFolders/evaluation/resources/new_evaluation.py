@@ -47,8 +47,7 @@ class NewEvaluation(Resource):
         current_user = user
         
         domain            = self.__get_domain(params)
-        print('userLEVEEEl')
-        print(current_user)
+        
         user_profile      = self.__get_user_profile(domain, current_user)
 
         session['domain'] = domain
@@ -61,8 +60,9 @@ class NewEvaluation(Resource):
             thrown_at = eval( question )['thrown_at']
 
             obj_to_dump = { 'content': content, 'number': number, 'thrown_at': thrown_at }
-
+            print('returning new_eval_if1')
             return json.dumps(obj_to_dump, default=str)
+            
         if( ( eval( question )['content'] != {} ) and ( user_profile != None ) and 1 ==2 ):
             question_to_send = RuleBasedSystem.execute_rule_based_system(current_user, domain, params.subdomain, question)
             
@@ -79,9 +79,10 @@ class NewEvaluation(Resource):
                 session['question'] = { 'content': question_to_send, 'thrown_at': thrown_at }
 
                 obj_to_dump = { 'content': question_to_send, 'number': number, 'thrown_at': thrown_at }
-
+            print('returning new_eval_if2')
             return json.dumps(obj_to_dump, default=str)
         else:
+            print('returning new_eval_if3')
             return question
 
     def __get_domain(self, params):
@@ -94,17 +95,11 @@ class NewEvaluation(Resource):
 
     def __get_user_profile(self, domain, current_user, edited_user_profile=None):
         print('__get_user_profile')
-        print(current_user)
         if edited_user_profile:
-            print('edited_user_profile')
             domain_profile = Profiler.get_pattern(current_user, domain, edited_user_profile=edited_user_profile)
         else:
-            print('NOT edited_user_profile')
             domain_profile = Profiler.get_pattern(current_user, domain)
         
-        print('before domain_profile')
-        print('__get_user_profile')
-        print(current_user)
 
         if domain_profile:
             print('domain_profile')

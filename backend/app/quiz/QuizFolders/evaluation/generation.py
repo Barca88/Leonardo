@@ -37,6 +37,7 @@ class Generation:
         Replacement of tokens (belonging to answer options) with synonyms
     '''
     def parse_synonyms(self, element, tokens_to_be_replaced_by_synonyms):
+        print('-GENERATION PARSE')
         valid_synonyms = []
 
         for lemma in element['lemmas']:
@@ -80,6 +81,7 @@ class Generation:
     '''
     #ter em atenção se a palavra original é ou nao portuguesa
     def edit_question_header(self):
+        print('-GENERATION EDIT')
         sentence = self.working_memory['nlp'](self.working_memory['most_interesting_question']['header'])
 
         new_tokens = []
@@ -138,6 +140,7 @@ class Generation:
         answer options for the most interesting question
     '''
     def get_similarities(self, answers):
+        print('-GENERATION GETSIMS')
         nlp_correct_answers_without_stop_words = []
 
         list1 = list(self.working_memory['nlp'].pipe(self.working_memory['correct_answers']))
@@ -174,13 +177,11 @@ class Generation:
         Selecting the most interesting question from the retrieved_questions set
     '''
     def question_selection(self):
+        print('-GENERATION SELECT')
         questions_by_number_of_appearances = {}
-        print('number_of_appearances')
-        print(self.working_memory['retrieved_questions'])
         for q in self.working_memory['retrieved_questions']:
             number_of_appearances = mongo.db.profiles.find( { "session_questions_ids": { "$all": [ q['_id'] ] } } ).count()
-            print('number_of_appearances')
-            print(number_of_appearances)
+            
 
             questions_by_number_of_appearances[q['_id']] = ( 0.6 * number_of_appearances )
 
@@ -201,7 +202,10 @@ class Generation:
         for w in sorted_keys:
             sorted_dict[w] = questions_by_number_of_appearances[w]
 
-        greatest_value = int( sorted_dict[list(sorted_dict.keys())[0]] )
+        try:
+            greatest_value = int( sorted_dict[list(sorted_dict.keys())[0]] )
+        except:
+            greatest_value=0
 
         greatest_values = {}
         for w in sorted_dict:
@@ -210,7 +214,7 @@ class Generation:
 
         random_id_from_greatest_values = random.choice(list(greatest_values))
 
-        self.working_memory['most_interesting_question'] = mongo.db.question.find_one({"id": random_id_from_greatest_values})
+        self.working_memory['most_interesting_question'] = mongo.db.question.find_one({"_id": random_id_from_greatest_values})
 
         print("\nMost_interesting_question:", self.working_memory['most_interesting_question'], "\n")
 
@@ -218,6 +222,7 @@ class Generation:
         Represents the formation of the new JSON object, relative to the new multiple choice question
     '''
     def form_question(self, sorted_answers):
+        print('-GENERATION FORMQUESTION')
         new_body = []
 
         for c in self.working_memory['correct_answers']:
@@ -245,34 +250,31 @@ class Generation:
 
         most_inter_quest = self.working_memory['most_interesting_question']
 
-        id_from_most_inter_quest = self.working_memory['most_interesting_question']['id']
+        id_from_most_inter_quest = self.working_memory['most_interesting_question']['_id']
         fst_part = id_from_most_inter_quest[ : len( id_from_most_inter_quest ) - 3]
 
         regex = fst_part + ".*"
 
-        query = mongo.db.question.count_documents( { "id" : { "$regex" : regex } } )
+        query = mongo.db.question.count_documents( { "_id" : { "$regex" : regex } } )
 
         snd_part = "0" + str(query + 1) if(query < 100) else str(query + 1)
-
+        
         self.working_memory['new_question'] = {
-            "id" : fst_part + snd_part,
+            "_id" : fst_part + snd_part,
             "language" : most_inter_quest['language'],
             "study_cycle" : most_inter_quest['study_cycle'],
             "scholarity" : most_inter_quest['scholarity'],
             "domain" : most_inter_quest['domain'],
             "subdomain" : most_inter_quest['subdomain'],
-            "subsubdomain" : most_inter_quest['subsubdomain'],
             "difficulty_level" : most_inter_quest['difficulty_level'],
             "display_mode" : most_inter_quest['display_mode'],
             "answering_time" : most_inter_quest['answering_time'],
-            "type" : most_inter_quest['type'],
+            "type_" : most_inter_quest['type_'],
             "precedence" : most_inter_quest['precedence'],
             "repetitions" : most_inter_quest['repetitions'],
             "header" : most_inter_quest['header'],
             "body" : new_body,
-            "solution" : most_inter_quest['solution'],
-            "images" : most_inter_quest['images'],
-            "videos" : most_inter_quest['videos'],
+            #"solution" : most_inter_quest['solution'],
             "source" : most_inter_quest['source'],
             "notes" : most_inter_quest['notes'],
             "status" : most_inter_quest['status'],
@@ -288,7 +290,7 @@ class Generation:
         support the formation of a new multiple choice question
     '''
     def retrieve(self):
-        
+        print('retrieveGEN')
         filter_object = {
             #"study_cycle": self.working_memory['study_cycle'],
            # "scholarity": self.working_memory['scholarity'],
@@ -316,6 +318,7 @@ class Generation:
         and body stand out
     '''
     def reuse(self):
+        print('REUSE')
         self.edit_question_header()
 
         self.working_memory['correct_answers'] = []
@@ -326,11 +329,7 @@ class Generation:
 
         all_answers = []
         for q in self.working_memory['retrieved_questions']:
-            print("\nRetrieved question id: ", q['id'], " \n")
             for ans in q['body']:
-                print("\nAnswer description: ", ans['answer'], " \n")
-                print("\nAnswer correction: ", ans['correction'], " \n")
-                print("\nIs answer correction equals to 0? ", ans['correction'] == '0', " \n")
                 if( ans['correction'] == '0' ):
                     all_answers.append(ans['answer'])
 
@@ -343,20 +342,20 @@ class Generation:
         in Leonardo's database or inconsistencies in the presentation of the question in the system interface. These elements are the id and the body
     '''
     def revise(self):
-        data = mongo.db.question.find({}, { "id": 1 })
+        data = mongo.db.question.find({}, { "_id": 1 })
 
         for q in data:
-            if( q['id'] == self.working_memory['new_question']['id'] ):
-                id_from_most_inter_quest = self.working_memory['most_interesting_question']['id']
+            if( q['_id'] == self.working_memory['new_question']['_id'] ):
+                id_from_most_inter_quest = self.working_memory['most_interesting_question']['_id']
                 fst_part = id_from_most_inter_quest[ : len( id_from_most_inter_quest ) - 3]
 
                 regex = fst_part + ".*"
 
-                query = mongo.db.question.count_documents( { "id" : { "$regex" : regex } } )
+                query = mongo.db.question.count_documents( { "_id" : { "$regex" : regex } } )
 
                 snd_part = "0" + str(query + 1) if(query < 100) else str(query + 1)
                 
-                self.working_memory['new_question']['id'] = fst_part + snd_part
+                self.working_memory['new_question']['_id'] = fst_part + snd_part
 
         body = self.working_memory['new_question']['body']
         for a in body:
@@ -384,12 +383,15 @@ class Generation:
     def retain(self):
         insertion_data = str( datetime.now() )
         self.working_memory['new_question']['inserted_at'] = insertion_data.split(' ')[0]
-
+        #Alterado
+        #Faz sentido?
+        print('A inserir nova questao')
+        print(self.working_memory['new_question'] )
         mongo.db.question.insert( self.working_memory['new_question'] )
 
         print("\nWorking_memory:", self.working_memory, "\n")
 
         mongo.db.generated_questions.insert({
-            'id': self.working_memory['new_question']['id'],
+            'id': self.working_memory['new_question']['_id'],
             'date': insertion_data
         })

@@ -58,6 +58,7 @@ def insertQuestion():
     exist = mongo.db.question.find_one({"_id":question['_id']})
     if exist:
         return json_util.dumps({'message': "error"})
+    print('A inserir questao - app importation')
     mongo.db.question.insert_one(question)
     return jsonify('Inserted new question')
 

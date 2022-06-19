@@ -20,13 +20,14 @@ class Evaluation:
 
     def find_eligible_question(self):
         print('filtro inical')
+        print(self.criteria.__dict__)
         filtro = {
             'domain':self.criteria.domain,
             'subdomain' :self.criteria.subdomain,
             'difficulty_level':self.criteria.difficulty_level
         }
-        print(filtro)
-        filtered_questions = mongo.db.question.find(filtro)
+        print(self.criteria.__dict__)
+        filtered_questions = mongo.db.question.find(self.criteria.__dict__)
         print(filtered_questions.count())
         while not filtered_questions.count():
             #performance = self.user_profile['performance'] if self.user_profile else 0
@@ -42,13 +43,13 @@ class Evaluation:
 
             print('filtro while')
             print(filtro)
-            filtered_questions = mongo.db.question.find(filtro)
+            filtered_questions = mongo.db.question.find(self.criteria.__dict__)
             print(filtered_questions.count())
             if( ( ( user_level - 1 ) == 0 ) and ( filtered_questions.count() == 0 ) ):
                 break
 
         choosen_question = {}
-        print('before for')
+        
         quests = []
         for q in filtered_questions:
             quests.append(q)
@@ -64,12 +65,15 @@ class Evaluation:
         print(self.user_profile)
         user_level            = self.user_profile['user_level']
         session_questions_ids = self.user_profile['session_questions_ids']
-
+        
         if session_questions_ids:
+            print('if')
             self.set_difficulty_level_with_backlog(user_level)
-            self.criteria.set_id(session_questions_ids)
+            #proximas duas linhas invertidas
             self.criteria.set_precedence(questions_ids_list=session_questions_ids)
+            self.criteria.set_id(session_questions_ids)
         else:
+            
             self.criteria.set_difficulty_level(value=user_level)
             self.criteria.set_precedence()
 
