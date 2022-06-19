@@ -150,9 +150,15 @@ def text():
        # Store .leo text and get it ready to be converted
        content = request.get_data()
        # Get path of program to be ran
-       path = os.getcwd() + "/scripts/mkleonardo.py"
-       result = subprocess.run(["python3", path],stdout = subprocess.PIPE, input=content)
+       path = os.getcwd() + "\\app\importation\scripts\mkleonardo.py"
+       print(path)
+       #path = os.getcwd() + "C:\Users\tonil\OneDrive\Ambiente de Trabalho\Tese\LEIonardo\Importação-BackEnd\mkLeonardoServer\scripts\app\importation\scripts\mkleonardo.py"
+       result = subprocess.run(["python", path],stdout = subprocess.PIPE, input=content)
+       print("----------------------------------------------")
+       print(result)
        # Return the json
        answer = "[" + result.stdout.decode('utf-8') + "]"
+       print("----------------------------------------------")
+       print(answer)
 
     return answer
