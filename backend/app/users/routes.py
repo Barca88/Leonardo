@@ -51,13 +51,6 @@ def route_users():
     #return render_template('users.html',users=users,nome=nome)
 
 
-@blueprint.route('/adicionar')
-@admin_required
-#@login_required
-def route_template_adicionar():
-    nome = request.args.get('nome')
-    return render_template('registar.html',nome=nome)
-
 @blueprint.route('/registar', methods=['POST'])
 @admin_required
 #@login_required
@@ -134,28 +127,6 @@ def route_template_registar():
             if(type == "Student"): 
                 write_log(user, 'InformaçãoBase/Alunos', 'Adicionar utilizadores', 'successfull') 
         return json_util.dumps({'nome': user})
-
-
-@blueprint.route('/ver/<user>', methods=['GET'])
-@admin_required
-#@login_required
-def route_template_ver(user):
-    nome = request.args.get('nome')
-    existe = mongo.db.users.find_one({"_id":user})
-    upload_path = join(dirname(realpath(__file__)), 'static/pics/', user)
-    upload_path2 = join(dirname(realpath(__file__)), 'static/curriculo/', user)
-    print("path: " + upload_path)
-    print("name: " + user)
-    if path.exists(upload_path):
-        foto = user
-    else:
-        foto = "default.png"
-    if path.exists(upload_path2):
-        curriculo = user
-    else:
-        curriculo = "default.png"
-    return json_util.dumps({'user': existe, 'foto':upload_path, 'curriculo':upload_path2, 'nome':nome})
-
 
 
 ###########################################
@@ -345,29 +316,6 @@ def route_import_registos():
 ##########################################
 
 
-
-@blueprint.route('/editar/<user>')
-@admin_required
-#@login_required
-def route_template_editar(user):
-    existe = mongo.db.users.find_one({"_id":user})
-    nome = request.args.get('nome')
-    return json_util.dumps({'user': existe, 'nome': nome})
-
-
-@blueprint.route('/remover/<user>')
-@admin_required
-#@login_required
-def route_template_remover(user):
-    nome = request.args.get('nome')
-    upload_path = join(dirname(realpath(__file__)), 'static/pics/', user)
-    if path.exists(upload_path):
-        foto = user
-    else:
-        foto = "default.png"
-    return render_template('remover.html',user=user,foto=foto,nome=nome)
-
-
 @blueprint.route('/apagar/<user>')
 @admin_required
 #@login_required
@@ -494,27 +442,6 @@ def route_template_registar_pedido():
         mongo.db.requests.insert({"_id":username,"name":name,"email":email,"studentNumber": studentNumber, "password":encryptPass,"type":tipo,"university":universidade,"department":departamento,"date":data,"comments":obs})
         mongo.db.requests.find()
         return json_util.dumps({'nome': user})
-
-
-@blueprint.route('/pedidos/ver/<pedido>', methods=['GET'])
-@admin_required
-#@login_required
-def route_template_ver_pedido(pedido):
-    nome = request.args.get('nome')
-    existe = mongo.db.requests.find_one({"_id":pedido})
-    upload_path = join(dirname(realpath(__file__)), 'static/picsPedidos/', pedido)
-    upload_path2 = join(dirname(realpath(__file__)), 'static/curriculoPedidos/', pedido)
-    print("path: " + upload_path)
-    print("name: " + pedido)
-    if path.exists(upload_path):
-        foto = pedido
-    else:
-        foto = "default.png"
-    if path.exists(upload_path2):
-        curriculo = pedido
-    else:
-        curriculo = "default.png"
-    return json_util.dumps({'pedido': existe, 'foto':upload_path, 'curriculo':upload_path2, 'nome':nome})
 
 
 ###########################################
