@@ -321,6 +321,7 @@ def iter(pre_resposta, pos_resposta):
                 "question_certas": 0,
                 "question_erradas": 0
               }
+               print('A inserir questao - app quiz quizfolders gamification')
       mycolQuestion.insert_one(mydict)
       print("adicionado")
     

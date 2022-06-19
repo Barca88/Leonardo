@@ -7,8 +7,12 @@ class CaseBasedSystem:
     '''
     @classmethod
     def execute_case_based_system(cls, username, domain, subdomain):
+        print('execute_case_based_system')
         query = mongo.db.profiles.find_one({ "username": username })
-        difficulty_level = query['last_question']['difficulty_level']
+        difficulty_level_1 = query['last_question']
+        difficulty_level = 1
+        if difficulty_level_1 != None:
+            difficulty_level = difficulty_level_1['difficulty_level']
 
         gen = Generation(username, difficulty_level, domain, subdomain)
         gen.retrieve()

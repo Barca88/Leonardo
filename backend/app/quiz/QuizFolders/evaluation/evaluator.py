@@ -12,14 +12,16 @@ class Evaluator:
         print(user_profile)
         print(domain)
         print(sub_domain)
+        print('\n\n\n\n')
         evaluation = Evaluation(user_profile, domain, sub_domain)
         question = json.loads(evaluation.find_eligible_question())
-        print(question)
+        
         origin = ''
-
         if ( question['choosen_question'] == {} ) and ( not block_question_generation ):
-            print(username)
-            id_last_answered_question = mongo.db.profiles.find_one( { 'username': username } )['last_question']['_id']
+            id_last_answered_question = None
+            id_last_answered_question_1 = mongo.db.profiles.find_one( { 'username': username } )['last_question']
+            if id_last_answered_question_1 != None:
+                id_last_answered_question = id_last_answered_question_1['_id']
             
             
            
@@ -28,6 +30,7 @@ class Evaluator:
             generated_questions_ids = []
 
             for g in generated_questions:
+                print('generated_questions for')
                 generated_questions_ids.append(g['id'])
             
             generated_questions_ids.sort()
@@ -35,8 +38,7 @@ class Evaluator:
             if( len( generated_questions_ids ) > 0 ):
                 id_last_generated_question = generated_questions_ids[ len( generated_questions_ids ) - 1 ]
             else:
-                print('here')
-                id_last_generated_question = '-1'
+                id_last_generated_question = None
 
             #print("\nIds:", generated_questions_ids, "\n")
             #print("\nId_last_answered_question:", id_last_answered_question, "\n")

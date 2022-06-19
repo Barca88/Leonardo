@@ -23,7 +23,6 @@ class NextQuestion(Resource):
         parser.add_argument('subdomain')
 
         params = parser.parse_args()
-        print('params question')
         
         current_user = literal_eval(params.current_user)
         
@@ -39,20 +38,12 @@ class NextQuestion(Resource):
 
         #domain = session.get('domain')
 
-        print('literal_eval(params.domain)')
-        print(literal_eval(params.domain))
 
         domain = self.__get_domain(literal_eval(params.domain))
         
         result = Evaluator.evaluate_user_answer(params.answer)
-        print('question')
-        print(result['question'])
         Profiler.update_profile(current_user, result['question'], result['answer'], result['time'])
-        print('_________________\n________________')
-        print(current_user)
         user_profile = self.__get_user_profile(domain, current_user)
-        print('domain before')
-        print(domain)
 
         question     = Evaluator.throw_question(user_profile, domain, params.subdomain, username=current_user['username'])
 
@@ -62,7 +53,7 @@ class NextQuestion(Resource):
             thrown_at = eval( question )['thrown_at']
 
             obj_to_dump = { 'content': content, 'number': number, 'thrown_at': thrown_at }
-
+            print('returning nex_question_if1')
             return json.dumps(obj_to_dump, default=str)
         if( ( eval( question )['content'] != {} ) and ( user_profile != None ) ):
             question_to_send = RuleBasedSystem.execute_rule_based_system(current_user, domain, params.subdomain, question)
@@ -80,9 +71,10 @@ class NextQuestion(Resource):
                 session['question'] = { 'content': question_to_send, 'thrown_at': thrown_at }
 
                 obj_to_dump = { 'content': question_to_send, 'number': number, 'thrown_at': thrown_at }
-
+            print('returning nex_question_if2')
             return json.dumps(obj_to_dump, default=str)
         else:
+            print('returning nex_question_if3')
             return question
 
         #return current_app.make_response(render_template('question_container.html', question=question))
@@ -94,8 +86,6 @@ class NextQuestion(Resource):
                 'subdomains': Profiler.get_decision_pattern(current_user, domain, edited_user_profile=edited_user_profile)
             }
         else:
-            print(current_user)
-            print(domain)
             return {
                 'domain'    : Profiler.get_pattern(current_user, domain),
                 'subdomains': Profiler.get_decision_pattern(current_user, domain)

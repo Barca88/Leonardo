@@ -86,7 +86,7 @@ def route_template_insert():
         backlog_factor = request.form.get('backlog_factor')
         inserted_at = request.form.get('inserted_at')
 
-        mongo.db.domains.insert({"_id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
+        mongo.db.domains.insert({"_id" :_id , "domain" :_id, "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
         "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
         "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at, "backlog_factor": backlog_factor})
         write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
@@ -118,6 +118,7 @@ def route_template_apagar1(domain):
 def route_template_editar_guardar():
     print("editar")
     _id = request.form.get('_id')
+    domain = _id
     print(request.form.get('body'))
     description = request.form.get('description')
     scholarity = request.form.get('scholarity')
@@ -132,11 +133,12 @@ def route_template_editar_guardar():
     low_skill_factor = request.form.get('low_skill_factor')
     min_questions_number = request.form.get('min_questions_number')
     question_factor = request.form.get('question_factor')
+    backlog_factor = request.form.get('backlog_factor')
     #inserted_by = request.form.get('inserted_by')
     inserted_at = request.form.get('inserted_at')
     userAdmin = request.args.get('nome')
 
-    mongo.db.domains.update({"_id":_id},{"description":description,"scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
+    mongo.db.domains.update({"_id":_id},{"description":description,"domain": domain,"backlog_factor":backlog_factor, "scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
     "high_performance_factor":high_performance_factor,"low_performance_factor":low_performance_factor,"high_skill_factor":high_skill_factor,"low_skill_factor":low_skill_factor,"body":body,
     "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":userAdmin,"inserted_at":inserted_at})
 

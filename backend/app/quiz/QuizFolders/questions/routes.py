@@ -35,7 +35,7 @@ def add():
                 'id'  : current_user.id,
                 'name': current_user.name
             }
-
+         print('A inserir questao - app quiz quizforlders question')
         mongo.db.question.insert(new_question_json)
 
         return list()

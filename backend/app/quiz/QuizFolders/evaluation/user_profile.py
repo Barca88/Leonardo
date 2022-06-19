@@ -73,8 +73,6 @@ class UserProfile:
             data = mongo.db.profiles.find(query, proj)
         
         for user_profile in data:
-            print('userp userp')
-            print(user_profile)
             skill                 = user_profile['profile'][0]['skill']
             performance           = user_profile['profile'][0]['hitted'] / user_profile['profile'][0]['total']
             session_questions_ids = user_profile['session_questions_ids']
@@ -90,8 +88,6 @@ class UserProfile:
                 right_backlog            = user_profile['profile'][0]['rbacklog']
                 pattern['right_backlog'] = right_backlog
                 pattern['wrong_backlog'] = wrong_backlog
-        print('pattern userp')
-        print(pattern)
 
     def query_pattern(self, type_category, pattern, domain = None, subdomain = None, edited_user_profile=None):
         pattern_data = []
