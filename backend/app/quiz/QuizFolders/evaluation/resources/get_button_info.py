@@ -10,6 +10,7 @@ from app           import mongo
 
 class GetButtonInfo(Resource):
     def get(self):
+        print('GetButtonInfo')
         parser = reqparse.RequestParser()
 
         parser.add_argument('buttonCode')

@@ -118,7 +118,7 @@
                             <div> 
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on, attrs }">
-                                        <v-btn @click="dialog_statistics = !dialog_statistics" class="white--text text-capitalize" color="#172d44" v-bind="attrs" v-on="on"><v-icon>mdi-chart-bar</v-icon></v-btn>
+                                        <v-btn @click="dialog_resume = !dialog_resume" class="white--text text-capitalize" color="#172d44" v-bind="attrs" v-on="on"><v-icon>mdi-chart-bar</v-icon></v-btn>
                                     </template>
                                     <span>Estatísticas</span>
                                 </v-tooltip>
@@ -161,10 +161,16 @@
         }
     },
     async created() {
+        console.log('--------------------------')
+        console.log('--------------------------')
+        console.log('--------------------------')
+        console.log('--------------------------')
+        console.log('--------------------------')
+        console.log('--------------------------')
         this.route = true
         var user = await this.$store.getters.get_session_user
         
-        this.$http.get('https://leonardo.di.uminho.pt/api/v0/evaluation/getStatistics?userName=' + user.username)
+        this.$http.get('http://localhost:5000/api/v0/evaluation/getStatistics?userName=' + user.username)
         .then(response => {
             this.statistics_object = JSON.parse(response.data)
         })
@@ -176,7 +182,7 @@
       windowClose(){ window.close(); },
       async popupInquiry() {
         await this.$store.commit('set_inquiry_id', 'PTSEFS01')
-        window.open('https://leonardo.di.uminho.pt/evaluation/inquiry', '_blank', 'width=615, height=500');
+        window.open('http://localhost:5000.pt/evaluation/inquiry', '_blank', 'width=615, height=500');
       }
     }
   }

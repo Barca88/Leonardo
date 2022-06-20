@@ -77,7 +77,7 @@
             this.$emit("quit")
       },
       async getQuizzParameters(){
-        await this.$http.get('https://leonardo.di.uminho.pt/api/v0/evaluation/quizzParameters?username=' + this.username)
+        await this.$http.get('http://localhost:5000/api/v0/evaluation/quizzParameters?username=' + this.username)
           .then(result => {
             var data = result.data
 

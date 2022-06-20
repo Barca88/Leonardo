@@ -98,7 +98,7 @@
 
     async created() {
         if((this.desc != 'Sair da sessão') && (this.desc != 'Sem resposta' && (this.desc != 'Gamificação'))){
-            await this.$http.get('https://leonardo.di.uminho.pt/api/v0/evaluation/getButtonInfo?buttonCode=' + this.buttonCode)
+            await this.$http.get('http://localhost:5000/api/v0/evaluation/getButtonInfo?buttonCode=' + this.buttonCode)
             .then(result => {
                 this.modal_text = result.data
             })

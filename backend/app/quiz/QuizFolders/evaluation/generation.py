@@ -387,7 +387,7 @@ class Generation:
         #Faz sentido?
         print('A inserir nova questao')
         print(self.working_memory['new_question'] )
-        mongo.db.question.insert( self.working_memory['new_question'] )
+        #mongo.db.question.insert( self.working_memory['new_question'] )
 
         print("\nWorking_memory:", self.working_memory, "\n")
 
