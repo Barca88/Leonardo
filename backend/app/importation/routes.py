@@ -1,3 +1,4 @@
+from itertools import count
 from app.importation import blueprint
 from flask import render_template, request, flash, send_from_directory
 from flask_login import login_required
@@ -27,27 +28,35 @@ CORS(blueprint)
 @blueprint.route('/imported_questions', methods=['GET']) # check
 @swag_from('docs/questions/listQuestions.yml')
 def listQuestions():
-    questions = mongo.db.question.find()
+    user = request.args.get('nome')
+    write_log(user, 'Verificação/Dashboard', 'Sem filtros', 'successfull')
+    questions = mongo.db.question.find({'imported': True})
     return json_util.dumps({'questions': questions})
 
 @blueprint.route('/imported_questions/statsByAuthor/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupAuthor.yml')
 def lookupAuthor(id):
-    questions = mongo.db.question.find({'author':id.replace(","," ")})
+    user = request.args.get('nome')
+    write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
+    questions = mongo.db.question.find({'author':id.replace(","," "),'imported': True})
     return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByDomain/<id>',methods=['GET']) # check
 @swag_from('docs/questions/lookupDomain.yml')
 def lookupDomain(id):
-    questions = mongo.db.question.find({'domain':id.replace(","," ")})
+    user = request.args.get('nome')
+    write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
+    questions = mongo.db.question.find({'domain':id.replace(","," "), 'imported': True})
     return json_util.dumps({'questions': questions})
 
 
 @blueprint.route('/imported_questions/statsByBoth/<author>/<domain>',methods=['GET']) # check
 @swag_from('docs/questions/lookupBoth.yml')
 def lookupBoth(author,domain):
-    questions = mongo.db.question.find({'domain':domain.replace(","," "),'author': author.replace(","," ")})
+    user = request.args.get('nome')
+    write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
+    questions = mongo.db.question.find({'domain':domain.replace(","," "),'author': author.replace(","," "), 'imported': True})
     return json_util.dumps({'questions': questions})
 
 
@@ -65,9 +74,25 @@ def insertQuestion():
 @blueprint.route('/imported_questions/<id>',methods=['PUT']) # check
 @swag_from('docs/questions/editQuestion.yml')
 def editQuestion(id):
+    user = request.args.get('nome')
     question = request.get_json(force=True)
+    print(question['flag'])
+    if question['flag'] == "rejected":
+        write_log(user, 'Verificação/Verificação de Questões', 'Rejeitar Questão', 'successfull')
+    if question['flag'] == "aproved":
+        write_log(user, 'Verificação/Verificação de Questões', 'Aprovar Questão', 'successfull')
     mongo.db.question.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
     return jsonify('Questão actualizada com sucesso ...')
+
+@blueprint.route('/remove_questions/<id>',methods=['PUT']) # check
+@swag_from('docs/questions/editQuestion.yml')
+def removeQuestion(id):
+    user = request.args.get('nome')
+    mongo.db.question.remove({"_id":id})
+    write_log(user, 'Verificação/Verificação de Questões', 'Remover Questão', 'successfull')
+    questions = mongo.db.question.find({'imported': True})
+    print(questions)
+    return json_util.dumps({'questions': questions})
 
 #########################################################
 
@@ -76,6 +101,9 @@ def editQuestion(id):
 @blueprint.route('/imported_errors',methods=['GET']) #check
 @swag_from('docs/errors/listErrors.yml')
 def listErrors():
+    user = request.args.get('nome')
+    if user:
+        write_log(user, 'Verificação/Verificação de Erros', '', 'successfull')
     errors = mongo.db.imported_errors.find()
     return json_util.dumps({'errors': errors})
 
@@ -92,6 +120,8 @@ def insertError():
 @token_required
 def route_error_Cleanse():
     mongo.db.imported_errors.drop()
+    user = request.args.get('nome')
+    write_log(user, 'Verificação/Verificação de Erros', 'Limpar Erros', 'successfull')
     reqs= [doc for doc in mongo.db.imported_errors.find()]
     return json_util.dumps({'history': reqs})
 
@@ -110,6 +140,12 @@ def listInfos():
 @swag_from('docs/info/insertInfo.yml')
 def insertInfo():
     info = request.get_json(force=True)
+    user = request.args.get('nome')
+    count = request.args.get('count')
+    if count == "0":
+        write_log(user, 'Verificação/Importação de Questões', 'Importar Questões', 'successfull')
+    else:
+        write_log(user, 'Verificação/Importação de Questões', 'Importar Questões', 'failed')
     mongo.db.imported_info.insert_one(info)
     return jsonify('Inserted new info')
 
@@ -152,8 +188,6 @@ def text():
        content = request.get_data()
        # Get path of program to be ran
        path = os.getcwd() + "\\app\importation\scripts\mkleonardo.py"
-       print(path)
-       #path = os.getcwd() + "C:\Users\tonil\OneDrive\Ambiente de Trabalho\Tese\LEIonardo\Importação-BackEnd\mkLeonardoServer\scripts\app\importation\scripts\mkleonardo.py"
        result = subprocess.run(["python", path],stdout = subprocess.PIPE, input=content)
        print("----------------------------------------------")
        print(result)

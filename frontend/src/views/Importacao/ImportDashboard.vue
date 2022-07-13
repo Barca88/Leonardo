@@ -180,7 +180,7 @@ export default {
         },
         loadQuestions: function () {
             // Get the questions and obtain a list of domains and editors of those questions
-        axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions`,{},{
+        axios.get(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,{},{
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -241,7 +241,7 @@ export default {
             else query = query + "ByBoth/" + this.author.replace(" ",",") + "/" + this.domain.replace(" ",",")
 
             // Load data from endpoint
-            axios.get(query, {}).then(resp => {
+            axios.get(query + `?nome=${this.$store.state.user._id}`, {}).then(resp => {
                 this.stats = this.generateStats(resp.data.questions);
                 this.statsPromise(this.stats)
             });

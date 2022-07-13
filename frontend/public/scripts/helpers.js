@@ -4,7 +4,8 @@ import alerts from "./alerts.js"
 export default {
     async confirmDialog (question, action, popup, user){
       if (action === "reject") {
-        this.rejectQuestion(question, popup, user)
+        var questions = await this.rejectQuestion(question, popup, user)
+        return questions
       } else if (action === "aprove") {
         this.aproveQuestion(question,popup,user)
       }
@@ -17,7 +18,7 @@ export default {
         popup.display(alerts.errorDialog("Invalid question.",user));
       }
       else{
-        var str = "Are you sure you want to aprove the question " + question.id + "?"
+        var str = "Are you sure you want to aprove the question " + question._id + "?"
         const ok = await popup.trigger(alerts.confirmDialog(str,user))
         if(ok) {
           (question.flag = "aproved")
@@ -27,11 +28,23 @@ export default {
     },
 
     rejectQuestion: async function (question, popup, user) {
+      var str
+      var questions = []
       if(question.flag === "rejected"){
-        popup.display(alerts.errorDialog("Question already rejected.",user));
+        str = "Are you sure you want to remove the question " + question._id + "?"
+        const ok = await popup.trigger(alerts.confirmDialog(str,user))
+        if(ok){
+          await axios.put(`${process.env.VUE_APP_BACKEND}/importation/remove_questions/` + question._id + `?nome=${user}`)
+          .then(response => {
+            questions = response.data.questions
+        }).catch(e => {
+          console.log(e)
+    })
+        return questions
+        }
       }
       else{
-        var str = "Are you sure you want to reject the question " + question.id + "?"
+        str = "Are you sure you want to reject the question " + question._id + "?"
         const ok = await popup.trigger(alerts.confirmDialog(str,user))
         if(ok) {
           (question.flag = "rejected") &&
@@ -45,6 +58,6 @@ export default {
       this.editedIndex = this.questions.indexOf(question);
       this.editedQuestion = Object.assign({}, question);
       this.dialog = true;
-      console.log("Edit question: " + question.id);
+      console.log("Edit question: " + question._id);
     },
 }

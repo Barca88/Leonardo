@@ -32,6 +32,15 @@
             <v-btn color="#03254c" v-print="'#printMe'" class="im-btn" dark>
               <v-icon>mdi-printer</v-icon>
             </v-btn>
+
+            <v-btn
+              color="#03254c"
+              v-on:click="selectedall()"
+              class="im-btn"
+              dark
+            >
+            </v-btn>
+
           </div>
         </v-toolbar>
       </template>
@@ -184,8 +193,11 @@ export default {
     },
     
     async confirmDialog (item, str) {
-        console.log("confirmar")
-        helpers.confirmDialog(item, str, this.$refs.popup, this.$store.state.user._id)
+        var change
+        change = await helpers.confirmDialog(item, str, this.$refs.popup, this.$store.state.user._id)
+        if(change){
+          this.questions = change
+        }
     },
 
     aproveQuestion: helpers.aproveQuestion,
@@ -225,6 +237,17 @@ export default {
       }
       this.selected = [];
     },
+
+    selectedall : function(){
+      if(this.selected.length >= this.questions.length){
+        this.selected = []
+      }
+      else{
+        this.questions.forEach((question) => {
+          this.selected.push(question)
+        })
+      }
+    }
   },
 };
 </script>

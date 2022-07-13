@@ -54,6 +54,15 @@ export default {
         'appHeader': Header,
         'navDraw':NavDraw
     },
+
+    created: function () {
+    axios.get(`${process.env.VUE_APP_BACKEND}/users/import?nome=${this.$store.state.user._id}&import=questoes`, {
+            headers: {
+                Authorization: `Bearer: ${this.$store.state.jwt}`
+            }
+        })
+    },
+
     methods: {
 /*
         getUserDomains: async  function(){
@@ -103,12 +112,16 @@ export default {
 
                 return teachers;
         },
+        
 */
+
+
         clear: function(){
             this.selectedFile = "<ficheiro .leo>"
             this.anySelected = false
         },
         async performPOST (json, fileInfo){
+            //var username=this.$store.state['user']._id;
             await axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{},{
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -124,6 +137,7 @@ export default {
                         this.teachers.push(e._id)
                     });
                     res.data.domains.forEach(e => {
+                        //if(e.responsible==username)
                         this.domains.push(e._id)
                     });
 
@@ -133,8 +147,13 @@ export default {
                 })
 
             var i, count = 0//, domai= await this.getUserDomains() //, teachers = await this.getTeachers();
+            console.log(json)
             for (i in json) {
                 json[i].flag = 'pending'
+                json[i].imported = true
+                console.log(json[i].domain)
+                console.log(json[i].author)
+                console.log(json[i]._id)
                 if(this.domains.includes(json[i].domain) && !this.question.includes(json[i]._id) && this.teachers.includes(json[i].author)){
                     await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
                         headers: {
@@ -161,7 +180,7 @@ export default {
                 }
             }
             // post it into the imported files database
-            await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_info?nome=${this.$store.state.user._id}`,fileInfo,{
+            await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_info?nome=${this.$store.state.user._id}&count=${count}`,fileInfo,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -180,6 +199,8 @@ export default {
             return count
         },
         async loadJSON (text, isLeo, fileInfo){
+            console.log(isLeo)
+            console.log(text)
             var count = 0, json = text, rest
             // Parse JSON if that hasn't been done yet
             if(isLeo) {
@@ -191,12 +212,15 @@ export default {
             fileInfo['number'] = json.length
 
             // Wait for the posts to finish so we can present the alert to the user
+            console.log("leo3")
             count = await this.performPOST(json, fileInfo)
             rest = json.length - count
             console.log("alertttt")
             this.alertPopup = alerts.importDialog(rest, count, this.$store.state.user._id)
         },
         loadLEO: function(text, fileInfo){
+            console.log("leo1")
+            console.log(text)
             // Transform .leo into JSON text
             axios.post(`${process.env.VUE_APP_BACKEND}/importation/text?nome=${this.$store.state.user._id}`,text,{
                 headers: {
@@ -206,6 +230,8 @@ export default {
                 }}
             )
             .then(response => {
+                console.log("leo2")
+                console.log(response);
                 console.log(response.data);
                 this.loadJSON(response.data, false, fileInfo);
             })

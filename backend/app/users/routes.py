@@ -532,7 +532,11 @@ def route_active():
 @token_required
 def route_import():
     user = request.args.get('nome')
-    write_log(user, 'Utilizadores/Importação', '', 'successfull')
+    imp = request.args.get('import')
+    if imp == "users":
+        write_log(user, 'Utilizadores/Importação', '', 'successfull')
+    if imp == "questoes":
+        write_log(user, 'Verificação/Importação de Questões', '', 'successfull')
     return json_util.dumps({'users': user})
 
 @blueprint.route('/history', methods=['GET'])

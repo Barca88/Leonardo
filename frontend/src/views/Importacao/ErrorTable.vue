@@ -190,7 +190,7 @@ export default {
     },
 
     eliminarHistorico:function(){
-      axios.get(`${process.env.VUE_APP_BACKEND}/importation/errorCleanse`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
+      axios.get(`${process.env.VUE_APP_BACKEND}/importation/errorCleanse?nome=${this.$store.state.user._id}`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
       .then(response => {
           console.log(response)
           this.errors=response.data.history

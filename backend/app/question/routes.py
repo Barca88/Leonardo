@@ -29,19 +29,18 @@ UPLOAD_FOLDER = './static/picss/'
 #@login_required
 def question():
     flag = request.args.get('flag')
+    userAdmin = request.args.get('nome')
     if flag == "aproved":
         questions= [doc for doc in mongo.db.question.find({"flag" : "aproved"})]
     if flag == "pending":
         questions= [doc for doc in mongo.db.question.find({"flag" : { "$in":["pending","rejected"]}})]
-        
+        if userAdmin:
+            write_log(userAdmin, 'Verificação/Verificação de Questões', '', 'successfull')     
     if flag is None:
         questions = [doc for doc in mongo.db.question.find()]
     users = [doc for doc in mongo.db.users.find({"type" : "Teacher"})]
     domains = [doc for doc in mongo.db.domains.find()]
     print('Getquestions')
-    userAdmin = request.args.get('nome')
-    if userAdmin:
-        write_log(userAdmin, 'Informação Base/Questions', '', 'successfull')
     return json_util.dumps({'questions': questions, 'users': users, 'domains': domains})
     #return render_template('users.html',users=users,nome=nome)
 
@@ -133,7 +132,7 @@ def route_template_insert():
 
         mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
-        "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
+        "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
         ,  #"images": images,
           "videos": videos,  "source": source,  "notes": notes,  "status": status
         ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
@@ -197,7 +196,7 @@ def route_template_editar_guardar():
 
     mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
-    "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
+    "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,   "videos": videos,  "source": source,  "notes": notes,  "status": status
     ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
 

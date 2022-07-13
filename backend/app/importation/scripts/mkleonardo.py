@@ -35,7 +35,7 @@ def parse_exer(exer):
            ''',
               exer, re.X)
    if g:
-      E["id"], cl, precs, E["header"], resps, _i, _v, _s = g.groups()
+      E["_id"], cl, precs, E["header"], resps, _i, _v, _s = g.groups()
       for r in re.findall(r'\*r\s*(\d+)\s*(\d+)\s*(\d+)\s*(\d+)\s*:(.*)',resps):
           E["body"].append({
              "answer":r[4],
@@ -47,24 +47,60 @@ def parse_exer(exer):
       E["images"] = _i
       E["videos"] = _v
       E["explanation"] = _s
-      E["classif"] = cl.split()
-      E["precs"] = precs.split()
-
+      cl = cl.split()
+      E["difficulty_level"] = cl[0]
+      E["display_mode"] = cl[1]
+      E["answering_time"] = cl[2]
+      E["type"] = cl[3]
+      E["repetitions"] = cl[4]
+      E["precedence"] = precs.split()
+      #print(E["_id"])
+   
    else: print("####Invalid Exercise: {{{{ ",exer,"}}}}")
    return E
+
+def parse_dom(exer):
+   E={}
+   result = re.split('\n',exer)
+   #print(result)
+   for i in result:
+      #print(i)
+      s = re.search(':', i)
+      if s:
+         a = re.split(':',i)
+         E[a[0].strip()] = a[1].strip()
+   #print(E)
+   return E
+
 
 def mkjson(x): return json.dumps(x,ensure_ascii=False,indent=3)
 
 def main():
+   #print("1")
    txt = sys.stdin.read()
+   #print(txt)
    txt=re.sub(r'(^|\n)#.*','',txt)          ## remove comentário
    meta,*exs= re.split(r'\n\*\*',txt)       ## divide por exerc.
-
-   dmeta= yaml.safe_load(meta)
+   #print(*exs)
+   #print("2")
+   #print(meta)
+   #print(type(meta))
+   ##f = open('store_file.yaml', 'w')
+   ##f.write(meta)
+   #f.close()
+   #f = open("store_file.yaml", "r")
+   #print(f.read())
+   dmeta = parse_dom(meta)
+   #print(dmeta)
+   #print(dmeta)
+   #dmeta= yaml.safe_load(meta)
+   #print("3")
    for i, exer in enumerate(exs):
-       dexer=parse_exer(exer)
+      #print("4")
+      dexer=parse_exer(exer)
+      #print(dexer)
        # print( "===")
-       print(mkjson({**dmeta,**dexer}))
-       if i+1 != len(exs): print(",") # don't split on the last call
+      print(mkjson({**dmeta,**dexer}))
+      if i+1 != len(exs): print(",") # don't split on the last call
 
 main()

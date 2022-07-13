@@ -310,7 +310,7 @@ export default {
 
     //Active
     created: function () {
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/import?nome=${this.$store.state.user._id}`, {
+        axios.get(`${process.env.VUE_APP_BACKEND}/users/import?nome=${this.$store.state.user._id}&import=users`, {
                 headers: {
                     Authorization: `Bearer: ${this.$store.state.jwt}`
                 }
