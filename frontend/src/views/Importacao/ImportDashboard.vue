@@ -148,6 +148,7 @@ export default {
             /*filtered.sort(this.sortByDate);*/
 
             // Construct the weekly stats
+            console.log(questions)
             var fixedDate = questions[0].inserted_at;
             var week = 1, i = 0;
             var weekQuestions = [];
@@ -188,8 +189,8 @@ export default {
             }}
         ).then((resp) => {
             this.items = resp.data.questions;
-            this.domains = Array.from(this.items.map(obj => obj['domain']));
-            this.editors = Array.from(this.items.map(obj => obj['author']));
+            this.domains = Array.from(this.items.map(obj => obj['domain']['_id']));
+            this.editors = Array.from(this.items.map(obj => obj['author']['_id']));
             // Generate stats for the graphs
             this.stats = this.generateStats(this.items);
             console.log(this.stats)
@@ -236,9 +237,9 @@ export default {
             
             
             // Check if domain or author are unfulfilled and build the query
-            if(this.author == undefined) query = query + "ByDomain/" + this.domain.replace(" ",",")
-            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author.replace(" ",",")
-            else query = query + "ByBoth/" + this.author.replace(" ",",") + "/" + this.domain.replace(" ",",")
+            if(this.author == undefined) query = query + "ByDomain/" + this.domain.replaceAll(" ",",")
+            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author.replaceAll(" ",",")
+            else query = query + "ByBoth/" + this.author.replaceAll(" ",",") + "/" + this.domain.replaceAll(" ",",")
 
             // Load data from endpoint
             axios.get(query + `?nome=${this.$store.state.user._id}`, {}).then(resp => {

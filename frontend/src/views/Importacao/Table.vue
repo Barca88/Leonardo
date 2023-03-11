@@ -136,20 +136,20 @@ export default {
         },
         {
           text: "Domínio",
-          value: "domain",
+          value: "domain._id",
           align: "align-content-start",
           sortable: true,
           class: "white--text",
         },
         {
           text: "SubDomínio",
-          value: "subdomain",
+          value: "domain.body._id",
           align: "align-content-start",
           class: "white--text",
         },
         {
           text: "Autor",
-          value: "author",
+          value: "author._id",
           align: "align-content-start",
           class: "white--text",
         },
@@ -189,6 +189,7 @@ export default {
           }}
         ).then((resp) => {
         this.questions = resp.data.questions;
+        console.log(this.questions)
       });
     },
     
@@ -213,6 +214,7 @@ export default {
     },
 
     aproveSelected: function () {
+      let user = this.$store.state.user._id
       let aproved = [], invalid = []
       this.selected.forEach((question) => {
         if (question.flag === "aproved") {
@@ -221,6 +223,9 @@ export default {
           invalid.push(question._id);
         } else {
           question.flag = "aproved";
+          let validated_at = new Date().toLocaleString()
+          question["validated_at"] = validated_at
+          question["validated_by"] = user
           axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions/` + question._id + `?nome=${this.$store.state.user._id}`,question,{
             headers: {
               'Content-Type': 'multipart/form-data',

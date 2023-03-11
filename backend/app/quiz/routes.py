@@ -83,7 +83,7 @@ internal_api.add_resource(PostUsers,'/gamification/post_users')
 
 
 @blueprint.route('/getQuestions', methods=['GET'])
-#@admin_required
+##admin_required
 #@token_required
 #@login_required
 def question():
@@ -108,7 +108,7 @@ def question():
 
 
 @blueprint.route('/getQuestions/<question>', methods=['GET'])
-#@admin_required
+##admin_required
 #@token_required
 #@login_required
 def route_domain_get(question):
@@ -142,7 +142,7 @@ def route_photo(question):
 
 
 @blueprint.route('/insert', methods=['POST'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_insert():
     print("inserirquestao")
@@ -204,7 +204,7 @@ def route_template_insert():
 
 
 @blueprint.route('/delete/<question>', methods=['DELETE'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_apagar(question):
     print(question)
@@ -217,7 +217,7 @@ def route_template_apagar(question):
 
 
 @blueprint.route('/edit', methods=['POST'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_editar_guardar():
     print("edit question")

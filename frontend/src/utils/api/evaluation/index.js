@@ -24,6 +24,7 @@ export async function getOneEval(id) {
 export async function submit(test) {
   try {
     console.log('sending')
+    console.log(test)
     const res = await apiFetcher.post(`/evaluation`, test)
     return res.data
   } catch (err) {

@@ -62,7 +62,7 @@
                               class="label-style"
                               label="Domínio"
                               readonly
-                              v-model="question.domain"
+                              v-model="question.domain._id"
                               required
                             ></v-text-field>
                           </v-col>
@@ -71,7 +71,7 @@
                               class="label-style"
                               label="Sub-Domínio"
                               readonly
-                              v-model="question.subdomain"
+                              v-model="question.domain.body._id"
                               required
                             ></v-text-field>
                           </v-col>
@@ -89,7 +89,7 @@
                               class="label-style"
                               label="Autores"
                               readonly
-                              v-model="question.author"
+                              v-model="question.author._id"
                               required
                             ></v-text-field>
                           </v-col>

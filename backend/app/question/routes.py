@@ -24,7 +24,7 @@ UPLOAD_FOLDER = './static/picss/'
 
 
 @blueprint.route('/getQuestions', methods=['GET'])
-#@admin_required
+##admin_required
 #@token_required
 #@login_required
 def question():
@@ -47,7 +47,7 @@ def question():
 
 
 @blueprint.route('/getQuestions/<question>', methods=['GET'])
-#@admin_required
+##admin_required
 #@token_required
 #@login_required
 def route_domain_get(question):
@@ -81,7 +81,7 @@ def route_photo(question):
 
 
 @blueprint.route('/insert', methods=['POST'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_insert():
     print("inserirquestao")
@@ -98,9 +98,16 @@ def route_template_insert():
         scholarity = request.form.get('scholarity')
         study_cycle = request.form.get('study_cycle')
         domain = request.form.get('domain')
+        domain = mongo.db.domains.find_one({"_id":domain})
         subdomain = request.form.get('subdomain')
+        for d in domain['body']:
+            if d['_id'] == subdomain:
+                domain['body'] = d 
+        print(domain['body'])
         difficulty_level = request.form.get('difficulty_level')
         author = request.form.get('author')
+        author = mongo.db.users.find_one({"_id":author})
+        print(author)
         display_mode = request.form.get('display_mode')
         answering_time = request.form.get('answering_time')
         type_ = request.form.get('type')
@@ -130,10 +137,10 @@ def route_template_insert():
         flag = request.form.get('flag')
 
 
-        mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
+        mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
         "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
-        ,  #"images": images,
+        , "images": foto,
           "videos": videos,  "source": source,  "notes": notes,  "status": status
         ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
         write_log(userAdmin, 'Informação Base/Questoes', 'Adicionar Questao', 'successfull')
@@ -143,7 +150,7 @@ def route_template_insert():
 
 
 @blueprint.route('/delete/<question>', methods=['DELETE'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_apagar(question):
     print(question)
@@ -156,7 +163,7 @@ def route_template_apagar(question):
 
 
 @blueprint.route('/edit', methods=['POST'])
-@admin_required
+#admin_required
 #@login_required
 def route_template_editar_guardar():
     print("edit question")
@@ -165,9 +172,16 @@ def route_template_editar_guardar():
     scholarity = request.form.get('scholarity')
     study_cycle = request.form.get('study_cycle')
     domain = request.form.get('domain')
+    domain = mongo.db.domains.find_one({"_id":domain})
     subdomain = request.form.get('subdomain')
+    for d in domain['body']:
+        if d['_id'] == subdomain:
+            domain['body'] = d 
+    print(domain['body'])
     difficulty_level = request.form.get('difficulty_level')
     author = request.form.get('author')
+    author = mongo.db.users.find_one({"_id":author})
+    print(author)
     display_mode = request.form.get('display_mode')
     answering_time = request.form.get('answering_time')
     type_ = request.form.get('type')
@@ -194,7 +208,7 @@ def route_template_editar_guardar():
     flag = request.form.get('flag')
     userAdmin = request.args.get('nome')
 
-    mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
+    mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
     "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,   "videos": videos,  "source": source,  "notes": notes,  "status": status

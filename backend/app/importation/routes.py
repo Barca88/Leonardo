@@ -38,7 +38,7 @@ def listQuestions():
 def lookupAuthor(id):
     user = request.args.get('nome')
     write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
-    questions = mongo.db.question.find({'author':id.replace(","," "),'imported': True})
+    questions = mongo.db.question.find({'author._id':id.replace(","," "),'imported': True})
     return json_util.dumps({'questions': questions})
 
 
@@ -47,7 +47,7 @@ def lookupAuthor(id):
 def lookupDomain(id):
     user = request.args.get('nome')
     write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
-    questions = mongo.db.question.find({'domain':id.replace(","," "), 'imported': True})
+    questions = mongo.db.question.find({'domain._id':id.replace(","," "), 'imported': True})
     return json_util.dumps({'questions': questions})
 
 
@@ -56,7 +56,7 @@ def lookupDomain(id):
 def lookupBoth(author,domain):
     user = request.args.get('nome')
     write_log(user, 'Verificação/Dashboard', 'Aplicar filtro', 'successfull')
-    questions = mongo.db.question.find({'domain':domain.replace(","," "),'author': author.replace(","," "), 'imported': True})
+    questions = mongo.db.question.find({'domain._id':domain.replace(","," "),'author._id': author.replace(","," "), 'imported': True})
     return json_util.dumps({'questions': questions})
 
 
@@ -67,6 +67,22 @@ def insertQuestion():
     exist = mongo.db.question.find_one({"_id":question['_id']})
     if exist:
         return json_util.dumps({'message': "error"})
+    domain = question['domain']
+    domain = mongo.db.domains.find_one({"_id":domain})
+    print(domain)
+    question['domain'] = domain
+    subdomain = question['subdomain']
+    for d in question['domain']['body']:
+        if d['_id'] == subdomain:
+            question['domain']['body'] = d 
+    print(domain['body'])
+    author = question['author']
+    author = mongo.db.users.find_one({"_id":author})
+    question['author'] = author
+    print(author)
+    del question['institution']
+    del question['subdomain_Description']
+    del question['domain_description']
     print('A inserir questao - app importation')
     mongo.db.question.insert_one(question)
     return jsonify('Inserted new question')
@@ -76,10 +92,10 @@ def insertQuestion():
 def editQuestion(id):
     user = request.args.get('nome')
     question = request.get_json(force=True)
-    print(question['flag'])
     if question['flag'] == "rejected":
         write_log(user, 'Verificação/Verificação de Questões', 'Rejeitar Questão', 'successfull')
     if question['flag'] == "aproved":
+        mongo.db.question.find_one_and_update({'_id':id},{'$set': {'validated_at':question['validated_at'], 'validated_by':question['validated_by']}},upsert=True)
         write_log(user, 'Verificação/Verificação de Questões', 'Aprovar Questão', 'successfull')
     mongo.db.question.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
     return jsonify('Questão actualizada com sucesso ...')

@@ -260,11 +260,13 @@ export default {
     onDomain(){
       if(this.sendObject.sendDomain != this.configrules.domain){
         this.idSubDomain = []
+        console.log(this.Domain)
         if(this.configrules.domain){
           this.Domain.forEach((obj) =>{
             if(obj._id == this.configrules.domain){
+              console.log(obj)
               obj.body.forEach((sub) =>{
-                this.idSubDomain.push(sub.subdomain)
+                this.idSubDomain.push(sub._id)
               });
             }
           });
@@ -340,6 +342,7 @@ export default {
       })}
       catch( e ){console.log('')}
     //this.fetchDomains()
+    console.log("configForm")
     axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions`,{
           headers: {
             'Content-Type': 'multipart/form-data',
