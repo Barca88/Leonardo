@@ -89,7 +89,7 @@
                     >
                       <v-expansion-panel-header>Subdomínio {{i+1}}</v-expansion-panel-header>
                       <v-expansion-panel-content>
-                          <h4>Subdomínio:</h4> <span>{{item._id}}</span>
+                          <h4>Subdomínio:</h4> <span>{{item.subdomain}}</span>
                           <h4>Descrição:</h4> <span>{{item.sub_description}}</span>  
                       </v-expansion-panel-content>
                     </v-expansion-panel>
@@ -112,7 +112,7 @@
                  <v-col cols="4">
                    <dl>
                     <dt class="title">Responsável</dt>
-                    <dd class="ml-5">{{this.domain.responsible._id}}</dd>
+                    <dd class="ml-5">{{this.domain.responsible}}</dd>
                    </dl>
                 </v-col>
               </v-row>
@@ -140,19 +140,19 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Desempenho A</dt>
-                    <dd class="ml-5">{{this.domain.high_performance_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.default_user_level}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Desempenho B</dt>
-                    <dd class="ml-5">{{this.domain.low_performance_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.high_performance_factor}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                    <dl>
                     <dt class="title">Factor de Perícia A</dt>
-                    <dd class="ml-5">{{this.domain.high_skill_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.low_performance_factor}}</dd>
                    </dl>
                 </v-col>
               </v-row>
@@ -160,7 +160,7 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Perícia B</dt>
-                    <dd class="ml-5">{{this.domain.low_skill_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.high_skill_factor}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
@@ -247,7 +247,7 @@
                  <v-col cols="6">
                   <dl>
                     <dt class="title">Responsável</dt>
-                    <dd class="ml-5">{{this.domain.responsible._id}}</dd>
+                    <dd class="ml-5">{{this.domain.responsible}}</dd>
                   </dl>
                 </v-col>
               </v-row>
@@ -325,7 +325,7 @@ export default {
                 { text: "Identificador", sortable: true, value: "_id", class: "white--text"},
                 { text: "Description",  sortable: true, value: "description", class: "white--text" },
                 { text: "Escolaridade",  sortable: true, value: "scholarity", class: "white--text" },
-                { text: "Responsável", sortable: true, value: "responsible._id", class: "white--text"},
+                { text: "Responsável", sortable: true, value: "responsible", class: "white--text"},
                 { text: "Data Criação", sortable: true, value: "inserted_at", class: "white--text"},
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],

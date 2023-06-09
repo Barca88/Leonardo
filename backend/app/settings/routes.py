@@ -40,7 +40,7 @@ def route_template_ver():
     return json_util.dumps({'nome': nome,'settings':settings})
 
 @blueprint.route('/registar', methods=['POST'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_registar():
     elemento = request.form.get('elemento')
@@ -65,7 +65,7 @@ def route_template_registar():
 
 
 @blueprint.route('/editar/<s>')
-#admin_required
+@admin_required
 #@login_required
 def route_template_editar(s):
     existe = mongo.db.settings.find_one({"_id":s})
@@ -73,7 +73,7 @@ def route_template_editar(s):
     return render_template('editSettings.html', setting=existe,nome=nome)
 
 @blueprint.route('/remover/<s>')
-#admin_required
+@admin_required
 #@login_required
 def route_template_remover(s):
     nome = request.args.get('nome')
@@ -81,7 +81,7 @@ def route_template_remover(s):
 
 
 @blueprint.route('/apagar/<s>', methods=['GET'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_apagar(s):
     value = mongo.db.settings.remove({"_id":s})
@@ -90,7 +90,7 @@ def route_template_apagar(s):
     return json_util.dumps({'nome': nome,'settings':settings})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_editar_guardar():
     nome = request.args.get('nome')

@@ -42,18 +42,11 @@ export default {
         return {
             selectedFile: "<ficheiro .leo>",
             anySelected: false,
-            teachersCheck: false,
             alertPopup: {},
             actualFile: {},
-            domainsId: [],
-            questionId: [],
-            teachersId: [],
-            domain: [],
-            domainsForm: [],
+            domains: [],
             question: [],
-            teacher: [],
-            responsible: [],
-            subdomain: []
+            teachers: []
         }
     },
     components:{
@@ -71,111 +64,64 @@ export default {
     },
 
     methods: {
+/*
+        getUserDomains: async  function(){
+            //var username=this.$store.state['user']._id;
+            var domains =[]
+            await axios.get(`${process.env.VUE_APP_BACKEND}/domain/getDomains`,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer: ${this.$store.state.jwt}`,
+                        'Access-Control-Allow-Origin': "*"   
+                    }
+                })
+                .then(res =>{
+
+                    res.data.domains.forEach(e => {
+                        //if(e.responsible==username)
+                            domains.push(e._id);
+                    });
+                })
+                .catch( e => {
+                    console.log('Erro a obter a lista de domínios :: '+ e );
+                })
+
+                return domains;
+        },
+
+
+        getTeachers: async  function(){
+            //var username=this.$store.state['user']._id;
+            var teachers =[]
+            await axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=Teacher`,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer: ${this.$store.state.jwt}`,
+                        'Access-Control-Allow-Origin': "*"   
+                    }
+                })
+                .then(res =>{
+
+                    res.data.users.forEach(e => {
+                        teachers.push(e._id);
+                    });
+                })
+                .catch( e => {
+                    console.log('Erro a obter a lista de domínios :: '+ e );
+                })
+
+                return teachers;
+        },
+        
+*/
+
 
         clear: function(){
             this.selectedFile = "<ficheiro .leo>"
             this.anySelected = false
         },
-
-        async createDomain (json){
-            console.log(json)
-            let obj = [{
-                _id: json.subdomain,
-                sub_description: json.subdomain_Description
-            }]
-            if((json.access_type === "publico" || json.access_type === "privado") && json.scholarity && json.domain_description &&
-              json.domain && json.notes && json.subdomain && json.subdomain_Description){
-                console.log("Criar")
-                let formData = new FormData()
-                formData.append('_id', json.domain)
-                formData.append('description', json.domain_description)
-                formData.append('scholarity', json.scholarity)
-                formData.append('responsible', this.$store.state.user._id)
-                formData.append('notes', json.notes)
-                formData.append('access_type', json.access_type)
-                formData.append('body', JSON.stringify(obj))
-                formData.append('default_user_level', "")
-                formData.append('high_performance_factor', "")
-                formData.append('low_performance_factor', "")
-                formData.append('high_skill_factor', "")
-                formData.append('low_skill_factor', "")
-                formData.append('min_questions_number', "")
-                formData.append('backlog_factor', "")
-                formData.append('question_factor', "")
-                formData.append('inserted_by', json.inserted_by)
-                json.inserted_at = new Date().toLocaleString()
-                formData.append('inserted_at', json.inserted_at)
-
-
-                await axios.post(`${process.env.VUE_APP_BACKEND}/domain/insert?nome=${this.$store.state.user._id}&importation=imp`, formData,{
-                    headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization:`Bearer: ${this.$store.state.jwt}`,
-                        'Access-Control-Allow-Origin': "*"     
-                    }
-                    })
-                        .then(function(response){
-                        console.log(response)
-                        },(error) =>{
-                            console.log(error);
-                    }); 
-            }
-        },
-
-        async editDomain(json){
-            console.log(json)
-            let obj = {
-                _id: json.subdomain,
-                sub_description: json.subdomain_Description
-            } //adicionar aos que já existem
-            console.log(this.domain)
-            this.domain.forEach(e => {
-                if(e._id === json.domain){
-                    e.body.push(obj)
-                    obj = e.body
-                }
-            })
-            console.log(this.domain)
-            if(json.subdomain && json.subdomain_Description){
-                console.log("Editar")
-                let formData = new FormData()
-                formData.append('_id', this.domain[0]._id)
-                formData.append('description', this.domain[0].description)
-                formData.append('scholarity', this.domain[0].scholarity)
-                formData.append('responsible', this.$store.state.user._id)
-                formData.append('notes', this.domain[0].notes)
-                formData.append('access_type', this.domain[0].access_type)
-                formData.append('body', JSON.stringify(obj))
-                formData.append('default_user_level', this.domain[0].default_user_level)
-                formData.append('high_performance_factor', this.domain[0].high_performance_factor)
-                formData.append('low_performance_factor', this.domain[0].low_performance_factor)
-                formData.append('high_skill_factor', this.domain[0].high_skill_factor)
-                formData.append('low_skill_factor', this.domain[0].low_skill_factor)
-                formData.append('min_questions_number', this.domain[0].min_questions_number)
-                formData.append('backlog_factor', this.domain[0].backlog_factor)
-                formData.append('question_factor', this.domain[0].question_factor)
-                formData.append('inserted_by', this.domain[0].inserted_by)
-                formData.append('inserted_at', this.domain[0].inserted_at)
-
-                await axios.post(`${process.env.VUE_APP_BACKEND}/domain/editar?nome=${this.$store.state.user._id}&importation=imp`, formData,{
-                    headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization:`Bearer: ${this.$store.state.jwt}`,
-                        'Access-Control-Allow-Origin': "*"     
-                    }
-                    })
-                        .then(function(response){
-                        console.log(response)
-                        },(error) =>{
-                            console.log(error);
-                    }); 
-            }
-        },
-
-        async updateData(json){
-            //alterar logs
-            var user = this.$store.state.user._id
-            console.log("UPDATE!!!")
+        async performPOST (json, fileInfo){
+            //var username=this.$store.state['user']._id;
             await axios.get(`${process.env.VUE_APP_BACKEND}/question/getQuestions?nome=${this.$store.state.user._id}`,{},{
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -185,143 +131,56 @@ export default {
                 ).then((res) => {
                     console.log(res)
                     res.data.questions.forEach(e => {
-                        this.questionId.push(e._id)
+                        this.question.push(e._id)
                     });
-                    this.domain = res.data.domains.filter(function(e){
-                        return e._id === json[0].domain
+                    res.data.users.forEach(e => {
+                        this.teachers.push(e._id)
                     });
-                    this.teacher = res.data.users.filter(function(e){
-                        return e.name === json[0].author && e.university === json[0].institution
+                    res.data.domains.forEach(e => {
+                        //if(e.responsible==username)
+                        this.domains.push(e._id)
                     });
-                    this.responsible = res.data.users.filter(function(e){
-                        return e._id === user
-                    });
-                    this.domainsForm = res.data.domains
+
                 })
                 .catch( e => {
                     console.log('Erro a obter a lista de importação de questões :: '+ e );
                 })
-        },
-        
-        async validImportation(json){
-            console.log("Validar Dominio")
-            
-            await this.updateData(json)
 
+            var i, count = 0//, domai= await this.getUserDomains() //, teachers = await this.getTeachers();
             console.log(json)
-            console.log(this.domain)
-            console.log(this.responsible)
-            if(this.domain.length == 0 && this.responsible.length != 0){
-                console.log("Criar Dominio")
-                console.log("1")
-                await this.createDomain(json[0])
-                console.log("2")
-                await this.updateData(json)
-                console.log("3")
-
-            }
-            console.log("4")
-            console.log(this.domain)
-            if(this.domain.length != 0){
-                console.log("tem dominio")
-                var responsible
-                this.domain.forEach(e => {
-                    if(e._id === json[0].domain){
-                        responsible = e.responsible._id
-                        e.body.forEach(b => {
-                            if (b._id === json[0].subdomain){
-                                this.subdomain.push(b)
-                            }
-                        });
+            for (i in json) {
+                json[i].flag = 'pending'
+                json[i].imported = true
+                console.log(json[i].domain)
+                console.log(json[i].author)
+                console.log(json[i]._id)
+                if(this.domains.includes(json[i].domain) && !this.question.includes(json[i]._id) && this.teachers.includes(json[i].author)){
+                    await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization: `Bearer: ${this.$store.state.jwt}`,
+                            'Access-Control-Allow-Origin': "*"       
+                        }}
+                    )
+                    .catch(function (error) {
+                        console.log("error")
+                        console.log(error)
+                        console.log(error.response)
+                        if (error.response) {
+                            count += 1;
+                            // Request made and server responded
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
                     }
-                })
-                console.log(responsible)
-                if(responsible === this.$store.state.user._id){
-                    console.log("tem responsável")
-                    console.log(this.subdomain)
-                    if(this.subdomain.length == 0){
-                        console.log("não tem subdominio")
-                        await this.editDomain(json[0]) //está a substituir!!!!
-                        await this.updateData(json)
-                        this.domain.forEach(e => {
-                            if(e._id === json[0].domain){
-                                responsible = e.responsible._id
-                                e.body.forEach(b => {
-                                    if (b._id === json[0].subdomain){
-                                        this.subdomain.push(b)
-                                    }
-                                });
-                            }
-                        })
-                        //fazer outro get para atualizar
-                    }
-                    console.log(this.subdomain)
-                    console.log(this.teacher)
-                    if(this.subdomain.length != 0 && this.teacher.length != 0){
-                        return 1
-                    }
+                });
                 }
-            }
-            return 0
-        },
-
-        async performPOST (json, fileInfo){
-            const confirm = await this.validImportation(json)
-            var i
-            var correct = 0, failed = 0   
-            console.log(confirm)
-            if(confirm){
-                console.log("Dominio Correto")
-                for (i in json) {
-                    json[i].flag = 'pending'
-                    json[i].imported = true
-                    if (json[i].language == 'pt' || json[i].language == 'PT')
-                        json[i].language = 'Portuguese'
-                    if (json[i].language == 'fr' || json[i].language == 'FR')
-                        json[i].language = 'French'
-                    if (json[i].language == 'en' || json[i].language == 'EN')
-                        json[i].language = 'English'
-                    if (json[i].language == 'es' || json[i].language == 'ES')
-                        json[i].language = 'Spanish'
-                    console.log(json[i].domain)
-                    console.log(json[i].author)
-                    console.log(json[i]._id)
-                    let inserted_at = new Date().toLocaleString()
-                    json[i]["inserted_at"] = inserted_at
-                    json[i]["inserted_by"] = this.$store.state.user._id
-                    
-                    if(!this.questionId.includes(json[i]._id)){
-                        await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_questions?nome=${this.$store.state.user._id}`,json[i],{
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                                Authorization: `Bearer: ${this.$store.state.jwt}`,
-                                'Access-Control-Allow-Origin': "*"       
-                            }}
-                        )
-                        .then((res) => {
-                            console.log(res)
-                            correct += 1
-                        })
-                        .catch(function (error) {
-                            console.log("error")
-                            console.log(error)
-                            console.log(error.response)
-                            if (error.response) {
-                                failed += 1;
-                                // Request made and server responded
-                                console.log(error.response.data);
-                                console.log(error.response.status);
-                                console.log(error.response.headers);
-                        }
-                    });
-                    }
-                    else {
-                        failed+=1;
-                    }
+                else {
+                       count+=1;
                 }
             }
             // post it into the imported files database
-            await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_info?nome=${this.$store.state.user._id}&count=${failed}`,fileInfo,{
+            await axios.post(`${process.env.VUE_APP_BACKEND}/importation/imported_info?nome=${this.$store.state.user._id}&count=${count}`,fileInfo,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer: ${this.$store.state.jwt}`,
@@ -337,14 +196,12 @@ export default {
                   console.log(error.response.headers);
                 }
             });
-            return correct
+            return count
         },
-
         async loadJSON (text, isLeo, fileInfo){
             console.log(isLeo)
             console.log(text)
-            var json = text
-            var failed = 0, correct = 0
+            var count = 0, json = text, rest
             // Parse JSON if that hasn't been done yet
             if(isLeo) {
                json = JSON.parse(text)
@@ -356,10 +213,10 @@ export default {
 
             // Wait for the posts to finish so we can present the alert to the user
             console.log("leo3")
-            correct = await this.performPOST(json, fileInfo)
-            failed = json.length - correct
+            count = await this.performPOST(json, fileInfo)
+            rest = json.length - count
             console.log("alertttt")
-            this.alertPopup = alerts.importDialog(correct, failed, this.$store.state.user._id)
+            this.alertPopup = alerts.importDialog(rest, count, this.$store.state.user._id)
         },
         loadLEO: function(text, fileInfo){
             console.log("leo1")
@@ -394,16 +251,13 @@ export default {
             if(this.anySelected) {
                 (new Response(this.actualFile)).text().then(
                     x => {                 
-
                         // Create the file info object
                         var fileInfo = {
                             date: new Date(),
                             name: this.actualFile.name,
                             size: this.actualFile.size
                         }
-                        console.log("File: ")
-                        console.log(x)
-                        console.log(fileInfo)
+
                         if(this.actualFile.name.endsWith(".json")) this.loadJSON(x, true, fileInfo);
                         else if(this.actualFile.name.endsWith(".leo")) this.loadLEO(x, fileInfo);
                         else {
@@ -416,7 +270,6 @@ export default {
             }
         },
         handleChanged: function(e){
-            console.log(e)
             var files = e.target.files
             console.log(files)
             this.actualFile = files[0]

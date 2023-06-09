@@ -38,6 +38,7 @@
                         auto-grow
                         background-color="#f2f2fc"
                         color="#2A3F54"
+                        :rules="rules.required"
                         rows="3"
                         placeholder="Introduza uma explicação sobre a questão"
                     ></v-textarea>
@@ -54,6 +55,7 @@
                         auto-grow
                         background-color="#f2f2fc"
                         color="#2A3F54"
+                        :rules="rules.required"
                         rows="3"
                         placeholder="Introduza algumas notas sobre a questão"
                     ></v-textarea>
@@ -70,6 +72,7 @@
                         auto-grow
                         background-color="#f2f2fc"
                         color="#2A3F54"
+                        :rules="rules.required"
                         rows="3"
                         placeholder="Introduza algumas fontes de informação sobre a questão"
                     ></v-textarea>
@@ -110,7 +113,7 @@ export default ({
             rules: {
                 required: [(v) => !!v || "Field is required"],
             },
-            status: ['E','P'],
+            status: ['E'],
             language: ['Portuguese', 'English', 'Spanish', 'French'],
         }
     },

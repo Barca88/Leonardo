@@ -180,8 +180,8 @@
               if(obj._id ==this.select){
                 console.log(3)
                 obj.body.forEach((sub) =>{
-                  this.idSubDomain.push(sub._id)
-                  console.log(sub._id)
+                  this.idSubDomain.push(sub.subdomain)
+                  console.log(sub.subdomain)
                 });
               }
             });

@@ -107,13 +107,13 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Domínio</dt>
-                    <dd class="ml-5">{{this.questao.domain._id}}</dd>
+                    <dd class="ml-5">{{this.questao.domain}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Subdomínio</dt>
-                    <dd class="ml-5">{{this.questao.domain.body._id}}</dd>
+                    <dd class="ml-5">{{this.questao.subdomain}}</dd>
                   </dl>
                 </v-col>
               </v-row>
@@ -133,7 +133,7 @@
                  <v-col cols="4">
                    <dl>
                     <dt class="title">Autor</dt>
-                    <dd class="ml-5">{{this.questao.author._id}}</dd>
+                    <dd class="ml-5">{{this.questao.author}}</dd>
                    </dl>
                 </v-col>
               </v-row>
@@ -147,7 +147,7 @@
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Tipo de Questão</dt>
-                    <dd class="ml-5">{{this.questao.type}}</dd>
+                    <dd class="ml-5">{{this.questao.type_}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
@@ -201,19 +201,19 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Data de Criação</dt>
-                    <dd class="ml-5">{{this.questao.inserted_at}}</dd>
+                    <dd class="ml-5">{{this.questao.domain}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Inserido Por</dt>
-                    <dd class="ml-5">{{this.questao.inserted_by}}</dd>
+                    <dd class="ml-5">{{this.questao.subdomain}}</dd>
                   </dl>
                 </v-col>
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Imagem</dt>
-                    <v-img v-bind:src="this.userPic"/>
+                    <v-img v-bind:src="userPic"   />
                   </dl>
                 </v-col>
                 <v-col cols="4">
@@ -282,7 +282,7 @@
                 <v-col cols="6">
                   <dl>
                     <dt class="title">Domínio</dt>
-                    <dd class="ml-5">{{this.questao.domain._id}}</dd>
+                    <dd class="ml-5">{{this.questao.domain}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="6">
@@ -296,7 +296,7 @@
                 <v-col cols="6">
                   <dl>
                     <dt class="title">Autor</dt>
-                    <dd class="ml-5">{{this.questao.author._id}}</dd>
+                    <dd class="ml-5">{{this.questao.author}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="6">
@@ -366,9 +366,9 @@ export default {
             dialogDelete: false,
             headers: [
                 { text: "Identificador", sortable: true, value: "_id", class: "white--text"},
-                { text: "Domínio",  sortable: true, value: "domain._id", class: "white--text" },
-                { text: "SubDomínio",  sortable: true, value: "domain.body._id", class: "white--text" },
-                { text: "Autor", sortable: true, value: "author._id", class: "white--text"},
+                { text: "Domínio",  sortable: true, value: "domain", class: "white--text" },
+                { text: "SubDomínio",  sortable: true, value: "subdomain", class: "white--text" },
+                { text: "Autor", sortable: true, value: "author", class: "white--text"},
                 { text: "Data Criação", sortable: true, value: "inserted_at", class: "white--text"},
                 { text: "Opções", sortable: false, value: "actions", class: "white--text"},
             ],
@@ -378,9 +378,8 @@ export default {
               language: '',
               study_cycle: '',
               scholarity: '',
-              domain: {
-                body: '',
-              },
+              domain: '',
+              subdomain: '',
               difficulty_level: '',
               author: '',
               display_mode: '',
@@ -402,7 +401,8 @@ export default {
               validated_at: ''
             },
             search:'',
-            navQuestoes: []
+            navQuestoes: [],
+            dominios: []
         }
     },
     created(){
@@ -418,6 +418,7 @@ export default {
             console.log(response.data)
             //this.domain = response.data
             this.navQuestoes=response.data.questions
+            this.dominios=response.data.domains
             
           },(error) =>{
               console.log(error);
@@ -431,7 +432,7 @@ export default {
         this.dialogShow = true
       },
       showImage(_qId){
-        console.log("Imagem " + _qId)
+
         this.userPic=''
         axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
             responseType:'arraybuffer',
@@ -442,7 +443,6 @@ export default {
         .then(response => {
             var image = new Buffer(response.data, 'binary').toString('base64')
             this.userPic = `data:${response.headers['content-type'].toLowerCase()};base64,${image}`
-            //console.log(this.userPic)
         }).catch(e => {
             console.log('Erro ' + e)
             this.errors.push(e)
@@ -451,8 +451,6 @@ export default {
       },
 
       sendItem(data,inf){
-        console.log("data:  ")
-        console.log(data)
         this.$router.push({
           name: "ProdQuestao", 
           params: { data, inf }
@@ -465,13 +463,12 @@ export default {
 
       deleteItem(item){
         this.itemIndex = this.navQuestoes.indexOf(item)
-        this.questao = Object.assign({}, item)
-        console.log(this.questao)
+        this.question = Object.assign({}, item)
         this.dialogDelete = true
       },     
 
       deleteConfirm(){
-        axios.delete(`${process.env.VUE_APP_BACKEND}/question/delete/` + this.questao._id + `?nome=${this.$store.state.user._id}`,{
+        axios.delete(`${process.env.VUE_APP_BACKEND}/question/delete/` + this.question._id + `?nome=${this.$store.state.user._id}`,{
           headers: {
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`,

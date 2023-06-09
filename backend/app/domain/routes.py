@@ -25,7 +25,7 @@ UPLOAD_FOLDER = './static/picss/'
 
 
 @blueprint.route('/getDomains', methods=['GET'])
-##admin_required
+#@admin_required
 #@token_required
 #@login_required
 def route_domain():
@@ -40,7 +40,7 @@ def route_domain():
 
 
 @blueprint.route('/getDomains/<domain>', methods=['GET'])
-##admin_required
+#@admin_required
 #@token_required
 #@login_required
 def route_domain_get(domain):
@@ -55,7 +55,7 @@ def route_domain_get(domain):
 
 
 @blueprint.route('/insert', methods=['POST'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_insert():
     print("inserir")
@@ -71,13 +71,10 @@ def route_template_insert():
         description = request.form.get('description')
         scholarity = request.form.get('scholarity')
         responsible = request.form.get('responsible')
-        responsible = mongo.db.users.find_one({"_id":responsible})
-        print(responsible)
         notes = request.form.get('notes')
         access_type = request.form.get('access_type')
-    
+
         body = json.loads(request.form.get('body'))
-        print(body)
         
         default_user_level = request.form.get('default_user_level')
         high_performance_factor = request.form.get('high_performance_factor')
@@ -89,19 +86,16 @@ def route_template_insert():
         backlog_factor = request.form.get('backlog_factor')
         inserted_at = request.form.get('inserted_at')
 
-        mongo.db.domains.insert({"_id" :_id , "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
+        mongo.db.domains.insert({"_id" :_id , "domain" :_id, "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
         "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
         "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at, "backlog_factor": backlog_factor})
-        imp = request.args.get('importation')
-        print(imp)
-        if imp != 'imp':
-            write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
+        write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
         return '1'
 
 
 
 @blueprint.route('/apagar/<domain>', methods=['DELETE'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_apagar1(domain):
     questoes = mongo.db.question.find({"domain":domain})
@@ -119,18 +113,16 @@ def route_template_apagar1(domain):
 
 
 @blueprint.route('/editar', methods=['POST'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_editar_guardar():
     print("editar")
     _id = request.form.get('_id')
+    domain = _id
     print(request.form.get('body'))
     description = request.form.get('description')
     scholarity = request.form.get('scholarity')
     responsible = request.form.get('responsible')
-    print(responsible)
-    responsible = mongo.db.users.find_one({"_id":responsible})
-    print(responsible)
     notes = request.form.get('notes')
     access_type = request.form.get('access_type')
     body = json.loads(request.form.get('body'))
@@ -143,31 +135,14 @@ def route_template_editar_guardar():
     question_factor = request.form.get('question_factor')
     backlog_factor = request.form.get('backlog_factor')
     #inserted_by = request.form.get('inserted_by')
-    #inserted_at = request.form.get('inserted_at')
+    inserted_at = request.form.get('inserted_at')
     userAdmin = request.args.get('nome')
 
-    mongo.db.domains.update({"_id":_id},{"$set": {"description":description,"backlog_factor":backlog_factor, "scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
+    mongo.db.domains.update({"_id":_id},{"description":description,"domain": domain,"backlog_factor":backlog_factor, "scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
     "high_performance_factor":high_performance_factor,"low_performance_factor":low_performance_factor,"high_skill_factor":high_skill_factor,"low_skill_factor":low_skill_factor,"body":body,
-    "min_questions_number":min_questions_number,"question_factor":question_factor}})
+    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":userAdmin,"inserted_at":inserted_at})
 
-    questions = mongo.db.question.find({"domain._id":_id})
-    for question in questions:
-        domainedit = mongo.db.domains.find_one({"_id":_id})
-        print(question['domain']['_id'])
-        print(domainedit['body'])
-        for subdomain in domainedit['body']:
-            print("Subdomain!!!!!!!!!!!!!!!!!!1")
-            print(subdomain['_id'])
-            print(question['domain']['body']['_id'])
-            if subdomain['_id'] == question['domain']['body']['_id']:
-                print(question['_id'])
-                domainedit['body'] = subdomain
-                print(domainedit)
-                mongo.db.question.update({"_id" :question['_id']} ,{"$set": {"domain": domainedit}})
 
     domains = mongo.db.domains.find()
-    imp = request.args.get('importation')
-    print(imp)
-    if imp != 'imp':
-        write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
+    write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
     return json_util.dumps({'Domains': domains})

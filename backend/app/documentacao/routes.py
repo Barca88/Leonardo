@@ -26,7 +26,7 @@ def route_docs():
 
 
 @blueprint.route('/adicionar', methods=['POST'])
-#admin_required
+@admin_required
 def route_adicionar():
     titulo = request.form.get('titulo')
     existe = mongo.db.documentation.find_one({"_id":titulo})
@@ -55,7 +55,7 @@ def route_adicionar():
 
 
 @blueprint.route('/apagar/<doc>')
-#admin_required
+@admin_required
 def route_apagar(doc):
     user = request.args.get('nome')  
     mongo.db.documentation.remove({"_id":doc})
@@ -77,7 +77,7 @@ def route_cur(doc):
 
 
 @blueprint.route('/editar', methods=['POST'])
-#admin_required
+@admin_required
 #@login_required
 def route_template_editar_guardar():
     titulo = request.form.get('titulo')
