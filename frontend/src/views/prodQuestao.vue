@@ -399,7 +399,7 @@ export default {
         source: "", 
         notes: "", 
         status:"E", 
-        inserted_by: this.$store.state.user._id, 
+        inserted_by: "User_default", 
         inserted_at:new Date().toLocaleString(), 
         validated_by:"", 
         validated_at:"" 
@@ -412,8 +412,7 @@ export default {
     handleDataCaracterizacao(e) {
       [this.questao._id,this.questao.study_cycle,this.questao.scholarity,this.questao.domain,this.questao.subdomain,
       this.questao.header, this.questao.difficulty_level,this.questao.author,this.questao.display_mode,
-      this.questao.answering_time,this.questao.type,this.questao.precedence,this.questao.repetitions,this.editing,this.inf,this.idQuestion] = e;
-      console.log(this.questao.subdomain)
+      this.questao.answering_time,this.questao.type_,this.questao.precedence,this.questao.repetitions,this.editing,this.inf,this.idQuestion] = e;
     },
 
     handleDataRespostas(e) {
@@ -425,7 +424,6 @@ export default {
     },
 
     confirmSubmit(){
-
       if(this.$refs.ct.validate() && this.$refs.rp.validate() && this.$refs.sp.validate()){
         this.openSubmit = true
       }
@@ -447,7 +445,7 @@ export default {
         formData.append('author' , this.questao.author)
         formData.append('display_mode' , this.questao.display_mode)
         formData.append('answering_time' , this.questao.answering_time)
-        formData.append('type' , this.questao.type)
+        formData.append('type' , this.questao.type_)
         formData.append('precedence' , this.questao.precedence)
         formData.append('repetitions' , this.questao.repetitions)
         formData.append('header' , this.questao.header)
@@ -488,7 +486,7 @@ export default {
         formData.append('author' , this.questao.author)
         formData.append('display_mode' , this.questao.display_mode)
         formData.append('answering_time' , this.questao.answering_time)
-        formData.append('type' , this.questao.type)
+        formData.append('type' , this.questao.type_)
         formData.append('precedence' , this.questao.precedence)
         formData.append('repetitions' , this.questao.repetitions)
         formData.append('header' , this.questao.header)

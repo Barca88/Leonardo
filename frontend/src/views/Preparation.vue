@@ -167,7 +167,6 @@ export default {
 
     async submitTestConfig() {
       const validForm = await this.$refs.configForm.validate()
-      console.log("submitTestConfig")
       if (validForm) {
         // Had trouble with hours being set on dateStart/Finish :^/
         const dateStart = new Date(this.testConfigs.date.start)

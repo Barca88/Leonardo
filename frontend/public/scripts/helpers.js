@@ -22,9 +22,6 @@ export default {
         const ok = await popup.trigger(alerts.confirmDialog(str,user))
         if(ok) {
           (question.flag = "aproved")
-          let validated_at = new Date().toLocaleString()
-          question["validated_at"] = validated_at
-          question["validated_by"] = user
           axios.put(`${process.env.VUE_APP_BACKEND}/importation/imported_questions/` + question._id + `?nome=${user}`, question);
         }
       }

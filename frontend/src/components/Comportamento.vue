@@ -9,7 +9,7 @@
             <v-row>          
                 <v-col cols="6">  
                     <v-select v-model="formData.default_user_level" class="mt-5" clear dense 
-                         :items="min_number" label="Nível de Dificuldade"/>
+                        :rules="rules.required" :items="min_number" label="Nível de Dificuldade"/>
                 </v-col>
             </v-row>
             <v-row>
@@ -37,15 +37,15 @@
             <v-row>
                 <v-col cols="6">
                     <v-select v-model="formData.min_questions_number" clear dense 
-                     :items="min_number" label="Número mínimo de Questões"/>
+                    :rules="rules.required" :items="min_number" label="Número mínimo de Questões"/>
                 </v-col>
                 <v-col cols="6">
                     <v-select v-model="formData.question_factor" clear dense 
-                    :items="quest_factor" label="Factor de Questões"/>
+                    :rules="rules.required" :items="quest_factor" label="Factor de Questões"/>
                 </v-col>
                 <v-col cols="6">
                     <v-select v-model="formData.backlog_factor" clear dense 
-                    :items="quest_factor" label="Factor de Backlog"/>
+                    :rules="rules.required" :items="quest_factor" label="Factor de Backlog"/>
                 </v-col>
             </v-row>
             
@@ -72,6 +72,9 @@ export default ({
                 min_questions_number: '',
                 question_factor: '',
                 backlog_factor: ''
+            },
+            rules: {
+                required: [(v) => !!v || "Field is required"],
             },
             diff_level:['1','2','3','4','5'],
             min_number:['1','2','3','4','5','6'],
