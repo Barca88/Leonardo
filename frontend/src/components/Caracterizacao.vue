@@ -80,7 +80,7 @@
       
       <v-row>
         <v-col xs="12">
-          <v-select v-model="formData.author" :rules="[...rules.required,...rules.length75]" :items="this.idUsers" :counter="75" label="Autor"/>
+          <v-select v-model="formData.author" :items="this.idUsers" label="Autor"/>
         </v-col>
       </v-row>
 
@@ -103,10 +103,10 @@
           <v-select v-model="formData.answering_time" clear :rules="rules.required" :items="tempos" label="Tempo de Resposta" dense/>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-select v-model="formData.type_" :rules="rules.required" :items="tipos" label="Tipo de Questão" dense/>
+          <v-select v-model="formData.type" :rules="rules.required" :items="tipos" label="Tipo de Questão" dense/>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-select v-model="formData.repetitions" :rules="rules.required" :items="repeticoes" label="Repetições" dense/>
+          <v-select v-model="formData.repetitions" :items="repeticoes" label="Repetições" dense/>
         </v-col>
       </v-row>
         
@@ -146,7 +146,7 @@ export default {
           author: '',
           display_mode: '',
           answering_time: '',
-          type_: '',
+          type: '',
           precedence: [],
           repetitions: '',
           inf: ''
@@ -158,8 +158,8 @@ export default {
           length75: [v => (v && v.length <= 75) || "Field must be less or equal than 75 characters"],
           length100: [v => (v && v.length <= 100) || "Field must be less or equal than 100 characters"],
       },
-      tempos: ['30', '45', '60'],
-      tipos: ['1', '2', '3'],
+      tempos: ['30', '45', '60','120','180'],
+      tipos: ['Conceito','Terminologia','Definição','Exercício','Prova','Outro'],
       repeticoes: ['0','1', '2', '3'],
       idQuestoes: [],
       idSubDomain: [],
@@ -184,6 +184,7 @@ export default {
         response.data.domains.forEach((obj) =>{
           this.Domain.push(obj)
           this.idDomain.push(obj._id)
+          console.log(this.Domain)
         });
       },(error) =>{
           this.x = error
@@ -191,20 +192,21 @@ export default {
     if(this.$route.params.data!=null){
       this.editing = true
       let data = this.$route.params.data
+      console.log(data)
       let inf = this.$route.params.inf
           this.formData.inf = inf  
           this.formData._id = data._id
           this.formData.study_cycle = data.study_cycle
           this.formData.scholarity = data.scholarity
-          this.formData.domain = data.domain
-          this.formData.subdomain = data.subdomain
+          this.formData.domain = data.domain._id
+          this.formData.subdomain = data.domain.body._id
           this.formData.header = data.header
           this.formData.difficulty_level = data.difficulty_level
-          this.formData.author = data.author
+          this.formData.author = data.author._id
           this.formData.display_mode = data.display_mode
           this.formData.repetitions = data.repetitions
           this.formData.answering_time = data.answering_time
-          this.formData.type_ = data.type_
+          this.formData.type = data.type
           this.formData.precedence = data.precedence         
     }else{
         this.formData.inf = "/questions"
@@ -219,13 +221,13 @@ export default {
                 this.formData._id = response.data.question._id
                 this.formData.study_cycle = response.data.question.study_cycle
                 this.formData.scholarity = response.data.question.scholarity
-                this.formData.domain = response.data.question.domain
-                this.formData.subdomain = response.data.question.subdomain
+                this.formData.domain = response.data.question.domain._id
+                this.formData.subdomain = response.data.question.domain.body._id
                 this.formData.difficulty_level = response.data.question.difficulty_level
-                this.formData.author = response.data.question.author
+                this.formData.author = response.data.question.author._id
                 this.formData.display_mode = response.data.question.display_mode,
                 this.formData.answering_time = response.data.question.answering_time
-                this.formData.type_ = response.data.question.type_
+                this.formData.type = response.data.question.type
                 this.formData.precedence = response.data.question.precedence
                 this.formData.repetitions = response.data.question.repetitions
                 this.formData.header = response.data.question.header
@@ -246,7 +248,7 @@ export default {
     this.formData.author = ""
     this.formData.display_mode = ""
     this.formData.answering_time = ""
-    this.formData.type_ = ""
+    this.formData.type = ""
     this.formData.precedence = ""
     this.formData.repetitions = ""
     this.formData.header = ""
@@ -276,7 +278,7 @@ export default {
           this.Domain.forEach((obj) =>{
             if(obj._id == this.formData.domain){
               obj.body.forEach((sub) =>{
-                this.idSubDomain.push(sub.subdomain)
+                this.idSubDomain.push(sub._id)
               });
             }
           });
@@ -299,7 +301,7 @@ export default {
           handler: function() {
             this.$emit('newdataCaracterizacao', [this.formData._id,this.formData.study_cycle,this.formData.scholarity,this.formData.domain,
             this.formData.subdomain,this.formData.header,this.formData.difficulty_level,this.formData.author,
-            this.formData.display_mode,this.formData.answering_time,this.formData.type_,this.formData.precedence,this.formData.repetitions,this.editing,this.formData.inf, this.idQuestoes]);
+            this.formData.display_mode,this.formData.answering_time,this.formData.type,this.formData.precedence,this.formData.repetitions,this.editing,this.formData.inf, this.idQuestoes]);
         },
           deep: true
       },

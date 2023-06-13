@@ -53,7 +53,6 @@
                     background-color="#f2f2fc"
                     color="#2A3F54"
                     rows="3"
-                    :rules="rules.required"
                     placeholder="Introduza algumas notas sobre o Domínio"
           ></v-textarea>
         </v-col>
@@ -133,7 +132,7 @@ export default {
           this.formData._id = data._id
           this.formData.description = data.description
           this.formData.scholarity = data.scholarity
-          this.formData.responsible = data.responsible
+          this.formData.responsible = data.responsible._id
           this.formData.notes = data.notes
           this.formData.access_type = data.access_type  
     }
@@ -146,7 +145,7 @@ export default {
                 this.formData._id = response.data.domain._id
                 this.formData.description = response.data.domain.description,
                 this.formData.scholarity = response.data.domain.scholarity,
-                this.formData.responsible = response.data.domain.responsible
+                this.formData.responsible = response.data.domain.responsible._id
                 this.formData.notes = response.data.domain.notes
                 this.formData.access_type = response.data.domain.access_type 
                 this.editing = true

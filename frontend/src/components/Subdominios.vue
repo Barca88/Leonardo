@@ -10,10 +10,10 @@
       <v-row>
         <v-col cols="8">
           <div v-if="firstSub">
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.repeatedID]" :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio._id" :counter="200" label="Subdomínio"></v-text-field>
           </div>
           <div v-else>
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.required,...rules.repeatedID]"  :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio._id" :rules="[...rules.repeatedID]"  :counter="200" label="Subdomínio"></v-text-field>
           </div>
         </v-col>
       </v-row>
@@ -24,7 +24,7 @@
             <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
           </div>
           <div v-else>
-            <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" :rules="rules.required" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
+            <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
           </div>
         </v-col>
       </v-row>
@@ -46,8 +46,8 @@
             {{ props.index+1 }}
           </template>
 
-          <template v-slot:[`item.subdomain`]="{ item }">
-            {{item.subdomain != null && item.subdomain.length > 15 ? item.subdomain.slice(0, 15) + '...' : item.subdomain }}
+          <template v-slot:[`item._id`]="{ item }">
+            {{item._id != null && item._id.length > 15 ? item._id.slice(0, 15) + '...' : item._id }}
           </template>
 
           <template v-slot:[`item.sub_description`]="{ item }">
@@ -84,7 +84,7 @@
             <v-container>
               <v-row>
                 <v-col cols="8">
-                  <v-text-field v-model="subdominioEdit.subdomain" :rules="rules.required" :counter="200" label="Subdomínio" disabled></v-text-field>
+                  <v-text-field v-model="subdominioEdit._id" :rules="rules.required" :counter="200" label="Subdomínio" disabled></v-text-field>
                 </v-col>
               </v-row>
 
@@ -226,16 +226,16 @@ export default {
                 body: [],
             },
             subdominio: {
-                designation: "",
-                description: ""
+                _id: "",
+                sub_description: ""
             },
             subdominioEdit: {
-                designation: "",
-                description: ""
+                _id: "",
+                sub_description: ""
             },
             defaultSub: {
-                designation: "",
-                description: ""
+                _id: "",
+                sub_description: ""
             },
             
             rules: {
@@ -247,7 +247,7 @@ export default {
             },
             headers: [
                 { text: "Número", align: "start", sortable: false, value: "index" },
-                { text: "Subdomínio",  sortable: false, value: "subdomain" },
+                { text: "Subdomínio",  sortable: false, value: "_id" },
                 { text: "Descrição",  sortable: false, value: "sub_description" },
                 { text: "Actions", sortable: false, value: "actions"},
             ],
@@ -258,7 +258,7 @@ export default {
       if(this.$route.params.data!=null){
         this.firstSub = true
         let data = this.$route.params.data
-            this.formData.body = data.body         
+            this.formData.body = data.body    
       }  
     },
 
@@ -280,7 +280,7 @@ export default {
       this.$root.$on('reset', data => {
         this.x=data
         this.formData.body = []
-        this.subdominio.subdomain = ""
+        this.subdominio._id = ""
         this.subdominio.sub_description = ""
       })
     },
@@ -292,16 +292,16 @@ export default {
       },
 
       addSubdominio(){
-        if(this.subdominio.subdomain != undefined && this.subdominio.sub_description != undefined){
-          if(this.checkID(this.subdominio.subdomain)){
+        if(this.subdominio._id != "" && this.subdominio.sub_description != ""){
+          if(this.checkID(this.subdominio._id)){
             this.formData.body.push(this.subdominio);
             this.subdominio = Object.assign({}, this.defaultSub)
           }
           else{
             this.dialogSub = true
           }
-          if(!this.firstSub){
-            this.firstSub = true
+          if(this.firstSub){
+            this.firstSub = false
           }
         }else{
           this.dialogSub = true
@@ -316,11 +316,12 @@ export default {
 
 
     checkID(item){
-      return !this.formData.body.find(x => x.subdomain === item)
+      return !this.formData.body.find(x => x._id === item)
     },
 
 
       editConfirm(){
+        console.log(this.subdominioEdit.sub_description)
         if(!this.subdominioEdit.sub_description){
           this.dialogSub = true
         }

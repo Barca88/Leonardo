@@ -188,7 +188,7 @@ export default {
           this.Domain.forEach((obj) =>{
             if(obj._id == this.domain){
               obj.body.forEach((sub) =>{
-                this.idSubDomain.push(sub.subdomain)
+                this.idSubDomain.push(sub._id)
               });
             }
           });

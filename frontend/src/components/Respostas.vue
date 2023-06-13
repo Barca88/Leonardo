@@ -10,7 +10,7 @@
       <v-row>
         <v-col cols="8">
           <div v-if="firstResposta">
-            <v-text-field class="mt-4" v-model="resposta.answer" :rules="[...rules.repeatedID]" :counter="200" label="Texto da Resposta"></v-text-field>
+            <v-text-field class="mt-4" v-model="resposta.answer" :counter="200" label="Texto da Resposta"></v-text-field>
           </div>
           <div v-else>
             <v-text-field class="mt-4" v-model="resposta.answer" :rules="[...rules.required,...rules.repeatedID]" :counter="200" label="Texto da Resposta"></v-text-field>
@@ -158,7 +158,7 @@
                   </v-radio-group>
                 </v-col>
                 <v-col cols="6">
-                  <v-select :items="pontos" v-model="respostaEdit.points" label="Pontos" dense></v-select>
+                  <v-select :items="pontos" v-model="respostaEdit.points" :rules="rules.required" label="Pontos" dense></v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -378,11 +378,11 @@ export default {
           if(this.checkID(this.resposta.answer)){
             this.formData.body.push(this.resposta);
             this.resposta = Object.assign({}, this.defaultResp)
-            if(!this.firstResposta){
-              this.firstResposta = true
-            }
           }else{
             this.dialogResp = true
+          }
+          if(this.firstResposta){
+            this.firstResposta = false
           }
         }else{
           this.dialogResp = true
@@ -396,7 +396,8 @@ export default {
       },
 
       editConfirm() {
-        if(!this.respostaEdit.points){
+        console.log(this.respostaEdit.points)
+        if(!this.respostaEdit.points || !this.respostaEdit.answer){
           this.dialogResp = true
         }
         else{

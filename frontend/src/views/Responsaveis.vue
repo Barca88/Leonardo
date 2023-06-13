@@ -446,7 +446,7 @@ export default {
             for(let i = 0; i<todos.length;i++){ 
                 todos[i].dom = []
                 for(let j = 0; j < domains.length; j++ ){
-                    if(todos[i]._id === domains[j].responsible){
+                    if(todos[i]._id === domains[j].responsible._id){
                         todos[i].dom.push(domains[j])
                     }
                 } 
@@ -462,7 +462,7 @@ export default {
         this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.value=value
-        this.editedItem.tip = "reponsible"
+        this.editedItem.tip = "responsible"
         //console.log("AAAAAAAAAAAAA")
         //console.log(this.value)
         //console.log(this.editedItem)
@@ -527,35 +527,22 @@ export default {
         this.dialogShow = false
       },
 
-
-
-      edit(){
-        this.update = true
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
-          .then(response => {
-              // JSON responses are automatically parsed.
-              //console.log(response.data)
-              this.users = response.data.users
-          }).catch(e => {
-              //console.log(e)
-              this.errors.push(e)
-        })
-        this.update = false
-      },
-
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
         axios.get(`${process.env.VUE_APP_BACKEND}/users/apagar/` + this.users[index]._id + `?nome=${this.$store.state.user._id}&type=responsible`,{ headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
-            // JSON responses are automatically parsed.
-            //console.log(response.data)
             var todos = response.data.users
+            var domains = response.data.domains
             for(let i = 0; i<todos.length;i++){ 
-                if(todos[i]._id === this.$store.state.user._id){
-                    todos.splice(i,1)
-                }
+                todos[i].dom = []
+                for(let j = 0; j < domains.length; j++ ){
+                    if(todos[i]._id === domains[j].responsible._id){
+                        todos[i].dom.push(domains[j])
+                    }
+                } 
             }
+            todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
         }).catch(e => {
             //console.log(e)
@@ -577,17 +564,18 @@ export default {
         axios.get(`${process.env.VUE_APP_BACKEND}/users/users?nome=${this.$store.state.user._id}&type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
         .then(response => {
             var todos = response.data.users
-            var domains = response.data.domains      
+            var domains = response.data.domains
             for(let i = 0; i<todos.length;i++){ 
                 todos[i].dom = []
                 for(let j = 0; j < domains.length; j++ ){
-                    if(todos[i]._id === domains[j].responsible){
+                    if(todos[i]._id === domains[j].responsible._id){
                         todos[i].dom.push(domains[j])
                     }
                 } 
             }
             todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
+            console.log(this.users)
         }).catch(e => {
             //console.log(e)
             this.errors.push(e)
