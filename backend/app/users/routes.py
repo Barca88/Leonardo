@@ -21,7 +21,7 @@ UPLOAD_FOLDER = './static/pics/'
 
 
 @blueprint.route('/users', methods=['GET'])
-@admin_required
+#@admin_required
 #@token_required
 #@login_required
 def route_users():
@@ -52,7 +52,7 @@ def route_users():
 
 
 @blueprint.route('/registar', methods=['POST'])
-@admin_required
+#@admin_required
 #@login_required
 def route_template_registar():
     username = request.form.get('username')
@@ -317,7 +317,7 @@ def route_import_registos():
 
 
 @blueprint.route('/apagar/<user>')
-@admin_required
+#@admin_required
 #@login_required
 def route_template_apagar(user):
     mongo.db.users.remove({"_id":user})
@@ -330,19 +330,25 @@ def route_template_apagar(user):
     users = mongo.db.users.find()
     userAdmin = request.args.get('nome')
     type = request.args.get('type')
+    domains = None
 
     if(type == "all"): 
+        users= [doc for doc in mongo.db.users.find()]
         write_log(userAdmin, 'Utilizadores/Gestão', 'Eliminar User', 'successfull')
-    if(type == "responsible"): 
-        write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Eliminar User', 'successfull')
-    if(type == "Teacher"): 
-        write_log(userAdmin, 'InformaçãoBase/Professores', 'Eliminar User', 'successfull')
-    if(type == "Student"): 
-        write_log(userAdmin, 'InformaçãoBase/Alunos', 'Eliminar User', 'successfull') 
-    return json_util.dumps({'users': users})
+    else:
+        users = mongo.db.users.find({"type":type})
+        if(type == "responsible"): 
+            users = mongo.db.users.find({"type":"Teacher"})
+            domains = mongo.db.domains.find()
+            write_log(userAdmin, 'InformaçãoBase/Responsáveis', 'Eliminar User', 'successfull')
+        if(type == "Teacher"): 
+            write_log(userAdmin, 'InformaçãoBase/Professores', 'Eliminar User', 'successfull')
+        if(type == "Student"): 
+            write_log(userAdmin, 'InformaçãoBase/Alunos', 'Eliminar User', 'successfull') 
+    return json_util.dumps({'users': users, 'nome': userAdmin, 'domains' : domains})
 
 @blueprint.route('/editar/guardar', methods=['POST'])
-@admin_required
+#@admin_required
 #@login_required
 def route_template_editar_guardar():
     username = request.form.get('username')
@@ -386,7 +392,7 @@ def route_template_editar_guardar():
 ###### PEDIDOS ######
 
 @blueprint.route('/pedidos', methods=['GET'])
-@admin_required
+#@admin_required
 @token_required
 #@login_required
 def route_pedidos():
@@ -396,7 +402,7 @@ def route_pedidos():
     return json_util.dumps({'pedidos': pedidos, 'nome': user})
 
 @blueprint.route('/pedidos/registar', methods=['POST'])
-#@admin_required
+##@admin_required
 #@login_required
 def route_template_registar_pedido():
     print("/pedidos/registar")
@@ -475,7 +481,7 @@ def route_cur_pedido(pedido):
 ##########################################
 
 @blueprint.route('/pedidos/apagar/<pedido>')
-@admin_required
+#@admin_required
 #@login_required
 def route_template_apagar_pedido(pedido):
     mongo.db.requests.remove({"_id":pedido})
@@ -491,7 +497,7 @@ def route_template_apagar_pedido(pedido):
     return json_util.dumps({'pedidos': pedidos})
 
 @blueprint.route('/pedidos/mover/<pedido>')
-@admin_required
+#@admin_required
 #@login_required
 def route_template_mover_pedido(pedido):
     value1 = mongo.db.requests.find_one({"_id": pedido})
@@ -558,7 +564,7 @@ def route_historyCleanse():
 
 
 @blueprint.route('/pageLogs', methods=['GET'])
-@admin_required
+#@admin_required
 def route_pageLogs():
     user = request.args.get('nome')
     write_log(user, 'Utilizadores/Logs', '', 'successfull')

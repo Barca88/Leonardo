@@ -248,6 +248,8 @@
             session_mode: this.type_of_session
           }
 
+          console.log(quizz_parameters)
+
           await this.$store.commit('set_quizz_parameters', quizz_parameters)
 
           window.open('http://localhost:8080/quizz', "", 'width=1000,height=800,scrollbars=no,resizable=no')

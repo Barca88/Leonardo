@@ -25,7 +25,7 @@ UPLOAD_FOLDER = './static/picss/'
 
 
 @blueprint.route('/getDomains', methods=['GET'])
-#@admin_required
+####@admin_required
 #@token_required
 #@login_required
 def route_domain():
@@ -40,7 +40,7 @@ def route_domain():
 
 
 @blueprint.route('/getDomains/<domain>', methods=['GET'])
-#@admin_required
+###@admin_required
 #@token_required
 #@login_required
 def route_domain_get(domain):
@@ -55,7 +55,7 @@ def route_domain_get(domain):
 
 
 @blueprint.route('/insert', methods=['POST'])
-@admin_required
+##@admin_required
 #@login_required
 def route_template_insert():
     print("inserir")
@@ -89,13 +89,17 @@ def route_template_insert():
         mongo.db.domains.insert({"_id" :_id , "domain" :_id, "description": description, "scholarity": scholarity, "responsible": responsible, "notes": notes, "access_type": access_type, "body": body, "default_user_level": default_user_level, "high_performance_factor":high_performance_factor,
         "low_performance_factor" : low_performance_factor, "high_skill_factor": high_skill_factor, "low_skill_factor" : low_skill_factor,
         "min_questions_number": min_questions_number, "question_factor": question_factor, "inserted_by": userAdmin,  "inserted_at": inserted_at, "backlog_factor": backlog_factor})
-        write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
+        
+        imp = request.args.get('importation')
+        print(imp)
+        if imp != 'imp':
+            write_log(userAdmin, 'Informação Base/Domínios', 'Adicionar Domínio', 'successfull')
         return '1'
 
 
 
 @blueprint.route('/apagar/<domain>', methods=['DELETE'])
-@admin_required
+##@admin_required
 #@login_required
 def route_template_apagar1(domain):
     questoes = mongo.db.question.find({"domain":domain})
@@ -113,7 +117,7 @@ def route_template_apagar1(domain):
 
 
 @blueprint.route('/editar', methods=['POST'])
-@admin_required
+##@admin_required
 #@login_required
 def route_template_editar_guardar():
     print("editar")
@@ -134,15 +138,18 @@ def route_template_editar_guardar():
     min_questions_number = request.form.get('min_questions_number')
     question_factor = request.form.get('question_factor')
     backlog_factor = request.form.get('backlog_factor')
-    #inserted_by = request.form.get('inserted_by')
+    inserted_by = request.form.get('inserted_by')
     inserted_at = request.form.get('inserted_at')
     userAdmin = request.args.get('nome')
 
-    mongo.db.domains.update({"_id":_id},{"description":description,"domain": domain,"backlog_factor":backlog_factor, "scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
+    mongo.db.domains.update({"_id":_id},{"$set":{"description":description,"domain": domain,"backlog_factor":backlog_factor, "scholarity":scholarity,"responsible":responsible,"notes":notes,"access_type":access_type,"default_user_level":default_user_level,
     "high_performance_factor":high_performance_factor,"low_performance_factor":low_performance_factor,"high_skill_factor":high_skill_factor,"low_skill_factor":low_skill_factor,"body":body,
-    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":userAdmin,"inserted_at":inserted_at})
+    "min_questions_number":min_questions_number,"question_factor":question_factor,"inserted_by":inserted_by,"inserted_at":inserted_at}})
 
 
     domains = mongo.db.domains.find()
-    write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
+    imp = request.args.get('importation')
+    print(imp)
+    if imp != 'imp':
+        write_log(userAdmin, 'Informação Base/Domínios', 'Editar Domínio', 'successfull')
     return json_util.dumps({'Domains': domains})

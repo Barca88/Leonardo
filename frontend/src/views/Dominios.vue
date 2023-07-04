@@ -140,19 +140,19 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Desempenho A</dt>
-                    <dd class="ml-5">{{this.domain.default_user_level}}</dd>
+                    <dd class="ml-5">{{this.domain.high_performance_factor}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Desempenho B</dt>
-                    <dd class="ml-5">{{this.domain.high_performance_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.low_performance_factor}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                    <dl>
                     <dt class="title">Factor de Perícia A</dt>
-                    <dd class="ml-5">{{this.domain.low_performance_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.high_skill_factor}}</dd>
                    </dl>
                 </v-col>
               </v-row>
@@ -160,7 +160,7 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Factor de Perícia B</dt>
-                    <dd class="ml-5">{{this.domain.high_skill_factor}}</dd>
+                    <dd class="ml-5">{{this.domain.low_skill_factor}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">

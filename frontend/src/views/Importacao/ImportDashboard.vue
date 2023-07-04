@@ -236,9 +236,9 @@ export default {
             
             
             // Check if domain or author are unfulfilled and build the query
-            if(this.author == undefined) query = query + "ByDomain/" + this.domain.replace(" ",",")
-            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author.replace(" ",",")
-            else query = query + "ByBoth/" + this.author.replace(" ",",") + "/" + this.domain.replace(" ",",")
+            if(this.author == undefined) query = query + "ByDomain/" + this.domain.replaceAll(" ",",")
+            else if(this.domain == undefined) query = query + "ByAuthor/" + this.author.replaceAll(" ",",")
+            else query = query + "ByBoth/" + this.author.replaceAll(" ",",") + "/" + this.domain.replaceAll(" ",",")
 
             // Load data from endpoint
             axios.get(query + `?nome=${this.$store.state.user._id}`, {}).then(resp => {

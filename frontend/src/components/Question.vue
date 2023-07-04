@@ -388,6 +388,7 @@
         }
 
         console.log(this.$store.getters.get_quizz_parameters)
+        console.log(this.$store.getters)
 
         var quizz_parameters = this.$store.getters.get_quizz_parameters
 
@@ -405,6 +406,7 @@
         }
 
         this.domain = quizz_parameters.domain
+        console.log(quizz_parameters)
         this.sub_domains = eval(quizz_parameters.subdomains)
         
         this.look_for_monitor_content = false
@@ -416,6 +418,7 @@
         var current_user = this.$store.getters.get_session_user
         var user_url = '&id=' + current_user.id + '&username=' + current_user.username + '&name=' + current_user.name + '&email=' + current_user.email + '&user_level=' + current_user.user_level + '&gender=' + current_user.gender + '&degree=' + current_user.degree + '&user_type=' + current_user.user_type
         console.log(user_url)
+        console.log(this.sub_domains)
         console.log(this.sub_domains[0])
         console.log(url)
         for(let i = 0; i<this.sub_domains.length;){
@@ -480,6 +483,7 @@
             for(let i = 0; i<domains.length; i++) {
                 console.log(domains[i].domain)
                 console.log(domains[i])
+                console.log(this.domain)
                 if(domains[i].domain == this.domain){
                     study_cycle = domains[i].study_cycle,
                     scholarity = domains[i].scholarity

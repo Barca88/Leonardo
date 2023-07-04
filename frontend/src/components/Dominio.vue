@@ -53,7 +53,6 @@
                     background-color="#f2f2fc"
                     color="#2A3F54"
                     rows="3"
-                    :rules="rules.required"
                     placeholder="Introduza algumas notas sobre o Domínio"
           ></v-textarea>
         </v-col>

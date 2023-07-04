@@ -147,7 +147,7 @@
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Tipo de Questão</dt>
-                    <dd class="ml-5">{{this.questao.type_}}</dd>
+                    <dd class="ml-5">{{this.questao.type}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
@@ -201,19 +201,19 @@
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Data de Criação</dt>
-                    <dd class="ml-5">{{this.questao.domain}}</dd>
+                    <dd class="ml-5">{{this.questao.inserted_at}}</dd>
                   </dl>
                 </v-col>
                  <v-col cols="4">
                   <dl>
                     <dt class="title">Inserido Por</dt>
-                    <dd class="ml-5">{{this.questao.subdomain}}</dd>
+                    <dd class="ml-5">{{this.questao.inserted_by}}</dd>
                   </dl>
                 </v-col>
                 <v-col cols="4">
                   <dl>
                     <dt class="title">Imagem</dt>
-                    <v-img v-bind:src="userPic"   />
+                    <v-img v-bind:src="this.userPic"/>
                   </dl>
                 </v-col>
                 <v-col cols="4">
@@ -401,8 +401,7 @@ export default {
               validated_at: ''
             },
             search:'',
-            navQuestoes: [],
-            dominios: []
+            navQuestoes: []
         }
     },
     created(){
@@ -418,7 +417,7 @@ export default {
             console.log(response.data)
             //this.domain = response.data
             this.navQuestoes=response.data.questions
-            this.dominios=response.data.domains
+
             
           },(error) =>{
               console.log(error);
@@ -432,7 +431,7 @@ export default {
         this.dialogShow = true
       },
       showImage(_qId){
-
+        console.log("Imagem " + _qId)
         this.userPic=''
         axios.get(`${process.env.VUE_APP_BACKEND}/question/foto/` + _qId,  {
             responseType:'arraybuffer',
@@ -451,6 +450,8 @@ export default {
       },
 
       sendItem(data,inf){
+        console.log("data:  ")
+        console.log(data)
         this.$router.push({
           name: "ProdQuestao", 
           params: { data, inf }
@@ -463,12 +464,13 @@ export default {
 
       deleteItem(item){
         this.itemIndex = this.navQuestoes.indexOf(item)
-        this.question = Object.assign({}, item)
+        this.questao = Object.assign({}, item)
+        console.log(this.questao)
         this.dialogDelete = true
       },     
 
       deleteConfirm(){
-        axios.delete(`${process.env.VUE_APP_BACKEND}/question/delete/` + this.question._id + `?nome=${this.$store.state.user._id}`,{
+        axios.delete(`${process.env.VUE_APP_BACKEND}/question/delete/` + this.questao._id + `?nome=${this.$store.state.user._id}`,{
           headers: {
           'Content-Type': 'multipart/form-data',
           Authorization:`Bearer: ${this.$store.state.jwt}`,

@@ -1,11 +1,8 @@
 <template>
     <div id="perfil">
         <appHeader :ajuda='ajuda'></appHeader>
-        <div v-if="this.$store.state.user.type === 'Admin'" >
+        <div>
             <navDraw></navDraw>
-        </div>
-        <div v-else>
-            <navDrawLeitor></navDrawLeitor>
         </div>
         
         <v-container fluid style="margin-top:2.5cm">
@@ -173,7 +170,7 @@
 import Header from '../components/header.vue'
 import NavDraw from '../components/navDraw.vue'
 import pdf from 'vue-pdf'
-import navDrawLeitor from '../components/navDrawLeitor.vue'
+//import navDrawLeitor from '../components/navDrawLeitor.vue'
 import UserForm from '../components/userForm.vue'
 import axios from 'axios'
 export default {
@@ -204,7 +201,6 @@ export default {
     },
     components:{
         'appHeader': Header,
-        'navDrawLeitor':navDrawLeitor,
         'navDraw':NavDraw,
         'userForm':UserForm,
         'pdf':pdf

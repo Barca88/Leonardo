@@ -87,7 +87,7 @@
           </v-list-item>
         </v-list-group>
 
-        <v-list-group v-if="$store.getters.isAdmin"
+        <v-list-group v-if="!$store.getters.isStudent"
           active-class="yellow--text"
           prepend-icon="mdi-check-bold"
           :value="false"

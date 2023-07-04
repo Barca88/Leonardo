@@ -80,6 +80,7 @@ def editQuestion(id):
     if question['flag'] == "rejected":
         write_log(user, 'Verificação/Verificação de Questões', 'Rejeitar Questão', 'successfull')
     if question['flag'] == "aproved":
+        mongo.db.question.find_one_and_update({'_id':id},{'$set': {'validated_at':question['validated_at'], 'validated_by':question['validated_by']}},upsert=True)
         write_log(user, 'Verificação/Verificação de Questões', 'Aprovar Questão', 'successfull')
     mongo.db.question.find_one_and_update({'_id':id},{'$set': {'flag':question['flag']}},upsert=True)
     return jsonify('Questão actualizada com sucesso ...')
@@ -90,7 +91,7 @@ def removeQuestion(id):
     user = request.args.get('nome')
     mongo.db.question.remove({"_id":id})
     write_log(user, 'Verificação/Verificação de Questões', 'Remover Questão', 'successfull')
-    questions = mongo.db.question.find({'imported': True})
+    questions= [doc for doc in mongo.db.question.find({"flag" : { "$in":["pending","rejected"]}})]
     print(questions)
     return json_util.dumps({'questions': questions})
 

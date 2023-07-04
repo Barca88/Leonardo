@@ -462,7 +462,7 @@ export default {
         this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.value=value
-        this.editedItem.tip = "reponsible"
+        this.editedItem.tip = "responsible"
         //console.log("AAAAAAAAAAAAA")
         //console.log(this.value)
         //console.log(this.editedItem)
@@ -528,21 +528,6 @@ export default {
       },
 
 
-
-      edit(){
-        this.update = true
-        axios.get(`${process.env.VUE_APP_BACKEND}/users/users?type=responsible`, { headers: { Authorization: `Bearer: ${this.$store.state.jwt}` } })
-          .then(response => {
-              // JSON responses are automatically parsed.
-              //console.log(response.data)
-              this.users = response.data.users
-          }).catch(e => {
-              //console.log(e)
-              this.errors.push(e)
-        })
-        this.update = false
-      },
-
       deleteItem (item) {
         const index = this.users.indexOf(item)
         //console.log('Index: ' + index + ' Username: ' + this.users[index]._id)
@@ -551,11 +536,21 @@ export default {
             // JSON responses are automatically parsed.
             //console.log(response.data)
             var todos = response.data.users
-            for(let i = 0; i<todos.length;i++){ 
+            var domains = response.data.domains
+            /*for(let i = 0; i<todos.length;i++){ 
                 if(todos[i]._id === this.$store.state.user._id){
                     todos.splice(i,1)
                 }
+            }*/
+            for(let i = 0; i<todos.length;i++){ 
+                todos[i].dom = []
+                for(let j = 0; j < domains.length; j++ ){
+                    if(todos[i]._id === domains[j].responsible){
+                        todos[i].dom.push(domains[j])
+                    }
+                } 
             }
+            todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
         }).catch(e => {
             //console.log(e)
@@ -588,6 +583,7 @@ export default {
             }
             todos = todos.filter(item => item.dom.length !== 0)
             this.users = todos
+            console.log(this.users)
         }).catch(e => {
             //console.log(e)
             this.errors.push(e)

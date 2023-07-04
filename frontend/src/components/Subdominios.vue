@@ -10,10 +10,10 @@
       <v-row>
         <v-col cols="8">
           <div v-if="firstSub">
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.repeatedID]" :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio.subdomain" :counter="200" label="Subdomínio"></v-text-field>
           </div>
           <div v-else>
-            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.required,...rules.repeatedID]"  :counter="200" label="Subdomínio"></v-text-field>
+            <v-text-field class="mt-4" v-model="subdominio.subdomain" :rules="[...rules.repeatedID]"  :counter="200" label="Subdomínio"></v-text-field>
           </div>
         </v-col>
       </v-row>
@@ -24,7 +24,7 @@
             <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
           </div>
           <div v-else>
-            <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" :rules="rules.required" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
+            <v-textarea v-model="subdominio.sub_description" label="Descrição" counter outlined auto-grow background-color="#f2f2fc" color="#2A3F54" rows="3" placeholder="Introduza uma Descrição para o Subdomínio"></v-textarea>
           </div>
         </v-col>
       </v-row>
@@ -226,16 +226,16 @@ export default {
                 body: [],
             },
             subdominio: {
-                designation: "",
-                description: ""
+                subdomain: "",
+                sub_description: ""
             },
             subdominioEdit: {
-                designation: "",
-                description: ""
+                subdomain: "",
+                sub_description: ""
             },
             defaultSub: {
-                designation: "",
-                description: ""
+                subdomain: "",
+                sub_description: ""
             },
             
             rules: {
@@ -292,7 +292,7 @@ export default {
       },
 
       addSubdominio(){
-        if(this.subdominio.subdomain != undefined && this.subdominio.sub_description != undefined){
+        if(this.subdominio.subdomain != "" && this.subdominio.sub_description != ""){
           if(this.checkID(this.subdominio.subdomain)){
             this.formData.body.push(this.subdominio);
             this.subdominio = Object.assign({}, this.defaultSub)
@@ -300,8 +300,8 @@ export default {
           else{
             this.dialogSub = true
           }
-          if(!this.firstSub){
-            this.firstSub = true
+          if(this.firstSub){
+            this.firstSub = false
           }
         }else{
           this.dialogSub = true
