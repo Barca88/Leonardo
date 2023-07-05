@@ -304,7 +304,7 @@ def route_import_registos():
             list.append(mongo.db.users.find_one({"_id":jsonUser["eMail"].split("@")[0]}))
             success = False
         else:
-            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"studentNumber":jsonUser["Identificador"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género", "user_level": '0'] })
+            mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"name":jsonUser["Nome"],"studentNumber":jsonUser["Identificador"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"type":jsonUser["Tipo"],"university":jsonUser["Instituição"],"department":jsonUser["Curso"], "level":jsonUser["Nível"], "gender":jsonUser["Género"], "user_level": '0' })
             #mongo.db.users.insert({"_id": jsonUser["eMail"].split("@")[0],"nome":jsonUser["Nome"],"email":jsonUser["eMail"],"password":generate_password_hash("password"),"tipo":jsonUser["Tipo"],"universidade":jsonUser["Instituição"],"departamento":jsonUser["Curso"], "validade":jsonUser["Validade"], "nivel":jsonUser["Nível"], "genero":jsonUser["Género"] })
         
     if(success):
