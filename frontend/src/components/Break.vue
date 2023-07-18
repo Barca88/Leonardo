@@ -170,7 +170,7 @@
         this.route = true
         var user = await this.$store.getters.get_session_user
         
-        this.$http.get('http://localhost:5000/api/v0/evaluation/getStatistics?userName=' + user.username)
+        this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/getStatistics?userName=` + user.username)
         .then(response => {
             this.statistics_object = JSON.parse(response.data)
         })
@@ -182,7 +182,7 @@
       windowClose(){ window.close(); },
       async popupInquiry() {
         await this.$store.commit('set_inquiry_id', 'PTSEFS01')
-        window.open('http://localhost:5000.pt/evaluation/inquiry', '_blank', 'width=615, height=500');
+        window.open('http://192.168.1.114:8080/evaluation/inquiry', '_blank', 'width=615, height=500');
       }
     }
   }

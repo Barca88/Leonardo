@@ -239,7 +239,7 @@ export default {
                     }
                 })*/
                 console.log(this.responsible)
-                if(this.responsible.length != 0){
+                if(this.responsible.length != 0 && this.responsible[0]._id == this.domain[0].responsible){
                     console.log("tem responsável")
                     console.log(this.subdomain)
                     if(this.subdomain.length == 0){

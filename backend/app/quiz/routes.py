@@ -193,7 +193,7 @@ def route_template_insert():
         print('A inserir questao - app quiz')
         mongo.db.question.insert({"_id" :_id , "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
         "author" : author, "display_mode": display_mode, "answering_time" : answering_time,
-        "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
+        "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "body": body,  "explanation": explanation
         ,  #"images": images,
           "videos": videos,  "source": source,  "notes": notes,  "status": status
         ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
@@ -257,7 +257,7 @@ def route_template_editar_guardar():
 
     mongo.db.question.update({"_id" :_id} ,{ "language": language, "scholarity": scholarity, "study_cycle": study_cycle, "domain": domain, "subdomain": subdomain, "difficulty_level":difficulty_level,
     "author" : author, "display_mode": display_mode, "answering_time" : answering_time,"body": body,
-    "type_": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
+    "type": type_, "precedence": precedence, "repetitions": repetitions,  "header": header,  "explanation": explanation
     ,   "videos": videos,  "source": source,  "notes": notes,  "status": status
     ,  "inserted_by": inserted_by,  "inserted_at": inserted_at,  "validated_by": validated_by,  "validated_at": validated_at, "flag":flag })
 

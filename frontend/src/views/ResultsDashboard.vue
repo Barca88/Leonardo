@@ -219,7 +219,6 @@ export default {
       .getResultStats()
       .then((data) => {
         this.resultData = data
-        console.log(data['Base de Dados'].tests.total)
         this.loading = false
       })
       .catch(() => {

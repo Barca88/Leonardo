@@ -35,19 +35,21 @@ def get_stats():
     for d in domains:
         print(d['_id'])
         condensed_domain = d['_id']
-        stats[condensed_domain] = {'tests': {}, 'generalData': {}}
-
         tests = mongo.db.tests.find({"config.domain" : condensed_domain})
 
         if len(list(tests.clone())) == 0:
             print('if len(tests) == 0:')
+            continue
             return make_response("There are no tests stored in the database",404)
 
         test_results = mongo.db.evaluation.find({"config.domain" : condensed_domain})
 
         if len(list(test_results.clone())) == 0:
             print('if len(test_results) == 0:')
+            continue
             return make_response("There are no test results stored in the database", 404)
+
+        stats[condensed_domain] = {'tests': {}, 'generalData': {}}
 
         unique_test_results = []
         unique_ids = []

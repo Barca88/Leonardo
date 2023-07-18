@@ -252,7 +252,7 @@
 
           await this.$store.commit('set_quizz_parameters', quizz_parameters)
 
-          window.open('http://localhost:8080/quizz', "", 'width=1000,height=800,scrollbars=no,resizable=no')
+          window.open('http://192.168.1.114:8080/quizz', "", 'width=1000,height=800,scrollbars=no,resizable=no')
         }
       },
       reload_component(){

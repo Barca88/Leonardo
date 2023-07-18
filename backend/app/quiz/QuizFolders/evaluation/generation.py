@@ -5,6 +5,7 @@ from concurrent.futures              import ThreadPoolExecutor
 import spacy
 from spacy_wordnet.wordnet_annotator import WordnetAnnotator
 import random
+import nltk
 
 class Generation:
     print('generation')
@@ -16,7 +17,6 @@ class Generation:
         
         nlp = spacy.load("pt_core_news_md")
         nlp.add_pipe("spacy_wordnet", config={'lang': 'pt'})
-        
         self.working_memory = {
             'username': username,
             'domain': domain['_id'],
@@ -82,8 +82,7 @@ class Generation:
     #ter em atenção se a palavra original é ou nao portuguesa
     def edit_question_header(self):
         print('-GENERATION EDIT')
-        sentence = self.working_memory['nlp'](self.working_memory['most_interesting_question']['header'])
-
+        sentence = self.working_memory['nlp'](self.working_memory['most_interesting_question']['header'])    
         new_tokens = []
         counter = 0
         tokens_to_be_replaced_by_synonyms = []
@@ -269,7 +268,7 @@ class Generation:
             "difficulty_level" : most_inter_quest['difficulty_level'],
             "display_mode" : most_inter_quest['display_mode'],
             "answering_time" : most_inter_quest['answering_time'],
-            "type_" : most_inter_quest['type_'],
+            "type" : most_inter_quest['type'],
             "precedence" : most_inter_quest['precedence'],
             "repetitions" : most_inter_quest['repetitions'],
             "header" : most_inter_quest['header'],

@@ -192,8 +192,8 @@ class UserProfile:
             doc['user_level']         = 2
             doc['q_in_current_level'] = 1
             doc['answers_time']       = time
-            doc_type_field_total      = question['type_'] + "_total"
-            doc_type_field_hitted     = question['type_'] + "_hitted"
+            doc_type_field_total      = question['type'] + "_total"
+            doc_type_field_hitted     = question['type'] + "_hitted"
             doc[doc_type_field_total] = 1
 
             self.create_hypermedia_fields(doc, question, answer)

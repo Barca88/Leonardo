@@ -2,7 +2,7 @@ import axios from 'axios'
 //import store from '../../store'
 
 export default axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: `${process.env.VUE_APP_BACKEND}`,
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json',

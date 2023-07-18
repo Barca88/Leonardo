@@ -243,7 +243,7 @@ export default {
       Este método vai buscar ao servidor o inquérito correspondente.
     */
     getQuestions() {
-      this.$http.get('http://localhost:5000/api/v0/inquiries/inquiry?inquiry=' + this.inquiry_id)
+      this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/inquiries/inquiry?inquiry=` + this.inquiry_id)
         .then((res) => {
           this.questions = res.data.questions;
           if (res.data.comments === 'true') {
@@ -286,7 +286,7 @@ export default {
         log = this.createLog('Submited');
       else
         log = this.createLog('Canceled')
-      this.$http.post('http://localhost:5000/api/v0/inquiries/inquiry_answers', {
+      this.$http.post(`${process.env.VUE_APP_BACKEND}/api/v0/inquiries/inquiry_answers`, {
             'log': log,
             'answers': this.formatAnswer(),
             'date': new Date(),

@@ -290,7 +290,7 @@
             index_last_subdom_searched: -1, domain: "", sub_domains: [], progress_bar_current_size: 100, progress_bar_initial_size: 100, interval: 0, opacity: 0.0, height: 15,
             dialog_why: false, dialog_explain: false, dialog_rules: false, dialog_how: false, dialog_voice_loading: false, dialog_quit: false, dialog_layout: false, dialog_help: false, dialog_statistics: false, dialog_about: false, dialog_gam: false, dialog_monitor: false, dialog_image: false,
             alert: false, question_was_answered: 1, message: "Terminou o quizz", recorder: "", isOpen: false, look_for_monitor_content: false,
-            request: { "method": "post", "url": "http://localhost:5000/voice/", "data": '', "processData": false, "contentType": false }
+            request: { "method": "post", "url": `${process.env.VUE_APP_BACKEND}/voice/`, "data": '', "processData": false, "contentType": false }
         }
     },
     watch: {
@@ -423,7 +423,7 @@
         console.log(url)
         for(let i = 0; i<this.sub_domains.length;){
             console.log('for c')
-            await this.$http.get('http://localhost:5000/api/v0/evaluation/new?' + url + '&subdomain=' + this.sub_domains[i] + user_url)
+            await this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/new?` + url + '&subdomain=' + this.sub_domains[i] + user_url)
                 .then(result => {
                     var dictionary = JSON.parse(result.data)
 
@@ -616,7 +616,7 @@
             var i = ((this.index_last_subdom_searched + 1) < this.sub_domains.length) ? (this.index_last_subdom_searched + 1) : 0
 
             while(i<this.sub_domains.length){
-                await this.$http.post('http://localhost:5000/api/v0/evaluation/next', {
+                await this.$http.post(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/next`, {
                     'current_user': user,
                     'answerObjectDB': response_db,
                     'answerObjectDW': response_dw,
@@ -685,7 +685,7 @@
             let domains = []
 
             await this.$store.commit('set_user', user)
-            await this.$http.get('http://localhost:5000/api/v0/evaluation/getDomains?idUser=' + null)
+            await this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/getDomains?idUser=` + null)
                 .then(async dados => {
                     let doms = eval(dados.data)
                     console.log(doms)
@@ -705,7 +705,7 @@
         windowClose(){ window.close(); },
         async popupInquiry() {
             await this.$store.commit('set_inquiry_id', 'INPTQU0001')
-            window.open('http://localhost:5000/evaluation/inquiry', '_blank', 'width=615, height=500');
+            window.open('http://192.168.1.114:8080/evaluation/inquiry', 'width=615, height=500');
         },
         get_action(){ this.$listen(this.recorder, this.request) }
     }

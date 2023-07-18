@@ -23,7 +23,6 @@ class NextQuestion(Resource):
         parser.add_argument('subdomain')
 
         params = parser.parse_args()
-        
         current_user = literal_eval(params.current_user)
         
        

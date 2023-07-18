@@ -42,7 +42,6 @@ class Evaluation:
 
 
             print('filtro while')
-            print(filtro)
             filtered_questions = mongo.db.question.find(self.criteria.__dict__)
             print(filtered_questions.count())
             if( ( ( user_level - 1 ) == 0 ) and ( filtered_questions.count() == 0 ) ):

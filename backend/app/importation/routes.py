@@ -188,8 +188,8 @@ def text():
        # Store .leo text and get it ready to be converted
        content = request.get_data()
        # Get path of program to be ran
-       #path = os.getcwd() + "\\app\importation\scripts\mkleonardo.py" #Windows
-       path = os.getcwd() + "//app/importation/scripts/mkleonardo.py" #Linux
+       path = os.path.join(os.getcwd(), "app", "importation", "scripts", "mkleonardo.py")
+
        print(path)
        result = subprocess.run(["python", path],stdout = subprocess.PIPE, input=content)
        print("----------------------------------------------")

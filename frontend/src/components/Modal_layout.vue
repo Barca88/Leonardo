@@ -101,7 +101,7 @@
         console.log('this.desc')
         console.log(this.desc)
         if((this.desc != 'Sair da sessão') && (this.desc != 'Sem resposta' && (this.desc != 'Gamificação')) && (this.desc != 'Estatísticas')){
-            await this.$http.get('http://localhost:5000/api/v0/evaluation/getButtonInfo?buttonCode=' + this.buttonCode)
+            await this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/getButtonInfo?buttonCode=` + this.buttonCode)
             .then(result => {
                 this.modal_text = result.data
             })
@@ -109,7 +109,7 @@
         }else if(this.desc != 'Estatísticas'){
             var user = await this.$store.getters.get_session_user
         
-            this.$http.get('http://localhost:5000/api/v0/evaluation/getStatistics?userName=' + user.username)
+            this.$http.get(`${process.env.VUE_APP_BACKEND}/api/v0/evaluation/getStatistics?userName=` + user.username)
             .then(response => {
                 this.statistics_object = JSON.parse(response.data)
             })

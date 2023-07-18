@@ -15,7 +15,6 @@ class Evaluator:
         print('\n\n\n\n')
         evaluation = Evaluation(user_profile, domain, sub_domain)
         question = json.loads(evaluation.find_eligible_question())
-        
         origin = ''
         if ( question['choosen_question'] == {} ) and ( not block_question_generation ):
             id_last_answered_question = None
@@ -44,7 +43,6 @@ class Evaluator:
             #print("\nId_last_answered_question:", id_last_answered_question, "\n")
             #print("\nId_last_generated_question:", id_last_generated_question, "\n")
 
-            
             if( id_last_answered_question != id_last_generated_question):
                 new_question = CaseBasedSystem.execute_case_based_system(username, domain, sub_domain)
                 question_info = { 'choosen_question': new_question, 'list_of_questions': [] }
